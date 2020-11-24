@@ -1,8 +1,7 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png" />
+  <img @click="xxx" alt="Vue logo" src="./assets/logo.png" />
   {{year.a}}
   {{year.bb}}
-  {{message}}
   <HelloWorld msg="Hello Vue 3.0 + Vite" />
 </template>
 
@@ -28,9 +27,13 @@ export default defineComponent({
         year.bb = 1000
       }, 1000)
     })
+    const xxx = () => {
+      console.log('you click')
+    }
     return {
       count,
       year,
+      xxx,
     }
   },
   
