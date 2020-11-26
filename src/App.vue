@@ -2,6 +2,7 @@
   <img @click="xxx" alt="Vue logo" src="./assets/logo.png" />
   {{year.a}}
   {{year.bb}}
+  {{year.c}}
   <HelloWorld msg="Hello Vue 3.0 + Vite" />
 </template>
 
@@ -11,6 +12,7 @@ import HelloWorld from './components/HelloWorld.vue'
 type Year = {
   a: number;
   bb?: number;
+  c: number;
 }
 
 export default defineComponent({
@@ -19,7 +21,7 @@ export default defineComponent({
   },
   setup(props) {
     const count = ref(10)
-    const year = reactive<Year>({a: 2020})
+    const year = reactive<Year>({a: 2020, c: 1})
     onMounted(() => {
       console.log("mounted vue3 typescript", 11111111);
       setTimeout(() => {
