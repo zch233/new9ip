@@ -1,19 +1,26 @@
+<template>
+  <img @click="xxx" alt="Vue logo" src="./assets/logo.png" />
+  {{year.a}}
+  {{year.bb}}
+  <HelloWorld msg="Hello Vue 3.0 + Vite" />
+</template>
+
+<script lang="ts">
 import { defineComponent, reactive, ref, onMounted } from 'vue'
 import HelloWorld from './components/HelloWorld.vue'
-import logo from './assets/logo.png'
 type Year = {
   a: number;
   bb?: number;
-  c: number;
+  ccc: number;
 }
 
 export default defineComponent({
-  name: '1',
   components: {
+    HelloWorld,
   },
-  setup() {
+  setup(props) {
     const count = ref(10)
-    const year = reactive<Year>({a: 2020, c: 1})
+    const year = reactive<Year>({a: 2020, ccc: 1})
     onMounted(() => {
       console.log("mounted vue3 typescript", 11111111);
       setTimeout(() => {
@@ -24,16 +31,13 @@ export default defineComponent({
     const xxx = () => {
       console.log('you click')
     }
-    return () => (
-      <>
-        <div>123</div>
-        <img onClick={xxx} alt="Vue logo" src={'../assets/logo.png'} />
-          {year.a}
-        {year.c}
-        <div>
-          <span>21213123123</span>
-        </div>
-      </>
-    )
-  }
+    return {
+      count,
+      year,
+      xxx,
+    }
+  },
+
 })
+
+</script>
