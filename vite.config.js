@@ -1,12 +1,13 @@
 export default {
+  publicPath: '/',
+  outputDir: 'dist',
+  assetsDir: 'static',
+  port: 5000,
   proxy: {
-    // string shorthand
-    '/foo': 'http://localhost:4567/foo',
-    // with options
     '/api': {
       target: 'http://jsonplaceholder.typicode.com',
       changeOrigin: true,
-      rewrite: path => path.replace(/^\/api/, '')
-    }
-  }
-}
+      rewrite: path => path.replace(/^\/api/, ''),
+    },
+  },
+};
