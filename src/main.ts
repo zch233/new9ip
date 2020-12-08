@@ -4,6 +4,7 @@ import './index.css'
 import Home from './views/Home.vue'
 import {createRouter, createWebHistory} from 'vue-router'
 import Patent from './views/Patent.vue';
+import { key, store } from './store';
 
 const router = createRouter({
   history: createWebHistory(),
@@ -19,4 +20,4 @@ const router = createRouter({
   ],
 })
 
-createApp(App).use(router).mount('#app')
+createApp(App).use(store, key).use(router).mount('#app')
