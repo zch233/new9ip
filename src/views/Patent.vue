@@ -17,6 +17,6 @@ export default defineComponent({
     return {
       xx
     }
-  }
+  },
 })
 </script>
