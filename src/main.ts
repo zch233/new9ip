@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './index.css'
-import '../node_modules/ant-design-vue/dist/antd.css';
+import '/@modules/ant-design-vue/dist/antd.css';
 import {createRouter, createWebHistory} from 'vue-router'
 import { key, store } from './store';
 

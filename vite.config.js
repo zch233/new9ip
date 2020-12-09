@@ -10,4 +10,8 @@ export default {
       rewrite: path => path.replace(/^\/api/, ''),
     },
   },
+  jsx: {
+    factory: 'h',
+    fragment: 'Fragment'
+  }
 };

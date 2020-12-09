@@ -11,7 +11,7 @@
 import { defineComponent } from 'vue'
 import { useStore } from './store';
 import {ConfigProvider} from 'ant-design-vue'
-import zhCN from '../node_modules/ant-design-vue/es/locale/zh_CN';
+import zhCN from '/@modules/ant-design-vue/es/locale/zh_CN';
 
 export default defineComponent({
   name: 'App',

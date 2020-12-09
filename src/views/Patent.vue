@@ -14,6 +14,7 @@ export default defineComponent({
       store.state.count++
       store.commit('increment')
     }
+    console.log(import.meta.env.VITE_APP_TITLE)
     return {
       xx
     }
