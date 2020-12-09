@@ -1,5 +1,5 @@
 <template>
-  <div @click="xx">patent</div>
+  <div class="patent" @click="xx"><span>patent</span></div>
 </template>
 
 <script lang="ts">
@@ -20,3 +20,11 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss" scoped>
+.patent {
+  span {
+    color: #c03;
+  }
+}
+</style>
