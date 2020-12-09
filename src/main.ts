@@ -1,10 +1,8 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import './index.css'
-import Home from './views/Home.vue'
 import '../node_modules/ant-design-vue/dist/antd.css';
 import {createRouter, createWebHistory} from 'vue-router'
-import Patent from './views/Patent.vue';
 import { key, store } from './store';
 
 const router = createRouter({
@@ -12,11 +10,11 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      component: Home,
+      component: () => import('./views/Home.vue'),
     },
     {
       path: '/patent',
-      component: Patent,
+      component: () => import('./views/Patent.vue'),
     },
   ],
 })
