@@ -36,6 +36,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 40px;
   &.light { background-color: #ECECEC; }
   &.dark { background-color: #272E3F; }
   a { color: inherit; }
