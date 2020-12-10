@@ -2,7 +2,7 @@
   "name": "vue3-demo1",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
+    "start": "vite",
     "build": "vite build",
     "build:sit": "vite build --mode sit"
   },
