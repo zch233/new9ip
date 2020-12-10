@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { useStore } from '../../store';
+import { useStore } from '@/store';
 
 export default defineComponent({
   name: 'Patent',
@@ -15,7 +15,7 @@ export default defineComponent({
       store.commit('increment')
     }
     console.log(import.meta.env.MODE);
-    console.log(import.meta.env.VITE_APP_TITLE)
+    console.log(import.meta.env.VITE_APP_TITLE);
     return {
       xx
     }
@@ -24,9 +24,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.patent {
-  span {
-    color: #c03;
-  }
-}
 </style>
