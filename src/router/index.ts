@@ -15,8 +15,25 @@ export const router = createRouter({
     },
     {
       path: '/auth',
-      meta: { title: '用户认证' },
-      component: () => import('../views/Auth/index.vue')
+      component: () => import('../views/Auth/index.vue'),
+      redirect: '/auth/sign_in',
+      children: [
+        {
+          path: '/auth/sign_in',
+          meta: { title: '欢迎登录' },
+          component: () => import('../views/Auth/SignIn.vue')
+        },
+        {
+          path: '/auth/sign_up',
+          meta: { title: '欢迎登录' },
+          component: () => import('../views/Auth/SignUp.vue')
+        },
+        {
+          path: '/auth/password',
+          meta: { title: '欢迎登录' },
+          component: () => import('../views/Auth/Password.vue')
+        },
+      ],
     }
   ],
 })

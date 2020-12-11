@@ -1,7 +1,7 @@
 <template>
   <div class="auth">
     <div class="authHeader">
-      2
+      欢迎登录
     </div>
     <div class="authMain">
       <img src="../../assets/auth/poster.png" alt="">
@@ -42,12 +42,21 @@ export default defineComponent({
   flex-direction: column;
   height: calc(100vh - 40px);
 }
+.authHeader {
+  padding: 16px;
+}
 .authMain {
   flex: 1;
   background-image: linear-gradient(180deg, #00749C 0%, #79C7D7 100%);
   display: flex;
   align-items: center;
   justify-content: center;
+  .pageWrapper {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 25px;
+    margin-left: 100px;
+  }
 }
 .authFooter {
   .advanceList {
