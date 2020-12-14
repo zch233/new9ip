@@ -1,16 +1,14 @@
 <template>
-  <AntTabs>
-    <slot></slot>
-  </AntTabs>
+  <AntCountdown />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import {Tabs} from 'ant-design-vue';
+import {Statistic} from 'ant-design-vue';
 
 export default defineComponent({
-  name: 'MyTabs',
-  components: {AntTabs: Tabs}
+  name: 'UICountdown',
+  components: {AntCountdown: Statistic.Countdown}
 })
 </script>
 

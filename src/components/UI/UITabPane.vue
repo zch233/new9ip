@@ -9,7 +9,7 @@ import { defineComponent } from 'vue'
 import {Tabs} from 'ant-design-vue';
 
 export default defineComponent({
-  name: 'MyTabPane',
+  name: 'UITabPane',
   components: {AntTabPane: Tabs.TabPane}
 })
 </script>

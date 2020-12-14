@@ -3,6 +3,9 @@
     <template #prefix>
       <slot name="prefix"></slot>
     </template>
+    <template #addonAfter>
+      <slot name="addonAfter"></slot>
+    </template>
     <slot></slot>
   </AntInput>
 </template>
@@ -12,7 +15,7 @@ import { defineComponent } from 'vue'
 import {Input} from 'ant-design-vue';
 
 export default defineComponent({
-  name: 'MyInput',
+  name: 'UIInput',
   components: {AntInput: Input}
 })
 </script>
