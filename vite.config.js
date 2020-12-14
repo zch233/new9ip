@@ -4,10 +4,10 @@ export default {
   assetsDir: 'static',
   port: 5000,
   proxy: {
-    '/api': {
-      target: 'http://jsonplaceholder.typicode.com',
+    '/mall': {
+      target: 'http://192.168.9.252:18080',
       changeOrigin: true,
-      rewrite: path => path.replace(/^\/api/, ''),
+      rewrite: path => path.replace(/^\/mall/, ''),
     },
   },
   jsx: {

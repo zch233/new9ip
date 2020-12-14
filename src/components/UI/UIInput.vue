@@ -16,7 +16,11 @@ import {Input} from 'ant-design-vue';
 
 export default defineComponent({
   name: 'UIInput',
-  components: {AntInput: Input}
+  components: {AntInput: Input},
+  setup(_, ctx){
+    console.log(Input);
+    console.log(ctx);
+  }
 })
 </script>
 
