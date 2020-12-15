@@ -88,7 +88,7 @@ export default defineComponent({
     const rules = reactive({
       phone: [{required: true, message: ''}, {len: 11, message: ''}],
       newPassword: [{required: true, message: ''}],
-      newPassword2: [{required: true, message: ''}],
+      newPassword2: [{required: true, message: ''}, {validator: (rule: any, value: string) => value !== resetPasswordInfo.newPassword ? Promise.reject('密码不一致') : Promise.resolve(), message: ''}],
       captcha: [{required: true, message: ''}, {len: 6, message: ''}],
     })
     const { validate, validateInfos } = useForm(resetPasswordInfo, rules)
