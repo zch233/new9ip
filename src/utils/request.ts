@@ -1,6 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { message } from 'ant-design-vue';
-import { router } from '@/router'
+import { router } from '../router'
 
 axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API;
 axios.defaults.timeout = 30000;

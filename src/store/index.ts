@@ -1,19 +1,27 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
+import * as authApi from '../api/auth';
 
 export interface State {
-  count: number
+  user: Partial<User>,
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state: {
-    count: 0
+    user: {}
   },
   mutations: {
-    increment(state) {
-      state.count++
+    COMMIT_USER(state, data: User) {
+      state.user = data
+    }
+  },
+  actions: {
+    async setUser({commit}) {
+      const user = await authApi.getUser()
+      commit('COMMIT_USER', user.data)
+      return user.data
     }
   }
 })

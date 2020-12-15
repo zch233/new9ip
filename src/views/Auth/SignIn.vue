@@ -1,23 +1,23 @@
 <template>
   <div class="signIn">
-    <UIForm layout="vertical" :modal="signInInfo" :rules="rules">
-      <UITabs :animated="false" v-model:activeKey="activeTabKey">
+    <UIForm layout="vertical">
+      <UITabs :animated="false" v-model:activeKey="activeTabKey" @change="changeTag">
         <UITabPane key="signInWithPassword">
           <template #tab>
             <b>帐号密码登录</b>
           </template>
-          <UIFormItem name="account">
+          <UIFormItem v-bind="validateInfos.phone">
             <div class="accountBar">
-              <UIInput v-model:value="signInInfo.account" placeholder="请输入手机号">
+              <UIInput v-model:value="signInInfo.phone" placeholder="请输入手机号">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
                 </template>
               </UIInput>
             </div>
           </UIFormItem>
-          <UIFormItem name="password">
+          <UIFormItem v-bind="validateInfos.password">
             <div class="passwordBar">
-              <UIInput v-model:value="signInInfo.password" placeholder="请输入密码">
+              <UIInput v-model:value="signInInfo.password" type="password" placeholder="请输入密码">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
                 </template>
@@ -29,30 +29,23 @@
           <template #tab>
             <b>手机动态登录</b>
           </template>
-          <UIFormItem name="account">
+          <UIFormItem v-bind="validateInfos.phone">
             <div class="accountBar">
-              <UIInput v-model:value="signInInfo.account" placeholder="请输入手机号">
+              <UIInput v-model:value="signInInfo.phone" placeholder="请输入手机号">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
                 </template>
               </UIInput>
             </div>
           </UIFormItem>
-          <UIFormItem name="captcha">
+          <UIFormItem v-bind="validateInfos.captcha">
             <div class="captchaBar">
               <UIInput v-model:value="signInInfo.captcha" class="captcha" placeholder="验证码">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
                 </template>
                 <template #addonAfter>
-                  <UIButton :loading="captchaLoading" v-if="!countdownVisible" block @click="getCaptcha">获取</UIButton>
-                  <UICountdown
-                    v-else
-                    @finish="countdownVisible=!countdownVisible"
-                    :value="Date.now() + 1000 * 60"
-                    suffix="s"
-                    format="ss"
-                  />
+                  <Captcha :info="signInInfo" />
                 </template>
               </UIInput>
             </div>
@@ -72,56 +65,63 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
-import UIInput from '../../components/UI/UIInput.vue'
-import UITabs from '../../components/UI/UITabs.vue'
-import UITabPane from '../../components/UI/UITabPane.vue'
-import Icon from '../../components/Icon/index.vue'
-import UIButton from '../../components/UI/UIButton.vue';
-import UICountdown from '../../components/UI/UICountdown.vue';
-import UIForm from '../../components/UI/UIForm.vue';
-import UIFormItem from '../../components/UI/UIFormItem.vue';
-import * as api from '../../api/signIn'
-
+import UIInput from '/@components/UI/UIInput.vue'
+import UITabs from '/@components/UI/UITabs.vue'
+import UITabPane from '/@components/UI/UITabPane.vue'
+import Icon from '/@components/Icon/index.vue'
+import UIButton from '/@components/UI/UIButton.vue';
+import UIForm from '/@components/UI/UIForm.vue';
+import UIFormItem from '/@components/UI/UIFormItem.vue';
+import * as signInApi from '../../api/signIn'
+import {useForm} from '@ant-design-vue/use'
+import { message } from 'ant-design-vue';
+import Captcha from '/@components/Captcha/index.vue'
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from '../../store';
 type ActiveTabKey = 'signInWithPassword' | 'signInWithCaptcha';
 
 export default defineComponent({
   name: 'SignIn',
-  components: {UITabs, UITabPane, UIInput, Icon, UIButton, UICountdown, UIForm, UIFormItem,},
+  components: {UITabs, UITabPane, UIInput, Icon, UIButton, UIForm, UIFormItem,Captcha},
   setup () {
+    const route = useRoute()
+    const router = useRouter()
+    const store = useStore()
+    console.log(store);
     const activeTabKey = ref<ActiveTabKey>('signInWithPassword')
     const signInInfo = reactive({
-      account: '',
+      phone: '',
       password: '',
       captcha: '',
     })
-    const rules = {
-      account: [{required: true, message: '请输入帐号'}],
-      password: [{required: true, message: '请输入密码'}],
-      captcha: [{required: true, message: '请输入验证码'}],
-    }
-    const countdownVisible = ref(false)
-    const captchaLoading = ref(false)
+    const rules = reactive({
+      phone: [{required: true, message: ''}],
+      password: [{required: true, message: ''}],
+      captcha: [{required: false, message: ''}],
+    })
+    const { validate, validateInfos } = useForm(signInInfo, rules)
     const submitLoading = ref(false)
-    const getCaptcha = () => {
-      captchaLoading.value = true
-      setTimeout(() => {
-        captchaLoading.value = false
-        countdownVisible.value = !countdownVisible.value
-      }, 1000)
+    const changeTag = (tab) => {
+      rules.captcha[0].required = tab === 'signInWithCaptcha'
+      rules.password[0].required = tab === 'signInWithPassword'
     }
-    const signIn = async () => {
-      submitLoading.value = true
-      await api[activeTabKey.value](signInInfo).finally(() => (submitLoading.value = false))
+    const signIn = () => {
+      validate().then(async () => {
+        submitLoading.value = true
+        await signInApi[activeTabKey.value](signInInfo).finally(() => submitLoading.value = false)
+        const user = await store.dispatch('setUser')
+        await router.push(route.query.redirect || '/')
+        message.success(`欢迎回来，${user.nickname}`)
+      }, () => message.error('表单输入有误'))
     }
     return {
       activeTabKey,
-      captchaLoading,
       submitLoading,
-      countdownVisible,
-      getCaptcha,
+      changeTag,
       signIn,
-      signInInfo,
       rules,
+      signInInfo,
+      validateInfos,
     }
   }
 })
@@ -138,6 +138,9 @@ export default defineComponent({
   .ant-input-affix-wrapper {
     padding: 8px 18px;
   }
+  .ant-input-group-wrapper.captcha button {
+    height: 38px;
+  }
 }
 </style>
 
@@ -146,7 +149,7 @@ export default defineComponent({
   width: 280px;
   .inputIcon {margin-right: 1em;}
 }
-.accountBar { margin: 22px 0 0; }
+.accountBar { margin: 22px 0 -12px; }
 .buttonBar { margin: 0 0 10px; .mainButton {height: 40px;font-size: 18px} }
 .infoBar {
   display: flex;

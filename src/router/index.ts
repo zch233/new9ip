@@ -19,17 +19,17 @@ export const router = createRouter({
       redirect: '/auth/sign_in',
       children: [
         {
-          path: '/auth/sign_in',
+          path: 'sign_in',
           meta: { title: '欢迎登录' },
           component: () => import('../views/Auth/SignIn.vue')
         },
         {
-          path: '/auth/sign_up',
+          path: 'sign_up',
           meta: { title: '欢迎登录' },
           component: () => import('../views/Auth/SignUp.vue')
         },
         {
-          path: '/auth/password',
+          path: 'password',
           meta: { title: '欢迎登录' },
           component: () => import('../views/Auth/Password.vue')
         },

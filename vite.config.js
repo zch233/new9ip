@@ -1,3 +1,6 @@
+import path from 'path';
+import babel from "vite-babel-plugin";
+
 export default {
   publicPath: '/',
   outputDir: 'dist',
@@ -12,6 +15,17 @@ export default {
   },
   jsx: {
     factory: 'h',
-    fragment: 'Fragment'
-  }
+    fragment: 'Fragment',
+  },
+  plugins: [
+    babel(),
+  ],
+  alias: {
+    '/@/': path.resolve(__dirname, './src'),
+    '/@components/': path.resolve(__dirname, './src/components'),
+    '/@api/': path.resolve(__dirname, './src/api'),
+  },
+  optimizeDeps: {
+    include: ['@ant-design-vue/use'],
+  },
 };
