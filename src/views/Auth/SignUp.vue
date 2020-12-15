@@ -90,9 +90,9 @@ export default defineComponent({
       referrer: route.query.code || '',
     })
     const rules = reactive({
-      phone: [{required: true, message: ''}],
+      phone: [{required: true, message: ''}, {len: 11, message: ''}],
       password: [{required: true, message: ''}],
-      captcha: [{required: true, message: ''}],
+      captcha: [{required: true, message: ''}, {len: 6, message: ''}],
     })
     const { validate, validateInfos } = useForm(signUpInfo, rules)
     const signUp = () => {

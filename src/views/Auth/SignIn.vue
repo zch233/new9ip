@@ -30,7 +30,7 @@
             <b>手机动态登录</b>
           </template>
           <UIFormItem v-bind="validateInfos.phone">
-            <div class="accountBar">
+            <div class="shrinkBar accountBar">
               <UIInput v-model:value="signInInfo.phone" placeholder="请输入手机号">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
@@ -95,9 +95,9 @@ export default defineComponent({
       captcha: '',
     })
     const rules = reactive({
-      phone: [{required: true, message: ''}],
+      phone: [{required: true, message: ''}, {len: 11, message: ''}],
       password: [{required: true, message: ''}],
-      captcha: [{required: false, message: ''}],
+      captcha: [{required: false, message: ''}, {len: 6, message: ''}],
     })
     const { validate, validateInfos } = useForm(signInInfo, rules)
     const submitLoading = ref(false)
