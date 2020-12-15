@@ -38,7 +38,7 @@
           </UIFormItem>
           <UIFormItem v-bind="validateInfos.referrer">
             <div class="referrerBar">
-              <UIInput v-model:value="signUpInfo.referrer" placeholder="推荐人手机号或者工号（选填）">
+              <UIInput :readonly="!!route.query.code" v-model:value="signUpInfo.referrer" placeholder="推荐人手机号或者工号（选填）">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
                 </template>
@@ -87,7 +87,7 @@ export default defineComponent({
       phone: '',
       password: '',
       captcha: '',
-      referrer: '',
+      referrer: route.query.code || '',
     })
     const rules = reactive({
       phone: [{required: true, message: ''}],
@@ -109,6 +109,7 @@ export default defineComponent({
       }, () => message.error('表单输入有误'))
     }
     return {
+      route,
       signUpInfo,
       validateInfos,
       submitLoading,
