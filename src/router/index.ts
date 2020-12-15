@@ -20,7 +20,7 @@ export const router = createRouter({
       children: [
         {
           path: 'sign_in',
-          meta: { title: '欢迎登录' },
+          meta: { title: '欢迎注册' },
           component: () => import('../views/Auth/SignIn.vue')
         },
         {
@@ -30,7 +30,7 @@ export const router = createRouter({
         },
         {
           path: 'password',
-          meta: { title: '欢迎登录' },
+          meta: { title: '忘了密码' },
           component: () => import('../views/Auth/Password.vue')
         },
       ],

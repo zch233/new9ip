@@ -56,8 +56,8 @@
         <UIButton :loading="submitLoading" type="primary" block customer-class="mainButton" @click="signIn">登录</UIButton>
       </div>
       <div class="infoBar">
-        <p>还没有帐号，<a href="">立即注册</a></p>
-        <p>忘记密码</p>
+        <p>还没有帐号，<RouterLink class="toSignUp" to="/auth/sign_up">立即注册</RouterLink></p>
+        <RouterLink class="toPassword" to="/auth/password">忘记密码</RouterLink>
       </div>
     </UIForm>
   </div>
@@ -78,6 +78,7 @@ import { message } from 'ant-design-vue';
 import Captcha from '/@components/Captcha/index.vue'
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '../../store';
+
 type ActiveTabKey = 'signInWithPassword' | 'signInWithCaptcha';
 
 export default defineComponent({
@@ -153,9 +154,10 @@ export default defineComponent({
 .buttonBar { margin: 0 0 10px; .mainButton {height: 40px;font-size: 18px} }
 .infoBar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   color: #999999;
   font-size: 12px;
+  .toPassword { color: inherit; }
 }
 </style>
