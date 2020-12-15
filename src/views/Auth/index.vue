@@ -36,6 +36,36 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss">
+.signIn, .signUp, .password {
+  width: 280px;
+  .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-nav .ant-tabs-tab:hover {
+    color: #14A8BD;
+  }
+  .ant-tabs-ink-bar {
+    background-color: #14A8BD;
+  }
+  .ant-input-affix-wrapper {
+    padding: 8px 18px;
+  }
+  .ant-input-group-wrapper.captcha button {
+    height: 38px;
+  }
+  .inputIcon {margin-right: 1em;}
+  .shrinkBar {margin-bottom: -18px}
+  .accountBar { margin-top: 22px; }
+  .buttonBar { margin: 0 0 10px; .mainButton {height: 40px;font-size: 18px} }
+  .infoBar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    color: #999999;
+    font-size: 12px;
+    .darkLink { color: inherit; }
+  }
+}
+</style>
+
 <style lang="scss" scoped>
 .auth {
   display: flex;

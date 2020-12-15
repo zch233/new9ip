@@ -1,5 +1,5 @@
 <template>
-  <UIButton :loading="captchaLoading" v-if="!countdownVisible" block @click="getCaptcha">获取</UIButton>
+  <UIButton class="captchaButton" :loading="captchaLoading" v-if="!countdownVisible" block @click="getCaptcha">获取</UIButton>
   <UICountdown
     v-else
     @finish="countdownVisible=!countdownVisible"
@@ -41,4 +41,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.captchaButton {color: #14A8BD;}
 </style>

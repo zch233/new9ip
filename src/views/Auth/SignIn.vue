@@ -7,7 +7,7 @@
             <b>帐号密码登录</b>
           </template>
           <UIFormItem v-bind="validateInfos.phone">
-            <div class="accountBar">
+            <div class="shrinkBar accountBar">
               <UIInput v-model:value="signInInfo.phone" placeholder="请输入手机号">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
@@ -57,7 +57,7 @@
       </div>
       <div class="infoBar">
         <p>还没有帐号，<RouterLink class="toSignUp" to="/auth/sign_up">立即注册</RouterLink></p>
-        <RouterLink class="toPassword" to="/auth/password">忘记密码</RouterLink>
+        <RouterLink class="darkLink" to="/auth/password">忘记密码</RouterLink>
       </div>
     </UIForm>
   </div>
@@ -88,7 +88,6 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
-    console.log(store);
     const activeTabKey = ref<ActiveTabKey>('signInWithPassword')
     const signInInfo = reactive({
       phone: '',
@@ -128,36 +127,5 @@ export default defineComponent({
 })
 </script>
 
-<style lang="scss">
-.signIn {
-  .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-nav .ant-tabs-tab:hover {
-    color: #14A8BD;
-  }
-  .ant-tabs-ink-bar {
-    background-color: #14A8BD;
-  }
-  .ant-input-affix-wrapper {
-    padding: 8px 18px;
-  }
-  .ant-input-group-wrapper.captcha button {
-    height: 38px;
-  }
-}
-</style>
-
 <style lang="scss" scoped>
-.signIn {
-  width: 280px;
-  .inputIcon {margin-right: 1em;}
-}
-.accountBar { margin: 22px 0 -12px; }
-.buttonBar { margin: 0 0 10px; .mainButton {height: 40px;font-size: 18px} }
-.infoBar {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  color: #999999;
-  font-size: 12px;
-  .toPassword { color: inherit; }
-}
 </style>
