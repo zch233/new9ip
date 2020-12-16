@@ -74,6 +74,7 @@ import { message } from 'ant-design-vue';
 import Captcha from '/@components/Captcha/index.vue'
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '../../store';
+import { getSingleQuery } from '../../utils';
 
 export default defineComponent({
   name: 'SignUp',
@@ -87,7 +88,7 @@ export default defineComponent({
       phone: '',
       password: '',
       captcha: '',
-      referrer: route.query.code || '',
+      referrer: getSingleQuery(route.query.code) || '',
     })
     const rules = reactive({
       phone: [{required: true, message: ''}, {len: 11, message: ''}],
@@ -104,7 +105,7 @@ export default defineComponent({
         submitLoading.value = true
         await signInApi.signInWithPassword(signUpInfo)
         const user = await store.dispatch('setUser').finally(() => hide())
-        await router.push(route.query.redirect || '/')
+        await router.push(getSingleQuery(route.query.redirect) || '/')
         message.success(`欢迎回来，${user.nickname}`)
       }, () => message.error('表单输入有误'))
     }
@@ -120,5 +121,4 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.darkLink {}
 </style>

@@ -78,6 +78,7 @@ import { message } from 'ant-design-vue';
 import Captcha from '/@components/Captcha/index.vue'
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '../../store';
+import { getSingleQuery } from '../../utils';
 
 type ActiveTabKey = 'signInWithPassword' | 'signInWithCaptcha';
 
@@ -101,7 +102,7 @@ export default defineComponent({
     })
     const { validate, validateInfos } = useForm(signInInfo, rules)
     const submitLoading = ref(false)
-    const changeTag = (tab) => {
+    const changeTag = (tab: ActiveTabKey) => {
       rules.captcha[0].required = tab === 'signInWithCaptcha'
       rules.password[0].required = tab === 'signInWithPassword'
     }
@@ -110,7 +111,7 @@ export default defineComponent({
         submitLoading.value = true
         await signInApi[activeTabKey.value](signInInfo).finally(() => submitLoading.value = false)
         const user = await store.dispatch('setUser')
-        await router.push(route.query.redirect || '/')
+        await router.push(getSingleQuery(route.query.redirect) || '/')
         message.success(`欢迎回来，${user.nickname}`)
       }, () => message.error('表单输入有误'))
     }
