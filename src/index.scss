@@ -15,6 +15,10 @@
   @include font-hei;
   color: #333;
 }
+.pageWidthWithCenter {
+  max-width: 1200px;
+  margin: 0 auto;
+}
 .ant-input-group-wrapper.captcha button {
   border: none;
   height: auto;
