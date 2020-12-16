@@ -31,7 +31,7 @@ import { defineComponent } from 'vue';
 import Icon from '../../components/Icon/index.vue';
 
 export default defineComponent({
-  name: 'Auth',
+  name: 'LayoutAuth',
   components: {Icon},
 })
 </script>
