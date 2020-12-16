@@ -74,7 +74,7 @@ import Captcha from '/@components/Captcha/index.vue'
 import { useRouter } from 'vue-router';
 
 export default defineComponent({
-  name: 'Password',
+  name: 'AuthPassword',
   components: {UITabs, UITabPane, UIInput, Icon, UIButton, UIForm, UIFormItem,Captcha},
   setup () {
     const router = useRouter()

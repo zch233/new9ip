@@ -77,7 +77,7 @@ import { useStore } from '../../store';
 import { getSingleQuery } from '../../utils';
 
 export default defineComponent({
-  name: 'SignUp',
+  name: 'AuthSignUp',
   components: {UITabs, UITabPane, UIInput, Icon, UIButton, UIForm, UIFormItem,Captcha},
   setup () {
     const route = useRoute()

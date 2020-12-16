@@ -83,7 +83,7 @@ import { getSingleQuery } from '../../utils';
 type ActiveTabKey = 'signInWithPassword' | 'signInWithCaptcha';
 
 export default defineComponent({
-  name: 'SignIn',
+  name: 'AuthSignIn',
   components: {UITabs, UITabPane, UIInput, Icon, UIButton, UIForm, UIFormItem,Captcha},
   setup () {
     const route = useRoute()
