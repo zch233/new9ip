@@ -1,15 +1,16 @@
 <template>
   <ConfigProvider :locale="locale">
     <RouterView />
-    <PageFooter />
+    <PageFooter :theme="authRoute ? 'light' : 'dark'" />
   </ConfigProvider>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { computed, defineComponent } from 'vue';
 import {ConfigProvider} from 'ant-design-vue'
 import zhCN from '../node_modules/ant-design-vue/es/locale/zh_CN';
 import PageFooter from '/@components/PageFooter/index.vue'
+import { useRoute } from 'vue-router';
 
 export default defineComponent({
   name: 'App',
@@ -18,7 +19,10 @@ export default defineComponent({
     PageFooter,
   },
   setup() {
+    const route = useRoute()
+    const authRoute = computed(() => route.path.indexOf('/auth/') >= 0)
     return {
+      authRoute,
       locale: zhCN
     }
   }
