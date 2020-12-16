@@ -64,6 +64,11 @@ export default defineComponent({
     .darkLink { color: inherit; }
   }
 }
+.signUp, .password {
+  .ant-tabs-nav-scroll {
+    text-align: center;
+  }
+}
 </style>
 
 <style lang="scss" scoped>
