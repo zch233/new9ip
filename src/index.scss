@@ -18,6 +18,7 @@
 .pageWidthWithCenter {
   max-width: 1200px;
   margin: 0 auto;
+  a {color: inherit;}
 }
 .ant-input-group-wrapper.captcha button {
   border: none;
