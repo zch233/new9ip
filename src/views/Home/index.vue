@@ -1,7 +1,7 @@
 <template>
-  <div class="searchBar">
+  <section class="searchBar">
     <h1>全网最真实的一手知产交易平台</h1>
-    <section class="inputHomeSearchWrapper">
+    <div class="inputHomeSearchWrapper">
       <UIInputSearch
         class="inputHomeSearch"
         placeholder="请搜索专利号 / 名称"
@@ -12,18 +12,23 @@
         <RouterLink to="/patent">只装置</RouterLink>
         <RouterLink to="/patent">只能装置</RouterLink>
       </div>
-    </section>
-  </div>
+    </div>
+  </section>
+  <section class="pageWidthWithCenter categoryTabBar">
+    <CategoryTab />
+  </section>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
 import UIInputSearch from '/@components/UI/UIInputSearch.vue';
+import CategoryTab from './CategoryTab.vue';
 
 export default defineComponent({
   name: 'Home',
   components: {
     UIInputSearch,
+    CategoryTab,
   },
 })
 </script>

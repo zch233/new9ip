@@ -14,7 +14,9 @@
 #app {
   @include font-hei;
   color: #333;
+  background-color: #F7F7F7;
 }
+ul, li {list-style: none;}
 .pageWidthWithCenter {
   max-width: 1200px;
   margin: 0 auto;
