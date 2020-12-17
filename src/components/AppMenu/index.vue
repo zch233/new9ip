@@ -2,6 +2,7 @@
   <div class="appMenu" :class="[brief && 'brief']">
     <div class="pageWidthWithCenter menuWrapper">
       <div class="leftMenu">
+        <div class="logoTextWrapper"><Icon class="logoText" :icon="`logoText${brief ? '_brief' : ''}`" /></div>
         <nav class="menuList">
           <div v-for="menu in menuList" :key="menu.path">
             <RouterLink class="menuItem" :class="[route.fullPath === menu.path && 'active']" :to="menu.path">{{ menu.title }}</RouterLink>
@@ -23,10 +24,11 @@
 import { defineComponent, computed } from 'vue'
 import { useRoute } from 'vue-router';
 import UIInputSearch from '/@components/UI/UIInputSearch.vue';
+import Icon from '/@components/Icon/index.vue'
 
 export default defineComponent({
   name: 'appMenu',
-  components: {UIInputSearch},
+  components: {UIInputSearch, Icon},
   setup () {
     const route = useRoute();
     const brief = computed(() => route.name === 'Home')
@@ -77,10 +79,23 @@ export default defineComponent({
 <style lang="scss" scoped>
 .appMenu {
   background-color: #fff;
+  position: relative;
+  z-index: 1;
   .menuWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+  }
+  .leftMenu {
+    display: flex;
+    align-items: center;
+  }
+  .logoTextWrapper {
+    overflow: hidden;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    .logoText {font-size: 148px}
   }
   .menuList {
     display: flex;
@@ -89,7 +104,7 @@ export default defineComponent({
       transition: all .3s;
       font-size: 16px;
       margin: 0 1.9em;
-      padding: 1.2em 0;
+      padding: 1.4em 0;
       position: relative;
       display: inline-block;
       &::after, &.leaveMessage::before {
@@ -132,6 +147,9 @@ export default defineComponent({
     background-color: transparent;
     color: #fff;
     .menuList .menuItem {
+      &::after {
+        background-color: transparent;
+      }
       &.active {
         color: #fff;
         &::after {
