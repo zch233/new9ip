@@ -4,24 +4,36 @@ import * as authApi from '../api/auth';
 
 export interface State {
   user: Partial<User>,
+  loginStatus: boolean,
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
 
 export const store = createStore<State>({
   state: {
-    user: {}
+    user: {},
+    loginStatus: false,
   },
   mutations: {
     COMMIT_USER(state, data: User) {
       state.user = data
+    },
+    COMMIT_LOGIN_STATUS(state, data: boolean) {
+      state.loginStatus = data
     }
   },
   actions: {
     async setUser({commit}) {
-      const user = await authApi.getUser()
-      commit('COMMIT_USER', user.data)
-      return user.data
+      const { data } = await authApi.getUser()
+      commit('COMMIT_USER', data)
+      commit('COMMIT_LOGIN_STATUS', true)
+      return data
+    },
+    async checkLogin({commit}) {
+      const { data } = await authApi.getUserDefault()
+      commit('COMMIT_USER', data)
+      commit('COMMIT_LOGIN_STATUS', true)
+      return data
     }
   }
 })
