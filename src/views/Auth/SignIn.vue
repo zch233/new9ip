@@ -8,7 +8,7 @@
           </template>
           <UIFormItem v-bind="validateInfos.phone">
             <div class="shrinkBar accountBar">
-              <UIInput v-model:value="signInInfo.phone" placeholder="请输入手机号">
+              <UIInput v-model:value="signInInfo.phone" placeholder="请输入手机号" :maxlength="11">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
                 </template>
@@ -31,7 +31,7 @@
           </template>
           <UIFormItem v-bind="validateInfos.phone">
             <div class="shrinkBar accountBar">
-              <UIInput v-model:value="signInInfo.phone" placeholder="请输入手机号">
+              <UIInput v-model:value="signInInfo.phone" placeholder="请输入手机号" :maxlength="11">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
                 </template>
@@ -40,7 +40,7 @@
           </UIFormItem>
           <UIFormItem v-bind="validateInfos.captcha">
             <div class="captchaBar">
-              <UIInput v-model:value="signInInfo.captcha" class="captcha" placeholder="验证码">
+              <UIInput v-model:value="signInInfo.captcha" class="captcha" placeholder="验证码" :maxlength="6">
                 <template #prefix>
                   <Icon class="inputIcon" icon="test" />
                 </template>
