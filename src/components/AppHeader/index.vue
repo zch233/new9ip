@@ -1,5 +1,5 @@
 <template>
-  <footer class="appHeader">
+  <header class="appHeader">
     <div class="pageWidthWithCenter appHeaderWrapper">
       <div class="appHeader-left">
         <em>最真实的一手知产服务平台</em>
@@ -44,15 +44,15 @@
         <RouterLink v-else to="/auth/sign_in" class="appHeader-right-item loginSection">登陆 / 注册</RouterLink>
       </div>
     </div>
-  </footer>
+  </header>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent } from 'vue'
 import Icon from '/@components/Icon/index.vue'
 import UIPopover from '/@components/UI/UIPopover.vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
-import { useStore } from '../../store';
+import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'AppHeader',
@@ -99,6 +99,9 @@ export default defineComponent({
   color: #999999;
   font-size: 12px;
   padding: 8px 0;
+  position: sticky;
+  top: 0;
+  z-index: 5;
   a {color: inherit;}
   .appHeaderWrapper {
     display: flex;

@@ -1,15 +1,15 @@
 <template>
-  <div class="appMenu" :class="[brief && 'brief']">
+  <div class="appMenu" :class="isHomeRoute && scrollTop === 0 && 'brief'">
     <div class="pageWidthWithCenter menuWrapper">
       <div class="leftMenu">
-        <div class="logoTextWrapper"><Icon class="logoText" :icon="`logoText${brief ? '_brief' : ''}`" /></div>
+        <div class="logoTextWrapper"><Icon class="logoText" :icon="`logoText${(isHomeRoute && scrollTop === 0) ? '_brief' : ''}`" /></div>
         <nav class="menuList">
           <div v-for="menu in menuList" :key="menu.path">
             <RouterLink class="menuItem" :class="[route.fullPath === menu.path && 'active']" :to="menu.path">{{ menu.title }}</RouterLink>
           </div>
         </nav>
       </div>
-      <div class="rightSearch" v-if="!brief">
+      <div class="rightSearch" v-if="!(isHomeRoute && scrollTop < 275)">
         <UIInputSearch
           class="inputMenuSearch"
           placeholder="请搜索专利号 / 名称"
@@ -21,7 +21,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted, ref, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router';
 import UIInputSearch from '/@components/UI/UIInputSearch.vue';
 import Icon from '/@components/Icon/index.vue'
@@ -31,7 +31,8 @@ export default defineComponent({
   components: {UIInputSearch, Icon},
   setup () {
     const route = useRoute();
-    const brief = computed(() => route.name === 'Home')
+    const scrollTop = ref(0)
+    const isHomeRoute = computed(() => route.name === 'Home')
     const menuList = [
       {
         title: '首页',
@@ -46,10 +47,14 @@ export default defineComponent({
         path: '/#leave_message',
       }
     ]
+    const getScrollTop = () => scrollTop.value = document.documentElement.scrollTop
+    onMounted(() => window.addEventListener('scroll', getScrollTop))
+    onUnmounted(() => window.removeEventListener('scroll', getScrollTop))
     return {
       route,
-      brief,
+      isHomeRoute,
       menuList,
+      scrollTop,
     }
   }
 })
@@ -79,7 +84,8 @@ export default defineComponent({
 <style lang="scss" scoped>
 .appMenu {
   background-color: #fff;
-  position: relative;
+  position: sticky;
+  top: 39.34px;
   z-index: 1;
   .menuWrapper {
     display: flex;

@@ -35,10 +35,12 @@
           </li>
         </ul>
       </section>
-      <section class="pageWidthWithCenter leaveMessageBar">
-        <SubTitle title="免费找专利" des="一键匹配专业顾问帮您找" />
-        <div class="inputWrapper"><UIInput placeholder="请输入您的手机号" :maxlength="11" /></div>
-        <UIButton class="leaveMessageButton" type="primary" size="large" @click="leaveMessage" customerClass="warningButton">免费帮我找</UIButton>
+      <section class="leaveMessageBar">
+        <div class="pageWidthWithCenter">
+          <SubTitle title="免费找专利" des="一键匹配专业顾问帮您找" />
+          <div class="inputWrapper"><UIInput placeholder="请输入您的手机号" :maxlength="11" /></div>
+          <UIButton class="leaveMessageButton" type="primary" size="large" @click="leaveMessage" customerClass="warningButton">免费帮我找</UIButton>
+        </div>
       </section>
     </div>
   </div>
