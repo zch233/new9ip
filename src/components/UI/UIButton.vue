@@ -21,21 +21,40 @@ export default defineComponent({
   .mainButton {
     background-color: #14A8BD;
     border-color: #14A8BD;
+    color: #fff;
     &.ant-btn-primary:hover, &.ant-btn-primary:focus {
       background-color: #16B5CB;
+      color: #fff;
     }
     &.ant-btn-primary.active, &.ant-btn-primary:active {
       background-color: #1199AD;
+      color: #fff;
     }
   }
   .dangerButton {
     background-color: #FF5858;
     border-color: #FF5858;
+    color: #fff;
     &.ant-btn-primary:hover, &.ant-btn-primary:focus {
       background-color: #FF7575;
+      color: #fff;
     }
     &.ant-btn-primary.active, &.ant-btn-primary:active {
       background-color: #F14141;
+      color: #fff;
+    }
+  }
+  .warningButton {
+    background-color: #FFBB12;
+    border-color: #FFBB12;
+    color: #fff;
+    &.ant-btn-primary:hover, &.ant-btn-primary:focus {
+      background-color: #FFC944;
+      color: #fff;
+    }
+    &.ant-btn-primary.active, &.ant-btn-primary:active {
+      background-color: #EEAA00;
+      color: #fff;
     }
   }
 </style>

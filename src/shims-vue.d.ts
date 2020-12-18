@@ -43,3 +43,31 @@ type User = {
   vipLevel: string;
   vipName: string;
 }
+
+type Patent = {
+  category: string;
+  categoryAliaName: string;
+  categoryName: string;
+  certStatus: 0 | 1 | 2;
+  commodityType: 'PATENT';
+  cover: string;
+  createTime: string;
+  id: string;
+  inventorExplain: string;
+  legalStatus: 0 | 1 | 2;
+  name: string;
+  nameHighlightKey: string;
+  number: string;
+  numberHighlightKey: string;
+  paymentDeadline: string;
+  price: number;
+  vipPrice: number;
+  reserveExpireTime: string;
+  reserveMemberId: string;
+  stockStatus: 1 | 2 | 3 | 4 | 5 | 6;
+  subCategory: string;
+  subCategoryName: string;
+  tags: string;
+  tagsHighlightKey: string;
+  type: 1 | 2 | 3;
+};
