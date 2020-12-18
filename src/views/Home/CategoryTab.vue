@@ -22,7 +22,7 @@
           </RouterLink>
         </li>
       </ul>
-      <p class="viewMore"><RouterLink to="/patent">查看更多 <Icon icon="right" /></RouterLink></p>
+      <p class="viewMore"><RouterLink :to="{path: '/patent', query: {category: currentCategory}}">查看更多 <Icon icon="right" /></RouterLink></p>
     </template>
   </div>
 </template>
