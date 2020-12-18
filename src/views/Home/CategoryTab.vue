@@ -10,14 +10,16 @@
     <template v-else>
       <ul class="categoryCardList">
         <li v-for="item in currentCategoryPatents" :key="item.id" class="categoryCardItem">
-          <div class="categoryCardItem-imageWrapper">
-            <img src="../../assets/patent/A.jpg" alt="">
-          </div>
-          <p class="categoryCardItem-title">{{ item.name }}</p>
-          <div class="categoryCardItem-priceBar">
-            <span>￥{{ item.price }}</span>
-            <em><VIPBrand class="vipBrand" />￥{{ item.vipPrice }}</em>
-          </div>
+          <RouterLink class="categoryCardItem-link" :to="`/patent/${item.number}`">
+            <div class="categoryCardItem-imageWrapper">
+              <img src="../../assets/patent/A.jpg" alt="">
+            </div>
+            <p class="categoryCardItem-title">{{ item.name }}</p>
+            <div class="categoryCardItem-priceBar">
+              <span>￥{{ item.price }}</span>
+              <em><VIPBrand class="vipBrand" />￥{{ item.vipPrice }}</em>
+            </div>
+          </RouterLink>
         </li>
       </ul>
       <p class="viewMore"><RouterLink to="/patent">查看更多 <Icon icon="right" /></RouterLink></p>
@@ -96,11 +98,11 @@ export default defineComponent({
     align-items: flex-start;
     padding: 20px;
     .categoryCardItem {
-      padding: 10px;
       border: 1px solid #E9E9E9;
       width: 19.3%;
       margin: 0 10px 10px 0;
       &:nth-child(5n) {margin-right: 0}
+      &-link {padding: 10px;display: block}
       &-imageWrapper {img {width: 100%;}}
       &-title {margin: 8px 0 26px;line-height: 1.4;height: 2em}
       &-priceBar {
