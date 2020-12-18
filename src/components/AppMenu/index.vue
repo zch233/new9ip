@@ -100,6 +100,7 @@ export default defineComponent({
   position: sticky;
   top: 39.34px;
   z-index: 1;
+  box-shadow: rgb(0, 0, 0, 0.2) 0 0 10px 2px;
   .menuWrapper {
     display: flex;
     align-items: center;
@@ -165,6 +166,7 @@ export default defineComponent({
   &.brief {
     background-color: transparent;
     color: #fff;
+    box-shadow: none;
     .menuList .menuItem {
       &::after {
         background-color: transparent;
