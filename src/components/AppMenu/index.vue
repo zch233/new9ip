@@ -5,15 +5,17 @@
         <div class="logoTextWrapper"><Icon class="logoText" :icon="`logoText${(isHomeRoute && scrollTop === 0) ? '_brief' : ''}`" /></div>
         <nav class="menuList">
           <div v-for="menu in menuList" :key="menu.path">
-            <RouterLink class="menuItem" :class="[route.fullPath === menu.path && 'active']" :to="menu.path">{{ menu.title }}</RouterLink>
+            <RouterLink class="menuItem" :class="[(isHomeRoute ? route.fullPath : route.path) === menu.path && 'active']" :to="menu.path">{{ menu.title }}</RouterLink>
           </div>
         </nav>
       </div>
       <div class="rightSearch" v-if="!(isHomeRoute && scrollTop < 275)">
         <UIInputSearch
+          v-model:value="searchKeyword"
           class="inputMenuSearch"
           placeholder="请搜索专利号 / 名称"
           enter-button="搜索"
+          @search="searchPatent"
         />
       </div>
     </div>
@@ -21,16 +23,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, ref, onUnmounted } from 'vue'
-import { useRoute } from 'vue-router';
+import { defineComponent, watchEffect, computed, onMounted, ref, onUnmounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router';
 import UIInputSearch from '/@components/UI/UIInputSearch.vue';
-import Icon from '/@components/Icon/index.vue'
+import Icon from '/@components/Icon/index.vue';
 
 export default defineComponent({
   name: 'appMenu',
   components: {UIInputSearch, Icon},
   setup () {
     const route = useRoute();
+    const router = useRouter()
+    const searchKeyword = ref('')
     const scrollTop = ref(0)
     const isHomeRoute = computed(() => route.name === 'Home')
     const menuList = [
@@ -47,6 +51,13 @@ export default defineComponent({
         path: '/#leave_message',
       }
     ]
+    watchEffect(() => {
+      searchKeyword.value = route.query.word
+    })
+    const searchPatent = (word: string) => {
+      if (word.trim() === '') return
+      router.push({path: '/patent', query: {word: word.trim()}})
+    }
     const getScrollTop = () => scrollTop.value = document.documentElement.scrollTop
     onMounted(() => window.addEventListener('scroll', getScrollTop))
     onUnmounted(() => window.removeEventListener('scroll', getScrollTop))
@@ -55,6 +66,8 @@ export default defineComponent({
       isHomeRoute,
       menuList,
       scrollTop,
+      searchKeyword,
+      searchPatent,
     }
   }
 })

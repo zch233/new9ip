@@ -7,6 +7,7 @@
           class="inputHomeSearch"
           placeholder="请搜索专利号 / 名称"
           enter-button="快速搜索"
+          @search="searchPatent"
         />
         <div class="hotSearch">
           <RouterLink v-for="(word, index) in hotSearchKeywords" :key="index" :to="{path: '/patent', query: {word}}">{{ word }}</RouterLink>
@@ -54,6 +55,7 @@ import UIInput from '/@components/UI/UIInput.vue';
 import UIButton from '/@components/UI/UIButton.vue';
 import { message } from 'ant-design-vue';
 import * as homeApi from '/@api/home'
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'Home',
@@ -66,6 +68,7 @@ export default defineComponent({
     UIButton,
   },
   setup () {
+    const router = useRouter()
     const hotSearchKeywords = ref<string[]>([])
     const advanceList = [
       {icon: 'advance1', title: '服务', des: '专注服务于知识产权领域',},
@@ -76,6 +79,10 @@ export default defineComponent({
     const leaveMessage = () => {
       message.success('刘颖成功')
     }
+    const searchPatent = (word: string) => {
+      if (word.trim() === '') return
+      router.push({path: '/patent', query: {word: word.trim()}})
+    }
     const getHotSearch = async () => {
       const {data} = await homeApi.getHotSearchKeywords()
       hotSearchKeywords.value = data
@@ -85,6 +92,7 @@ export default defineComponent({
       getHotSearch()
     })
     return {
+      searchPatent,
       advanceList,
       leaveMessage,
       hotSearchKeywords,
