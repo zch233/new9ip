@@ -14,3 +14,9 @@ export const getRecommendPatents = (params?: RecommendPatents) =>
     url: '/pub/api/v1/patent/recommend/page',
     method: 'get',
   })
+
+export const getHotSearchKeywords = () =>
+  request({
+    url: '/pub/api/v1/search/hotRank',
+    method: 'get',
+  })

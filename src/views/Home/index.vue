@@ -9,9 +9,7 @@
           enter-button="快速搜索"
         />
         <div class="hotSearch">
-          <RouterLink to="/patent">只能装置</RouterLink>
-          <RouterLink to="/patent">只装置</RouterLink>
-          <RouterLink to="/patent">只能装置</RouterLink>
+          <RouterLink v-for="(word, index) in hotSearchKeywords" :key="index" :to="{path: '/patent', query: {word}}">{{ word }}</RouterLink>
         </div>
       </div>
     </section>
@@ -47,7 +45,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue'
 import UIInputSearch from '/@components/UI/UIInputSearch.vue';
 import CategoryTab from './CategoryTab.vue';
 import SubTitle from './SubTitle.vue';
@@ -55,6 +53,7 @@ import Icon from '/@components/Icon/index.vue'
 import UIInput from '/@components/UI/UIInput.vue';
 import UIButton from '/@components/UI/UIButton.vue';
 import { message } from 'ant-design-vue';
+import * as homeApi from '/@api/home'
 
 export default defineComponent({
   name: 'Home',
@@ -67,6 +66,7 @@ export default defineComponent({
     UIButton,
   },
   setup () {
+    const hotSearchKeywords = ref<string[]>([])
     const advanceList = [
       {icon: 'advance1', title: '服务', des: '专注服务于知识产权领域',},
       {icon: 'advance2', title: '售后', des: '7x24小时售后服务',},
@@ -76,9 +76,18 @@ export default defineComponent({
     const leaveMessage = () => {
       message.success('刘颖成功')
     }
+    const getHotSearch = async () => {
+      const {data} = await homeApi.getHotSearchKeywords()
+      hotSearchKeywords.value = data
+
+    }
+    onMounted(() => {
+      getHotSearch()
+    })
     return {
       advanceList,
       leaveMessage,
+      hotSearchKeywords,
     }
   }
 })
