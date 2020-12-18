@@ -94,6 +94,7 @@ export default defineComponent({
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
+    padding: 20px;
     .categoryCardItem {
       padding: 10px;
       border: 1px solid #E9E9E9;
