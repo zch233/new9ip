@@ -51,8 +51,27 @@ export type TYPE_PATENT_CERT_STATUS = {
 export type TYPE_PATENT_ORIGIN_STATUS = {
   PROVIDE: 0,
   NOT_PROVIDE: 1,
+  NOT_RELEASE: 2,
   label: {
     0: '提供',
     1: '不提供',
+    2: '不公告',
   },
 }
+
+export type TYPE_PATENT_STOCK_STATUS = {
+  PRE_SELL: 1;
+  CAN_SELL: 2;
+  RESERVING: 3;
+  WAIT_PAID: 4;
+  USED_SELL: 5;
+  SOLD_OUT: 6;
+  label: {
+    1: '预售';
+    2: '可售';
+    3: '预留中';
+    4: '待付款';
+    5: '已售';
+    6: '已下架';
+  };
+};

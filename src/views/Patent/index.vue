@@ -17,7 +17,7 @@
       <ul class="systemFilterBar-list">
         <li><label class="filterTitle">技术领域：</label></li>
         <li class="systemFilterBar-list-item">不限</li>
-        <li v-for="item in PATENT_TYPE.label" :key="item" class="systemFilterBar-list-item">{{ item }}</li>
+        <li v-for="item in patentsTags" :key="item.tag" class="systemFilterBar-list-item">{{ item.tag }}({{ item.total }})</li>
 
       </ul>
       <ul class="systemFilterBar-list">
@@ -38,55 +38,66 @@
           <span>发布时间</span>
         </div>
         <div class="patentListBar-options-extra">
-          <UIButton customer-class="default">导出全部</UIButton>
-          <UIButton type="primary" customer-class="mainButton">导出结果</UIButton>
-          <Icon icon="refresh" />
-          <Icon icon="fullscreen" />
+          <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
+          <UIButton @click="exportPatent('result')" type="primary" customer-class="mainButton">导出结果</UIButton>
+          <Icon @click="getPatents" icon="refresh" />
+          <FullScreenIcon />
         </div>
       </div>
       <ul class="patentListBar-list">
-        <li class="patentListBar-list-item">
+        <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
           <div class="patentListBar-list-item-image new"><img src="../../assets/patent/A.jpg" alt=""></div>
           <div class="patentListBar-list-item-content">
             <div class="patentListBar-list-item-content-firstFloor">
-              <RouterLink to="/order"><b class="patentListBar-list-item-content-firstFloor-title">一种防撞的交通指挥站台</b></RouterLink>
+              <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title">{{ patent.name }}</b></RouterLink>
               <p class="patentListBar-list-item-content-firstFloor-info"><label>浏览量：</label><span>290</span><label>收藏</label><Icon class="starIcon" icon="start" /></p>
             </div>
             <div class="patentListBar-list-item-content-secondFloor">
-              <p class="patentListBar-list-item-content-secondFloor-des"><label>专利号：201912102120</label><label>领域：交通技术</label><label>发明人：不提供</label></p>
-              <p class="patentListBar-list-item-content-secondFloor-des"><label>专利类型：发明专利</label><label>法律状态：待质检抽案</label></p>
+              <p class="patentListBar-list-item-content-secondFloor-des"><label>专利号：{{ patent.number }}</label><label>领域：{{ patent.tags }}</label><label>发明人：{{ patent.inventorExplain }}</label></p>
+              <p class="patentListBar-list-item-content-secondFloor-des"><label>专利类型：{{ PATENT_TYPE.label[patent.type] }}</label><label>法律状态：{{ patent.legalStatus }}</label></p>
             </div>
             <div class="patentListBar-list-item-content-thirdFloor">
               <div class="patentListBar-list-item-content-thirdFloor-status">
-                <span class="patentListBar-list-item-content-thirdFloor-status-tag primary">已下证</span>
-                <span class="patentListBar-list-item-content-thirdFloor-status-tag success">可售</span>
-                <span class="patentListBar-list-item-content-thirdFloor-status-tag disabled">可售</span>
+                <span class="patentListBar-list-item-content-thirdFloor-status-tag" :class="patent.certStatus === PATENT_CERT_STATUS.YIZHENG ? 'success' : patent.certStatus === PATENT_CERT_STATUS.WEIZHENG ? 'primary' : 'disabled'">{{ PATENT_CERT_STATUS.label[patent.certStatus] }}</span>
+                <span class="patentListBar-list-item-content-thirdFloor-status-tag" :class="patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL ? 'success' : patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL ? 'primary' : 'disabled'">{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</span>
               </div>
               <div class="patentListBar-list-item-content-thirdFloor-price">
-                <label>零售价：<b>￥20000</b></label>
-                <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>15000</em></b>
-                <RouterLink class="buyButton" to="/order"><UIButton type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
+                <label>零售价：<b>￥{{ patent.price }}</b></label>
+                <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
+                <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
               </div>
             </div>
           </div>
         </li>
       </ul>
     </section>
+    <section class="paginationBar">
+      <UIPagination size="small" :total="50" :show-total="total => `共 ${total} 条`" show-size-changer show-quick-jumper />
+    </section>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import UITag from '/@components/UI/UITag.vue';
 import Icon from '/@components/Icon/index.vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import UIButton from '/@components/UI/UIButton.vue';
-import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS} from '/@/utils/dict'
+import FullScreenIcon from '/@components/FullScreenIcon/index.vue'
+import UIPagination from '/@components/UI/UIPagination.vue';
+import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
+import * as patentApi from '/@api/patent'
+import { useRoute } from 'vue-router';
+import { openNewWidowWithBlob } from '/@/utils';
+import { message } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton},
+  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination},
   setup() {
+    const route = useRoute()
+    const patents = ref<Patent[]>([])
+    const patentsTags = ref<{tag: string; total: number;}[]>([])
     const filterControl = ref({
       visible: true,
       text: '收起筛选',
@@ -105,12 +116,39 @@ export default defineComponent({
           icon: 'top',
         };
     }
+    const getPatents = async () => {
+      const {data} = await patentApi.getPatents()
+      patents.value = data?.list || []
+    }
+    const getPatentTag = async () => {
+      const {data} = await patentApi.getPatentTag()
+      patentsTags.value = data || []
+    }
+    const exportPatent = async (type: 'all' | 'result') => {
+      const requestParams = {
+        all: { size: '-1' },
+        result: { ...route.query, size: '100' },
+      };
+      const file = await patentApi.exportPatent(requestParams[type]);
+      const today = new Date();
+      openNewWidowWithBlob(file, `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日--第九区专利清单`);
+      message.success('导出成功！');
+    }
+    onMounted(() => {
+      getPatents()
+      getPatentTag()
+    })
     return {
       PATENT_TYPE,
       PATENT_CERT_STATUS,
       PATENT_ORIGIN_STATUS,
+      PATENT_STOCK_STATUS,
       filterControl,
       handleFilterControl,
+      getPatents,
+      exportPatent,
+      patentsTags,
+      patents,
     }
   },
 })
@@ -175,11 +213,14 @@ export default defineComponent({
         }
       }
       &-extra {
+        display: flex;
+        align-items: center;
         > * {margin-left: 20px;font-size: 12px;}
-        svg {transition: all .3s;cursor: pointer;font-size: 24px;vertical-align: -.3em;color: #aaa; &:hover {color: #14A8BD;}}
+        svg, .fullscreenWrapper {transition: all .3s;cursor: pointer;font-size: 24px;color: #aaa; &:hover {color: #14A8BD;}}
       }
     }
     &-list {
+      border-bottom: 1px solid #E8E8E8;
       &-item {
         display: flex;
         padding: 30px;
@@ -245,6 +286,10 @@ export default defineComponent({
         }
       }
     }
+  }
+  .paginationBar {
+    padding: 40px 0;
+    text-align: center;
   }
 }
 </style>
