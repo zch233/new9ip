@@ -9,7 +9,7 @@ import { defineComponent } from 'vue';
 import Icon from '/@components/Icon/index.vue'
 
 export default defineComponent({
-  name: 'Icon',
+  name: 'VIPBrand',
   components: {AIcon: Icon},
 })
 </script>
