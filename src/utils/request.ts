@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { message } from 'ant-design-vue';
 import { router } from '../router'
 
+// @ts-ignore
 axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API;
 axios.defaults.timeout = 30000;
 const instance = axios.create();
