@@ -18,6 +18,18 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+  .default.ant-btn {
+    color: #14A8BD;
+    border-color: #14A8BD;
+    &:hover, &:focus {
+      color: #16B5CB;
+      border-color: #16B5CB;
+    }
+    &:active, &.active {
+      color: #1199AD;
+      border-color: #1199AD;
+    }
+  }
   .mainButton {
     background-color: #14A8BD;
     border-color: #14A8BD;
