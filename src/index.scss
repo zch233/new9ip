@@ -20,6 +20,12 @@
   //flex-direction: column;
 }
 ul, li {list-style: none;margin: 0;padding: 0;}
+
+.searchKeyword em {
+  color: #dd4b39;
+  font-style: normal;
+}
+
 .pageWidthWithCenter {
   max-width: 1200px;
   margin: 0 auto;

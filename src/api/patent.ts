@@ -11,6 +11,8 @@ export type GetPatents = {
   subCategory?: string;
   type?: number;
   word?: string;
+  psort?: string;
+  inventorExplain: string;
 };
 
 export const getPatents = (params: GetPatents) =>

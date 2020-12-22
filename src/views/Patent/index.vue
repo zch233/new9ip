@@ -3,39 +3,39 @@
     <section class="userFilterBar">
       <div class="userFilterBar-left">
         <label class="filterTitle">已选条件：</label>
-        <UITag closable>大明专利</UITag>
-        <UITag closable>已下证专利</UITag>
+        <UITag v-if="routeQuery.type" closable @close="handleFilterClick({type: undefined})">{{ PATENT_TYPE.label[routeQuery.type] }}</UITag>
+        <UITag v-if="routeQuery.certStatus" closable @close="handleFilterClick({certStatus: undefined})">{{ PATENT_CERT_STATUS.label[routeQuery.certStatus] }}</UITag>
+        <UITag v-if="routeQuery.inventorExplain" closable @close="handleFilterClick({inventorExplain: undefined})">{{ PATENT_ORIGIN_STATUS.label[routeQuery.inventorExplain] }}</UITag>
       </div>
       <div class="userFilterBar-right" @click="handleFilterControl">{{ filterControl.text }} <Icon :icon="filterControl.icon" /></div>
     </section>
     <section class="systemFilterBar" :class="filterControl.visible ? '' : 'hide'">
       <ul class="systemFilterBar-list">
         <li><label class="filterTitle">专利类型：</label></li>
-        <li class="systemFilterBar-list-item">不限</li>
-        <li v-for="item in PATENT_TYPE.label" :key="item" class="systemFilterBar-list-item">{{ item }}</li>
+        <li class="systemFilterBar-list-item" :class="[routeQuery.type === undefined && 'active']"  @click="handleFilterClick({type: undefined})">不限</li>
+        <li v-for="(item, key) in PATENT_TYPE.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.type === key && 'active']" @click="handleFilterClick({type: key})">{{ item }}</li>
       </ul>
       <ul class="systemFilterBar-list">
         <li><label class="filterTitle">技术领域：</label></li>
-        <li class="systemFilterBar-list-item">不限</li>
-        <li v-for="item in patentsTags" :key="item.tag" class="systemFilterBar-list-item">{{ item.tag }}({{ item.total }})</li>
-
+        <li class="systemFilterBar-list-item" :class="[routeQuery.word === undefined && 'active']" @click="handleFilterClick({word: undefined})">不限</li>
+        <li v-for="item in patentsTags" :key="item.tag" class="systemFilterBar-list-item" :class="[routeQuery.word === item.tag && 'active']" @click="handleFilterClick({word: item.tag})">{{ item.tag }}({{ item.total }})</li>
       </ul>
       <ul class="systemFilterBar-list">
         <li><label class="filterTitle">法律状态：</label></li>
-        <li class="systemFilterBar-list-item">不限</li>
-        <li v-for="item in PATENT_CERT_STATUS.label" :key="item" class="systemFilterBar-list-item">{{ item }}</li>
+        <li class="systemFilterBar-list-item" :class="[routeQuery.certStatus === undefined && 'active']" @click="handleFilterClick({certStatus: undefined})">不限</li>
+        <li v-for="(item, key) in PATENT_CERT_STATUS.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.certStatus === key && 'active']" @click="handleFilterClick({certStatus: key})">{{ item }}</li>
       </ul>
       <ul class="systemFilterBar-list">
         <li><label class="filterTitle">　发明人：</label></li>
-        <li class="systemFilterBar-list-item">不限</li>
-        <li v-for="item in PATENT_ORIGIN_STATUS.label" :key="item" class="systemFilterBar-list-item">{{ item }}</li>
+        <li class="systemFilterBar-list-item" :class="[routeQuery.inventorExplain === undefined && 'active']" @click="handleFilterClick({inventorExplain: undefined})">不限</li>
+        <li v-for="(item, key) in PATENT_ORIGIN_STATUS.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.inventorExplain === key && 'active']" @click="handleFilterClick({inventorExplain: key})">{{ item }}</li>
       </ul>
     </section>
     <section class="patentListBar">
       <div class="patentListBar-options">
         <div class="patentListBar-options-order">
-          <span>综合排序</span>
-          <span>发布时间</span>
+          <span :class="[(routeQuery.psort === '0' || routeQuery.psort === undefined) && 'active']" @click="router.push({path: '/patent', query: {psort: 0}})">综合排序</span>
+          <span :class="[routeQuery.psort === '1' && 'active']" @click="router.push({path: '/patent', query: {psort: 1}})">发布时间</span>
         </div>
         <div class="patentListBar-options-extra">
           <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
@@ -44,59 +44,90 @@
           <FullScreenIcon />
         </div>
       </div>
-      <ul class="patentListBar-list">
-        <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
-          <div class="patentListBar-list-item-image new"><img src="../../assets/patent/A.jpg" alt=""></div>
-          <div class="patentListBar-list-item-content">
-            <div class="patentListBar-list-item-content-firstFloor">
-              <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title">{{ patent.name }}</b></RouterLink>
-              <p class="patentListBar-list-item-content-firstFloor-info"><label>浏览量：</label><span>290</span><label>收藏</label><Icon class="starIcon" icon="start" /></p>
-            </div>
-            <div class="patentListBar-list-item-content-secondFloor">
-              <p class="patentListBar-list-item-content-secondFloor-des"><label>专利号：{{ patent.number }}</label><label>领域：{{ patent.tags }}</label><label>发明人：{{ patent.inventorExplain }}</label></p>
-              <p class="patentListBar-list-item-content-secondFloor-des"><label>专利类型：{{ PATENT_TYPE.label[patent.type] }}</label><label>法律状态：{{ patent.legalStatus }}</label></p>
-            </div>
-            <div class="patentListBar-list-item-content-thirdFloor">
-              <div class="patentListBar-list-item-content-thirdFloor-status">
-                <span class="patentListBar-list-item-content-thirdFloor-status-tag" :class="patent.certStatus === PATENT_CERT_STATUS.YIZHENG ? 'success' : patent.certStatus === PATENT_CERT_STATUS.WEIZHENG ? 'primary' : 'disabled'">{{ PATENT_CERT_STATUS.label[patent.certStatus] }}</span>
-                <span class="patentListBar-list-item-content-thirdFloor-status-tag" :class="patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL ? 'success' : patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL ? 'primary' : 'disabled'">{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</span>
+      <UISpin :spinning="loading">
+        <ul class="patentListBar-list">
+          <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
+            <div class="patentListBar-list-item-image new"><img src="../../assets/patent/A.jpg" alt=""></div>
+            <div class="patentListBar-list-item-content">
+              <div class="patentListBar-list-item-content-firstFloor">
+                <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
+                <p class="patentListBar-list-item-content-firstFloor-info"><label>浏览量：</label><span>290</span><label>收藏</label><Icon class="starIcon" icon="start" /></p>
               </div>
-              <div class="patentListBar-list-item-content-thirdFloor-price">
-                <label>零售价：<b>￥{{ patent.price }}</b></label>
-                <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
-                <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
+              <div class="patentListBar-list-item-content-secondFloor">
+                <p class="patentListBar-list-item-content-secondFloor-des"><label>专利号：<span class="searchKeyword" v-html="patent.numberHighlightKey || patent.number" /></label><label>领域：<span class="searchKeyword" v-html="patent.tagsHighlightKey || patent.tags" /></label><label>发明人：{{ patent.inventorExplain }}</label></p>
+                <p class="patentListBar-list-item-content-secondFloor-des"><label>专利类型：{{ PATENT_TYPE.label[patent.type] }}</label><label>法律状态：{{ patent.legalStatus }}</label></p>
+              </div>
+              <div class="patentListBar-list-item-content-thirdFloor">
+                <div class="patentListBar-list-item-content-thirdFloor-status">
+                  <span class="patentListBar-list-item-content-thirdFloor-status-tag" :class="patent.certStatus === PATENT_CERT_STATUS.YIZHENG ? 'success' : patent.certStatus === PATENT_CERT_STATUS.WEIZHENG ? 'primary' : 'disabled'">{{ PATENT_CERT_STATUS.label[patent.certStatus] }}</span>
+                  <span class="patentListBar-list-item-content-thirdFloor-status-tag" :class="patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL ? 'success' : patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL ? 'primary' : 'disabled'">{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</span>
+                </div>
+                <div class="patentListBar-list-item-content-thirdFloor-price">
+                  <label>零售价：<b>￥{{ patent.price }}</b></label>
+                  <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
+                  <RouterLink class="buyButton" :to="{path: '/patent', query: {commodityId: patent.id}}"><UIButton type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
+                </div>
               </div>
             </div>
-          </div>
-        </li>
-      </ul>
+          </li>
+        </ul>
+      </UISpin>
     </section>
     <section class="paginationBar">
-      <UIPagination size="small" :total="50" :show-total="total => `共 ${total} 条`" show-size-changer show-quick-jumper />
+      <UIPagination
+        size="small"
+        :total="paginationOptions.total"
+        v-model:current="paginationOptions.current"
+        :default-page-size="paginationOptions.defaultPageSize"
+        :page-size-options="paginationOptions.pageSizeOptions"
+        :show-total="total => `共 ${total} 条`"
+        @change="paginationOptions.change"
+        @showSizeChange="paginationOptions.showSizeChange"
+        show-size-changer
+        show-quick-jumper
+      />
     </section>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, reactive, ref } from 'vue';
 import UITag from '/@components/UI/UITag.vue';
 import Icon from '/@components/Icon/index.vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import UIButton from '/@components/UI/UIButton.vue';
 import FullScreenIcon from '/@components/FullScreenIcon/index.vue'
 import UIPagination from '/@components/UI/UIPagination.vue';
+import UISpin from '/@components/UI/UISpin.vue';
 import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
 import { openNewWidowWithBlob } from '/@/utils';
 import { message } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination},
+  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin},
   setup() {
     const route = useRoute()
+    const router = useRouter()
+    const loading = ref(false)
+    const routeQuery = ref<patentApi.GetPatents>(route.query)
     const patents = ref<Patent[]>([])
+    const paginationOptions = reactive({
+      total: 0,
+      current: 1,
+      defaultPageSize: 30,
+      pageSizeOptions: ['10', '30', '50', '100'],
+      showSizeChange: (page, pageSize) => {
+        window.scrollTo(0,0)
+        router.push({path: '/patent', query: {...routeQuery.value, size: pageSize, no: 1}})
+      },
+      change: (current) => {
+        window.scrollTo(0,0)
+        router.push({path: '/patent', query: {...routeQuery.value, no: current}})
+      },
+    })
     const patentsTags = ref<{tag: string; total: number;}[]>([])
     const filterControl = ref({
       visible: true,
@@ -116,9 +147,14 @@ export default defineComponent({
           icon: 'top',
         };
     }
-    const getPatents = async () => {
-      const {data} = await patentApi.getPatents()
+    const getPatents = async (fetchData) => {
+      if (loading.value) return
+      loading.value = true
+      const {data} = await patentApi.getPatents({size: 30, psort: 0, ...fetchData}).finally(() => loading.value = false)
       patents.value = data?.list || []
+      paginationOptions.total = data?.totalCount
+      paginationOptions.current = data?.no
+      paginationOptions.size = data?.size
     }
     const getPatentTag = async () => {
       const {data} = await patentApi.getPatentTag()
@@ -127,15 +163,23 @@ export default defineComponent({
     const exportPatent = async (type: 'all' | 'result') => {
       const requestParams = {
         all: { size: '-1' },
-        result: { ...route.query, size: '100' },
+        result: { ...routeQuery.value, size: '100' },
       };
       const file = await patentApi.exportPatent(requestParams[type]);
       const today = new Date();
       openNewWidowWithBlob(file, `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日--第九区专利清单`);
       message.success('导出成功！');
     }
+    const handleFilterClick = (filter) => {
+      const {type, inventorExplain, certStatus} = routeQuery.value
+      router.push({path: '/patent', query: JSON.parse(JSON.stringify({type, inventorExplain, certStatus, ...filter}))})
+    }
+    onBeforeRouteUpdate((to) => {
+      getPatents(to.query)
+      routeQuery.value = to.query
+    })
     onMounted(() => {
-      getPatents()
+      getPatents(routeQuery.value)
       getPatentTag()
     })
     return {
@@ -147,8 +191,13 @@ export default defineComponent({
       handleFilterControl,
       getPatents,
       exportPatent,
+      paginationOptions,
       patentsTags,
       patents,
+      routeQuery,
+      loading,
+      router,
+      handleFilterClick,
     }
   },
 })
@@ -198,7 +247,7 @@ export default defineComponent({
     background-color: #fff;
     user-select: none;
     &-options {
-      padding: 1.2em 2.1em;
+      padding: .8em 2.1em;
       display: flex;
       align-items: center;
       justify-content: space-between;
@@ -220,10 +269,10 @@ export default defineComponent({
       }
     }
     &-list {
-      border-bottom: 1px solid #E8E8E8;
       &-item {
         display: flex;
         padding: 30px;
+        border-bottom: 1px solid #E8E8E8;
         &-image {
           width: 118px;
           overflow: hidden;
