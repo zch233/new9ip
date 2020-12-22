@@ -1,5 +1,5 @@
 <template>
-  <AntEmpty>
+  <AntEmpty :image="simpleImage">
     <slot></slot>
   </AntEmpty>
 </template>
@@ -10,7 +10,12 @@ import {Empty} from 'ant-design-vue';
 
 export default defineComponent({
   name: 'UIEmpty',
-  components: {AntEmpty: Empty}
+  components: {AntEmpty: Empty},
+  setup () {
+    return {
+      simpleImage: Empty.PRESENTED_IMAGE_SIMPLE
+    }
+  }
 })
 </script>
 
