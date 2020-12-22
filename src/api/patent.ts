@@ -35,3 +35,9 @@ export const getPatentTag = () =>
     url: '/pub/api/v1/tag/patent',
     method: 'get',
   })
+
+export const getPatentDetail = (number: string) =>
+  request({
+    url: `/pub/api/v1/patent/${number}`,
+    method: 'get',
+  })
