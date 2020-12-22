@@ -91,7 +91,7 @@ export default defineComponent({
   position: sticky;
   top: 39.34px;
   z-index: 1;
-  box-shadow: rgb(0, 0, 0, 0.2) 0 0 10px 2px;
+  box-shadow: rgb(0, 0, 0, 0.05) 0 0 10px 1px;
   .menuWrapper {
     display: flex;
     align-items: center;
