@@ -1,16 +1,18 @@
 <template>
   <div class="home">
-    <section class="searchBar">
-      <h1>全网最真实的一手知产交易平台</h1>
-      <div class="inputHomeSearchWrapper">
-        <UIInputSearch
-          class="inputHomeSearch"
-          placeholder="请搜索专利号 / 名称"
-          enter-button="快速搜索"
-          @search="searchPatent"
-        />
-        <div class="hotSearch">
-          <RouterLink v-for="(word, index) in hotSearchKeywords" :key="index" :to="{path: '/patent', query: {word}}">{{ word }}</RouterLink>
+    <section class="searchBarWrapper">
+      <div class="pageWidthWithCenter searchBar">
+        <h1>全网最真实的一手知产交易平台</h1>
+        <div class="inputHomeSearchWrapper">
+          <UIInputSearch
+            class="inputHomeSearch"
+            placeholder="请搜索专利号 / 名称"
+            enter-button="快速搜索"
+            @search="searchPatent"
+          />
+          <div class="hotSearch">
+            <RouterLink v-for="(word, index) in hotSearchKeywords" :key="index" :to="{path: '/patent', query: {word}}">{{ word }}</RouterLink>
+          </div>
         </div>
       </div>
     </section>
@@ -129,10 +131,12 @@ export default defineComponent({
   top: -70px;
   margin-bottom: -170px;
 }
-.searchBar {
+.searchBarWrapper {
   background-image: url("../../assets/home/banner1.jpg");
   background-repeat: no-repeat;
   background-size: cover;
+}
+.searchBar {
   display: flex;
   align-items: center;
   justify-content: center;
