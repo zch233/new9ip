@@ -34,8 +34,8 @@
     <section class="patentListBar">
       <div class="patentListBar-options">
         <div class="patentListBar-options-order">
-          <span :class="[(routeQuery.psort === '0' || routeQuery.psort === undefined) && 'active']" @click="router.push({path: '/patent', query: {psort: 0}})">综合排序</span>
-          <span :class="[routeQuery.psort === '1' && 'active']" @click="router.push({path: '/patent', query: {psort: 1}})">发布时间</span>
+          <span :class="[(routeQuery.psort === '0' || routeQuery.psort === undefined) && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 0, no: 1}})">综合排序</span>
+          <span :class="[routeQuery.psort === '1' && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 1, no: 1}})">发布时间</span>
         </div>
         <div class="patentListBar-options-extra">
           <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
@@ -45,7 +45,7 @@
         </div>
       </div>
       <UISpin :spinning="loading">
-        <ul class="patentListBar-list">
+        <ul class="patentListBar-list" v-if="patents.length > 0">
           <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
             <div class="patentListBar-list-item-image new"><img src="../../assets/patent/A.jpg" alt=""></div>
             <div class="patentListBar-list-item-content">
@@ -71,6 +71,7 @@
             </div>
           </li>
         </ul>
+        <div v-else class="emptyWrapper"><UIEmpty /></div>
       </UISpin>
     </section>
     <section class="paginationBar">
@@ -99,6 +100,7 @@ import UIButton from '/@components/UI/UIButton.vue';
 import FullScreenIcon from '/@components/FullScreenIcon/index.vue'
 import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
+import UIEmpty from '/@components/UI/UIEmpty.vue';
 import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
@@ -107,7 +109,7 @@ import { message } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin},
+  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty},
   setup() {
     const route = useRoute()
     const router = useRouter()
@@ -339,6 +341,12 @@ export default defineComponent({
   .paginationBar {
     padding: 40px 0;
     text-align: center;
+  }
+  .emptyWrapper {
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>
