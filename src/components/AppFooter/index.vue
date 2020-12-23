@@ -47,7 +47,7 @@ export default defineComponent({
   background-color: #2E3547;
   color: #999999;
   font-size: 12px;
-  padding: 4% 0;
+  padding: 60px 0;
   margin-top: auto;
   .footerList {
     padding: 0 5%;
