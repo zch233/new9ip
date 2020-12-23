@@ -1,7 +1,6 @@
 import copy from './copy';
 import {message} from 'ant-design-vue'
 
-console.log(copy);
 export const getSingleQuery = (routeQuery: string | (string | null)[]) => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
 
 export const openNewWindow = (url: string, download?: string) => {
