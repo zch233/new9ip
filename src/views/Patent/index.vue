@@ -18,7 +18,7 @@
       <ul class="systemFilterBar-list">
         <li><label class="filterTitle">技术领域：</label></li>
         <li class="systemFilterBar-list-item" :class="[routeQuery.word === undefined && 'active']" @click="handleFilterClick({word: undefined})">不限</li>
-        <li v-for="item in patentsTags" :key="item.tag" class="systemFilterBar-list-item" :class="[routeQuery.word === item.tag && 'active']" @click="handleFilterClick({word: item.tag})">{{ item.tag }}({{ item.total }})</li>
+        <li v-for="item in patentsTags" :key="item.tag" class="systemFilterBar-list-item" :class="[routeQuery.word === item.tag && 'active']" @click="handleFilterClick({word: item.tag})">{{ item.tag }}</li>
       </ul>
       <ul class="systemFilterBar-list">
         <li><label class="filterTitle">法律状态：</label></li>
