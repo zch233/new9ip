@@ -1,6 +1,6 @@
 <template>
   <ConfigProvider :locale="locale">
-    <RouterView />
+    <div class="routerViewWrapper"><RouterView /></div>
     <PageFooter :theme="authRoute ? 'light' : 'dark'" />
   </ConfigProvider>
 </template>
@@ -28,3 +28,7 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss" scoped>
+.routerViewWrapper {min-height: calc(100vh - 40px);display: flex;flex-direction: column;}
+</style>

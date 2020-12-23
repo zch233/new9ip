@@ -1,7 +1,7 @@
 <template>
   <AppHeader />
   <AppMenu />
-  <RouterView />
+  <div class="routerViewWrapper"><RouterView /></div>
   <AppFooter />
 </template>
 
@@ -18,4 +18,5 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+.routerViewWrapper {min-height: calc(100vh - 39.43px - 69.78px - 300px - 40px);}
 </style>
