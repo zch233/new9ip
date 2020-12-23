@@ -9,7 +9,7 @@
     </section>
     <section class="contentTop">
       <div class="mainContent">
-        <div v-else class="patentCard">
+        <div class="patentCard">
           <UISkeleton :loading="loading" :avatar="{shape: 'square', size: 'large'}" :paragraph="{rows: 14}" active >
             <div class="patentCard-left">
               <div class="patentCard-left-imageWrapper"><img src="../../assets/patent/A.jpg" alt=""></div>
@@ -73,6 +73,7 @@
           <li class="contentBottom-left-tab-item" v-for="(item, index) in ['交易资料', '过户资料', '常见问题']" :class="[index === currentDetailTab && 'active' ]" @click="scrollToContent(index)">{{ item }}</li>
         </ul>
         <div class="contentBottom-left-content">
+          <img src="../../assets/patent/detail.png" alt="">
           <UIButton customer-class="default">查看更多常见问题</UIButton>
         </div>
       </div>
@@ -285,8 +286,9 @@ export default defineComponent({
       }
       &-content {
         text-align: center;
+        padding: 60px 20px;
         img {width: 100%;}
-        button {width: 180px;height: 50px;}
+        button {width: 180px;height: 50px;margin-top: 50px;}
       }
     }
     &-right {
