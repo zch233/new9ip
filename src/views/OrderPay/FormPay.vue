@@ -1,5 +1,7 @@
 <template>
-  <OrderSteps :current="1" />
+  <AppTitleBar title="付款到平台">
+    <OrderSteps :current="1" />
+  </AppTitleBar>
   <Loading />
 </template>
 
@@ -8,11 +10,12 @@ import { defineComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
 import Loading from '/@components/Loading/index.vue'
 import OrderSteps from '/@components/OrderSteps/index.vue'
+import AppTitleBar from '/@components/AppTitleBar/index.vue'
 import * as orderApi from '/@api/order'
 
 export default defineComponent({
   name: 'FormPay',
-  components: {Loading, OrderSteps},
+  components: {Loading, OrderSteps, AppTitleBar},
   setup() {
     const route = useRoute()
     const getOrder = async () => {
