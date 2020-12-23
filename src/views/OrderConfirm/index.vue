@@ -105,7 +105,7 @@ export default defineComponent({
       } else if (payRoute === 'WXPAY') {
         await router.push(`/order/pay/wechat?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT`);
       } else {
-        openNewWindow(`/order/pay/form?orderNo=${orderNo}&type=PATENT&payRoute=${payRoute}&tradeType=${tradeType}`);
+        openNewWindow(`/order/pay/form?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT&payRoute=${payRoute}&tradeType=${tradeType}`);
         // openPollGetPayResultModal({ tradeNo, orderNo });
       }
     }
