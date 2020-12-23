@@ -28,6 +28,18 @@ export const router = createRouter({
       ]
     },
     {
+      path: '/order',
+      component: () => import('../views/Layout/Blank.vue'),
+      children: [
+        {
+          path: 'confirm',
+          name: 'OrderConfirm',
+          meta: { title: '确认订单' },
+          component: () => import('../views/OrderConfirm/index.vue')
+        }
+      ],
+    },
+    {
       path: '/auth',
       component: () => import('../views/Layout/Auth.vue'),
       redirect: '/auth/sign_in',
