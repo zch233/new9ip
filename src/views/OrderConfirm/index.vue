@@ -92,7 +92,7 @@ export default defineComponent({
     const handleBuyClick = async () => {
       const { payRoute, tradeType } = currentPayRoute.value;
       submitLoading.value = true
-      const { data } = await orderConfirmApi[payRoute === 'UMS_PAY' ? 'orderPatent' : 'orderPatentV1']({
+      const { data } = await orderConfirmApi.orderPatent({
         commodityId: route.query.commodityId,
         commodityType: 'PATENT',
         payRoute,

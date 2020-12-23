@@ -29,13 +29,6 @@ export const getOrderConfirm = (params: OrderConfirm) =>
 
 export const orderPatent = (data: payOrder) =>
   request({
-    url: '/api/v2/order',
-    method: 'post',
-    data,
-  })
-
-export const orderPatentV1 = (data: payOrderV1) =>
-  request({
     url: '/api/v1/order',
     method: 'post',
     data,
