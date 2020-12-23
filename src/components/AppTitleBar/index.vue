@@ -6,7 +6,7 @@
         <div class="titleWrapper"><slot name="title">{{ title }}</slot></div>
       </div>
       <div class="appTitleBar-right">
-        <slot name="extra"></slot>
+        <slot></slot>
       </div>
     </div>
   </div>
