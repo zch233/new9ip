@@ -65,7 +65,7 @@
                 <div class="patentListBar-list-item-content-thirdFloor-price">
                   <label>零售价：<b>￥{{ patent.price }}</b></label>
                   <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
-                  <RouterLink class="buyButton" :to="{path: '/patent', query: {commodityId: patent.id}}"><UIButton type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
+                  <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
                 </div>
               </div>
             </div>

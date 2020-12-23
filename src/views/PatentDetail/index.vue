@@ -40,7 +40,7 @@
               <p class="patentCard-right-info"><label>发明人</label>{{ patent.inventorExplain }}</p>
               <p class="patentCard-right-info"><label>销售状态</label>{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</p>
               <div class="patentCard-right-button">
-                <UIButton customer-class="dangerButton" type="primary">立即购买</UIButton>
+                <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
                 <UIButton customer-class="default">预留</UIButton>
               </div>
               <p class="patentCard-right-patentTips">此商品已全权委托平台寄卖，平台免费提供担保交易服务。</p>

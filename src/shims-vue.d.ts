@@ -71,3 +71,49 @@ type Patent = {
   tagsHighlightKey: string;
   type: 1 | 2 | 3;
 };
+
+type Shop = {
+  shopContact: string;
+  shopAvatar: string;
+  shopName: string;
+  shopDesc: string;
+};
+
+type Pay = {
+  totalAmount: number;
+  address: string;
+  discounts: Discount[];
+};
+
+type Discount = {
+  id: null;
+  isCumulate: null;
+  price: number;
+  type: number;
+};
+type Order = {
+  accountManagerMobile: string;
+  accountManagerName: string;
+  commodityCategory: string;
+  commodityId: string;
+  commodityType: 'PATENT';
+  cover: string;
+  createTime: string;
+  deliverySn: null;
+  discounts: Discount[];
+  invoiceStatus: null;
+  name: string;
+  number: string;
+  orderNo: string;
+  payRoute: string;
+  payStatus: string;
+  price: number;
+  remainSecond: number;
+  remark: string;
+  sellerShopAvatar: string;
+  sellerShopName: string;
+  status: 0 | 1 | 2 | 3 | 4 | 6;
+  totalAmount: number;
+  tradeNo: string;
+};
+type OrderConfirmation = Patent & Shop & Pay;

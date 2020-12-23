@@ -75,3 +75,34 @@ export type TYPE_PATENT_STOCK_STATUS = {
     6: '已下架';
   };
 };
+
+export type TYPE_PAY_ROUTES = [
+  {
+    icon: 'aliPay';
+    label: '支付宝';
+    description: '数亿用户都用，安全可托付';
+    payRoute: 'ALIPAY';
+    tradeType: 'WEB';
+  },
+  {
+    icon: 'unionPay';
+    label: '银联支付';
+    description: '欢迎使用银联在线支付';
+    payRoute: 'UNION_PAY';
+    tradeType: 'WEB';
+  },
+  {
+    icon: 'wechatPay';
+    label: '微信';
+    description: '微信，是一种生活方式';
+    payRoute: 'WXPAY';
+    tradeType: 'NATIVE';
+  },
+  {
+    icon: 'UMSPay';
+    label: '扫码支付';
+    description: '支持多种方式扫码支付';
+    payRoute: 'UMSPAY';
+    tradeType: 'WEB';
+  }
+];
