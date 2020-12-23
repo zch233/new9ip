@@ -14,7 +14,16 @@
             <div class="patentCard-left">
               <div class="patentCard-left-imageWrapper"><img src="../../assets/patent/A.jpg" alt=""></div>
               <div class="patentCard-left-options">
-                <span>分享 <Icon icon="share" /></span>
+                <UIPopover title="复制链接以分享" trigger="click" placement="bottomRight">
+                  <span>分享 <Icon icon="share" /></span>
+                  <template #content>
+                    <div class="contentWrapper">
+                      <label>分享链接</label>
+                      <UIInput disabled :defaultValue="shareURL" />
+                      <UIButton customer-class="mainButton" type="primary" @click="copyToClipboard(shareURL)">复制链接</UIButton>
+                    </div>
+                  </template>
+                </UIPopover>
                 <span>收藏 <Icon icon="start" /></span>
               </div>
             </div>
@@ -84,13 +93,16 @@ import { useRoute } from 'vue-router';
 import Icon from '/@components/Icon/index.vue';
 import UIButton from '/@components/UI/UIButton.vue';
 import UISkeleton from '/@components/UI/UISkeleton.vue';
+import UIPopover from '/@components/UI/UIPopover.vue';
+import UIInput from '/@components/UI/UIInput.vue';
 import PatentCard from '/@components/PatentCard/index.vue'
 import * as patentApi from '/@api/patent'
 import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
+import { copyToClipboard } from '/@/utils';
 
 export default defineComponent({
   name: 'PatentDetail',
-  components: {Icon, UIButton, PatentCard, UISkeleton},
+  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput},
   setup() {
     const route = useRoute()
     const loading = ref(false)
@@ -134,24 +146,37 @@ export default defineComponent({
     const scrollToContent = (index: number) => {
       currentDetailTab.value = index
     }
+    const shareURL = window.location.href
     onMounted(() => {
       getPatentDetail()
     })
     return {
       PATENT_STOCK_STATUS,
       PATENT_TYPE,
+      shareURL,
       patent,
       loading,
       pageAdvances,
       advances,
       currentDetailTab,
       scrollToContent,
+      copyToClipboard,
     }
   },
 })
 </script>
 
 <style lang="scss" scoped>
+.contentWrapper {
+  display: flex;
+  align-items: center;
+  > label {white-space: nowrap;}
+  > input {width: 23em;}
+  > * {
+    margin-right: 1em;
+    &:last-child {margin-right: 0}
+  }
+}
 .patentDetail {
   .patentNavigation {
     color: #999990;
@@ -163,26 +188,18 @@ export default defineComponent({
   .contentTop {
     display: flex;
     margin-bottom: 10px;
-    .mainContent {
-      background-color: #fff;
-      margin-right: 10px;
-      flex: 1;
-    }
+    .mainContent {background-color: #fff;margin-right: 10px;flex: 1;}
     .patentCard {
       display: flex;
       padding: 30px 20px;
       &-left {
-        &-imageWrapper {
-          padding: 5px;
-          border: 1px solid #DBDBDB;
-          width: 262px;
-          img {width: 100%;}
-        }
+        &-imageWrapper {padding: 5px;border: 1px solid #DBDBDB;width: 262px; img {width: 100%;} }
         &-options {
           display: flex;
           justify-content: space-between;
           margin-top: 10px;
           color: #999;
+          > span {cursor: pointer;transition: all .3s; &:hover {color: #14A8BD;} }
           svg {font-size: 22px;margin-left: .2em;}
         }
       }
@@ -201,15 +218,8 @@ export default defineComponent({
           .updateVip {background-image: linear-gradient(135deg, #FF8D25 0%, #FE942F 35%, #FFAC5C 48%, #FFDDB4 100%);border-radius: 4px;color: #fff;
             padding: 4px 10px;font-size: 14px;font-style: normal;margin-left: 1.6em;vertical-align: super;}
         }
-        &-info {
-          margin-bottom: 10px;
-          > label {display: inline-block;width: 10em;color: #666;}
-        }
-        &-button {
-          margin: 20px 0;
-          button {height: 40px;width: 110px;}
-          > * {margin-right: 1em;}
-        }
+        &-info {margin-bottom: 10px; > label {display: inline-block;width: 10em;color: #666;} }
+        &-button {margin: 20px 0; button {height: 40px;width: 110px;} > * {margin-right: 1em;} }
         &-patentTips {color: #999;font-size: 12px;}
       }
     }
