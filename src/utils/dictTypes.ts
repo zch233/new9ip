@@ -102,7 +102,7 @@ export type TYPE_PAY_ROUTES = [
     icon: 'UMSPay';
     label: '扫码支付';
     description: '支持多种方式扫码支付';
-    payRoute: 'UMSPAY';
-    tradeType: 'WEB';
+    payRoute: 'UMS_PAY';
+    tradeType: 'UMS_QRCODE';
   }
 ];

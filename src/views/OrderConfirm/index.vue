@@ -7,37 +7,43 @@
       <section class="orderConfirm-left">
         <div class="orderConfirm-left-patent">
           <UICard title="商品信息">
-            <div class="patentContent">
-              <div class="patentContent-image"><img src="../../assets/patent/A.jpg" alt=""></div>
-              <div class="patentContent-info">
-                <h2 class="patentContent-info-title">一种考虑车队离散特征的公交车和私家车干线绿波同步协调的控制方法装置</h2>
-                <p class="patentContent-info-col"><span><label>专利类型</label>{{ orderConfirmation.number }}</span><span><label>发明人</label>{{ orderConfirmation.inventorExplain }}</span></p>
-                <p class="patentContent-info-col"><span><label>专利号</label>{{ PATENT_TYPE.label[orderConfirmation.type] }}</span><span><label>标签</label>{{ orderConfirmation.tags }}</span></p>
-                <p class="patentContent-info-col"><span><label>法律状态</label>{{ orderConfirmation.legalStatus }}</span><span><label>价格</label>￥{{ orderConfirmation.price }}</span></p>
-                <p class="patentContent-info-col"><span><label>缴费截止</label>{{ orderConfirmation.paymentDeadline || '暂无' }}</span><span><label>数量</label>1</span></p>
+            <UISkeleton active :paragraph="{ rows: 5 }" :loading="pageLoading">
+              <div class="patentContent">
+                <div class="patentContent-image"><img src="../../assets/patent/A.jpg" alt=""></div>
+                <div class="patentContent-info">
+                  <h2 class="patentContent-info-title">一种考虑车队离散特征的公交车和私家车干线绿波同步协调的控制方法装置</h2>
+                  <p class="patentContent-info-col"><span><label>专利类型</label>{{ orderConfirmation.number }}</span><span><label>发明人</label>{{ orderConfirmation.inventorExplain }}</span></p>
+                  <p class="patentContent-info-col"><span><label>专利号</label>{{ PATENT_TYPE.label[orderConfirmation.type] }}</span><span><label>标签</label>{{ orderConfirmation.tags }}</span></p>
+                  <p class="patentContent-info-col"><span><label>法律状态</label>{{ orderConfirmation.legalStatus }}</span><span><label>价格</label>￥{{ orderConfirmation.price }}</span></p>
+                  <p class="patentContent-info-col"><span><label>缴费截止</label>{{ orderConfirmation.paymentDeadline || '暂无' }}</span><span><label>数量</label>1</span></p>
+                </div>
               </div>
-            </div>
+            </UISkeleton>
           </UICard>
         </div>
         <div class="orderConfirm-left-remark">
           <UICard title="订单备注">
-            <UIInputTextArea html-type="textarea" placeholder="请输入订单备注（选填）" :rows="6" />
+            <UISkeleton active :paragraph="{ rows: 3 }" :loading="pageLoading">
+              <UIInputTextArea v-model:value="remark" html-type="textarea" placeholder="请输入订单备注（选填）" :rows="6" />
+            </UISkeleton>
           </UICard>
         </div>
       </section>
       <section class="orderConfirm-right">
         <UICard title="订单金额">
-          <p class="orderConfirm-right-priceItem"><label>原价</label><span>￥{{ orderConfirmation.price }}</span></p>
-          <p class="orderConfirm-right-priceItem" v-for="item in orderConfirmation.discounts || []" :key="item.price"><label>VIP会员</label><span>-￥{{ item.price }}</span></p>
-          <p class="orderConfirm-right-priceItem totalAmount"><label>实付款</label><b>￥{{ orderConfirmation.totalAmount }}</b></p>
-          <ul class="orderConfirm-right-payRoutes">
-            <li v-for="payRoute in PAY_ROUTES" :key="payRoute.icon" class="orderConfirm-right-payRoutes-item" @click="currentPayRoute = payRoute">
-              <Icon class="orderConfirm-right-payRoutes-item-payIcon" :icon="payRoute.icon" />
-              <div class="orderConfirm-right-payRoutes-item-info"><b>{{payRoute.label}}</b><p>{{payRoute.description}}</p></div>
-              <div class="orderConfirm-right-payRoutes-item-radio" :class="[currentPayRoute.payRoute === payRoute.payRoute && 'active']"><Icon icon="tick" /></div>
-            </li>
-          </ul>
-          <UIButton class="orderConfirm-right-payButton" customer-class="dangerButton" type="primary" block>确认付款</UIButton>
+          <UISkeleton active :paragraph="{ rows: 13 }" :loading="pageLoading">
+            <p class="orderConfirm-right-priceItem"><label>原价</label><span>￥{{ orderConfirmation.price }}</span></p>
+            <p class="orderConfirm-right-priceItem" v-for="item in orderConfirmation.discounts || []" :key="item.price"><label>VIP会员</label><span>-￥{{ item.price }}</span></p>
+            <p class="orderConfirm-right-priceItem totalAmount"><label>实付款</label><b>￥{{ orderConfirmation.totalAmount }}</b></p>
+            <ul class="orderConfirm-right-payRoutes">
+              <li v-for="payRoute in PAY_ROUTES" :key="payRoute.icon" class="orderConfirm-right-payRoutes-item" @click="currentPayRoute = payRoute">
+                <Icon class="orderConfirm-right-payRoutes-item-payIcon" :icon="payRoute.icon" />
+                <div class="orderConfirm-right-payRoutes-item-info"><b>{{payRoute.label}}</b><p>{{payRoute.description}}</p></div>
+                <div class="orderConfirm-right-payRoutes-item-radio" :class="[currentPayRoute.payRoute === payRoute.payRoute && 'active']"><Icon icon="tick" /></div>
+              </li>
+            </ul>
+            <UIButton :loading="submitLoading" class="orderConfirm-right-payButton" @click="handleBuyClick" customer-class="dangerButton" type="primary" block>确认付款</UIButton>
+          </UISkeleton>
         </UICard>
       </section>
     </div>
@@ -51,11 +57,13 @@ import OrderSteps from '/@components/OrderSteps/index.vue'
 import UICard from '/@components/UI/UICard.vue';
 import UIInputTextArea from '/@components/UI/UIInputTextArea.vue';
 import UIButton from '/@components/UI/UIButton.vue';
+import UISkeleton from '/@components/UI/UISkeleton.vue';
 import Icon from '/@components/Icon/index.vue'
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import * as orderConfirmApi from '/@api/orderConfirm'
 import {PATENT_TYPE, PAY_ROUTES} from '/@/utils/dict';
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
+import { openNewWindow } from '/@/utils';
 
 export default defineComponent({
   name: 'OrderConfirm',
@@ -65,17 +73,41 @@ export default defineComponent({
     UIInputTextArea,
     UICard,
     Icon,
+    UISkeleton,
     UIButton,
   },
   setup() {
     const route = useRoute()
-    const loading = ref(false)
+    const router = useRouter()
+    const pageLoading = ref(false)
+    const submitLoading = ref(false)
+    const remark = ref('')
     const currentPayRoute = ref<TYPE_PAY_ROUTES[number]>(PAY_ROUTES[0])
     const orderConfirmation = ref<OrderConfirmation>({})
     const getOrderConfirm = async () => {
-      loading.value = true
-      const { data } = await orderConfirmApi.getOrderConfirm({ commodityId: route.query.commodityId, commodityType: 'PATENT' })
+      pageLoading.value = true
+      const { data } = await orderConfirmApi.getOrderConfirm({ commodityId: route.query.commodityId, commodityType: 'PATENT' }).finally(() => pageLoading.value = false)
       orderConfirmation.value = data
+    }
+    const handleBuyClick = async () => {
+      const { payRoute, tradeType } = currentPayRoute.value;
+      submitLoading.value = true
+      const { data } = await orderConfirmApi[payRoute === 'UMS_PAY' ? 'orderPatent' : 'orderPatentV1']({
+        commodityId: route.query.commodityId,
+        commodityType: 'PATENT',
+        payRoute,
+        tradeType,
+        remark: remark.value,
+      }).finally(() => submitLoading.value = false)
+      const { orderNo, tradeNo } = data;
+      if (payRoute === 'UMS_PAY') {
+        await router.push(`/order/pay/code?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT`);
+      } else if (payRoute === 'WXPAY') {
+        await router.push(`/order/pay/wechat?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT`);
+      } else {
+        openNewWindow(`/order/pay/form?orderNo=${orderNo}&type=PATENT&payRoute=${payRoute}&tradeType=${tradeType}`);
+        // openPollGetPayResultModal({ tradeNo, orderNo });
+      }
     }
     onMounted(() => {
       getOrderConfirm()
@@ -83,7 +115,11 @@ export default defineComponent({
     return {
       PATENT_TYPE,
       PAY_ROUTES,
+      remark,
+      pageLoading,
+      submitLoading,
       currentPayRoute,
+      handleBuyClick,
       orderConfirmation,
     }
   }
