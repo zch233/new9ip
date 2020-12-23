@@ -21,7 +21,7 @@
         </div>
         <div class="orderConfirm-left-remark">
           <UICard title="订单备注">
-            <UIInputTextArea html-type="textarea" placeholder="请输入订单备注（选填）" />
+            <UIInputTextArea html-type="textarea" placeholder="请输入订单备注（选填）" :rows="6" />
           </UICard>
         </div>
       </section>
