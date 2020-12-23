@@ -2,7 +2,7 @@
   <div class="appTitleBar">
     <div class="pageWidthWithCenter appTitleBarWrapper">
       <div class="appTitleBar-left">
-        <div class="logoIconWrapper"><Icon class="logoIcon" icon="logoText" /></div>
+        <div class="logoIconWrapper"><RouterLink to="/"><Icon class="logoIcon" icon="logoText" /></RouterLink></div>
         <div class="titleWrapper"><slot name="title">{{ title }}</slot></div>
       </div>
       <div class="appTitleBar-right">
