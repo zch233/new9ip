@@ -1,3 +1,7 @@
+import copy from './copy';
+import {message} from 'ant-design-vue'
+
+console.log(copy);
 export const getSingleQuery = (routeQuery: string | (string | null)[]) => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
 
 export const openNewWindow = (url: string, download?: string) => {
@@ -13,3 +17,9 @@ export const openNewWindow = (url: string, download?: string) => {
 };
 
 export const openNewWidowWithBlob = (blob: any, fileName: string) => openNewWindow(window.URL.createObjectURL(blob), fileName);
+
+export const copyToClipboard = (text: string) => {
+  copy(text)
+    .then(() => message.success('复制成功'))
+    .catch(() => message.error('复制失败'));
+}
