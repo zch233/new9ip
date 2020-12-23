@@ -31,7 +31,7 @@ export default defineComponent({
     right: 0;
   }
   &.normal {
-    height: 430px;
+    height: calc(100vh - 300px - 40px - 80px - 39.34px);
   }
 }
 .loader {
