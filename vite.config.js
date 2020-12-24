@@ -1,5 +1,6 @@
 import path from 'path';
 import babel from "vite-babel-plugin";
+import QRCode from 'qrcode';
 
 export default {
   publicPath: '/',
@@ -19,6 +20,7 @@ export default {
   },
   plugins: [
     babel(),
+    QRCode,
   ],
   alias: {
     '/@/': path.resolve(__dirname, './src'),

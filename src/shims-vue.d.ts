@@ -116,4 +116,18 @@ type Order = {
   totalAmount: number;
   tradeNo: string;
 };
+
 type OrderConfirmation = Patent & Shop & Pay;
+
+type OrderResult = {
+  codeUrl: string;
+  commodityType: string;
+  expire: string;
+  orderNo: string;
+  returnUrl: string;
+  subject: string;
+  timeRemainingSec: number;
+  totalAmount: string;
+  tradeNo: string;
+  orderTime: string;
+};

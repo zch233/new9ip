@@ -15,10 +15,6 @@ export type GetOrders = {
 };
 type PayOrder = {
   orderNo: string;
-};
-
-type PayOrderV1 = {
-  orderNo: string;
   payRoute: string;
   tradeType: string;
 };
@@ -50,26 +46,12 @@ export const cancelOrderV1 = ({ orderNo }: Order) =>
 
 export const payOrderAgain = (data: PayOrder) =>
   request({
-    url: '/api/v2/order/pay',
-    method: 'post',
-    data,
-  })
-
-export const payOrderAgainV1 = (data: PayOrderV1) =>
-  request({
-    url: '/api/v1/order/pay',
+    url: '/api/v1/pay/order',
     method: 'post',
     data,
   })
 
 export const payVipOrderAgain = (data: PayOrder) =>
-  request({
-    url: '/api/v2/vip/pay',
-    method: 'post',
-    data,
-  })
-
-export const payVipOrderAgainV1 = (data: PayOrderV1) =>
   request({
     url: '/api/v1/pay/vip/order',
     method: 'post',

@@ -7,26 +7,26 @@
       <div class="orderInfo-left">
         <Icon class="orderInfo-successIcon" icon="success" />
         <section class="orderInfo-main">
-          <p class="orderInfo-main-title">订单提交成功！只差付款了~<label>订单号：</label><em>171514154145154</em></p>
-          <p class="orderInfo-main-tips"><span>请您在 29 内完成支付，否则本次支付将自动取消。</span><em>订单已关闭，请重新下单</em></p>
+          <p class="orderInfo-main-title">订单提交成功！只差付款了~<label>订单号：</label><em>{{ orderInfo.orderNo }}</em></p>
+          <p class="orderInfo-main-tips"><em v-if="codeExpired">订单已关闭，请重新下单。</em><template v-else>请您在 <UICountdown class="orderCountDown" @finish="codeExpired=!codeExpired" :value="Date.now() + (orderInfo.timeRemainingSec ? orderInfo.timeRemainingSec * 1000 : 0)" format="m分s秒"/> 内完成支付，否则本次支付将自动取消。</template></p>
           <article class="orderInfo-main-info" v-show="orderInfoVisible">
-            <p><label>收货信息：</label>186****9865</p>
-            <p><label>商品名称：</label>一种考略赛风赛风赛风的东西</p>
-            <p><label>购买时间：</label>2020-12-09</p>
+            <p><label>收货信息：</label>{{ store.state.user.account }}</p>
+            <p><label>商品名称：</label>{{ orderInfo.subject }}</p>
+            <p><label>购买时间：</label>{{ orderInfo.orderTime }}</p>
           </article>
           <UIButton class="orderInfo-main-button" customer-class="mainButton" type="primary">我已完成支付</UIButton>
         </section>
       </div>
       <div class="orderInfo-options">
-        <p class="orderInfo-options-price"><label>订单金额：</label><b>￥15000</b></p>
+        <p class="orderInfo-options-price"><label>订单金额：</label><b>￥{{ orderInfo.totalAmount }}</b></p>
         <span class="orderInfo-options-button" @click="orderInfoVisible=!orderInfoVisible">订单详情 <Icon :icon="orderInfoVisible ? 'top_fill' : 'down_fill'" /></span>
       </div>
     </div>
     <div class="QRCodeBar">
       <div>
         <p class="QRCodeBar-title">{{ wechat ? '微信支付' : '扫码支付' }}</p>
-        <div class="QRCodeBar-image"><img :src="QRCodeURL" alt=""></div>
-        <div class="QRCodeBar-wechatTips">
+        <div class="QRCodeBar-image" :class="[codeExpired && 'codeExpired']"><img :src="QRCodeURL" alt=""></div>
+        <div v-if="wechat" class="QRCodeBar-wechatTips">
           <Icon icon="wechatPay" />
           <div><p>请使用微信扫一扫</p><p>扫描二维码支付</p></div>
         </div>
@@ -36,7 +36,7 @@
         <img class="QRCodeBar-descriptionImage-scan" v-else src="../../assets/pay/scan.png" alt="">
       </div>
     </div>
-    <div class="UMSTips">
+    <div v-if="!wechat" class="UMSTips">
       <p>支持以下付款方式</p>
       <Icon v-for="icon in ['ali', 'wechat', 'union', '1', 'BOC', 'BD', 'JD', 'SF', 'Y', 'SN', 'POS', 'QM']" :key="icon" :icon="`${icon}Pay`" />
     </div>
@@ -45,29 +45,78 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 import OrderSteps from '/@components/OrderSteps/index.vue';
 import AppTitleBar from '/@components/AppTitleBar/index.vue';
 import Icon from '/@components/Icon/index.vue';
 import UIButton from '/@components/UI/UIButton.vue';
+import UICountdown from '/@components/UI/UICountdown.vue';
+import * as orderApi from '/@api/order'
+import { useRoute, useRouter } from 'vue-router';
+import { message } from 'ant-design-vue';
+import QRCode from 'qrcode';
+import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'QRCodePay',
-  components: {AppTitleBar, OrderSteps, Icon, UIButton},
+  components: {AppTitleBar, OrderSteps, Icon, UIButton, UICountdown},
   props: {
     wechat: Boolean,
   },
   setup () {
     const orderInfoVisible = ref(false)
     const QRCodeURL = ref('')
+    const pageLoading = ref(false)
+    const codeExpired = ref(false)
+    const orderInfo = ref<OrderResult>({})
+    const route = useRoute()
+    const router = useRouter()
+    const store = useStore()
+    const {type, orderNo, payRoute, tradeType} = route.query
+    const generatorQrcode = (text: string) => {
+      QRCode.toDataURL(text, { errorCorrectionLevel: 'H', margin: 1 }, (err, url) => {
+        codeExpired.value = true;
+        if (err) {
+          console.log(err);
+          message.error('生成二维码失败！');
+          return;
+        }
+        codeExpired.value = false;
+        QRCodeURL.value = url;
+      });
+    };
+    const getOrderInfo = async () => {
+      pageLoading.value = true
+      const apiMap = {
+        PATENT: orderApi.payOrderAgain,
+        VIP: orderApi.payVipOrderAgain,
+      }
+      await apiMap[type]({ orderNo, payRoute, tradeType}).then(({data}) => {
+        generatorQrcode(data.codeUrl)
+        orderInfo.value = data
+        // startPollGetPayResult(form)
+      }).catch((error) => {
+        message.error(error.msg);
+        router.push(`/order/pay/result?status=0&type=${type}`);
+      }).finally(() => pageLoading.value = false)
+    }
+    onMounted(() => {
+      getOrderInfo()
+    })
     return {
+      store,
+      codeExpired,
       QRCodeURL,
+      orderInfo,
       orderInfoVisible,
     }
   },
 })
 </script>
 
+<style lang="scss">
+.orderCountDown .ant-statistic-content {font-size: 14px;color: #FF5858;margin: 0 .3em;}
+</style>
 <style scoped lang="scss">
 .QRCodePay {
   background-color: #fff;
@@ -82,7 +131,7 @@ export default defineComponent({
     &-main {
       margin-left: 1em;
       &-title {color: #52C419;font-size: 16px;margin-bottom: 6px; label {font-size: 12px;color: #333;padding-left: 1em;} em {color: #FF5858;font-size: 12px;font-style: normal;}}
-      &-tips {margin-bottom: 18px;font-size: 12px; > em {color: #FF5858;font-style: normal;}}
+      &-tips {display: flex;align-items: center;margin-bottom: 18px;font-size: 12px; > em {color: #FF5858;font-style: normal;}}
       &-info {margin-bottom: 14px; p {margin-bottom: 8px;font-size: 12px; label {color: #999;}}}
     }
     &-options {
@@ -98,7 +147,7 @@ export default defineComponent({
     justify-content: center;
     text-align: center;
     &-title {font-size: 16px;font-weight: bold;margin-bottom: 26px;}
-    &-image {width: 210px;height: 210px;border: 1px solid #DEDEDE; img {width: 100%;}}
+    &-image {width: 210px;height: 210px;border: 1px solid #DEDEDE; &.codeExpired {filter: blur(10px)} img {width: 100%;}}
     &-wechatTips {margin-top: 16px;text-align: left;display: flex;align-items: center;justify-content: center; svg {font-size: 40px;margin-right: 10px;} p {margin: 0;}}
     &-descriptionImage {margin-left: 30px; &-wechat {width: 254px;} &-scan {width: 280px;}}
   }
