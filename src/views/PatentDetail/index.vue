@@ -31,7 +31,7 @@
               <b class="patentCard-right-title">{{ patent.name }}</b>
               <div class="patentCard-right-price">
                 <p><label>零售价</label><b>￥{{ patent.price }}</b></p>
-                <p><label>VIP会员</label><b class="vipPrice">￥{{ patent.vipPrice }}</b><em class="updateVip">成为VPI会员</em></p>
+                <p><label>VIP会员</label><b class="vipPrice">￥{{ patent.vipPrice }}</b><em class="updateVip">成为VIP会员</em></p>
               </div>
               <p class="patentCard-right-info"><label>专利号</label>{{ patent.number }}</p>
               <p class="patentCard-right-info"><label>专利类型</label>{{ PATENT_TYPE.label[patent.type] }}</p>
