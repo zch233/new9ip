@@ -100,12 +100,11 @@ export default defineComponent({
         remark: remark.value,
       }).finally(() => submitLoading.value = false)
       const { orderNo, tradeNo } = data;
-      if (payRoute === 'UMS_PAY') {
-        await router.push(`/order/pay/code?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT`);
-      } else if (payRoute === 'WXPAY') {
-        await router.push(`/order/pay/wechat?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT`);
+      const payURL = `/order/pay/${payRoute === 'UMS_PAY' ? 'code' : payRoute === 'WXPAY' ? 'wechat' : 'form'}?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT&payRoute=${payRoute}&tradeType=${tradeType}`
+      if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
+        await router.push(payURL);
       } else {
-        openNewWindow(`/order/pay/form?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT&payRoute=${payRoute}&tradeType=${tradeType}`);
+        openNewWindow(payURL);
         // openPollGetPayResultModal({ tradeNo, orderNo });
       }
     }
