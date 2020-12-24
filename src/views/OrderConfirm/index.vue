@@ -47,6 +47,7 @@
         </UICard>
       </section>
     </div>
+    <PollGetPayRequestModal type="PATENT" :order-no="xx.orderNo" :trade-no="xx.tradeNo" :visible="modalVisible" />
   </div>
 </template>
 
@@ -64,6 +65,8 @@ import * as orderConfirmApi from '/@api/orderConfirm'
 import {PATENT_TYPE, PAY_ROUTES} from '/@/utils/dict';
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
 import { openNewWindow } from '/@/utils';
+import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
+import PollGetPayRequestModal from '/@components/PollGetPayRequestModal/index.vue'
 
 export default defineComponent({
   name: 'OrderConfirm',
@@ -75,6 +78,7 @@ export default defineComponent({
     Icon,
     UISkeleton,
     UIButton,
+    PollGetPayRequestModal,
   },
   setup() {
     const route = useRoute()
@@ -82,6 +86,8 @@ export default defineComponent({
     const pageLoading = ref(false)
     const submitLoading = ref(false)
     const remark = ref('')
+    const xx = ref({})
+    const modalVisible = ref(false)
     const currentPayRoute = ref<TYPE_PAY_ROUTES[number]>(PAY_ROUTES[0])
     const orderConfirmation = ref<OrderConfirmation>({})
     const getOrderConfirm = async () => {
@@ -105,6 +111,9 @@ export default defineComponent({
         await router.push(payURL);
       } else {
         openNewWindow(payURL);
+        // showPollGetPayRequestModal({ tradeNo, orderNo, type })
+        xx.value = { tradeNo, orderNo }
+        setTimeout(() => modalVisible.value = true, 2000)
         // openPollGetPayResultModal({ tradeNo, orderNo });
       }
     }
@@ -112,6 +121,8 @@ export default defineComponent({
       getOrderConfirm()
     })
     return {
+      xx,
+      modalVisible,
       PATENT_TYPE,
       PAY_ROUTES,
       remark,
