@@ -3,44 +3,46 @@
     <OrderSteps :current="1" />
   </AppTitleBar>
   <div class="pageWidthWithCenter QRCodePay">
-    <div class="orderInfo">
-      <div class="orderInfo-left">
-        <Icon class="orderInfo-successIcon" icon="success" />
-        <section class="orderInfo-main">
-          <p class="orderInfo-main-title">订单提交成功！只差付款了~<label>订单号：</label><em>{{ orderInfo.orderNo }}</em></p>
-          <p class="orderInfo-main-tips"><em v-if="codeExpired">订单已关闭，请重新下单。</em><template v-else>请您在 <UICountdown class="orderCountDown" @finish="codeExpired=!codeExpired" :value="Date.now() + (orderInfo.timeRemainingSec ? orderInfo.timeRemainingSec * 1000 : 0)" format="m分s秒"/> 内完成支付，否则本次支付将自动取消。</template></p>
-          <article class="orderInfo-main-info" v-show="orderInfoVisible">
-            <p><label>收货信息：</label>{{ store.state.user.account }}</p>
-            <p><label>商品名称：</label>{{ orderInfo.subject }}</p>
-            <p><label>购买时间：</label>{{ orderInfo.orderTime }}</p>
-          </article>
-          <UIButton class="orderInfo-main-button" customer-class="mainButton" type="primary">我已完成支付</UIButton>
-        </section>
-      </div>
-      <div class="orderInfo-options">
-        <p class="orderInfo-options-price"><label>订单金额：</label><b>￥{{ orderInfo.totalAmount }}</b></p>
-        <span class="orderInfo-options-button" @click="orderInfoVisible=!orderInfoVisible">订单详情 <Icon :icon="orderInfoVisible ? 'top_fill' : 'down_fill'" /></span>
-      </div>
-    </div>
-    <div class="QRCodeBar">
-      <div>
-        <p class="QRCodeBar-title">{{ wechat ? '微信支付' : '扫码支付' }}</p>
-        <div class="QRCodeBar-image" :class="[codeExpired && 'codeExpired']"><img :src="QRCodeURL" alt=""></div>
-        <div v-if="wechat" class="QRCodeBar-wechatTips">
-          <Icon icon="wechatPay" />
-          <div><p>请使用微信扫一扫</p><p>扫描二维码支付</p></div>
+    <UISkeleton :loading="pageLoading" :avatar="{size: 'large'}" :paragraph="{rows: 13}" active >
+      <div class="orderInfo">
+        <div class="orderInfo-left">
+          <Icon class="orderInfo-successIcon" icon="success" />
+          <section class="orderInfo-main">
+            <p class="orderInfo-main-title">订单提交成功！只差付款了~<label>订单号：</label><em>{{ orderInfo.orderNo }}</em></p>
+            <p class="orderInfo-main-tips"><em v-if="codeExpired">订单已关闭，请重新下单。</em><template v-else>请您在 <UICountdown class="orderCountDown" @finish="codeExpired=!codeExpired" :value="Date.now() + (orderInfo.timeRemainingSec ? orderInfo.timeRemainingSec * 1000 : 0)" format="m分s秒"/> 内完成支付，否则本次支付将自动取消。</template></p>
+            <article class="orderInfo-main-info" v-show="orderInfoVisible">
+              <p><label>收货信息：</label>{{ store.state.user.account }}</p>
+              <p><label>商品名称：</label>{{ orderInfo.subject }}</p>
+              <p><label>购买时间：</label>{{ orderInfo.orderTime }}</p>
+            </article>
+            <UIButton v-if="!codeExpired" class="orderInfo-main-button" customer-class="mainButton" :loading="checkOrderStatusLoading" type="primary" @click="checkOrderStatus(orderInfo.tradeNo)">我已完成支付</UIButton>
+          </section>
+        </div>
+        <div class="orderInfo-options">
+          <p class="orderInfo-options-price"><label>订单金额：</label><b>￥{{ orderInfo.totalAmount }}</b></p>
+          <span class="orderInfo-options-button" @click="orderInfoVisible=!orderInfoVisible">订单详情 <Icon :icon="orderInfoVisible ? 'top_fill' : 'down_fill'" /></span>
         </div>
       </div>
-      <div class="QRCodeBar-descriptionImage">
-        <img class="QRCodeBar-descriptionImage-wechat" v-if="wechat" src="../../assets/pay/wechatPhone.png" alt="">
-        <img class="QRCodeBar-descriptionImage-scan" v-else src="../../assets/pay/scan.png" alt="">
+      <div class="QRCodeBar">
+        <div>
+          <p class="QRCodeBar-title">{{ wechat ? '微信支付' : '扫码支付' }}</p>
+          <div class="QRCodeBar-image" :class="[codeExpired && 'codeExpired']"><img :src="QRCodeURL" alt=""></div>
+          <div v-if="wechat" class="QRCodeBar-wechatTips">
+            <Icon icon="wechatPay" />
+            <div><p>请使用微信扫一扫</p><p>扫描二维码支付</p></div>
+          </div>
+        </div>
+        <div class="QRCodeBar-descriptionImage">
+          <img class="QRCodeBar-descriptionImage-wechat" v-if="wechat" src="../../assets/pay/wechatPhone.png" alt="">
+          <img class="QRCodeBar-descriptionImage-scan" v-else src="../../assets/pay/scan.png" alt="">
+        </div>
       </div>
-    </div>
-    <div v-if="!wechat" class="UMSTips">
-      <p>支持以下付款方式</p>
-      <Icon v-for="icon in ['ali', 'wechat', 'union', '1', 'BOC', 'BD', 'JD', 'SF', 'Y', 'SN', 'POS', 'QM']" :key="icon" :icon="`${icon}Pay`" />
-    </div>
-    <RouterLink class="returnOrder" to="/user/order"><Icon icon="left" />选择其他支付方式</RouterLink>
+      <div v-if="!wechat" class="UMSTips">
+        <p>支持以下付款方式</p>
+        <Icon v-for="icon in ['ali', 'wechat', 'union', '1', 'BOC', 'BD', 'JD', 'SF', 'Y', 'SN', 'POS', 'QM']" :key="icon" :icon="`${icon}Pay`" />
+      </div>
+      <RouterLink class="returnOrder" to="/user/order"><Icon icon="left" />选择其他支付方式</RouterLink>
+    </UISkeleton>
   </div>
 </template>
 
@@ -51,15 +53,17 @@ import AppTitleBar from '/@components/AppTitleBar/index.vue';
 import Icon from '/@components/Icon/index.vue';
 import UIButton from '/@components/UI/UIButton.vue';
 import UICountdown from '/@components/UI/UICountdown.vue';
+import UISkeleton from '/@components/UI/UISkeleton.vue';
 import * as orderApi from '/@api/order'
 import { useRoute, useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
 import QRCode from 'qrcode';
 import { useStore } from '/@/store';
+import {isWaitOrder} from '/@/utils'
 
 export default defineComponent({
   name: 'QRCodePay',
-  components: {AppTitleBar, OrderSteps, Icon, UIButton, UICountdown},
+  components: {AppTitleBar, OrderSteps, Icon, UIButton, UICountdown, UISkeleton},
   props: {
     wechat: Boolean,
   },
@@ -67,6 +71,7 @@ export default defineComponent({
     const orderInfoVisible = ref(false)
     const QRCodeURL = ref('')
     const pageLoading = ref(false)
+    const checkOrderStatusLoading = ref(false)
     const codeExpired = ref(false)
     const orderInfo = ref<OrderResult>({})
     const route = useRoute()
@@ -100,11 +105,19 @@ export default defineComponent({
         router.push(`/order/pay/result?status=0&type=${type}`);
       }).finally(() => pageLoading.value = false)
     }
+    const checkOrderStatus = async (tradeNo: string) => {
+      checkOrderStatusLoading.value = true
+      if (!(await isWaitOrder(tradeNo).finally(() => checkOrderStatusLoading.value = false))) return;
+      history.push(`/order/pay/result?orderNo=${orderInfo.orderNo}&tradeNo=${orderInfo.tradeNo}&type=${orderInfo.commodityType}&status=1`);
+    }
     onMounted(() => {
       getOrderInfo()
     })
     return {
       store,
+      pageLoading,
+      checkOrderStatusLoading,
+      checkOrderStatus,
       codeExpired,
       QRCodeURL,
       orderInfo,

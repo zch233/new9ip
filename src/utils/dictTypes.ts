@@ -106,3 +106,16 @@ export type TYPE_PAY_ROUTES = [
     tradeType: 'UMS_QRCODE';
   }
 ];
+
+export type TYPE_ORDER_PAY_STATUS = {
+  WAIT_BUYER_PAY: 'WAIT_BUYER_PAY';
+  TRADE_CLOSED: 'TRADE_CLOSED';
+  TRADE_SUCCESS: 'TRADE_SUCCESS';
+  TRADE_FINISHED: 'TRADE_FINISHED';
+  label: {
+    WAIT_BUYER_PAY: '等待支付';
+    TRADE_CLOSED: '交易关闭';
+    TRADE_SUCCESS: '交易成功';
+    TRADE_FINISHED: '交易结束';
+  };
+};

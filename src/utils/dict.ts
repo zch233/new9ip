@@ -1,5 +1,5 @@
 import {
-  Categories,
+  Categories, TYPE_ORDER_PAY_STATUS,
   TYPE_PATENT_CERT_STATUS,
   TYPE_PATENT_ORIGIN_STATUS,
   TYPE_PATENT_STOCK_STATUS,
@@ -114,3 +114,16 @@ export const PAY_ROUTES: TYPE_PAY_ROUTES = [
     tradeType: 'UMS_QRCODE',
   },
 ];
+
+export const ORDER_PAY_STATUS: TYPE_ORDER_PAY_STATUS = {
+  WAIT_BUYER_PAY: 'WAIT_BUYER_PAY',
+  TRADE_CLOSED: 'TRADE_CLOSED',
+  TRADE_SUCCESS: 'TRADE_SUCCESS',
+  TRADE_FINISHED: 'TRADE_FINISHED',
+  label: {
+    WAIT_BUYER_PAY: '等待支付',
+    TRADE_CLOSED: '交易关闭',
+    TRADE_SUCCESS: '交易成功',
+    TRADE_FINISHED: '交易结束',
+  },
+};
