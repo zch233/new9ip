@@ -19,7 +19,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const getOrder = async () => {
-      (route.query.type === 'PATENT' ? orderApi.payOrderAgainV1 : orderApi.payVipOrderAgainV1)({
+      (route.query.type === 'PATENT' ? orderApi.payOrderAgain : orderApi.payVipOrderAgain)({
         orderNo: route.query.orderNo,
         payRoute: route.query.payRoute,
         tradeType: route.query.tradeType,
