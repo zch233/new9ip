@@ -15,7 +15,7 @@
               <p><label>商品名称：</label>{{ orderInfo.subject }}</p>
               <p><label>购买时间：</label>{{ orderInfo.orderTime }}</p>
             </article>
-            <UIButton v-if="!codeExpired" class="orderInfo-main-button" customer-class="mainButton" :loading="checkOrderStatusLoading" type="primary" @click="checkOrderStatus(orderInfo.tradeNo)">我已完成支付</UIButton>
+            <UIButton v-if="!codeExpired && pollGetPayResultDone" class="orderInfo-main-button" customer-class="mainButton" :loading="checkOrderStatusLoading" type="primary" @click="checkOrderStatus(orderInfo.tradeNo)">我已完成支付</UIButton>
           </section>
         </div>
         <div class="orderInfo-options">
@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
 import OrderSteps from '/@components/OrderSteps/index.vue';
 import AppTitleBar from '/@components/AppTitleBar/index.vue';
 import Icon from '/@components/Icon/index.vue';
@@ -59,7 +59,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
 import QRCode from 'qrcode';
 import { useStore } from '/@/store';
-import {isWaitOrder} from '/@/utils'
+import { isWaitOrder, usePollGetPayResult } from '/@/utils';
 
 export default defineComponent({
   name: 'QRCodePay',
@@ -77,6 +77,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
+    const {clearPollGetPayResult, startPollGetPayResult, pollGetPayResultDone} = usePollGetPayResult()
     const {type, orderNo, payRoute, tradeType} = route.query
     const generatorQrcode = (text: string) => {
       QRCode.toDataURL(text, { errorCorrectionLevel: 'H', margin: 1 }, (err, url) => {
@@ -99,7 +100,7 @@ export default defineComponent({
       await apiMap[type]({ orderNo, payRoute, tradeType}).then(({data}) => {
         generatorQrcode(data.codeUrl)
         orderInfo.value = data
-        // startPollGetPayResult(form)
+        startPollGetPayResult(data)
       }).catch((error) => {
         message.error(error.msg);
         router.push(`/order/pay/result?status=0&type=${type}`);
@@ -113,8 +114,12 @@ export default defineComponent({
     onMounted(() => {
       getOrderInfo()
     })
+    onUnmounted(() => {
+      clearPollGetPayResult()
+    })
     return {
       store,
+      pollGetPayResultDone,
       pageLoading,
       checkOrderStatusLoading,
       checkOrderStatus,

@@ -3,6 +3,8 @@ import { message, Modal } from 'ant-design-vue';
 import * as orderPayApi from '/@api/orderPay'
 import { ORDER_PAY_STATUS } from '/@/utils/dict';
 import { TYPE_ORDER_PAY_STATUS } from '/@/utils/dictTypes';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
 export const getSingleQuery = (routeQuery: string | (string | null)[]) => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
 
@@ -37,5 +39,46 @@ export const isWaitOrder = async (tradeNo: string) => {
   } else if (status === ORDER_PAY_STATUS.TRADE_CLOSED) {
     Modal.error({ title: '您的订单已关闭' });
     return false;
+  }
+}
+
+type Options = {
+  tradeNo: string;
+  orderNo: string;
+  commodityType: 'PATENT' | 'VIP';
+};
+
+export const usePollGetPayResult = () => {
+  const timer = ref(0);
+  const pollGetPayResultDone = ref(false)
+  const router = useRouter();
+  const pollGetPayResult = async ({ tradeNo, orderNo, commodityType }: Options, askPayResultTimes: number) => {
+    const { data } = await orderPayApi.getPayResult(tradeNo);
+    const result: keyof Omit<TYPE_ORDER_PAY_STATUS, 'label'> = data.tradeStatus;
+    if (result === ORDER_PAY_STATUS.WAIT_BUYER_PAY) {
+      if (askPayResultTimes > 15) {
+        pollGetPayResultDone.value = true;
+        return;
+      }
+      // @ts-ignore
+      timer.value = setTimeout(() => pollGetPayResult({ tradeNo, orderNo, commodityType }, askPayResultTimes + 1), 3000);
+    } else if (result === ORDER_PAY_STATUS.TRADE_SUCCESS || result === ORDER_PAY_STATUS.TRADE_FINISHED) {
+      await router.push(`/order/pay/result?orderNo=${orderNo}&out_trade_no=${tradeNo}&status=1&type=${commodityType}`);
+    } else if (result === ORDER_PAY_STATUS.TRADE_CLOSED) {
+      await router.push(`/order/pay/result?orderNo=${orderNo}&out_trade_no=${tradeNo}&status=0&type=${commodityType}`);
+      message.error('订单已关闭');
+    }
+  }
+  const startPollGetPayResult = ({ tradeNo, orderNo, commodityType }: Options) => {
+    clearTimeout(timer.value);
+    // @ts-ignore
+    timer.value = setTimeout(() => pollGetPayResult({ tradeNo, orderNo, commodityType }, 0), 5000);
+  }
+  const clearPollGetPayResult = () => clearTimeout(timer.value)
+  return {
+    timer,
+    pollGetPayResultDone,
+    startPollGetPayResult,
+    clearPollGetPayResult,
   }
 }
