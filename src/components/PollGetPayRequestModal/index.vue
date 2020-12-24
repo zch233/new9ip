@@ -1,0 +1,86 @@
+<template>
+  <UIModal
+    title="我要付款"
+    v-modal:visible="modalVisible"
+    @afterClose="() => clearPollGetPayResult()"
+    :maskClosable="false"
+    :onOk="handleOk"
+    cancelText="选择其他方式"
+    okText="已完成支付"
+    :okButtonProps="{ type: 'danger' }"
+  >
+    <div class="wrapper">
+      <Icon class="icon" icon="warning" />
+      <div class="description">
+        <h4 class="description-title">请您在新打开的页面上完成付款！</h4>
+        <p>完成付款前请不要关闭此窗口。</p>
+        <p>完成付款后请根据实际情况点击下面的按钮。</p>
+      </div>
+    </div>
+  </UIModal>
+</template>
+
+<script lang="ts">
+import { computed, defineComponent, onMounted, onUnmounted } from 'vue';
+import UIModal from '/@components/UI/UIModal.vue';
+import Icon from '/@components/Icon/index.vue'
+import { isWaitOrder, usePollGetPayResult } from '/@/utils';
+import { useRouter } from 'vue-router';
+
+export default defineComponent({
+  name: 'PollGetPayRequestModal',
+  components: {UIModal, Icon},
+  props: {
+    orderNo: String,
+    tradeNo: String,
+    type: String,
+    visible: Boolean,
+  },
+  setup ({orderNo, tradeNo, type, visible}, context) {
+    const modalVisible = computed({
+      set(value) {
+        context.emit('update:visible', value)
+      },
+      get() {
+        console.log(visible, orderNo);
+        return visible
+      }
+    })
+    const { clearPollGetPayResult, startPollGetPayResult } = usePollGetPayResult()
+    const router = useRouter()
+    const handleOk = async () => {
+      if (!(await isWaitOrder(tradeNo))) return;
+      await router.push(`/order/pay/result?orderNo=${orderNo}&out_trade_no=${tradeNo}&status=1&type=${type}`);
+    }
+    onMounted(() => {
+      startPollGetPayResult({ tradeNo, orderNo, commodityType: type })
+    })
+    onUnmounted(() => {
+      clearPollGetPayResult()
+    })
+    return {
+      modalVisible,
+      handleOk,
+      clearPollGetPayResult,
+    }
+  },
+})
+</script>
+
+<style lang="scss" scoped>
+.wrapper {
+  display: flex;
+  .icon {
+    font-size: 50px;
+    color: #faad14;
+  }
+  .description {
+    margin-left: 2em;
+    &-title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 1em;
+    }
+  }
+}
+</style>
