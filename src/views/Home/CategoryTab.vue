@@ -32,8 +32,8 @@ import { defineComponent, onMounted, reactive, ref, computed } from 'vue';
 import Icon from '/@components/Icon/index.vue'
 import {categories} from '/@/utils/dict'
 import VIPBrand from '/@components/VIPBrand/index.vue'
-import { getRecommendPatents } from '/@api/home';
 import UIEmpty from '/@components/UI/UIEmpty.vue';
+import { getPatents } from '/@api/patent';
 
 export default defineComponent({
   name: 'CategoryTab',
@@ -44,7 +44,7 @@ export default defineComponent({
     const currentCategoryPatents: Patent = computed(() => patents[currentCategory.value] || [])
     onMounted(() => {
       categories.map(async category => {
-        const {data} = await getRecommendPatents({ categoryShortName: category.code, size: 6 })
+        const {data} = await getPatents({ category: category.code, size: 6 })
         patents[category.code] = data?.list || []
       })
     })
