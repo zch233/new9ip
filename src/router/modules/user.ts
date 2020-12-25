@@ -12,19 +12,19 @@ export const user = {
       path: 'order',
       name: 'UserOrder',
       meta: { title: '我的订单' },
-      component: () => import('../../views/Order/index.vue')
+      component: () => import('../../views/User/Order/index.vue')
     },
     {
       path: 'collect',
       name: 'UserCollect',
       meta: { title: '我的收藏  ' },
-      component: () => import('../../views/Collect/index.vue')
+      component: () => import('../../views/User/Collect/index.vue')
     },
     {
       path: 'setting',
       name: 'UserSetting',
       meta: { title: '账户设置' },
-      component: () => import('../../views/Setting/index.vue')
+      component: () => import('../../views/User/Setting/index.vue')
     }
   ],
 }
