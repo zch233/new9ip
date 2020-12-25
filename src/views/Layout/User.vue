@@ -7,7 +7,7 @@
     <div class="pageWidthWithCenter userCenterWrapper">
       <nav class="userMenu">
         <ul class="userMenu-list">
-          <li class="userMenu-list-item" v-for="item in userMenu.children" :key="item.path"><RouterLink active-class="active" :to="`${userMenu.path}/${item.path}`">{{item.meta.title}}</RouterLink></li>
+          <li class="userMenu-list-item" v-for="item in userMenu.children.filter(v => v.name !== 'VipRecord')" :key="item.path"><RouterLink active-class="active" :to="`${userMenu.path}/${item.path}`">{{item.meta.title}}</RouterLink></li>
         </ul>
       </nav>
       <section class="userContent"><RouterView /></section>
