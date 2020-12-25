@@ -3,6 +3,7 @@ import { root } from '/@/router/modules/root';
 import { auth } from '/@/router/modules/auth';
 import { user } from '/@/router/modules/user';
 import { order } from '/@/router/modules/order';
+import { others } from '/@/router/modules/others';
 
 export const router = createRouter({
   history: createWebHistory(),
@@ -11,5 +12,6 @@ export const router = createRouter({
     order,
     user,
     auth,
+    others,
   ],
 })
