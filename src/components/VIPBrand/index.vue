@@ -18,7 +18,7 @@ export default defineComponent({
 .VIPBrandWrapper {
   display: inline-flex;
   overflow: hidden;
-  height: .5em;
+  height: .4em;
   padding: 0 .1em;
   align-items: center;
   vertical-align: -.36em;
