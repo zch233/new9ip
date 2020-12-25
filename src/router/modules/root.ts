@@ -20,5 +20,17 @@ export const root = {
       meta: { title: '专利详情' },
       component: () => import('../../views/PatentDetail/index.vue'),
     },
+    {
+      path: '404',
+      name: 'Page404',
+      meta: { title: '404' },
+      component: () => import('../../views/Error/404.vue'),
+    },
+    {
+      path: '500',
+      name: 'Page500',
+      meta: { title: '500' },
+      component: () => import('../../views/Error/500.vue'),
+    },
   ]
 }
