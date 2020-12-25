@@ -3,8 +3,8 @@ import { message, Modal } from 'ant-design-vue';
 import * as orderPayApi from '/@api/orderPay'
 import { ORDER_PAY_STATUS } from '/@/utils/dict';
 import { TYPE_ORDER_PAY_STATUS } from '/@/utils/dictTypes';
-import { useRouter } from 'vue-router';
 import { ref } from 'vue';
+import { router } from '/@/router';
 
 export const getSingleQuery = (routeQuery: string | (string | null)[]) => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
 
@@ -51,7 +51,6 @@ type Options = {
 export const usePollGetPayResult = () => {
   const timer = ref(0);
   const pollGetPayResultDone = ref(false)
-  const router = useRouter();
   const pollGetPayResult = async ({ tradeNo, orderNo, commodityType }: Options, askPayResultTimes: number) => {
     const { data } = await orderPayApi.getPayResult(tradeNo);
     const result: keyof Omit<TYPE_ORDER_PAY_STATUS, 'label'> = data.tradeStatus;

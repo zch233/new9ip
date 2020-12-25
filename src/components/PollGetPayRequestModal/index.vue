@@ -1,8 +1,9 @@
 <template>
   <UIModal
     title="我要付款"
-    v-modal:visible="modalVisible"
-    @afterClose="() => clearPollGetPayResult()"
+    :visible="visible"
+    @update:visible="$emit('update:visible', $event)"
+    @afterClose="clearPollGetPayResult"
     :maskClosable="false"
     :onOk="handleOk"
     cancelText="选择其他方式"
@@ -21,11 +22,11 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, onUnmounted } from 'vue';
+import { defineComponent, onMounted, onUnmounted, toRefs } from 'vue';
 import UIModal from '/@components/UI/UIModal.vue';
 import Icon from '/@components/Icon/index.vue'
 import { isWaitOrder, usePollGetPayResult } from '/@/utils';
-import { useRouter } from 'vue-router';
+import { router } from '/@/router';
 
 export default defineComponent({
   name: 'PollGetPayRequestModal',
@@ -36,30 +37,23 @@ export default defineComponent({
     type: String,
     visible: Boolean,
   },
-  setup ({orderNo, tradeNo, type, visible}, context) {
-    const modalVisible = computed({
-      set(value) {
-        context.emit('update:visible', value)
-      },
-      get() {
-        console.log(visible, orderNo);
-        return visible
-      }
-    })
+  emits: ['update:visible'],
+  setup (props, context) {
+    const { tradeNo, orderNo, type, visible } = toRefs(props)
     const { clearPollGetPayResult, startPollGetPayResult } = usePollGetPayResult()
-    const router = useRouter()
     const handleOk = async () => {
-      if (!(await isWaitOrder(tradeNo))) return;
-      await router.push(`/order/pay/result?orderNo=${orderNo}&out_trade_no=${tradeNo}&status=1&type=${type}`);
+      if (!(await isWaitOrder(tradeNo.value))) return;
+      context.emit('update:visible', false)
+      await router.push(`/order/pay/result?orderNo=${orderNo.value}&out_trade_no=${tradeNo.value}&status=1&type=${type.value}`);
     }
     onMounted(() => {
-      startPollGetPayResult({ tradeNo, orderNo, commodityType: type })
+      startPollGetPayResult({ tradeNo: tradeNo.value, orderNo: orderNo.value, commodityType: type.value })
     })
     onUnmounted(() => {
       clearPollGetPayResult()
     })
     return {
-      modalVisible,
+      visible,
       handleOk,
       clearPollGetPayResult,
     }

@@ -1,5 +1,5 @@
 <template>
-  <div class="orderConfirm">
+  <div id="orderConfirm" class="orderConfirm">
     <AppTitleBar title="确认订单">
       <OrderSteps />
     </AppTitleBar>
@@ -47,7 +47,6 @@
         </UICard>
       </section>
     </div>
-    <PollGetPayRequestModal type="PATENT" :order-no="xx.orderNo" :trade-no="xx.tradeNo" :visible="modalVisible" />
   </div>
 </template>
 
@@ -66,7 +65,6 @@ import {PATENT_TYPE, PAY_ROUTES} from '/@/utils/dict';
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
 import { openNewWindow } from '/@/utils';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
-import PollGetPayRequestModal from '/@components/PollGetPayRequestModal/index.vue'
 
 export default defineComponent({
   name: 'OrderConfirm',
@@ -78,7 +76,6 @@ export default defineComponent({
     Icon,
     UISkeleton,
     UIButton,
-    PollGetPayRequestModal,
   },
   setup() {
     const route = useRoute()
@@ -86,8 +83,6 @@ export default defineComponent({
     const pageLoading = ref(false)
     const submitLoading = ref(false)
     const remark = ref('')
-    const xx = ref({})
-    const modalVisible = ref(false)
     const currentPayRoute = ref<TYPE_PAY_ROUTES[number]>(PAY_ROUTES[0])
     const orderConfirmation = ref<OrderConfirmation>({})
     const getOrderConfirm = async () => {
@@ -110,19 +105,14 @@ export default defineComponent({
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
         await router.push(payURL);
       } else {
+        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'PATENT', getContainer: '#orderConfirm' })
         openNewWindow(payURL);
-        // showPollGetPayRequestModal({ tradeNo, orderNo, type })
-        xx.value = { tradeNo, orderNo }
-        setTimeout(() => modalVisible.value = true, 2000)
-        // openPollGetPayResultModal({ tradeNo, orderNo });
       }
     }
     onMounted(() => {
       getOrderConfirm()
     })
     return {
-      xx,
-      modalVisible,
       PATENT_TYPE,
       PAY_ROUTES,
       remark,
@@ -164,7 +154,7 @@ export default defineComponent({
             margin-bottom: 9px;
             color: #333;
             display: flex;
-            > span {width: 40%;}
+            > span {width: 46%;}
             &:last-child {margin-bottom: 0;}
             label {color: #666;display: inline-block;width: 40%;}
           }
