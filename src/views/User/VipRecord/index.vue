@@ -1,0 +1,78 @@
+<template>
+  <div class="vipRecord">
+    <RouterLink to="/user/index"><Icon icon="left" />返回</RouterLink>
+    <div class="vipRecord-title"><em>付款时间</em><em>订单号</em><em>类型</em><em>金额</em><em>状态</em></div>
+    <ul class="vipRecord-list">
+      <li class="vipRecord-list-item" v-for="record in vipRecords" :key="record.orderNo">
+        <span>{{ record.paymentTime }}</span>
+        <span>{{ record.orderNo }}</span>
+        <b>{{ record.days / 365 }}年会员</b>
+        <b>{{ record.price }}</b>
+        <span>已付款</span>
+      </li>
+    </ul>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, onMounted, ref } from 'vue';
+import Icon from '/@components/Icon/index.vue'
+import * as vipApi from '/@api/vip'
+
+type VipRecord = {
+  days: number;
+  expireDate: string;
+  hasPay: boolean;
+  level: number;
+  orderNo: string;
+  paymentTime: string;
+  price: number;
+}
+
+export default defineComponent({
+  name: 'VipRecord',
+  components: {Icon},
+  setup() {
+    const vipRecords = ref<VipRecord[]>([])
+    const getVipRecords = async () => {
+      const {data} = await vipApi.getVipRecords({size: 100})
+      vipRecords.value = data.list || []
+    }
+    onMounted(() => {
+      getVipRecords()
+    })
+    return {
+      vipRecords,
+    }
+  }
+})
+</script>
+
+<style lang="scss" scoped>
+.vipRecord {
+  padding: 20px;
+  font-size: 12px;
+  > a { svg {margin-right: .5em;}}
+  &-title {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    background-color: #E8E8E8;
+    padding: 1em 0;
+    em {flex: 1;font-style: normal;}
+  }
+  &-list {
+    &-item {
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      text-align: center;
+      padding: 1.4em;
+      border: 1px solid #DEDEDE;
+      > * {flex: 1;font-style: normal;}
+      b {font-size: 14px;}
+    }
+  }
+}
+</style>

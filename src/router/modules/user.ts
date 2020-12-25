@@ -9,6 +9,12 @@ export const user = {
       component: () => import('../../views/User/index.vue')
     },
     {
+      path: 'vipRecord',
+      name: 'VipRecord',
+      meta: { title: '开通记录' },
+      component: () => import('../../views/User/VipRecord/index.vue')
+    },
+    {
       path: 'order',
       name: 'UserOrder',
       meta: { title: '我的订单' },

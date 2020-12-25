@@ -14,7 +14,7 @@
       </div>
       <div class="user-head-right">
         <button class="darkButton">立即开通<Icon icon="right_fill" /></button>
-        <RouterLink to="/user/index">开通记录</RouterLink>
+        <RouterLink to="/user/vipRecord">开通记录</RouterLink>
       </div>
     </section>
     <section class="user-orders">

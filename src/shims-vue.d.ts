@@ -13,6 +13,14 @@ declare module '*.vue' {
   export default component;
 }
 
+type BasePageOption = {
+  no?: number;
+  size?: number;
+  sort?: 'asc' | 'desc';
+  endDateTime?: string;
+  startDateTime?: string;
+}
+
 type User = {
   account: string;
   accountManager: string;
