@@ -1,6 +1,7 @@
 <template>
   <div class="auth">
     <div class="authHeader">
+      <RouterLink to="/" class="returnHome"><Icon icon="logoText" /></RouterLink>
       欢迎登录
     </div>
     <div class="authMain">
@@ -10,16 +11,16 @@
     <div class="authFooter">
       <ul class="advanceList">
         <li class="advanceItem">
-          <Icon class="advanceItem-icon" icon="test" />
+          <Icon class="advanceItem-icon" icon="pageAdvance1" />
           <div class="advanceItem-info"><em>全程在线</em><p>专属顾问一对一服务</p></div>
         </li>
         <li class="advanceItem middle">
-          <Icon class="advanceItem-icon" icon="test" />
-          <div class="advanceItem-info"><em>全程在线</em><p>专属顾问一对一服务</p></div>
+          <Icon class="advanceItem-icon" icon="pageAdvance2" />
+          <div class="advanceItem-info"><em>一手资源</em><p>真实海量精品资源</p></div>
         </li>
         <li class="advanceItem">
-          <Icon class="advanceItem-icon" icon="test" />
-          <div class="advanceItem-info"><em>全程在线</em><p>专属顾问一对一服务</p></div>
+          <Icon class="advanceItem-icon" icon="pageAdvance3" />
+          <div class="advanceItem-info"><em>快捷交易</em><p>一站式服务 快捷省心</p></div>
         </li>
       </ul>
     </div>
@@ -73,6 +74,17 @@ export default defineComponent({
 }
 .authHeader {
   padding: 16px;
+  display: flex;
+  align-items: center;
+}
+.returnHome {
+  height: 50px;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 150px;
+  margin-right: 30px;
 }
 .authMain {
   flex: 1;
