@@ -3,7 +3,7 @@
     <div class="listWrapper">
       <ul class="listTitle">
         <li class="listTitle-item colTime">
-          <UIDropdown >
+          <UIDropdown>
             <span>{{ currentOrderTimeRange.title }} <Icon icon="down" /></span>
             <template #overlay>
               <ul class="orderTimeRangeSelect">
@@ -196,7 +196,7 @@ export default defineComponent({
       currentOrderTimeRange.value = orderTimeRange.find(v => v.key === type)
       router.push({
         path: '/user/order',
-        query: getDateRange(type)
+        query: getDateRange(type),
       })
     }
     return {
