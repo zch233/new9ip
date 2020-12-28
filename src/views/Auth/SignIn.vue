@@ -120,7 +120,6 @@ export default defineComponent({
       submitLoading,
       changeTag,
       signIn,
-      rules,
       signInInfo,
       validateInfos,
     }
