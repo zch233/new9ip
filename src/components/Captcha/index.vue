@@ -21,13 +21,14 @@ export default defineComponent({
   components: { UIButton, UICountdown },
   props: {
     info: Object,
+    member: Boolean,
   },
-  setup({info}) {
+  setup({info, member}) {
     const countdownVisible = ref(false)
     const captchaLoading = ref(false)
     const getCaptcha = async () => {
       captchaLoading.value = true
-      await authApi.getCaptcha(info).finally(() => captchaLoading.value = false)
+      await authApi[member ? 'getMemberCaptcha' : 'getCaptcha'](info).finally(() => captchaLoading.value = false)
       countdownVisible.value = !countdownVisible.value
       message.success('获取验证码成功')
     }
