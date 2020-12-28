@@ -66,10 +66,11 @@ export default defineComponent({
     const updateUserInfo = async () => {
       submitLoading.value = true
       const hide = message.loading('正在更新，请稍候...');
-      await settingApi.updateUserInfo(userInfo).finally(() => {
+      const {data} = await settingApi.updateUserInfo(userInfo).finally(() => {
         submitLoading.value = false
         hide()
       })
+      store.commit('COMMIT_USER', data)
       message.success('更新成功');
     }
     return {
