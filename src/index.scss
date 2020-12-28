@@ -44,3 +44,12 @@ ul, li {list-style: none;margin: 0;padding: 0;}
   text-align: center;
   line-height: 1;
 }
+
+.signIn, .signUp, .password, .order, .collect, .setting {
+  .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-nav .ant-tabs-tab:hover {
+    color: #14A8BD;
+  }
+  .ant-tabs-ink-bar {
+    background-color: #14A8BD;
+  }
+}

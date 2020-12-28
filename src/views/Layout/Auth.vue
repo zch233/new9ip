@@ -39,12 +39,6 @@ export default defineComponent({
 <style lang="scss">
 .signIn, .signUp, .password {
   width: 280px;
-  .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-nav .ant-tabs-tab:hover {
-    color: #14A8BD;
-  }
-  .ant-tabs-ink-bar {
-    background-color: #14A8BD;
-  }
   .ant-input-affix-wrapper {
     padding: 8px 18px;
   }
