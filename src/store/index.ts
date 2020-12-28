@@ -31,9 +31,14 @@ export const store = createStore<State>({
     },
     async checkLogin({commit}) {
       const { data } = await authApi.getUserDefault()
-      commit('COMMIT_USER', data)
+      commit('COMMIT_USER', data.data)
       commit('COMMIT_LOGIN_STATUS', true)
       return data
+    },
+    async logout({commit}) {
+      await authApi.logout()
+      commit('COMMIT_USER', {})
+      commit('COMMIT_LOGIN_STATUS', false)
     }
   }
 })

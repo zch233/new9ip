@@ -39,7 +39,7 @@
         </UIPopover>
         <template v-if="loginStatus">
           <RouterLink to="/user/index" class="appHeader-right-item username" :class="[isVIP && 'isVIP']"><VIPBrand v-if="isVIP" class="VIPBrand" />{{user.nickname}}</RouterLink>
-          <span class="appHeader-right-item logout">退出</span>
+          <span class="appHeader-right-item logout" @click="logout">退出</span>
         </template>
         <RouterLink v-else to="/auth/sign_in" class="appHeader-right-item loginSection">登陆 / 注册</RouterLink>
       </div>
@@ -53,13 +53,22 @@ import Icon from '/@components/Icon/index.vue'
 import UIPopover from '/@components/UI/UIPopover.vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import { useStore } from '/@/store';
+import { message } from 'ant-design-vue';
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'AppHeader',
   components: {Icon, UIPopover, VIPBrand},
   setup() {
     const store = useStore()
+    const router = useRouter()
+    const logout = async () => {
+      await store.dispatch('logout')
+      message.success('退出成功')
+      await router.push('/')
+    }
     return {
+      logout,
       user: store.state.user,
       isVIP: store.state.user.hasVip,
       loginStatus: store.state.loginStatus,
