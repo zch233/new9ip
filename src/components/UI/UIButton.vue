@@ -69,4 +69,9 @@ export default defineComponent({
       color: #fff;
     }
   }
+  .linkButton {
+    &.ant-btn-link, &.ant-btn-link:hover, &.ant-btn-link:focus {
+      color: #666666;
+    }
+  }
 </style>
