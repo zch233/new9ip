@@ -81,3 +81,19 @@ export const usePollGetPayResult = () => {
     clearPollGetPayResult,
   }
 }
+
+export const getToday = (userDate?:Date) => {
+  const date = userDate || new Date();
+  const separator = '-';
+  const DateMonth = date.getMonth() + 1;
+  let monthStr = DateMonth.toString()
+  const DateDate = date.getDate();
+  let dateStr = DateDate.toString();
+  if (DateMonth >= 1 && DateMonth <= 9) {
+    monthStr = '0' + DateMonth;
+  }
+  if (DateDate >= 0 && DateDate <= 9) {
+    dateStr = '0' + DateDate;
+  }
+  return date.getFullYear() + separator + monthStr + separator + dateStr;
+}

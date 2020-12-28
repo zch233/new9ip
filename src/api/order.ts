@@ -12,6 +12,7 @@ export type GetOrders = {
   startCreateDate?: string;
   startPaymentDate?: string;
   status?: string;
+  dateRange?: string;
 };
 type PayOrder = {
   orderNo: string;
@@ -21,24 +22,18 @@ type PayOrder = {
 
 export const getOrders = (params: GetOrders) =>
   request({
-    url: '/api/v2/order',
+    url: '/api/v1/order',
     method: 'get',
     params,
   })
 
 export const deleteOrder = ({ orderNo }: Order) =>
   request({
-    url: `/api/v2/order?orderNo=${orderNo}`,
+    url: `/api/v1/order?orderNo=${orderNo}`,
     method: 'delete',
   })
 
 export const cancelOrder = ({ orderNo }: Order) =>
-  request({
-    url: `/api/v2/order/cancel?orderNo=${orderNo}`,
-    method: 'put',
-  })
-
-export const cancelOrderV1 = ({ orderNo }: Order) =>
   request({
     url: `/api/v1/order/cancel?orderNo=${orderNo}`,
     method: 'put',

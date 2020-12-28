@@ -119,3 +119,20 @@ export type TYPE_ORDER_PAY_STATUS = {
     TRADE_FINISHED: '交易结束';
   };
 };
+
+export type TYPE_ORDER_STATUS = {
+  CREATED: 0;
+  PAYED: 1;
+  DELIVERED: 2;
+  FINISHED: 3;
+  CLOSED: 4;
+  REFUND: 6;
+  label: {
+    0: '订单待付款';
+    1: '订单已付款';
+    2: '订单已发货';
+    3: '订单已完成';
+    4: '订单已关闭';
+    6: '订单已退款';
+  };
+};

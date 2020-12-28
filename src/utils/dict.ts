@@ -1,5 +1,5 @@
 import {
-  Categories, TYPE_ORDER_PAY_STATUS,
+  Categories, TYPE_ORDER_PAY_STATUS, TYPE_ORDER_STATUS,
   TYPE_PATENT_CERT_STATUS,
   TYPE_PATENT_ORIGIN_STATUS,
   TYPE_PATENT_STOCK_STATUS,
@@ -125,5 +125,22 @@ export const ORDER_PAY_STATUS: TYPE_ORDER_PAY_STATUS = {
     TRADE_CLOSED: '交易关闭',
     TRADE_SUCCESS: '交易成功',
     TRADE_FINISHED: '交易结束',
+  },
+};
+
+export const ORDER_STATUS: TYPE_ORDER_STATUS = {
+  CREATED: 0,
+  PAYED: 1,
+  DELIVERED: 2,
+  FINISHED: 3,
+  CLOSED: 4,
+  REFUND: 6,
+  label: {
+    0: '订单待付款',
+    1: '订单已付款',
+    2: '订单已发货',
+    3: '订单已完成',
+    4: '订单已关闭',
+    6: '订单已退款',
   },
 };
