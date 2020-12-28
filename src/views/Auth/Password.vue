@@ -10,7 +10,7 @@
             <div class="shrinkBar accountBar">
               <UIInput v-model:value="resetPasswordInfo.phone" placeholder="请输入手机号" :maxlength="11">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="test" />
+                  <Icon class="inputIcon" icon="inputPhone" />
                 </template>
               </UIInput>
             </div>
@@ -19,7 +19,7 @@
             <div class="shrinkBar captchaBar">
               <UIInput v-model:value="resetPasswordInfo.captcha" class="captcha" placeholder="验证码" :maxlength="6">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="test" />
+                  <Icon class="inputIcon" icon="inputChatcha" />
                 </template>
                 <template #addonAfter>
                   <Captcha :info="resetPasswordInfo" />
@@ -31,7 +31,7 @@
             <div class="shrinkBar newPasswordBar">
               <UIInput v-model:value="resetPasswordInfo.newPassword" type="password" placeholder="请输入新密码">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="test" />
+                  <Icon class="inputIcon" icon="inputPassword" />
                 </template>
               </UIInput>
             </div>
@@ -40,7 +40,7 @@
             <div class="newPasswordBar">
               <UIInput v-model:value="resetPasswordInfo.newPassword2" type="password" placeholder="请输入再次新密码">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="test" />
+                  <Icon class="inputIcon" icon="inputPassword" />
                 </template>
               </UIInput>
             </div>

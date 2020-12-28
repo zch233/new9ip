@@ -10,7 +10,7 @@
             <div class="shrinkBar accountBar">
               <UIInput v-model:value="signUpInfo.phone" placeholder="请输入手机号" :maxlength="11">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="test" />
+                  <Icon class="inputIcon" icon="inputPhone" />
                 </template>
               </UIInput>
             </div>
@@ -19,7 +19,7 @@
             <div class="shrinkBar captchaBar">
               <UIInput v-model:value="signUpInfo.captcha" class="captcha" placeholder="验证码" :maxlength="6">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="test" />
+                  <Icon class="inputIcon" icon="inputCaptcha" />
                 </template>
                 <template #addonAfter>
                   <Captcha :info="signUpInfo" />
@@ -31,7 +31,7 @@
             <div class="shrinkBar passwordBar">
               <UIInput v-model:value="signUpInfo.password" type="password" placeholder="请输入密码">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="test" />
+                  <Icon class="inputIcon" icon="inputPassword" />
                 </template>
               </UIInput>
             </div>
@@ -40,7 +40,7 @@
             <div class="referrerBar">
               <UIInput :readonly="!!route.query.code" v-model:value="signUpInfo.referrer" placeholder="推荐人手机号或者工号（选填）" :maxlength="11">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="test" />
+                  <Icon class="inputIcon" icon="inputAgent" />
                 </template>
               </UIInput>
             </div>
