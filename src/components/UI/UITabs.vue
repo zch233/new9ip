@@ -1,5 +1,8 @@
 <template>
   <AntTabs>
+    <template #tabBarExtraContent>
+      <slot name="tabBarExtraContent"></slot>
+    </template>
     <slot></slot>
   </AntTabs>
 </template>
