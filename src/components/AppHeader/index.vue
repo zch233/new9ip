@@ -123,6 +123,8 @@ export default defineComponent({
     svg {color: #333; font-size: 14px;margin-right: 0.4em;}
   }
   &-right {
+    display: flex;
+    align-items: center;
     &-item {cursor: pointer;transition: all .3s;margin-left: 2em; &:hover{color: #14A8BD;}}
     svg {font-size: 8px;vertical-align: 0;}
     .loginSection {
@@ -138,7 +140,6 @@ export default defineComponent({
       }
     }
     .username {
-      display: inline-flex;
       max-width: 10em;
       overflow: hidden;
       text-overflow: ellipsis;
