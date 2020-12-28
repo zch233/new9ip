@@ -5,22 +5,19 @@
     </AppTitleBar>
     <section class="pageWidthWithCenter helper-main">
       <div class="helper-main-left">
-        <div class="helperWrapper">
-          <p class="helperList-title">234234</p>
+        <div class="helperWrapper" v-for="(menu, index) in helpers" :key="menu.menuTitle">
+          <p class="helperList-title">{{ menu.menuTitle }}</p>
           <ul class="helperList">
-            <li class="helperList-item">234234</li>
-            <li class="helperList-item">234234</li>
-            <li class="helperList-item">234234</li>
-            <li class="helperList-item">234234</li>
+            <li class="helperList-item" :class="[subMenu === currentSubMenuContent && 'active']" v-for="(subMenu, subIndex) in menu.menuChildren" :key="subMenu.subMenuTitle" @click="switchContent(index, subIndex)">{{ subMenu.subMenuTitle }}</li>
           </ul>
         </div>
       </div>
       <div class="helper-main-right">
-        <h2 class="helperContent-title">专利申请</h2>
-        <article class="helperContent-item">
-          <p class="helperContent-item-title">1、专利分类有哪些</p>
+        <h2 class="helperContent-title">{{ currentSubMenuContent.subMenuTitle }}</h2>
+        <article class="helperContent-item"  v-for="item in currentSubMenuContent.subMenuContent" :key="item.subMenuTitle">
+          <p class="helperContent-item-title">{{ item.title }}</p>
           <div class="helperContent-item-content">
-            <p>专利包括发明专利、实用新型专利和外观设计专利。</p>
+            <p v-for="content in item.content" :key="content">{{ content }}</p>
           </div>
         </article>
       </div>
@@ -29,13 +26,59 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue';
 import AppTitleBar from '/@components/AppTitleBar/index.vue'
 
 export default defineComponent({
   name: 'Helper',
   components: {AppTitleBar},
-  setup() {},
+  setup() {
+    const helpers = ref([
+      {
+        menuTitle: '常见问题1',
+        menuChildren: [
+          {
+            subMenuTitle: '专利申请',
+            subMenuContent: [
+              {
+                title: '1、专利的分类有哪些',
+                content: ['1、专利包括发明专利、实用新型专利和外观设计专利。', '2、专利包括发明专利、实用新型专利和外观设计专利。'],
+              },
+              {
+                title: '2、专利的分类有哪些',
+                content: ['专利包括发明专利、实用新型专利和外观设计专利。'],
+              },
+            ]
+          }
+        ]
+      },
+      {
+        menuTitle: '常见问题2',
+        menuChildren: [
+          {
+            subMenuTitle: '专利申请',
+            subMenuContent: [
+              {
+                title: '1、专利的分类有哪些',
+                content: ['专利包括发明专利、实用新型专利和外观设计专利。'],
+              },
+              {
+                title: '2、专利的分类有哪些',
+                content: ['专利包括发明专利、实用新型专利和外观设计专利。'],
+              },
+            ]
+          }
+        ]
+      },
+    ])
+    const currentSubMenuContent = ref(helpers.value[0].menuChildren[0])
+    const switchContent = (index, subIndex) => currentSubMenuContent.value = helpers.value[index].menuChildren[subIndex]
+    return {
+      helpers,
+      currentSubMenuContent,
+      switchContent,
+    }
+  },
 })
 </script>
 
