@@ -48,7 +48,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue';
 import Icon from '/@components/Icon/index.vue'
 import UIPopover from '/@components/UI/UIPopover.vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
@@ -62,8 +62,11 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const router = useRouter()
+    const loading = ref(false)
     const logout = async () => {
-      await store.dispatch('logout')
+      if (loading.value) return
+      loading.value = true
+      await store.dispatch('logout').finally(() => loading.value = false)
       message.success('退出成功')
       await router.push('/')
     }
