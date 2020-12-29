@@ -36,7 +36,7 @@ export default defineComponent({
     })
     return {
       authRoute,
-      locale: zhCN
+      locale: zhCN,
     }
   }
 })
