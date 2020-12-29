@@ -41,6 +41,7 @@ import * as vipApi from '/@api/vip'
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
 import { openNewWindow } from '/@/utils';
+import { useRouter } from 'vue-router';
 
 type VipPurchase = {
   days: number;
@@ -56,6 +57,7 @@ export default defineComponent({
   setup() {
     const visible = ref(false)
     const loading = ref(false)
+    const router = useRouter()
     const vipInfo = reactive({
       payRoute: PAY_ROUTES[0].payRoute,
     })
