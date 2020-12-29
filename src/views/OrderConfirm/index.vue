@@ -105,7 +105,7 @@ export default defineComponent({
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
         await router.push(payURL);
       } else {
-        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'PATENT', getContainer: '#orderConfirm' })
+        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'PATENT', getContainer: () => document.getElementById('orderConfirm') })
         openNewWindow(payURL);
       }
     }
