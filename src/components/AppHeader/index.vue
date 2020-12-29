@@ -31,8 +31,8 @@
           <span class="appHeader-right-item">会员中心 <Icon icon="down" /></span>
           <template #content>
             <ul class="vipPopoverContent">
-              <li><RouterLink to="/user/">我的收藏</RouterLink></li>
-              <li><RouterLink to="/user/vip">会员主页</RouterLink></li>
+              <li><RouterLink to="/user/collect">我的收藏</RouterLink></li>
+              <li><RouterLink to="/user/index">会员主页</RouterLink></li>
               <li><RouterLink to="/vip">开通VIP会员</RouterLink></li>
             </ul>
           </template>

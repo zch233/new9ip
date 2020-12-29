@@ -9,6 +9,12 @@ export const root = {
       component: () => import('../../views/Home/index.vue'),
     },
     {
+      path: '/vip',
+      name: 'VIP',
+      meta: { title: '开通会员' },
+      component: () => import('../../views/VIP/index.vue'),
+    },
+    {
       path: '/patent',
       name: 'Patent',
       meta: { title: '专利列表' },

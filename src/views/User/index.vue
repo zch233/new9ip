@@ -13,7 +13,7 @@
         </div>
       </div>
       <div class="user-head-right">
-        <button class="darkButton">立即开通<Icon icon="right_fill" /></button>
+        <RouterLink to="/vip"><button class="darkButton">立即开通<Icon icon="right_fill" /></button></RouterLink>
         <RouterLink to="/user/vipRecord">开通记录</RouterLink>
       </div>
     </section>

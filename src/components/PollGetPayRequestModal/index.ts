@@ -17,7 +17,7 @@ export const showPollGetPayRequestModal = ({ orderNo, tradeNo, type, getContaine
         orderNo,
         tradeNo,
         type,
-        getContainer: getContainer || '#app',
+        getContainer: getContainer || document.body,
       })
     }
   })
