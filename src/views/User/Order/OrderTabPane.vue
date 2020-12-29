@@ -41,8 +41,8 @@
                 <div class="listContent-item-content-status colStatus">{{ ORDER_STATUS.label[order.status] }}</div>
                 <div class="listContent-item-content-options colOptions">
                   <template v-if="order.status === ORDER_STATUS.CREATED">
-                    <div>剩余29分58秒</div>
-                    <div>立即付款</div>
+                    <UICountdown class="orderItemCountDown" @finish="changeOrderStatus(order)" :value="Date.now() + 1000 * order.remainSecond" format="剩余m分s秒"/>
+                    <UIButton customer-class="dangerButton" type="primary">立即付款</UIButton>
                     <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'cancel')">取消订单</UIButton>
                   </template>
                   <UIButton v-else type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'delete')">删除订单</UIButton>
@@ -79,6 +79,7 @@ import Icon from '/@components/Icon/index.vue';
 import UIEmpty from '/@components/UI/UIEmpty.vue';
 import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
+import UICountdown from '/@components/UI/UICountdown.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import * as orderApi from '/@api/order';
 import { ORDER_STATUS } from '/@/utils/dict';
@@ -126,7 +127,7 @@ const getDateRange = (type) => JSON.parse(JSON.stringify({dateRange: type, start
 
 export default defineComponent({
   name: 'OrderTabPane',
-  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin},
+  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown},
   props: {
     status: String,
   },
@@ -199,6 +200,11 @@ export default defineComponent({
         query: getDateRange(type),
       })
     }
+    const changeOrderStatus = (order: Order) => {
+      const current = orders.value.find((item) => item.orderNo === order.orderNo);
+      current.status = ORDER_STATUS.CLOSED;
+      orders.value = [...orders.value]
+    }
     return {
       loading,
       paginationOptions,
@@ -206,6 +212,7 @@ export default defineComponent({
       routeQuery,
       ORDER_STATUS,
       optionOrder,
+      changeOrderStatus,
       changeOrderTimeRange,
       orderTimeRange,
       currentOrderTimeRange,
@@ -213,6 +220,14 @@ export default defineComponent({
   },
 })
 </script>
+
+<style lang="scss">
+.orderItemCountDown {
+  .ant-statistic-content {
+    font-size: 14px;
+  }
+}
+</style>
 
 <style lang="scss" scoped>
 .orderTimeRangeSelect {
@@ -276,7 +291,7 @@ export default defineComponent({
           .totalPrice {color: #FF5858; b {font-size: 24px;}}
         }
         &-status {text-align: center;}
-        &-options {text-align: center;}
+        &-options {text-align: center;> *{margin: 2px 0}}
       }
     }
   }
