@@ -6,10 +6,10 @@
         <div class="user-head-left-info">
           <p class="user-head-left-info-account">1861861615165</p>
           <div class="user-head-left-info-vip" v-if="user.hasVip">
-            <VIPBrand />
+            <VIPBrand /> {{ restPoint }} 积分
             <p>到期时间：2022-12-09</p>
           </div>
-          <span v-else>普通会员</span>
+          <span v-else>普通会员 {{ restPoint }} 积分</span>
         </div>
       </div>
       <div class="user-head-right">
@@ -35,7 +35,7 @@
       </div>
     </section>
     <section class="user-recommend">
-      <p class="cardTitle"><em>猜你喜欢</em><RouterLink to="/user/order">查看全部 <Icon icon="right" /></RouterLink></p>
+      <p class="cardTitle"><em>猜你喜欢</em><RouterLink to="/patent">查看全部 <Icon icon="right" /></RouterLink></p>
       <div class="recommendPatents">
         <div class="recommendPatents-item" v-for="patent in recommendPatents" :key="patent.id"><PatentCard :patent="patent" /></div>
       </div>
@@ -51,6 +51,7 @@ import Icon from '/@components/Icon/index.vue'
 import UIButton from '/@components/UI/UIButton.vue';
 import { useStore } from '/@/store';
 import * as patentApi from '/@api/patent';
+import * as pointApi from '/@api/point';
 
 export default defineComponent({
   name: 'User',
@@ -58,17 +59,24 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const recommendPatents = ref<Patent[]>([])
+    const restPoint = ref(0)
     const getRecommendPatents = async () => {
       const {data} = await patentApi.getRecommendPatents({size: 8})
       recommendPatents.value = data.list
     }
+    const getRestPoints = async () => {
+      const {data} = await pointApi.getRestPoints()
+      restPoint.value = data?.surplusCredit || 0
+    }
     onMounted(() => {
       getRecommendPatents()
+      getRestPoints()
     })
     return {
       user: store.state.user,
       recommendPatents,
       store,
+      restPoint,
     }
   }
 })

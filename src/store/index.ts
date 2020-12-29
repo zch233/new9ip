@@ -3,8 +3,9 @@ import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import * as authApi from '../api/auth';
 
 export interface State {
-  user: Partial<User>,
-  loginStatus: boolean,
+  user: Partial<User>;
+  loginStatus: boolean;
+  oneDayConsumePoints: number;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
@@ -13,6 +14,7 @@ export const store = createStore<State>({
   state: {
     user: {},
     loginStatus: false,
+    oneDayConsumePoints: 0,
   },
   mutations: {
     COMMIT_USER(state, data: User) {
@@ -20,6 +22,9 @@ export const store = createStore<State>({
     },
     COMMIT_LOGIN_STATUS(state, data: boolean) {
       state.loginStatus = data
+    },
+    commit_oneDayConsumePoints(state, data: number) {
+      state.oneDayConsumePoints = data
     }
   },
   actions: {
