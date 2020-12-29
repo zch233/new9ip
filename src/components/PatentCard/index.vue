@@ -1,16 +1,24 @@
 <template>
-  <div class="patentCard">
-    <div class="patentCard-image"><img src="../../assets/patent/A.jpg" alt=""></div>
-    <p class="patentCard-title">一种考虑车队离散特征的公交车和一种考虑车队离散特征的公交车和一种考虑车队离散特征的公交车和</p>
-    <div class="patentCard-price">￥20000</div>
-  </div>
+  <RouterLink :to="`/patent/${patent.number}`">
+    <div class="patentCard">
+      <div class="patentCard-image"><img src="../../assets/patent/A.jpg" alt=""></div>
+      <p class="patentCard-title">{{ patent.name }}</p>
+      <div class="patentCard-price">￥{{ patent.price }}</div>
+    </div>
+  </RouterLink>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue';
 
 export default defineComponent({
   name: 'PatentCard',
+  props: {
+    patent: {
+      type: Object as PropType<Patent>,
+      default: () => ({}),
+    }
+  }
 })
 </script>
 

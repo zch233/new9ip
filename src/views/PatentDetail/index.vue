@@ -88,9 +88,7 @@
       </div>
       <div class="contentBottom-right">
         <h4 class="contentBottom-right-title">猜你喜欢</h4>
-        <div class="contentBottom-right-patent"><PatentCard /></div>
-        <div class="contentBottom-right-patent"><PatentCard /></div>
-        <div class="contentBottom-right-patent"><PatentCard /></div>
+        <div class="contentBottom-right-patent" v-for="patent in recommendPatents" :key="patent.id"><PatentCard :patent="patent" /></div>
         <div class="contentBottom-right-patent"><PatentCard /></div>
       </div>
     </section>
@@ -150,6 +148,7 @@ export default defineComponent({
         title: '平台寄卖',
       }
     ]
+    const recommendPatents = ref<Patent[]>([])
     const patent = ref<Patent>({})
     const getPatentDetail = async () => {
       loading.value = true
@@ -159,15 +158,21 @@ export default defineComponent({
     const scrollToContent = (index: number) => {
       currentDetailTab.value = index
     }
+    const getRecommendPatents = async () => {
+      const {data} = await patentApi.getRecommendPatents({commodityId: patent.value.id, size: 4})
+      recommendPatents.value = data.list
+    }
     const shareURL = window.location.href
-    onMounted(() => {
-      getPatentDetail()
+    onMounted(async () => {
+      await getPatentDetail()
+      await getRecommendPatents()
     })
     return {
       store,
       PATENT_STOCK_STATUS,
       PATENT_TYPE,
       shareURL,
+      recommendPatents,
       patent,
       loading,
       pageAdvances,

@@ -37,31 +37,37 @@
     <section class="user-recommend">
       <p class="cardTitle"><em>猜你喜欢</em><RouterLink to="/user/order">查看全部 <Icon icon="right" /></RouterLink></p>
       <div class="recommendPatents">
-        <div class="recommendPatents-item"><PatentCard /></div>
-        <div class="recommendPatents-item"><PatentCard /></div>
-        <div class="recommendPatents-item"><PatentCard /></div>
-        <div class="recommendPatents-item"><PatentCard /></div>
-        <div class="recommendPatents-item"><PatentCard /></div>
+        <div class="recommendPatents-item" v-for="patent in recommendPatents" :key="patent.id"><PatentCard :patent="patent" /></div>
       </div>
     </section>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted, ref } from 'vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import PatentCard from '/@components/PatentCard/index.vue'
 import Icon from '/@components/Icon/index.vue'
 import UIButton from '/@components/UI/UIButton.vue';
 import { useStore } from '/@/store';
+import * as patentApi from '/@api/patent';
 
 export default defineComponent({
   name: 'User',
   components: {VIPBrand, UIButton, Icon, PatentCard},
   setup() {
     const store = useStore()
+    const recommendPatents = ref<Patent[]>([])
+    const getRecommendPatents = async () => {
+      const {data} = await patentApi.getRecommendPatents({size: 8})
+      recommendPatents.value = data.list
+    }
+    onMounted(() => {
+      getRecommendPatents()
+    })
     return {
       user: store.state.user,
+      recommendPatents,
       store,
     }
   }

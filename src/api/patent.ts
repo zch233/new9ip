@@ -1,23 +1,28 @@
 import request from '../utils/request'
 
 export type GetPatents = {
-  no?: number;
-  size?: number;
   category?: string;
   certStatus?: number;
-  orderBy?: string;
-  sort?: string;
   stockStatus?: number;
   subCategory?: string;
   type?: number;
   word?: string;
   psort?: string;
   inventorExplain: string;
-};
+} & BasePageOption;
 
 export const getPatents = (params: GetPatents) =>
   request({
     url: '/pub/api/v1/patent',
+    method: 'get',
+    params,
+  })
+
+export type GetRecommendPatents = BasePageOption & { commodityId?: string; }
+
+export const getRecommendPatents = (params: GetRecommendPatents) =>
+  request({
+    url: '/pub/api/v1/recommend/patent',
     method: 'get',
     params,
   })
