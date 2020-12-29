@@ -62,9 +62,11 @@ export const usePollGetPayResult = () => {
       // @ts-ignore
       timer.value = setTimeout(() => pollGetPayResult({ tradeNo, orderNo, commodityType }, askPayResultTimes + 1), 3000);
     } else if (result === ORDER_PAY_STATUS.TRADE_SUCCESS || result === ORDER_PAY_STATUS.TRADE_FINISHED) {
-      await router.push(`/order/pay/result?orderNo=${orderNo}&out_trade_no=${tradeNo}&status=1&type=${commodityType}`);
+      Modal.destroyAll()
+      await router.push(`/order/pay/result?orderNo=${orderNo}&tradeNo=${tradeNo}&status=1&type=${commodityType}`);
     } else if (result === ORDER_PAY_STATUS.TRADE_CLOSED) {
-      await router.push(`/order/pay/result?orderNo=${orderNo}&out_trade_no=${tradeNo}&status=0&type=${commodityType}`);
+      await router.push(`/order/pay/result?orderNo=${orderNo}&tradeNo=${tradeNo}&status=0&type=${commodityType}`);
+      Modal.destroyAll()
       message.error('订单已关闭');
     }
   }
