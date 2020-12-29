@@ -12,7 +12,7 @@
     <section class="systemFilterBar" :class="filterControl.visible ? '' : 'hide'">
       <ul class="systemFilterBar-list">
         <li><label class="filterTitle">专利类型：</label></li>
-        <li class="systemFilterBar-list-item" :class="[routeQuery.type === undefined && 'active']"  @click="handleFilterClick({type: undefined})">不限</li>
+        <li class="systemFilterBar-list-item" :class="[routeQuery.type === undefined && 'active']" @click="handleFilterClick({type: undefined})">不限</li>
         <li v-for="(item, key) in PATENT_TYPE.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.type === key && 'active']" @click="handleFilterClick({type: key})">{{ item }}</li>
       </ul>
       <ul class="systemFilterBar-list">
@@ -47,11 +47,14 @@
       <UISpin :spinning="loading">
         <ul class="patentListBar-list" v-if="patents.length > 0">
           <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
-            <div class="patentListBar-list-item-image new"><img src="../../assets/patent/A.jpg" alt=""></div>
+            <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><img src="../../assets/patent/A.jpg" alt=""></div>
             <div class="patentListBar-list-item-content">
               <div class="patentListBar-list-item-content-firstFloor">
                 <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
-                <p class="patentListBar-list-item-content-firstFloor-info"><StarIcon complex :patent="patent" /></p>
+                <p class="patentListBar-list-item-content-firstFloor-info">
+                  <label v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING">预定至：{{ patent.reserveExpireTime }}</label>
+                  <StarIcon complex :patent="patent" />
+                </p>
               </div>
               <div class="patentListBar-list-item-content-secondFloor">
                 <p class="patentListBar-list-item-content-secondFloor-des"><label>专利号：<span class="searchKeyword" v-html="patent.numberHighlightKey || patent.number" /></label><label>领域：<span class="searchKeyword" v-html="patent.tagsHighlightKey || patent.tags" /></label><label>发明人：{{ patent.inventorExplain }}</label></p>
@@ -65,7 +68,10 @@
                 <div class="patentListBar-list-item-content-thirdFloor-price">
                   <label>零售价：<b>￥{{ patent.price }}</b></label>
                   <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
-                  <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
+                  <template  v-if="patent.stockStatus !== PATENT_STOCK_STATUS.RESERVING">
+                    <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
+                    <PreorderButton :patent="patent" />
+                  </template>
                 </div>
               </div>
             </div>
@@ -102,6 +108,7 @@ import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
 import UIEmpty from '/@components/UI/UIEmpty.vue';
 import StarIcon from '/@components/StarIcon/index.vue'
+import PreorderButton from '/@components/PreorderButton/index.vue'
 import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
@@ -110,7 +117,7 @@ import { message } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon},
+  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton},
   setup() {
     const route = useRoute()
     const router = useRouter()
@@ -280,9 +287,8 @@ export default defineComponent({
           width: 118px;
           overflow: hidden;
           position: relative;
-          &.new {
+          &.new, &.hot {
             &::before {
-              content: '新';
               font-size: 12px;
               color: #fff;
               position: absolute;
@@ -291,6 +297,8 @@ export default defineComponent({
               background-image: linear-gradient(135deg, #FF5858 0%, #FF5858 14%, transparent 14%, transparent 100%);
             }
           }
+          &.new {&::before { content: '新' }}
+          &.hot {&::before { content: '热' }}
           img {width: 100%;}
         }
         &-content {

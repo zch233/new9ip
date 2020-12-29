@@ -39,9 +39,9 @@
               <p class="patentCard-right-info"><label>缴费截止</label>{{ patent.paymentDeadline || '未知' }}</p>
               <p class="patentCard-right-info"><label>发明人</label>{{ patent.inventorExplain }}</p>
               <p class="patentCard-right-info"><label>销售状态</label>{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</p>
-              <div class="patentCard-right-button">
+              <div class="patentCard-right-button" v-if="patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL || patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL ">
                 <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
-                <UIButton customer-class="default">预留</UIButton>
+                <PreorderButton big :patent="patent" />
               </div>
               <p class="patentCard-right-patentTips">此商品已全权委托平台寄卖，平台免费提供担保交易服务。</p>
             </div>
@@ -105,6 +105,7 @@ import UIPopover from '/@components/UI/UIPopover.vue';
 import UIInput from '/@components/UI/UIInput.vue';
 import PatentCard from '/@components/PatentCard/index.vue'
 import StarIcon from '/@components/StarIcon/index.vue'
+import PreorderButton from '/@components/PreorderButton/index.vue'
 import * as patentApi from '/@api/patent'
 import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
 import { copyToClipboard } from '/@/utils';
@@ -112,7 +113,7 @@ import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'PatentDetail',
-  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon},
+  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon, PreorderButton},
   setup() {
     const store = useStore()
     const route = useRoute()

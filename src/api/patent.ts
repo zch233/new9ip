@@ -27,6 +27,18 @@ export const getRecommendPatents = (params: GetRecommendPatents) =>
     params,
   })
 
+export type ReservePatents = {
+  days: number;
+  productId: string;
+};
+
+export const preorderPatent = (data: ReservePatents) =>
+  request({
+    url: '/api/v1/reserve',
+    method: 'post',
+    data,
+  })
+
 export const exportPatent = (params: { size: string }) =>
   request({
     url: '/api/v1/patent/patent-export',

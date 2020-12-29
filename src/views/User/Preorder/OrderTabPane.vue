@@ -36,11 +36,12 @@
                 <div class="listContent-item-content-price colPrice">
                   <p><label>价格：</label>￥{{ preorder.productPrice }}</p>
                 </div>
-                <div class="listContent-item-content-status colStatus">{{ PREORDER_STATUS.label[preorder.preStockStatus] }}</div>
+                <div class="listContent-item-content-status colStatus">{{ PREORDER_STATUS.label[preorder.status] }}</div>
                 <div class="listContent-item-content-options colOptions">
                   <template v-if="preorder.status === PREORDER_STATUS.CREATED">
-                    <span>预定至{{ preorder.expireTime }}</span>
-                    <div><PayRoutesPopover @choose="payOrder($event, preorder)" /></div>
+                    <span>预定至 {{ preorder.expireTime }}</span>
+                    <div v-if="false"><PayRoutesPopover :loading="submitLoading" ref="payRoutesPopoverRef" @choose="payOrder($event, preorder)" /></div>
+                    <div><RouterLink :to="{path: '/order/confirm', query: {commodityId: preorder.productId}}"><UIButton type="primary" customer-class="mainButton">去下单</UIButton></RouterLink></div>
                     <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(preorder)">取消预留</UIButton>
                   </template>
                 </div>
@@ -85,6 +86,7 @@ import { getToday, openNewWindow } from '/@/utils';
 import PayRoutesPopover from '/@components/PayRoutesPopover/index.vue';
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
+import * as orderConfirmApi from '/@api/orderConfirm';
 
 const orderTimeRange = [
   {
@@ -136,6 +138,8 @@ export default defineComponent({
     const router = useRouter()
     const loading = ref(false)
     const preorders = ref<Preorder[]>([])
+    const submitLoading = ref(false)
+    const payRoutesPopoverRef = ref(null)
     const routeQuery = ref<preorderApi.GetPreorders>(route.query)
     const currentOrderTimeRange = ref(route.query.dateRange ? orderTimeRange.find(v => v.key === route.query.dateRange) : orderTimeRange[1])
     const paginationOptions = reactive({
@@ -197,7 +201,15 @@ export default defineComponent({
       orders.value = [...orders.value]
     }
     const payOrder = async ({ payRoute, tradeType }: TYPE_PAY_ROUTES[number], preorder: Preorder) => {
-      const { orderNo, tradeNo } = preorder;
+      submitLoading.value = false
+      payRoutesPopoverRef.value.visible = false
+      const { data } = await orderConfirmApi.orderPatent({
+        commodityId: preorder.productId,
+        commodityType: 'PATENT',
+        payRoute,
+        tradeType,
+      }).finally(() => submitLoading.value = false)
+      const { orderNo, tradeNo } = data;
       const payURL = `/order/pay/${payRoute === 'UMS_PAY' ? 'code' : payRoute === 'WXPAY' ? 'wechat' : 'form'}?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT&payRoute=${payRoute}&tradeType=${tradeType}`
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
         await router.push(payURL);
@@ -208,7 +220,9 @@ export default defineComponent({
     }
     return {
       loading,
+      submitLoading,
       paginationOptions,
+      payRoutesPopoverRef,
       preorders,
       routeQuery,
       payOrder,
