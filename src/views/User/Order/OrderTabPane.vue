@@ -248,6 +248,7 @@ export default defineComponent({
   background-color: #fff;
   font-size: 12px;
   color: #999999;
+  user-select: none;
   li {
     padding: 8px 16px;
     border-bottom: 1px solid #F5F5F5;
@@ -266,6 +267,7 @@ export default defineComponent({
     font-size: 12px;
     padding: 0 20px;
     border: 1px solid #E8E8E8;
+    user-select: none;
   }
   .listTitle-item {
     padding: 16px 0;
