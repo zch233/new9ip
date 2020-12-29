@@ -9,11 +9,11 @@
             <VIPBrand />
             <p>到期时间：2022-12-09</p>
           </div>
-          <span>普通会员</span>
+          <span v-else>普通会员</span>
         </div>
       </div>
       <div class="user-head-right">
-        <RouterLink to="/vip"><button class="darkButton">立即开通<Icon icon="right_fill" /></button></RouterLink>
+        <RouterLink to="/vip"><button class="darkButton">立即{{user.hasVip ? '续费' : '开通'}}<Icon icon="right_fill" /></button></RouterLink>
         <RouterLink to="/user/vipRecord">开通记录</RouterLink>
       </div>
     </section>
