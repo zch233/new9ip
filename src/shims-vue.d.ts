@@ -88,6 +88,7 @@ type Patent = {
   tagsHighlightKey: string;
   type: 1 | 2 | 3;
   collected: boolean;
+  commodityId: string;
 };
 
 type Shop = {
