@@ -4,7 +4,7 @@
       <template #tabBarExtraContent><div style="padding: 0 20px;">
         <UIInputSearch placeholder="搜索订单号/订单名称" />
       </div></template>
-      <OrderTabPane v-for="item in orderMap"  :key="item.key" :status="item.key">
+      <OrderTabPane v-for="item in orderMap" :key="item.key" :status="item.key">
         <template #tab>
           <b>{{ item.title }}</b>
         </template>
