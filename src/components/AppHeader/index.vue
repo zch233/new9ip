@@ -7,7 +7,7 @@
           <span><Icon icon="scan" />关注第九区</span>
           <template #content>
             <div class="qrcodePopoverContent">
-              <img width="80" src="../../assets/page/qrcode.jpg" alt="">
+              <img src="../../assets/page/qrcode.jpg" alt="">
               <span>
                <b>扫描二维码</b><br />
                 关注我们
@@ -103,6 +103,7 @@ export default defineComponent({
 .qrcodePopoverContent {
   display: flex;
   font-size: 12px;
+  img {width: 80px;}
 }
 </style>
 <style lang="scss" scoped>
@@ -114,11 +115,13 @@ export default defineComponent({
   position: sticky;
   top: 0;
   z-index: 5;
+  height: 40px;
   a {color: inherit;}
   .appHeaderWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 24px;
   }
   em {font-style: normal;}
   &-left {

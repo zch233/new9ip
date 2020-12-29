@@ -89,7 +89,7 @@ export default defineComponent({
 .appMenu {
   background-color: #fff;
   position: sticky;
-  top: 39.34px;
+  top: 40px;
   z-index: 1;
   box-shadow: rgb(0, 0, 0, 0.05) 0 0 10px 1px;
   .menuWrapper {

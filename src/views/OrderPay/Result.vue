@@ -41,7 +41,7 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  min-height: calc(((100vh - 39.34px) - 300px) - 40px);
+  min-height: calc(((100vh - 40px) - 300px) - 40px);
   svg {font-size: 50px;margin-bottom: 10px; &.success {color: #52C419} &.error {color: #FF5858}}
   h2 {font-size: 18px;font-weight: bold;}
   p {text-align: left;font-size: 12px;color: #999999;}

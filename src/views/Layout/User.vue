@@ -35,7 +35,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-.routerViewWrapper {min-height: calc(100vh - 39.34px - 80px - 300px - 40px)}
+.routerViewWrapper {min-height: calc(100vh - 40px - 80px - 300px - 40px)}
 .returnHome {
   color: #999999;
   font-size: 16px;
