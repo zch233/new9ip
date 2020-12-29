@@ -136,3 +136,16 @@ export type TYPE_ORDER_STATUS = {
     6: '订单已退款';
   };
 };
+
+export type TYPE_PREORDER_STATUS = {
+  CANCEL: 0;
+  CREATED: 1;
+  ORDER: 2;
+  PAYED: 3;
+  label: {
+    0: '已取消';
+    1: '预留中';
+    2: '已下单';
+    3: '已支付';
+  };
+};

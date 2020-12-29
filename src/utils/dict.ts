@@ -3,7 +3,7 @@ import {
   TYPE_PATENT_CERT_STATUS,
   TYPE_PATENT_ORIGIN_STATUS,
   TYPE_PATENT_STOCK_STATUS,
-  TYPE_PATENT_TYPE, TYPE_PAY_ROUTES,
+  TYPE_PATENT_TYPE, TYPE_PAY_ROUTES, TYPE_PREORDER_STATUS,
 } from '/@/utils/dictTypes';
 
 export const categories: Categories = [
@@ -142,5 +142,18 @@ export const ORDER_STATUS: TYPE_ORDER_STATUS = {
     3: '订单已完成',
     4: '订单已关闭',
     6: '订单已退款',
+  },
+};
+
+export const PREORDER_STATUS: TYPE_PREORDER_STATUS = {
+  CANCEL: 0,
+  CREATED: 1,
+  ORDER: 2,
+  PAYED: 3,
+  label: {
+    0: '已取消',
+    1: '预留中',
+    2: '已下单',
+    3: '已支付',
   },
 };

@@ -136,6 +136,34 @@ type Order = {
   tradeNo: string;
 };
 
+type Preorder = {
+  accountManagerId: number;
+  accountManagerMobile: string;
+  accountManagerName: string;
+  cancelTime: string;
+  cancelType: 0 | 1 | 2;
+  commodityType: 'PATENT';
+  createTime: string;
+  expireTime: string;
+  id: number;
+  memberAccount: string;
+  memberId: string;
+  memberNickname: string;
+  operator: string;
+  orderNo: string;
+  preStockStatus: 1 | 2 | 3 | 4 | 5 | 6;
+  productCategory: string;
+  productCover: string;
+  productId: string;
+  productName: string;
+  productNumber: string;
+  productPrice: number;
+  reserveIdentifier: 'MEMBER' | 'ACCOUNT_MANAGER';
+  sellerShopName: string;
+  status: 0 | 1 | 2 | 3;
+  updateTime: string;
+};
+
 type OrderConfirmation = Patent & Shop & Pay;
 
 type OrderResult = {

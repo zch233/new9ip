@@ -21,6 +21,12 @@ export const user = {
       component: () => import('../../views/User/Order/index.vue')
     },
     {
+      path: 'preorder',
+      name: 'UserPreorder',
+      meta: { title: '我的预留' },
+      component: () => import('../../views/User/Preorder/index.vue')
+    },
+    {
       path: 'collect',
       name: 'UserCollect',
       meta: { title: '我的收藏' },
