@@ -1,13 +1,5 @@
 import request from '../utils/request'
 
-type RecommendPatents = {
-  no?: number;
-  size?: number;
-  sort?: string;
-  categoryShortName: string;
-  orderBy?: string;
-};
-
 export const getHotSearchKeywords = () =>
   request({
     url: '/pub/api/v1/search/hotRank',
