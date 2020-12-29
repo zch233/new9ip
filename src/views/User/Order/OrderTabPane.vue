@@ -183,7 +183,7 @@ export default defineComponent({
     const getOrders = async (fetchData) => {
       if (loading.value) return
       loading.value = true
-      const {data} = await orderApi.getOrders({size: 30, ...getDateRange(currentOrderTimeRange.value.key), status: ORDER_STATUS[status], ...fetchData}).finally(() => loading.value = false)
+      const {data} = await orderApi.getOrders({size: paginationOptions.defaultPageSize, ...getDateRange(currentOrderTimeRange.value.key), status: ORDER_STATUS[status], ...fetchData}).finally(() => loading.value = false)
       orders.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no

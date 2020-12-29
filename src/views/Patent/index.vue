@@ -153,7 +153,7 @@ export default defineComponent({
     const getPatents = async (fetchData) => {
       if (loading.value) return
       loading.value = true
-      const {data} = await patentApi.getPatents({size: 30, psort: 0, ...fetchData}).finally(() => loading.value = false)
+      const {data} = await patentApi.getPatents({size: paginationOptions.defaultPageSize, psort: 0, ...fetchData}).finally(() => loading.value = false)
       patents.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
