@@ -4,7 +4,7 @@
 <!--      <template #tabBarExtraContent><div style="padding: 0 20px;">-->
 <!--        <UIInputSearch placeholder="搜索订单号/订单名称" />-->
 <!--      </div></template>-->
-      <OrderTabPane v-for="item in orderMap" :key="item.key" :status="ORDER_STATUS[item.key]">
+      <OrderTabPane v-for="item in orderMap" :key="item.key" :status="item.key">
         <template #tab>
           <b>{{ item.title }}</b>
         </template>
@@ -26,11 +26,11 @@ export default defineComponent({
   components: {UITabs, OrderTabPane, UIInputSearch},
   setup() {
     const route = useRoute()
-    const activeKey = ref(ORDER_STATUS[route.query.status])
+    const activeKey = ref(route.query.status)
     const orderMap = [
       {
         title: '全部订单',
-        key: 'ALL',
+        key: undefined,
       },
       {
         title: '待付款',

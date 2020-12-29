@@ -1,7 +1,7 @@
 <template>
   <div class="order">
-    <UITabs :animated="false" v-model:activeKey="activeKey">
-      <OrderTabPane v-for="item in orderMap" :key="item.key" :status="PREORDER_STATUS[item.key]">
+    <UITabs :animated="false" :activeKey="activeKey">
+      <OrderTabPane v-for="item in orderMap" :key="item.key" :status="item.key">
         <template #tab>
           <b>{{ item.title }}</b>
         </template>
@@ -23,11 +23,11 @@ export default defineComponent({
   components: {UITabs, OrderTabPane, UIInputSearch},
   setup() {
     const route = useRoute()
-    const activeKey = ref(PREORDER_STATUS[route.query.status])
+    const activeKey = ref(route.query.status)
     const orderMap = [
       {
         title: '全部',
-        key: 'ALL',
+        key: undefined,
       },
       {
         title: '预留中',
