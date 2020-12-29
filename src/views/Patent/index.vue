@@ -51,7 +51,7 @@
             <div class="patentListBar-list-item-content">
               <div class="patentListBar-list-item-content-firstFloor">
                 <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
-                <p class="patentListBar-list-item-content-firstFloor-info"><label>浏览量：</label><span>290</span><StarIcon complex :patent="patent" /></p>
+                <p class="patentListBar-list-item-content-firstFloor-info"><StarIcon complex :patent="patent" /></p>
               </div>
               <div class="patentListBar-list-item-content-secondFloor">
                 <p class="patentListBar-list-item-content-secondFloor-des"><label>专利号：<span class="searchKeyword" v-html="patent.numberHighlightKey || patent.number" /></label><label>领域：<span class="searchKeyword" v-html="patent.tagsHighlightKey || patent.tags" /></label><label>发明人：{{ patent.inventorExplain }}</label></p>
