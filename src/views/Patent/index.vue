@@ -51,7 +51,7 @@
             <div class="patentListBar-list-item-content">
               <div class="patentListBar-list-item-content-firstFloor">
                 <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
-                <p class="patentListBar-list-item-content-firstFloor-info"><label>浏览量：</label><span>290</span><label>收藏</label><Icon class="starIcon" icon="start" /></p>
+                <p class="patentListBar-list-item-content-firstFloor-info"><label>浏览量：</label><span>290</span><StarIcon complex :patent="patent" /></p>
               </div>
               <div class="patentListBar-list-item-content-secondFloor">
                 <p class="patentListBar-list-item-content-secondFloor-des"><label>专利号：<span class="searchKeyword" v-html="patent.numberHighlightKey || patent.number" /></label><label>领域：<span class="searchKeyword" v-html="patent.tagsHighlightKey || patent.tags" /></label><label>发明人：{{ patent.inventorExplain }}</label></p>
@@ -101,6 +101,7 @@ import FullScreenIcon from '/@components/FullScreenIcon/index.vue'
 import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
 import UIEmpty from '/@components/UI/UIEmpty.vue';
+import StarIcon from '/@components/StarIcon/index.vue'
 import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
@@ -109,7 +110,7 @@ import { message } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty},
+  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon},
   setup() {
     const route = useRoute()
     const router = useRouter()

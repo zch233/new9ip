@@ -24,7 +24,7 @@
                     </div>
                   </template>
                 </UIPopover>
-                <span>收藏 <Icon icon="start" /></span>
+                <StarIcon complex :patent="patent" />
               </div>
             </div>
             <div class="patentCard-right">
@@ -97,13 +97,14 @@ import UISkeleton from '/@components/UI/UISkeleton.vue';
 import UIPopover from '/@components/UI/UIPopover.vue';
 import UIInput from '/@components/UI/UIInput.vue';
 import PatentCard from '/@components/PatentCard/index.vue'
+import StarIcon from '/@components/StarIcon/index.vue'
 import * as patentApi from '/@api/patent'
 import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
 import { copyToClipboard } from '/@/utils';
 
 export default defineComponent({
   name: 'PatentDetail',
-  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput},
+  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon},
   setup() {
     const route = useRoute()
     const loading = ref(false)
