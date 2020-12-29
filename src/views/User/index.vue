@@ -18,7 +18,7 @@
       </div>
     </section>
     <section class="user-orders">
-      <p class="cardTitle"><em>我的订单</em><RouterLink to="/user/order">查看全部 <Icon icon="right" /></RouterLink></p>
+      <p class="cardTitle"><em>我的订单</em></p>
       <div class="orderViews">
         <RouterLink to="/user/order?status=0">
           <Icon icon="waitPay" />
@@ -28,9 +28,9 @@
           <Icon icon="hadPay" />
           <p>已付款</p>
         </RouterLink>
-        <RouterLink to="/user/order?status=3">
+        <RouterLink to="/user/order">
           <Icon icon="finishPay" />
-          <p>已完成</p>
+          <p>全部订单</p>
         </RouterLink>
       </div>
     </section>

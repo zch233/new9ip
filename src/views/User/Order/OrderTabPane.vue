@@ -132,7 +132,7 @@ export default defineComponent({
   name: 'OrderTabPane',
   components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover},
   props: {
-    status: String,
+    status: Number,
   },
   setup({status}) {
     const route = useRoute()
@@ -144,7 +144,7 @@ export default defineComponent({
     const paginationOptions = reactive({
       total: 0,
       current: 1,
-      defaultPageSize: 30,
+      defaultPageSize: 10,
       pageSizeOptions: ['10', '30', '50', '100'],
       showSizeChange: (page, pageSize) => {
         window.scrollTo(0,0)
@@ -183,15 +183,17 @@ export default defineComponent({
     const getOrders = async (fetchData) => {
       if (loading.value) return
       loading.value = true
-      const {data} = await orderApi.getOrders({size: paginationOptions.defaultPageSize, ...getDateRange(currentOrderTimeRange.value.key), status: ORDER_STATUS[status], ...fetchData}).finally(() => loading.value = false)
+      const {data} = await orderApi.getOrders({size: paginationOptions.defaultPageSize, ...getDateRange(currentOrderTimeRange.value.key), ...fetchData, status}).finally(() => loading.value = false)
       orders.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
       paginationOptions.size = data?.size
     }
     onBeforeRouteUpdate((to) => {
-      getOrders(to.query)
-      routeQuery.value = to.query
+      if (to.query.status === (status && status.toString())) {
+        getOrders(to.query)
+        routeQuery.value = to.query
+      }
     })
     onMounted(() => {
       getOrders(routeQuery.value)
@@ -214,7 +216,7 @@ export default defineComponent({
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
         await router.push(payURL);
       } else {
-        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'PATENT', getContainer: () => document.getElementById('orderTabPane') })
+        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'PATENT' })
         openNewWindow(payURL);
       }
     }
