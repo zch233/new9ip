@@ -54,21 +54,19 @@ import UIPopover from '/@components/UI/UIPopover.vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import { useStore } from '/@/store';
 import { message } from 'ant-design-vue';
-import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'AppHeader',
   components: {Icon, UIPopover, VIPBrand},
   setup() {
     const store = useStore()
-    const router = useRouter()
     const loading = ref(false)
     const logout = async () => {
       if (loading.value) return
       loading.value = true
       await store.dispatch('logout').finally(() => loading.value = false)
       message.success('退出成功')
-      await router.push('/')
+      setTimeout(() => window.location.href = '/', 500)
     }
     return {
       logout,
