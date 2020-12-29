@@ -1,5 +1,5 @@
 <template>
-  <UITabPane>
+  <UITabPane id="orderTabPane">
     <div class="listWrapper">
       <ul class="listTitle">
         <li class="listTitle-item colTime">
@@ -42,7 +42,7 @@
                 <div class="listContent-item-content-options colOptions">
                   <template v-if="order.status === ORDER_STATUS.CREATED">
                     <UICountdown class="orderItemCountDown" @finish="changeOrderStatus(order)" :value="Date.now() + 1000 * order.remainSecond" format="剩余m分s秒"/>
-                    <UIButton customer-class="dangerButton" type="primary">立即付款</UIButton>
+                    <div><PayRoutesPopover @choose="payOrder($event, order)" /></div>
                     <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'cancel')">取消订单</UIButton>
                   </template>
                   <UIButton v-else type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'delete')">删除订单</UIButton>
@@ -84,7 +84,10 @@ import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import * as orderApi from '/@api/order';
 import { ORDER_STATUS } from '/@/utils/dict';
 import { message, Modal } from 'ant-design-vue';
-import { getToday } from '/@/utils';
+import { getToday, openNewWindow } from '/@/utils';
+import PayRoutesPopover from '/@components/PayRoutesPopover/index.vue';
+import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
+import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
 
 const orderTimeRange = [
   {
@@ -127,7 +130,7 @@ const getDateRange = (type) => JSON.parse(JSON.stringify({dateRange: type, start
 
 export default defineComponent({
   name: 'OrderTabPane',
-  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown},
+  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover},
   props: {
     status: String,
   },
@@ -205,11 +208,22 @@ export default defineComponent({
       current.status = ORDER_STATUS.CLOSED;
       orders.value = [...orders.value]
     }
+    const payOrder = async ({ payRoute, tradeType }: TYPE_PAY_ROUTES[number], order: Order) => {
+      const { orderNo, tradeNo } = order;
+      const payURL = `/order/pay/${payRoute === 'UMS_PAY' ? 'code' : payRoute === 'WXPAY' ? 'wechat' : 'form'}?orderNo=${orderNo}&tradeNo=${tradeNo}&type=PATENT&payRoute=${payRoute}&tradeType=${tradeType}`
+      if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
+        await router.push(payURL);
+      } else {
+        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'PATENT', getContainer: () => document.getElementById('orderTabPane') })
+        openNewWindow(payURL);
+      }
+    }
     return {
       loading,
       paginationOptions,
       orders,
       routeQuery,
+      payOrder,
       ORDER_STATUS,
       optionOrder,
       changeOrderStatus,
