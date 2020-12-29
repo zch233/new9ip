@@ -21,9 +21,18 @@ type BasePageOption = {
   startDateTime?: string;
 }
 
+type AccountManager = {
+  avatar: string;
+  email: string;
+  id: string;
+  mobile: string;
+  name: string;
+  qq: string;
+}
+
 type User = {
   account: string;
-  accountManager: string;
+  accountManager: AccountManager;
   addresses: []
   avatar: string;
   birthday: string;

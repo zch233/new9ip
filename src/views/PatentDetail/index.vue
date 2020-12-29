@@ -52,13 +52,22 @@
         </ul>
       </div>
       <div class="managerCard">
-        <UISkeleton :loading="loading" :avatar="{size: 'large'}" :paragraph="false" :title="false" active >
-          <div class="managerCard-image" data-manager="专属顾问"><img src="../../assets/patent/A.jpg" alt=""></div>
-        </UISkeleton>
-        <UISkeleton :loading="loading" :avatar="false" :paragraph="{rows: 5}" active >
-          <div class="managerCard-phone"><UIButton customer-class="default">登录</UIButton>查看详细手机号</div>
-          <a class="managerCard-qqLink" href=""><UIButton customer-class="mainButton" type="primary">QQ在线咨询</UIButton></a>
-        </UISkeleton>
+        <template v-if="store.state.loginStatus && store.state.user.accountManager">
+          <UISkeleton :loading="loading" :avatar="{size: 'large'}" :paragraph="false" :title="false" active >
+            <div class="managerCard-imageWrapper" :data-manager="store.state.user.accountManager.name">
+              <div class="managerCard-image">
+                <img v-if="store.state.user.accountManager.avatar" :src="store.state.user.accountManager.avatar" alt="">
+                <img v-else src="../../assets/patent/employ.png" alt="">
+              </div>
+            </div>
+          </UISkeleton>
+          <UISkeleton :loading="loading" :avatar="false" :paragraph="{rows: 5}" active >
+            <div class="managerCard-phone" v-if="false"><UIButton customer-class="default">登录</UIButton>查看详细手机号</div>
+            <div class="managerCard-phone"><Icon icon="phone" /> {{ store.state.user.mobile }}</div>
+            <a ref="noopener noreferrer" v-if="store.state.user.qq" class="managerCard-qqLink" target="_blank" :href="`tencent://message/?uin=${store.state.user.accountManager.qq}&Site=qq&Menu=yes`"><UIButton customer-class="mainButton" type="primary">QQ在线咨询</UIButton></a>
+          </UISkeleton>
+        </template>
+        <img v-else class="shopImage" src="../../assets/patent/shop.png" alt="">
         <ul class="managerCard-advance">
           <li class="managerCard-advance-item" v-for="advance in pageAdvances" :key="advance.icon">
             <Icon :icon="advance.icon" />
@@ -101,11 +110,13 @@ import StarIcon from '/@components/StarIcon/index.vue'
 import * as patentApi from '/@api/patent'
 import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
 import { copyToClipboard } from '/@/utils';
+import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'PatentDetail',
   components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon},
   setup() {
+    const store = useStore()
     const route = useRoute()
     const loading = ref(false)
     const currentDetailTab = ref(0)
@@ -153,6 +164,7 @@ export default defineComponent({
       getPatentDetail()
     })
     return {
+      store,
       PATENT_STOCK_STATUS,
       PATENT_TYPE,
       shareURL,
@@ -236,8 +248,24 @@ export default defineComponent({
       text-align: center;
       background-color: #fff;
       padding-top: 40px;
-      &-image {width: 140px;height: 140px;margin: 0 auto;border-radius: 50%;overflow: hidden;border: 1px solid #14A8BD; img {width: 100%;}}
-      &-phone {margin: 16px 0 20px;button {width: 48px;height: 24px;padding: 0;font-size: 12px;margin-right: 10px;}}
+      .shopImage {width: 240px;}
+      &-imageWrapper {
+        position: relative;
+        &::after {
+          content: attr(data-manager);
+          position: absolute;
+          bottom: -.6em;
+          left: 50%;
+          transform: translateX(-50%);
+          padding: .2em 1.2em;
+          background-color: #fff;
+          border-radius: 2em;
+          white-space: nowrap;
+          box-shadow: 0 0 1px 0 rgba(0,0,0,0.3);
+        }
+      }
+      &-image {width: 140px;height: 140px;margin: 0 auto;border-radius: 50%;overflow: hidden;border: 1px solid #14A8BD; img {width: 100%;} }
+      &-phone {display: flex; align-items: center; justify-content: center;margin: 16px 0 20px;button {width: 48px;height: 24px;padding: 0;font-size: 12px;margin-right: 10px;} svg {color: #14A8BD;font-size: 18px;margin-right: .2em;}}
       &-qqLink {button {width: 110px; height: 40px;}}
       &-advance {
         text-align: left;
