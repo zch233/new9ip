@@ -25,7 +25,7 @@
               <div class="listContent-item-top">
                 <time class="time">{{ order.createTime }}</time>
                 <span>订单号：{{ order.orderNo }}</span>
-                <span>买家：{{ order.sellerShopName }}</span>
+                <span>卖家：{{ order.sellerShopName }}</span>
               </div>
               <div class="listContent-item-content">
                 <div class="listContent-item-content-image colTime"><img src="../../../assets/patent/A.jpg" alt=""></div>

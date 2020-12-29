@@ -63,7 +63,7 @@
           </UISkeleton>
           <UISkeleton :loading="loading" :avatar="false" :paragraph="{rows: 5}" active >
             <div class="managerCard-phone" v-if="false"><UIButton customer-class="default">登录</UIButton>查看详细手机号</div>
-            <div class="managerCard-phone"><Icon icon="phone" /> {{ store.state.user.mobile }}</div>
+            <div class="managerCard-phone"><Icon icon="phone" /> {{ store.state.user.accountManager.mobile }}</div>
             <a ref="noopener noreferrer" v-if="store.state.user.qq" class="managerCard-qqLink" target="_blank" :href="`tencent://message/?uin=${store.state.user.accountManager.qq}&Site=qq&Menu=yes`"><UIButton customer-class="mainButton" type="primary">QQ在线咨询</UIButton></a>
           </UISkeleton>
         </template>

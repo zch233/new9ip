@@ -44,7 +44,7 @@ export default defineComponent({
     const handleOk = async () => {
       if (!(await isWaitOrder(tradeNo.value))) return;
       context.emit('update:visible', false)
-      await router.push(`/order/pay/result?orderNo=${orderNo.value}&out_trade_no=${tradeNo.value}&status=1&type=${type.value}`);
+      await router.push(`/order/pay/result?orderNo=${orderNo.value}&tradeNo=${tradeNo.value}&status=1&type=${type.value}`);
     }
     onMounted(() => {
       startPollGetPayResult({ tradeNo: tradeNo.value, orderNo: orderNo.value, commodityType: type.value })
