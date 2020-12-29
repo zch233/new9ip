@@ -23,7 +23,7 @@ export const user = {
     {
       path: 'collect',
       name: 'UserCollect',
-      meta: { title: '我的收藏  ' },
+      meta: { title: '我的收藏' },
       component: () => import('../../views/User/Collect/index.vue')
     },
     {
