@@ -27,14 +27,13 @@ export default defineComponent({
     const authRoute = computed(() => route.path.indexOf('/auth/') >= 0)
     onMounted(() => {
       authApi.getUserDefault().then(async ({ data }) => {
-        store.commit('COMMIT_USER', data.data || {})
-        store.commit('COMMIT_LOGIN_STATUS', !!data.data)
-        const { data: oneDayConsumePointsData } = await pointApi.getOneDayConsumePoints()
-        store.commit('commit_oneDayConsumePoints', oneDayConsumePointsData?.credit || 0)
-      }).catch(() => {
-        store.commit('COMMIT_USER', {})
-        store.commit('COMMIT_LOGIN_STATUS', false)
-      })
+        if (data.data) {
+          store.commit('COMMIT_LOGIN_STATUS', !!data.data)
+          store.commit('COMMIT_USER', data.data)
+          const { data: oneDayConsumePointsData } = await pointApi.getOneDayConsumePoints()
+          store.commit('commit_oneDayConsumePoints', oneDayConsumePointsData?.credit || 0)
+        }
+      }).catch(() => {})
     })
     return {
       authRoute,
