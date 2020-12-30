@@ -89,7 +89,6 @@
       <div class="contentBottom-right">
         <h4 class="contentBottom-right-title">猜你喜欢</h4>
         <div class="contentBottom-right-patent" v-for="patent in recommendPatents" :key="patent.id"><PatentCard :patent="patent" /></div>
-        <div class="contentBottom-right-patent"><PatentCard /></div>
       </div>
     </section>
   </div>
