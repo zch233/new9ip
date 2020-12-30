@@ -36,7 +36,7 @@
             <p class="orderConfirm-right-priceItem" v-for="item in orderConfirmation.discounts || []" :key="item.price"><label>VIP会员</label><span>-￥{{ item.price }}</span></p>
             <p class="orderConfirm-right-priceItem totalAmount"><label>实付款</label><b>￥{{ orderConfirmation.totalAmount }}</b></p>
             <ul class="orderConfirm-right-payRoutes">
-              <li v-for="payRoute in PAY_ROUTES" :key="payRoute.icon" class="orderConfirm-right-payRoutes-item" @click="currentPayRoute = payRoute">
+              <li v-for="payRoute in PAY_ROUTES" :key="payRoute.icon" @click="currentPayRoute = payRoute" class="orderConfirm-right-payRoutes-item">
                 <Icon class="orderConfirm-right-payRoutes-item-payIcon" :icon="payRoute.icon" />
                 <div class="orderConfirm-right-payRoutes-item-info"><b>{{payRoute.label}}</b><p>{{payRoute.description}}</p></div>
                 <div class="orderConfirm-right-payRoutes-item-radio" :class="[currentPayRoute.payRoute === payRoute.payRoute && 'active']"><Icon icon="tick" /></div>
@@ -105,7 +105,7 @@ export default defineComponent({
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
         await router.push(payURL);
       } else {
-        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'PATENT', getContainer: () => document.getElementById('orderConfirm') })
+        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'PATENT' })
         openNewWindow(payURL);
       }
     }

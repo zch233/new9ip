@@ -47,7 +47,7 @@ export default defineComponent({
     const route = useRoute()
     const router = useRouter()
     const activeKey = ref(Number(route.query.status || 999))
-    const changeTab = (tab) => {
+    const changeTab = (tab: number) => {
       router.push({
         path: '/user/order',
         query: { status: tab === 999 ? undefined : tab}

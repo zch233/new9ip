@@ -62,27 +62,26 @@ export default defineComponent({
       current: 1,
       defaultPageSize: 8,
       pageSizeOptions: ['8', '30', '50', '100'],
-      showSizeChange: (page, pageSize) => {
+      showSizeChange: (page: number, pageSize: number) => {
         window.scrollTo(0,0)
         router.push({path: '/user/collect', query: {...routeQuery.value, size: pageSize, no: 1}})
       },
-      change: (current) => {
+      change: (current: number) => {
         window.scrollTo(0,0)
         router.push({path: '/user/collect', query: {...routeQuery.value, no: current}})
       },
     })
-    const getCollects = async (fetchData) => {
+    const getCollects = async (fetchData: BasePageOption) => {
       loading.value = true
       const {data} = await collectApi.getCollections({size: paginationOptions.defaultPageSize, ...fetchData}).finally(() => loading.value = false)
       collects.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
-      paginationOptions.size = data?.size
     }
     const cancelStar = async (patent: Patent) => {
       await collectApi.starPatent(patent.commodityId)
       message.success('已从我的收藏移除')
-      await getCollects()
+      await getCollects(routeQuery.value)
     }
     onBeforeRouteUpdate((to) => {
       getCollects(to.query)

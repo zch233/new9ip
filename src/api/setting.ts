@@ -1,13 +1,13 @@
 import request from '../utils/request'
 
-type UpdateUserInfo = {
+export type UpdateUserInfo = {
   birthday?: string;
   captcha?: string;
   name?: string;
   newPassword?: string;
   nickname?: string;
   phone?: string;
-  sex?: number;
+  sex?: string;
 };
 
 export const updateUserInfo = (data: UpdateUserInfo) =>

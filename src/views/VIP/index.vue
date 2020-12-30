@@ -42,6 +42,7 @@ import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
 import { openNewWindow } from '/@/utils';
 import { useRouter } from 'vue-router';
+import { AxiosResponse } from 'axios';
 
 type VipPurchase = {
   days: number;
@@ -67,7 +68,7 @@ export default defineComponent({
       loading.value = true
       const currentPay = PAY_ROUTES.find((item) => item.payRoute === vipInfo.payRoute);
       const { payRoute, tradeType } = currentPay as TYPE_PAY_ROUTES[number];
-      const {data: orderData} = await vipApi.orderVip({vipLevelId: data[0].id, payRoute, tradeType}).finally(() => loading.value = false)
+      const {data: orderData}: AxiosResponse<OrderResult> = await vipApi.orderVip({vipLevelId: data[0].id, payRoute, tradeType}).finally(() => loading.value = false)
       const { orderNo, tradeNo } = orderData;
       const payURL = `/order/pay/${payRoute === 'UMS_PAY' ? 'code' : payRoute === 'WXPAY' ? 'wechat' : 'form'}?orderNo=${orderNo}&tradeNo=${tradeNo}&type=VIP&payRoute=${payRoute}&tradeType=${tradeType}`
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {

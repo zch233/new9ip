@@ -51,6 +51,7 @@ import { useStore } from '/@/store';
 import { useForm } from '@ant-design-vue/use';
 import * as settingApi from '/@api/setting'
 import { message } from 'ant-design-vue';
+import { UpdateUserInfo } from '/@api/setting';
 
 export default defineComponent({
   name: 'Setting',
@@ -58,10 +59,9 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const submitLoading = ref(false)
-    const userInfo = reactive<User>({
-      avatar: store.state.user.avatar,
-      nickname: store.state.user.nickname,
-      sex: store.state.user.sex,
+    const userInfo = reactive<UpdateUserInfo>({
+      nickname: store.state.user.nickname || '',
+      sex: store.state.user.sex || '',
     })
     const rules = reactive({})
     useForm(userInfo, rules)

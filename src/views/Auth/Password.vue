@@ -19,7 +19,7 @@
             <div class="shrinkBar captchaBar">
               <UIInput v-model:value="resetPasswordInfo.captcha" class="captcha" placeholder="验证码" :maxlength="6">
                 <template #prefix>
-                  <Icon class="inputIcon" icon="inputChatcha" />
+                  <Icon class="inputIcon" icon="inputCaptcha" />
                 </template>
                 <template #addonAfter>
                   <Captcha :info="resetPasswordInfo" />

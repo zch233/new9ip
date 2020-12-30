@@ -221,7 +221,7 @@ export default defineComponent({
         // },
       ])
     const currentSubMenuContent = ref(helpers.value[0].menuChildren[0])
-    const switchContent = (index, subIndex) => currentSubMenuContent.value = helpers.value[index].menuChildren[subIndex]
+    const switchContent = (index: number, subIndex: number) => currentSubMenuContent.value = helpers.value[index].menuChildren[subIndex]
     return {
       helpers,
       currentSubMenuContent,

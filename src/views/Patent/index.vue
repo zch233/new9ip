@@ -180,7 +180,8 @@ export default defineComponent({
       openNewWidowWithBlob(file, `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日--第九区专利清单`);
       message.success('导出成功！');
     }
-    const handleFilterClick = (filter) => {
+    type Filter = {type?: string | number; word?: string; inventorExplain?: string | number; certStatus?: string | number;}
+    const handleFilterClick = (filter: Filter) => {
       const {type, inventorExplain, certStatus} = routeQuery.value
       router.push({path: '/patent', query: JSON.parse(JSON.stringify({type, inventorExplain, certStatus, ...filter}))})
     }

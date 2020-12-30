@@ -60,6 +60,7 @@ import { message } from 'ant-design-vue';
 import QRCode from 'qrcode';
 import { useStore } from '/@/store';
 import { isWaitOrder, usePollGetPayResult } from '/@/utils';
+import { AxiosResponse } from 'axios';
 
 export default defineComponent({
   name: 'QRCodePay',
@@ -73,7 +74,7 @@ export default defineComponent({
     const pageLoading = ref(false)
     const checkOrderStatusLoading = ref(false)
     const codeExpired = ref(false)
-    const orderInfo = ref<OrderResult>({})
+    const orderInfo = ref<Partial<OrderResult>>({})
     const route = useRoute()
     const router = useRouter()
     const store = useStore()
@@ -97,7 +98,7 @@ export default defineComponent({
         PATENT: orderApi.payOrderAgain,
         VIP: orderApi.payVipOrderAgain,
       }
-      await apiMap[type]({ orderNo, payRoute, tradeType}).then(({data}) => {
+      await apiMap[type]({ orderNo, payRoute, tradeType}).then(({data}: AxiosResponse<OrderResult>) => {
         generatorQrcode(data.codeUrl)
         orderInfo.value = data
         startPollGetPayResult(data)
@@ -109,7 +110,7 @@ export default defineComponent({
     const checkOrderStatus = async (tradeNo: string) => {
       checkOrderStatusLoading.value = true
       if (!(await isWaitOrder(tradeNo).finally(() => checkOrderStatusLoading.value = false))) return;
-      history.push(`/order/pay/result?orderNo=${orderInfo.orderNo}&tradeNo=${orderInfo.tradeNo}&type=${orderInfo.commodityType}&status=1`);
+      await router.push(`/order/pay/result?orderNo=${orderInfo.orderNo}&tradeNo=${orderInfo.tradeNo}&type=${orderInfo.commodityType}&status=1`);
     }
     onMounted(() => {
       getOrderInfo()

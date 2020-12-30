@@ -170,7 +170,7 @@ type OrderConfirmation = Patent & Shop & Pay;
 
 type OrderResult = {
   codeUrl: string;
-  commodityType: string;
+  commodityType: 'VIP' | 'PATENT';
   expire: string;
   orderNo: string;
   returnUrl: string;

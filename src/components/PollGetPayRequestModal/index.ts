@@ -1,7 +1,7 @@
 import PollGetPayRequestModal from './index.vue'
 import {createApp, h} from 'vue'
 
-export const showPollGetPayRequestModal = ({ orderNo, tradeNo, type, getContainer }: { orderNo: string;tradeNo: string;type: 'PATENT' | 'VIP', getContainer: () => HTMLElement }) => {
+export const showPollGetPayRequestModal = ({ orderNo, tradeNo, type }: { orderNo: string;tradeNo: string;type: 'PATENT' | 'VIP' }) => {
   const div = document.createElement('div')
   document.body.appendChild(div)
   const app = createApp({
@@ -17,7 +17,6 @@ export const showPollGetPayRequestModal = ({ orderNo, tradeNo, type, getContaine
         orderNo,
         tradeNo,
         type,
-        getContainer: getContainer || document.body,
       })
     }
   })

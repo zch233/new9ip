@@ -6,7 +6,7 @@ import { TYPE_ORDER_PAY_STATUS } from '/@/utils/dictTypes';
 import { ref } from 'vue';
 import { router } from '/@/router';
 
-export const getSingleQuery = (routeQuery: string | (string | null)[]) => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
+export const getSingleQuery = (routeQuery: string | (string | null)[]):string | null => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
 
 export const openNewWindow = (url: string, download?: string) => {
   const anchor = document.createElement('a');
@@ -88,7 +88,7 @@ export const getToday = (userDate?:Date) => {
   const date = userDate || new Date();
   const separator = '-';
   const DateMonth = date.getMonth() + 1;
-  let monthStr = DateMonth.toString()
+  let monthStr = DateMonth.toString();
   const DateDate = date.getDate();
   let dateStr = DateDate.toString();
   if (DateMonth >= 1 && DateMonth <= 9) {

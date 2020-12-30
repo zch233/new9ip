@@ -7,8 +7,8 @@ export type GetPatents = {
   subCategory?: string;
   type?: number;
   word?: string;
-  psort?: string;
-  inventorExplain: string;
+  psort?: 0 | 1;
+  inventorExplain?: string;
 } & BasePageOption;
 
 export const getPatents = (params: GetPatents) =>
