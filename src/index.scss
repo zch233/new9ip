@@ -21,6 +21,20 @@
 }
 ul, li {list-style: none;margin: 0;padding: 0;}
 
+::-webkit-scrollbar-track-piece {
+  background: #fff;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #aaa;
+  border-radius: 20px;
+}
+
+
 .searchKeyword em {
   color: #dd4b39;
   font-style: normal;
