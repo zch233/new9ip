@@ -83,7 +83,7 @@
         </ul>
         <div class="contentBottom-left-content">
           <img src="../../assets/patent/detail.png" alt="">
-          <UIButton customer-class="default">查看更多常见问题</UIButton>
+          <RouterLink to="/others/helper"><UIButton customer-class="default">查看更多常见问题</UIButton></RouterLink>
         </div>
       </div>
       <div class="contentBottom-right">
