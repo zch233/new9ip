@@ -53,7 +53,7 @@
                 <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
                 <p class="patentListBar-list-item-content-firstFloor-info">
                   <label v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING">预定至：{{ patent.reserveExpireTime }}</label>
-                  <StarIcon complex :patent="patent" />
+                  <StarIcon :patent="patent" />
                 </p>
               </div>
               <div class="patentListBar-list-item-content-secondFloor">
