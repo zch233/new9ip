@@ -294,11 +294,11 @@ export default defineComponent({
               position: absolute;
               left: 0; top: 0; bottom: 0; right: 0;
               padding: 2px 0 0 4px;
-              background-image: linear-gradient(135deg, #FF5858 0%, #FF5858 14%, transparent 14%, transparent 100%);
+
             }
           }
-          &.new {&::before { content: '新' }}
-          &.hot {&::before { content: '热' }}
+          &.new {&::before { content: '新';background-image: linear-gradient(135deg, #FF5858 0%, #FF5858 14%, transparent 14%, transparent 100%); }}
+          &.hot {&::before { content: '🔥';background-image: linear-gradient(135deg, #14A8BD 0%, #14A8BD 14%, transparent 14%, transparent 100%); }}
           img {width: 100%;}
         }
         &-content {

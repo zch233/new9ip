@@ -22,8 +22,8 @@
           <span class="appHeader-right-item">客户服务 <Icon icon="down" /></span>
           <template #content>
             <ul class="orderPopoverContent">
-              <li><RouterLink to="/">常见方式</RouterLink></li>
-              <li><RouterLink to="/">支付方式</RouterLink></li>
+              <li><RouterLink to="/others/helper">常见方式</RouterLink></li>
+              <li><RouterLink to="/others/helper">支付方式</RouterLink></li>
             </ul>
           </template>
         </UIPopover>

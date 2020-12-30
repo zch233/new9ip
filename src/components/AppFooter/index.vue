@@ -4,7 +4,7 @@
       <li v-for="item in footerInfoList" :key="item.title" class="footerItem">
         <p class="footerItem-title">{{item.title}}</p>
         <p class="footerItem-content" v-for="contentItem in item.content">
-          <RouterLink to="/">{{contentItem}}</RouterLink>
+          <RouterLink to="/others/helper">{{contentItem}}</RouterLink>
         </p>
       </li>
       <li class="footerItem">
@@ -28,7 +28,7 @@ export default defineComponent({
       },
       {
         title: '交易保障',
-        content: ['支付方式','签署法律合同','服务协议','法律顾问'],
+        content: ['支付方式','签署法律合同','服务协议','积分规则'],
       },
       {
         title: '常见问题',

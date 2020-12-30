@@ -175,33 +175,33 @@ export default defineComponent({
 
           ]
         },
-        {
-          menuTitle: '联系我们',
-          menuChildren: [
-            {
-              subMenuTitle: '联系方式',
-              subMenuContent: [
-                {
-                  title: '伟萍：',
-                  content: ['QQ:1724775458', '电话:15958822553'],
-                },
-                {
-                  title: '张工： ',
-                  content: ['QQ:3379575517', '电话:13282265523'],
-                },
-              ]
-            },
-            {
-              subMenuTitle: '微信公众号',
-              subMenuContent: [
-                {
-                  title: '',
-                  content: [''],
-                },
-              ]
-            },
-          ]
-        },
+        // {
+        //   menuTitle: '联系我们',
+        //   menuChildren: [
+        //     {
+        //       subMenuTitle: '联系方式',
+        //       subMenuContent: [
+        //         {
+        //           title: '伟萍：',
+        //           content: ['QQ:1724775458', '电话:15958822553'],
+        //         },
+        //         {
+        //           title: '张工： ',
+        //           content: ['QQ:3379575517', '电话:13282265523'],
+        //         },
+        //       ]
+        //     },
+        //     {
+        //       subMenuTitle: '微信公众号',
+        //       subMenuContent: [
+        //         {
+        //           title: '',
+        //           content: [''],
+        //         },
+        //       ]
+        //     },
+        //   ]
+        // },
       ])
     const currentSubMenuContent = ref(helpers.value[0].menuChildren[0])
     const switchContent = (index, subIndex) => currentSubMenuContent.value = helpers.value[index].menuChildren[subIndex]
