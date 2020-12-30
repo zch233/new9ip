@@ -155,9 +155,9 @@ export default defineComponent({
     ]
     const recommendPatents = ref<Patent[]>([])
     const patent = ref<Partial<Patent>>({})
-    const getPatentDetail = async () => {
+    const getPatentDetail = async (number: string) => {
       loading.value = true
-      const { data } = await patentApi.getPatentDetail(getSingleQuery(route.params.number)!).finally(() => loading.value = false)
+      const { data } = await patentApi.getPatentDetail(number).finally(() => loading.value = false)
       patent.value = data
     }
     const scrollToContent = (index: number) => {
@@ -168,15 +168,15 @@ export default defineComponent({
       recommendPatents.value = data.list
     }
     const shareURL = window.location.href
-    const initPage = async () => {
-      await getPatentDetail()
+    const initPage = async (number: string) => {
+      await getPatentDetail(number)
       await getRecommendPatents()
     }
-    onBeforeRouteUpdate(() => {
-      initPage()
+    onBeforeRouteUpdate((to) => {
+      initPage(getSingleQuery(to.params.number)!)
     })
     onMounted(() => {
-      initPage()
+      initPage(getSingleQuery(route.params.number)!)
     })
     return {
       store,
