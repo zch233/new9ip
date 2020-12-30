@@ -6,6 +6,12 @@ export const getHotSearchKeywords = () =>
     method: 'get',
   })
 
+export const getContactConfig = () =>
+  request({
+    url: '/pub/api/v1/contactConfig/list',
+    method: 'get',
+  })
+
 export const getSearchHistory = () =>
   request({
     url: '/pub/api/v1/search/history',
