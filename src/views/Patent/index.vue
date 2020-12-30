@@ -298,7 +298,7 @@ export default defineComponent({
             }
           }
           &.new {&::before { content: '新';background-image: linear-gradient(135deg, #FF5858 0%, #FF5858 14%, transparent 14%, transparent 100%); }}
-          &.hot {&::before { content: '🔥';background-image: linear-gradient(135deg, #14A8BD 0%, #14A8BD 14%, transparent 14%, transparent 100%); }}
+          &.hot {&::before { content: '热';background-image: linear-gradient(135deg, #14A8BD 0%, #14A8BD 14%, transparent 14%, transparent 100%); }}
           img {width: 100%;}
         }
         &-content {
