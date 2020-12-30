@@ -4,7 +4,7 @@
       <div class="user-head-left">
         <div class="user-head-left-headImage"><img v-if="user.avatar" src="../../assets/patent/A.jpg" alt=""><Icon v-else icon="defaultHeadImage" /></div>
         <div class="user-head-left-info">
-          <p class="user-head-left-info-account">1861861615165</p>
+          <p class="user-head-left-info-account">{{ user.nickname }}</p>
           <div class="user-head-left-info-vip" v-if="user.hasVip">
             <VIPBrand /> {{ restPoint }} 积分
             <p>到期时间：{{ user.vipExpireDate }}</p>
