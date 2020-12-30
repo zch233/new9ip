@@ -98,10 +98,11 @@ a {color: inherit;}
     display: flex;
     align-items: center;
     font-size: 12px;
+    padding: 4px 0;
     label {width: 3.4em;}
     p {
       margin: 0;
-      line-height: 2;
+      line-height: 2.4;
       color: #14A8BD;
       svg {
         font-size: 20px;
