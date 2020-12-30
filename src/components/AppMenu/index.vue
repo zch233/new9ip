@@ -7,6 +7,9 @@
           <div v-for="menu in menuList" :key="menu.path">
             <RouterLink class="menuItem" :class="[(isHomeRoute ? route.fullPath : route.path) === menu.path && 'active']" :to="menu.path">{{ menu.title }}</RouterLink>
           </div>
+          <div>
+            <span class="plasticMenuItem" @click="handlePlasticMenuClick">免费找专利</span>
+          </div>
         </nav>
       </div>
       <div class="rightSearch" v-if="!(isHomeRoute && scrollTop < 275)">
@@ -27,6 +30,7 @@ import { defineComponent, watchEffect, computed, onMounted, ref, onUnmounted } f
 import { useRoute, useRouter } from 'vue-router';
 import UIInputSearch from '/@components/UI/UIInputSearch.vue';
 import Icon from '/@components/Icon/index.vue';
+import { message } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'appMenu',
@@ -46,10 +50,6 @@ export default defineComponent({
         title: '专利市场',
         path: '/patent',
       },
-      {
-        title: '免费找专利',
-        path: '/#leave_message',
-      }
     ]
     watchEffect(() => {
       searchKeyword.value = route.query.word
@@ -57,6 +57,9 @@ export default defineComponent({
     const searchPatent = (word: string) => {
       if (word.trim() === '') return
       router.push({path: '/patent', query: {word: word.trim()}})
+    }
+    const handlePlasticMenuClick = () => {
+      message.info('敬请期待')
     }
     const getScrollTop = () => scrollTop.value = document.documentElement.scrollTop
     onMounted(() => window.addEventListener('scroll', getScrollTop))
@@ -68,6 +71,7 @@ export default defineComponent({
       scrollTop,
       searchKeyword,
       searchPatent,
+      handlePlasticMenuClick,
     }
   }
 })
@@ -111,6 +115,13 @@ export default defineComponent({
   .menuList {
     display: flex;
     align-items: center;
+    user-select: none;
+    .plasticMenuItem {
+      font-size: 16px;
+      margin: 0 1.9em;
+      padding: 1.4em 0;
+      cursor: pointer;
+    }
     .menuItem {
       transition: all .3s;
       font-size: 16px;

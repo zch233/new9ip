@@ -38,9 +38,10 @@
       </section>
       <section class="leaveMessageBar">
         <div class="pageWidthWithCenter">
-          <SubTitle title="免费找专利" des="一键匹配专业顾问帮您找" />
-          <div class="inputWrapper"><UIInput placeholder="请输入您的手机号" :maxlength="11" /></div>
-          <UIButton class="leaveMessageButton" type="primary" size="large" @click="leaveMessage" customerClass="warningButton">免费帮我找</UIButton>
+          <img class="bgBottom" src="../../assets/home/bgBottom.png" alt="">
+<!--          <SubTitle title="免费找专利" des="一键匹配专业顾问帮您找" />-->
+<!--          <div class="inputWrapper"><UIInput placeholder="请输入您的手机号" :maxlength="11" /></div>-->
+<!--          <UIButton class="leaveMessageButton" type="primary" size="large" @click="leaveMessage" customerClass="warningButton">免费帮我找</UIButton>-->
         </div>
       </section>
     </div>
@@ -55,7 +56,6 @@ import SubTitle from './SubTitle.vue';
 import Icon from '/@components/Icon/index.vue'
 import UIInput from '/@components/UI/UIInput.vue';
 import UIButton from '/@components/UI/UIButton.vue';
-import { message } from 'ant-design-vue';
 import * as homeApi from '/@api/home'
 import { useRouter } from 'vue-router';
 
@@ -78,9 +78,6 @@ export default defineComponent({
       {icon: 'advance3', title: '专心', des: '一对一专属客户经理',},
       {icon: 'advance4', title: '真实', des: '一手真实资源值得信赖',},
     ]
-    const leaveMessage = () => {
-      message.success('刘颖成功')
-    }
     const searchPatent = (word: string) => {
       if (word.trim() === '') return
       router.push({path: '/patent', query: {word: word.trim()}})
@@ -96,7 +93,6 @@ export default defineComponent({
     return {
       searchPatent,
       advanceList,
-      leaveMessage,
       hotSearchKeywords,
     }
   }
@@ -186,6 +182,7 @@ export default defineComponent({
 .leaveMessageBar {
   background-color: #14A8BD;
   text-align: center;
+  .bgBottom {width: 80%;}
   .inputWrapper {
     width: 50%;
     margin: 0 auto 30px;

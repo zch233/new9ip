@@ -5,7 +5,7 @@
       欢迎登录
     </div>
     <div class="authMain">
-      <img src="../../assets/auth/poster.png" alt="">
+      <img class="posterImage" src="../../assets/auth/poster.png" alt="">
       <div class="pageWrapper"><RouterView /></div>
     </div>
     <div class="authFooter">
@@ -92,6 +92,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   justify-content: center;
+  .posterImage {width: 480px;}
   .pageWrapper {
     background-color: #fff;
     border-radius: 10px;
