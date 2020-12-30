@@ -12,7 +12,7 @@
           </div>
         </nav>
       </div>
-      <div class="rightSearch" v-if="!(isHomeRoute && scrollTop < 275)">
+      <div class="rightSearch" v-if="!(isHomeRoute && scrollTop < 300)">
         <UIInputSearch
           v-model:value="searchKeyword"
           class="inputMenuSearch"
