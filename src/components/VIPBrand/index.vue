@@ -1,6 +1,6 @@
 <template>
   <span class="VIPBrandWrapper">
-    <AIcon class="VIPBrand" icon="VIP" />
+    <AIcon icon="VIP" />
   </span>
 </template>
 
@@ -18,13 +18,12 @@ export default defineComponent({
 .VIPBrandWrapper {
   display: inline-flex;
   overflow: hidden;
-  height: .4em;
+  height: .44em;
   padding: 0 .1em;
+  margin: 0 .1em;
   align-items: center;
   vertical-align: -.36em;
   border-radius: 3px;
-}
-.VIPBrand {
   background-image: linear-gradient(90deg, #FF8D25 0%, #FFCA8A 100%);
 }
 </style>
