@@ -31,7 +31,7 @@
               <b class="patentCard-right-title">{{ patent.name }}</b>
               <div class="patentCard-right-price">
                 <p><label>零售价</label><b>￥{{ patent.price }}</b></p>
-                <p><label>VIP会员</label><b class="vipPrice">￥{{ patent.vipPrice }}</b><em class="updateVip">成为VIP会员</em></p>
+                <p><label>VIP会员</label><b class="vipPrice">￥{{ patent.vipPrice }}</b><RouterLink v-if="!store.state.user.hasVip" to="/vip"><em class="updateVip">成为VIP会员</em></RouterLink></p>
               </div>
               <p class="patentCard-right-info"><label>专利号</label>{{ patent.number }}</p>
               <p class="patentCard-right-info"><label>专利类型</label>{{ PATENT_TYPE.label[patent.type] }}</p>
@@ -39,9 +39,14 @@
               <p class="patentCard-right-info"><label>缴费截止</label>{{ patent.paymentDeadline || '未知' }}</p>
               <p class="patentCard-right-info"><label>发明人</label>{{ patent.inventorExplain }}</p>
               <p class="patentCard-right-info"><label>销售状态</label>{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</p>
-              <div class="patentCard-right-button" v-if="patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL || patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL ">
-                <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
-                <PreorderButton big :patent="patent" />
+              <div class="patentCard-right-button">
+                <template v-if="patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL || patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL">
+                  <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
+                  <PreorderButton big :patent="patent" />
+                </template>
+                <template v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING">
+                  <b>预留至：{{ patent.reserveExpireTime }}</b>
+                </template>
               </div>
               <p class="patentCard-right-patentTips">此商品已全权委托平台寄卖，平台免费提供担保交易服务。</p>
             </div>
