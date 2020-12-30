@@ -1,7 +1,7 @@
 <template>
   <RouterLink :to="`/patent/${patent.number}`">
     <div class="patentCard">
-      <div class="patentCard-image"><img src="../../assets/patent/A.jpg" alt=""></div>
+      <div class="patentCard-image"><img :src="`https://market.img.9ip.com/${patent.category.slice(0, 1)}.jpg`" alt=""></div>
       <p class="patentCard-title">{{ patent.name }}</p>
       <div class="patentCard-price">￥{{ patent.price }}</div>
     </div>

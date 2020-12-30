@@ -47,7 +47,7 @@
       <UISpin :spinning="loading">
         <ul class="patentListBar-list" v-if="patents.length > 0">
           <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
-            <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><img src="../../assets/patent/A.jpg" alt=""></div>
+            <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><img :src="`https://market.img.9ip.com/${patent.category.slice(0, 1)}.jpg`" alt=""></div>
             <div class="patentListBar-list-item-content">
               <div class="patentListBar-list-item-content-firstFloor">
                 <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
@@ -114,6 +114,7 @@ import * as patentApi from '/@api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
 import { openNewWidowWithBlob } from '/@/utils';
 import { message } from 'ant-design-vue';
+import { GetPatents } from '/@api/patent';
 
 export default defineComponent({
   name: 'Patent',
@@ -129,11 +130,11 @@ export default defineComponent({
       current: 1,
       defaultPageSize: 30,
       pageSizeOptions: ['10', '30', '50', '100'],
-      showSizeChange: (page, pageSize) => {
+      showSizeChange: (page: number, pageSize: number) => {
         window.scrollTo(0,0)
         router.push({path: '/patent', query: {...routeQuery.value, size: pageSize, no: 1}})
       },
-      change: (current) => {
+      change: (current: number) => {
         window.scrollTo(0,0)
         router.push({path: '/patent', query: {...routeQuery.value, no: current}})
       },
@@ -157,14 +158,13 @@ export default defineComponent({
           icon: 'top',
         };
     }
-    const getPatents = async (fetchData) => {
+    const getPatents = async (fetchData: GetPatents) => {
       if (loading.value) return
       loading.value = true
       const {data} = await patentApi.getPatents({size: paginationOptions.defaultPageSize, psort: 0, ...fetchData}).finally(() => loading.value = false)
       patents.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
-      paginationOptions.size = data?.size
     }
     const getPatentTag = async () => {
       const {data} = await patentApi.getPatentTag()

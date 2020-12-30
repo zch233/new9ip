@@ -12,7 +12,7 @@
         <div class="patentCard">
           <UISkeleton :loading="loading" :avatar="{shape: 'square', size: 'large'}" :paragraph="{rows: 14}" active >
             <div class="patentCard-left">
-              <div class="patentCard-left-imageWrapper"><img src="../../assets/patent/A.jpg" alt=""></div>
+              <div class="patentCard-left-imageWrapper"><img :src="`https://market.img.9ip.com/${patent.category?.slice(0, 1)}.jpg`" alt=""></div>
               <div class="patentCard-left-options">
                 <UIPopover title="复制链接以分享" trigger="click" placement="bottomRight">
                   <span>分享 <Icon icon="share" /></span>
@@ -101,7 +101,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import Icon from '/@components/Icon/index.vue';
 import UIButton from '/@components/UI/UIButton.vue';
 import UISkeleton from '/@components/UI/UISkeleton.vue';
@@ -112,7 +112,7 @@ import StarIcon from '/@components/StarIcon/index.vue'
 import PreorderButton from '/@components/PreorderButton/index.vue'
 import * as patentApi from '/@api/patent'
 import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
-import { copyToClipboard } from '/@/utils';
+import { copyToClipboard, getSingleQuery } from '/@/utils';
 import { useStore } from '/@/store';
 
 export default defineComponent({
@@ -154,10 +154,10 @@ export default defineComponent({
       }
     ]
     const recommendPatents = ref<Patent[]>([])
-    const patent = ref<Patent>({})
+    const patent = ref<Partial<Patent>>({})
     const getPatentDetail = async () => {
       loading.value = true
-      const { data } = await patentApi.getPatentDetail(route.params.number).finally(() => loading.value = false)
+      const { data } = await patentApi.getPatentDetail(getSingleQuery(route.params.number)!).finally(() => loading.value = false)
       patent.value = data
     }
     const scrollToContent = (index: number) => {
@@ -168,9 +168,15 @@ export default defineComponent({
       recommendPatents.value = data.list
     }
     const shareURL = window.location.href
-    onMounted(async () => {
+    const initPage = async () => {
       await getPatentDetail()
       await getRecommendPatents()
+    }
+    onBeforeRouteUpdate(() => {
+      initPage()
+    })
+    onMounted(() => {
+      initPage()
     })
     return {
       store,

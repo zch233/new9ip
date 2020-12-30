@@ -28,7 +28,7 @@
                 <span>卖家：{{ preorder.sellerShopName }}</span>
               </div>
               <div class="listContent-item-content">
-                <div class="listContent-item-content-image colTime"><img src="../../../assets/patent/A.jpg" alt=""></div>
+                <div class="listContent-item-content-image colTime"><img :src="`https://market.img.9ip.com/${preorder.productCategory.slice(0, 1)}.jpg`" alt=""></div>
                 <div class="listContent-item-content-info colInfo">
                   <RouterLink :to="`/patent/${preorder.productNumber}`"><b>{{ preorder.productName }}</b></RouterLink>
                   <p>专利号：{{ preorder.productNumber }}</p>

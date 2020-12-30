@@ -12,7 +12,7 @@
         <li v-for="item in currentCategoryPatents" :key="item.id" class="categoryCardItem">
           <RouterLink class="categoryCardItem-link" :to="`/patent/${item.number}`">
             <div class="categoryCardItem-imageWrapper">
-              <img src="../../assets/patent/A.jpg" alt="">
+              <img :src="`https://market.img.9ip.com/${item.category.slice(0, 1)}.jpg`" alt="">
             </div>
             <p class="categoryCardItem-title">{{ item.name }}</p>
             <div class="categoryCardItem-priceBar">
@@ -41,7 +41,7 @@ export default defineComponent({
   setup() {
     const patents = reactive<{[key: string]: Patent[] }>({})
     const currentCategory = ref('A')
-    const currentCategoryPatents: Patent = computed(() => patents[currentCategory.value] || [])
+    const currentCategoryPatents = computed(() => patents[currentCategory.value] || [])
     onMounted(() => {
       categories.map(async category => {
         const {data} = await getPatents({ category: category.code, size: 6 })
