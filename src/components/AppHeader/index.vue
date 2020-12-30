@@ -18,7 +18,7 @@
       </div>
       <div class="appHeader-right">
         <span class="appHeader-right-item"><RouterLink to="/user/order">我的订单</RouterLink></span>
-        <UIPopover>
+        <UIPopover placement="bottom">
           <span class="appHeader-right-item">客户服务 <Icon icon="down" /></span>
           <template #content>
             <ul class="orderPopoverContent">
@@ -27,7 +27,7 @@
             </ul>
           </template>
         </UIPopover>
-        <UIPopover>
+        <UIPopover placement="bottom">
           <span class="appHeader-right-item">会员中心 <Icon icon="down" /></span>
           <template #content>
             <ul class="vipPopoverContent">
