@@ -2,7 +2,7 @@
   <div class="user">
     <section class="user-head">
       <div class="user-head-left">
-        <div class="user-head-left-headImage"><img v-if="user.avatar" src="../../assets/patent/A.jpg" alt=""><Icon v-else icon="defaultHeadImage" /></div>
+        <div class="user-head-left-headImage"><img v-if="user.avatar" :src="user.avatar" alt=""><Icon v-else icon="defaultHeadImage" /></div>
         <div class="user-head-left-info">
           <p class="user-head-left-info-account">{{ user.nickname }}</p>
           <div class="user-head-left-info-vip" v-if="user.hasVip">

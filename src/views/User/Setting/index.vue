@@ -7,7 +7,9 @@
         </template>
         <div class="wrapper">
           <UIForm :labelCol="{span: 2}">
-            <UIFormItem label="头像">1</UIFormItem>
+            <UIFormItem label="头像">
+              <div class="headImage"><img v-if="store.state.user.avatar" :src="store.state.user.avatar" alt=""><Icon v-else icon="defaultHeadImage" /></div>
+            </UIFormItem>
             <UIFormItem label="用户名">{{store.state.user.account}}</UIFormItem>
             <UIFormItem label="昵称"><UIInput v-model:value="userInfo.nickname" placeholder="请填写昵称" /></UIFormItem>
             <UIFormItem label="性别">
@@ -44,6 +46,7 @@ import UIFormItem from '/@components/UI/UIFormItem.vue';
 import UIRadio from '/@components/UI/UIRadio.vue';
 import UIRadioGroup from '/@components/UI/UIRadioGroup.vue';
 import UpdatePasswordModal from './UpdatePasswordModal.vue';
+import Icon from '/@components/Icon/index.vue'
 import { useStore } from '/@/store';
 import { useForm } from '@ant-design-vue/use';
 import * as settingApi from '/@api/setting'
@@ -51,7 +54,7 @@ import { message } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'Setting',
-  components: {UITabs, UITabPane, UIButton, UIInput, UIForm, UIFormItem, UIRadio, UIRadioGroup, UpdatePasswordModal},
+  components: {UITabs, UITabPane, UIButton, UIInput, UIForm, UIFormItem, UIRadio, UIRadioGroup, UpdatePasswordModal, Icon},
   setup() {
     const store = useStore()
     const submitLoading = ref(false)
@@ -97,4 +100,12 @@ export default defineComponent({
 .info-item {padding: 20px;}
 .security-item {padding: 30px;}
 .wrapper {padding-left: 30px;padding-bottom: 30px;}
+.headImage {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  img {width: 100%;}
+  svg {font-size: 80px}
+}
 </style>
