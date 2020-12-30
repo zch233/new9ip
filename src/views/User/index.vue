@@ -7,7 +7,7 @@
           <p class="user-head-left-info-account">1861861615165</p>
           <div class="user-head-left-info-vip" v-if="user.hasVip">
             <VIPBrand /> {{ restPoint }} 积分
-            <p>到期时间：2022-12-09</p>
+            <p>到期时间：{{ user.vipExpireDate }}</p>
           </div>
           <span v-else>普通会员 {{ restPoint }} 积分</span>
         </div>
