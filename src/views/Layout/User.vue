@@ -17,10 +17,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import AppFooter from '/@components/AppFooter/index.vue'
-import AppHeader from '/@components/AppHeader/index.vue'
-import AppTitleBar from '/@components/AppTitleBar/index.vue'
+import { defineComponent } from 'vue';
+import AppFooter from '/@components/AppFooter/index.vue';
+import AppHeader from '/@components/AppHeader/index.vue';
+import AppTitleBar from '/@components/AppTitleBar/index.vue';
 import { user } from '/@/router/modules/user';
 
 export default defineComponent({
@@ -42,7 +42,6 @@ export default defineComponent({
 }
 .userCenterWrapper {
   display: flex;
-  align-items: flex-start;
   .userMenu {
     background-color: #fff;
     width: 12.5%;
