@@ -80,7 +80,7 @@ export default defineComponent({
         background-color: #fff;
         color: #333;
       }
-      svg {margin-bottom: 18px;font-size: 70px;}
+      svg {margin-bottom: 18px;font-size: 40px;}
       &.active {color: #333;}
     }
   }
