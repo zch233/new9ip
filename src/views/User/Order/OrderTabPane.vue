@@ -181,19 +181,17 @@ export default defineComponent({
       });
     }
     const getOrders = async (fetchData) => {
-      if (loading.value) return
+      if (loading.value || ((routeQuery.value.status || '999') !== (status?.toString()))) return
       loading.value = true
-      const {data} = await orderApi.getOrders({size: paginationOptions.defaultPageSize, ...getDateRange(currentOrderTimeRange.value.key), ...fetchData, status}).finally(() => loading.value = false)
+      const {data} = await orderApi.getOrders({size: paginationOptions.defaultPageSize, ...getDateRange(currentOrderTimeRange.value.key), ...fetchData, status: status === 999 ? undefined : status}).finally(() => loading.value = false)
       orders.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
       paginationOptions.size = data?.size
     }
     onBeforeRouteUpdate((to) => {
-      if (to.query.status === (status && status.toString())) {
-        getOrders(to.query)
-        routeQuery.value = to.query
-      }
+      routeQuery.value = to.query
+      getOrders(to.query)
     })
     onMounted(() => {
       getOrders(routeQuery.value)
