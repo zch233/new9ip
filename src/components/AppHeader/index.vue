@@ -42,7 +42,7 @@
           <RouterLink to="/user/index" class="appHeader-right-item username" :class="[isVIP && 'isVIP']"><VIPBrand v-if="isVIP" class="VIPBrand" />{{user.nickname}}</RouterLink>
           <span class="appHeader-right-item logout" @click="logout">退出</span>
         </template>
-        <RouterLink v-else to="/auth/sign_in" class="appHeader-right-item loginSection">登陆 / 注册</RouterLink>
+        <RouterLink v-else to="/auth/sign_in" class="appHeader-right-item loginSection">登录 / 注册</RouterLink>
       </div>
     </div>
   </header>
