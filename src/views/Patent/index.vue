@@ -39,7 +39,7 @@
         </div>
         <div class="patentListBar-options-extra">
           <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
-          <UIButton @click="exportPatent('result')" type="primary" customer-class="mainButton">导出结果</UIButton>
+          <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
           <Icon @click="router.push('/patent'); getPatents({})" icon="refresh" />
           <FullScreenIcon />
         </div>
@@ -179,7 +179,7 @@ export default defineComponent({
     const exportPatent = async (type: 'all' | 'result') => {
       const requestParams = {
         all: { size: '-1' },
-        result: { ...routeQuery.value, size: '100' },
+        result: { size: paginationOptions.defaultPageSize,...routeQuery.value },
       };
       const file = await patentApi.exportPatent(requestParams[type]);
       const today = new Date();
