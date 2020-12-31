@@ -35,7 +35,7 @@
       </div>
     </section>
     <section class="user-recommend">
-      <p class="cardTitle"><em>猜你喜欢</em><RouterLink to="/patent">查看全部 <Icon icon="right" /></RouterLink></p>
+      <p class="cardTitle"><em>猜你喜欢</em><RouterLink to="/patent">查看更多 <Icon icon="right" /></RouterLink></p>
       <div class="recommendPatents">
         <div class="recommendPatents-item" v-for="patent in recommendPatents" :key="patent.id"><PatentCard :patent="patent" /></div>
       </div>
