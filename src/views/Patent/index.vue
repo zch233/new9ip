@@ -241,7 +241,7 @@ export default defineComponent({
     }
   }
   .systemFilterBar {
-    padding: 20px;
+    padding: 12px 20px;
     background-color: #fff;
     transition: all 0.3s;
     overflow: hidden;
@@ -249,8 +249,8 @@ export default defineComponent({
     &.hide {opacity: 0;height: 0;padding: 0 15px;}
     &-list {
       display: flex;
-      margin-bottom: 10px;
-      &:last-child {margin-bottom: 0;}
+      flex-wrap: wrap;
+      line-height: 2.4;
       &-item {
         margin-right: 2.4em;
         cursor: pointer;
