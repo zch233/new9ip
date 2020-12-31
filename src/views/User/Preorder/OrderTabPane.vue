@@ -35,6 +35,7 @@
                 </div>
                 <div class="listContent-item-content-price colPrice">
                   <p><label>价格：</label>￥{{ preorder.productPrice }}</p>
+                  <p><label>VIP会员：</label>￥{{ preorder.vipPrice }}</p>
                 </div>
                 <div class="listContent-item-content-status colStatus">{{ PREORDER_STATUS.label[preorder.status] }}</div>
                 <div class="listContent-item-content-options colOptions">

@@ -160,6 +160,7 @@ type Preorder = {
   productName: string;
   productNumber: string;
   productPrice: number;
+  vipPrice: number;
   reserveIdentifier: 'MEMBER' | 'ACCOUNT_MANAGER';
   sellerShopName: string;
   status: 0 | 1 | 2 | 3;
