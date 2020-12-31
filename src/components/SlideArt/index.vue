@@ -10,12 +10,12 @@
             <div>
               <p>
                 <a rel="noopener noreferrer" target="_blank" :href="`tencent://message/?uin=${contact.qq}&Site=qq&Menu=yes`">
-                  <Icon icon="qq" />{{ contact.qq }}
+                  <Icon icon="qq" /><span>{{ contact.qq }}</span>
                 </a>
               </p>
               <p>
                 <a rel="noopener noreferrer" target="_blank" :href="`tel:${ contact.mobile }`">
-                  <Icon icon="phone" />{{ contact.mobile }}
+                  <Icon icon="phone" /><span>{{ contact.mobile }}</span>
                 </a>
               </p>
             </div>
@@ -103,8 +103,12 @@ a {color: inherit;}
     p {
       margin: 0;
       line-height: 2.4;
-      color: #14A8BD;
+      span {
+        transition: all .3s;
+        &:hover {color: #14A8BD;}
+      }
       svg {
+        fill: #14A8BD;
         font-size: 20px;
         margin: 0 10px 0 20px;
       }

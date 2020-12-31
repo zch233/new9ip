@@ -112,7 +112,7 @@ export default defineComponent({
   padding: 8px 0;
   position: sticky;
   top: 0;
-  z-index: 5;
+  z-index: 6;
   height: 40px;
   a {color: inherit;}
   .appHeaderWrapper {

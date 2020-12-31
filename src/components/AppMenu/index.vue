@@ -94,7 +94,7 @@ export default defineComponent({
   background-color: #fff;
   position: sticky;
   top: 40px;
-  z-index: 1;
+  z-index: 5;
   box-shadow: rgb(0, 0, 0, 0.05) 0 0 10px 1px;
   .menuWrapper {
     display: flex;

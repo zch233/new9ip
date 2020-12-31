@@ -103,8 +103,10 @@ export default defineComponent({
 .inputHomeSearch {
   margin-bottom: 8px;
   .ant-input, .ant-btn {height: 70px;font-size: 20px;}
-  .ant-input:focus {
+  .ant-input:hover, .ant-input:focus {
     border-color: #FFBB12;
+  }
+  .ant-input:focus {
     box-shadow: rgba(20, 168, 189, 0.2) 0 0 0 2px;
   }
   .ant-btn {
