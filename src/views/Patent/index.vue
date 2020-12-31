@@ -40,7 +40,7 @@
         <div class="patentListBar-options-extra">
           <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
           <UIButton @click="exportPatent('result')" type="primary" customer-class="mainButton">导出结果</UIButton>
-          <Icon @click="getPatents" icon="refresh" />
+          <Icon @click="router.push('/patent'); getPatents({})" icon="refresh" />
           <FullScreenIcon />
         </div>
       </div>
@@ -57,8 +57,14 @@
                 </p>
               </div>
               <div class="patentListBar-list-item-content-secondFloor">
-                <p class="patentListBar-list-item-content-secondFloor-des"><label>专利号：<span class="searchKeyword" v-html="patent.numberHighlightKey || patent.number" /></label><label>领域：<span class="searchKeyword" v-html="patent.tagsHighlightKey || patent.tags" /></label><label>发明人：{{ patent.inventorExplain }}</label></p>
-                <p class="patentListBar-list-item-content-secondFloor-des"><label>专利类型：{{ PATENT_TYPE.label[patent.type] }}</label><label>法律状态：{{ patent.legalStatus }}</label></p>
+                <p class="patentListBar-list-item-content-secondFloor-des">
+                  <label>专利号：<span class="searchKeyword" v-html="patent.numberHighlightKey || patent.number" /></label>
+                  <label>领域：<span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />,</span></label>
+                  <label>发明人：{{ patent.inventorExplain }}</label></p>
+                <p class="patentListBar-list-item-content-secondFloor-des">
+                  <label>专利类型：{{ PATENT_TYPE.label[patent.type] }}</label>
+                  <label>法律状态：{{ patent.legalStatus }}</label>
+                </p>
               </div>
               <div class="patentListBar-list-item-content-thirdFloor">
                 <div class="patentListBar-list-item-content-thirdFloor-status">
