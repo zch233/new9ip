@@ -281,7 +281,7 @@ export default defineComponent({
       &-extra {
         display: flex;
         align-items: center;
-        > * {margin-left: 20px;font-size: 12px;}
+        > * {margin-left: 10px;font-size: 12px;}
         svg, .fullscreenWrapper {transition: all .3s;cursor: pointer;font-size: 24px;color: #aaa; &:hover {color: #14A8BD;}}
       }
     }
