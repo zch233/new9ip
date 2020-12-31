@@ -47,7 +47,9 @@
       <UISpin :spinning="loading">
         <ul class="patentListBar-list" v-if="patents.length > 0">
           <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
-            <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :category="patent.category" /></div>
+            <RouterLink :to="`/patent/${patent.number}`">
+              <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :category="patent.category" /></div>
+            </RouterLink>
             <div class="patentListBar-list-item-content">
               <div class="patentListBar-list-item-content-firstFloor">
                 <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
@@ -59,7 +61,7 @@
               <div class="patentListBar-list-item-content-secondFloor">
                 <p class="patentListBar-list-item-content-secondFloor-des">
                   <label>专利号：<span class="searchKeyword" v-html="patent.numberHighlightKey || patent.number" /></label>
-                  <label>领域：<span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />,</span></label>
+                  <label class="patentListBar-list-item-content-secondFloor-des-tags">领域：<span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />{{index === (patent.tagsHighlightKey || patent.tags).split(',').length - 1 ? '' : '，'}}</span></label>
                   <label>发明人：{{ patent.inventorExplain }}</label></p>
                 <p class="patentListBar-list-item-content-secondFloor-des">
                   <label>专利类型：{{ PATENT_TYPE.label[patent.type] }}</label>
@@ -317,7 +319,7 @@ export default defineComponent({
             align-items: center;
             justify-content: space-between;
             margin-bottom: 7px;
-            &-title {font-size: 16px;}
+            &-title {transition: color .3s;font-size: 16px; &:hover {color: #14A8BD;}}
             &-info {
               margin: 0;
               svg {transition: all .3s;cursor: pointer;font-size: 20px;color: #aaa; &:hover {color: rgb(255,171,31);}}
@@ -327,7 +329,12 @@ export default defineComponent({
           }
           &-secondFloor {
             color: #666666;
-            &-des {margin-bottom: 8px; &:last-child {margin-bottom: 4px;} label {width: 16em; display: inline-block;}}
+            &-des {
+              margin-bottom: 8px;
+              &:last-child {margin-bottom: 4px;}
+              label {width: 16em; display: inline-block;}
+              &-tags {transition: color .3s; &:hover {color: #14A8BD;}}
+            }
           }
           &-thirdFloor {
             display: flex;
