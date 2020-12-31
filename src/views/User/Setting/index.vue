@@ -8,9 +8,9 @@
         <div class="wrapper">
           <UIForm :labelCol="{span: 2}">
             <UIFormItem label="头像">
-              <div class="headImage"><img v-if="store.state.user.avatar" :src="store.state.user.avatar" alt=""><Icon v-else icon="defaultHeadImage" /></div>
+              <div class="headImage"><img v-if="user.avatar" :src="user.avatar" alt=""><Icon v-else icon="defaultHeadImage" /></div>
             </UIFormItem>
-            <UIFormItem label="用户名">{{store.state.user.account}}</UIFormItem>
+            <UIFormItem label="用户名">{{ user.account }}</UIFormItem>
             <UIFormItem label="昵称"><UIInput v-model:value="userInfo.nickname" placeholder="请填写昵称" /></UIFormItem>
             <UIFormItem label="性别">
               <UIRadioGroup v-model:value="userInfo.sex">
@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, ref } from 'vue';
+import { computed, defineComponent, reactive, ref } from 'vue';
 import UITabs from '/@components/UI/UITabs.vue';
 import UITabPane from '/@components/UI/UITabPane.vue';
 import UIButton from '/@components/UI/UIButton.vue';
@@ -58,10 +58,11 @@ export default defineComponent({
   components: {UITabs, UITabPane, UIButton, UIInput, UIForm, UIFormItem, UIRadio, UIRadioGroup, UpdatePasswordModal, Icon},
   setup() {
     const store = useStore()
+    const user = computed(() => store.getters.user)
     const submitLoading = ref(false)
     const userInfo = reactive<UpdateUserInfo>({
-      nickname: store.state.user.nickname || '',
-      sex: store.state.user.sex || '',
+      nickname: user.nickname || '',
+      sex: user.sex || '',
     })
     const rules = reactive({})
     useForm(userInfo, rules)
@@ -77,7 +78,7 @@ export default defineComponent({
       message.success('更新成功');
     }
     return {
-      store,
+      user,
       userInfo,
       updateUserInfo,
       submitLoading,

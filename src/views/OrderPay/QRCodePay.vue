@@ -11,7 +11,7 @@
             <p class="orderInfo-main-title">订单提交成功！只差付款了~<label>订单号：</label><em>{{ orderInfo.orderNo }}</em></p>
             <p class="orderInfo-main-tips"><em v-if="codeExpired">订单已关闭，请重新下单。</em><template v-else>请您在 <UICountdown class="orderCountDown" @finish="codeExpired=!codeExpired" :value="Date.now() + (orderInfo.timeRemainingSec ? orderInfo.timeRemainingSec * 1000 : 0)" format="m分s秒"/> 内完成支付，否则本次支付将自动取消。</template></p>
             <article class="orderInfo-main-info" v-show="orderInfoVisible">
-              <p><label>收货信息：</label>{{ store.state.user.account }}</p>
+              <p><label>收货信息：</label>{{ user.account }}</p>
               <p><label>商品名称：</label>{{ orderInfo.subject }}</p>
               <p><label>购买时间：</label>{{ orderInfo.orderTime }}</p>
             </article>
@@ -47,7 +47,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue';
 import OrderSteps from '/@components/OrderSteps/index.vue';
 import AppTitleBar from '/@components/AppTitleBar/index.vue';
 import Icon from '/@components/Icon/index.vue';
@@ -119,7 +119,7 @@ export default defineComponent({
       clearPollGetPayResult()
     })
     return {
-      store,
+      user: computed(() => store.getters.user),
       pollGetPayResultDone,
       pageLoading,
       checkOrderStatusLoading,

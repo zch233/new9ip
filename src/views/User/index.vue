@@ -44,7 +44,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import PatentCard from '/@components/PatentCard/index.vue'
 import Icon from '/@components/Icon/index.vue'
@@ -82,10 +82,9 @@ export default defineComponent({
       getWaitOrderNumber()
     })
     return {
-      user: store.state.user,
+      user: computed(() => store.getters.user),
       recommendPatents,
       waitOrderNumber,
-      store,
       restPoint,
     }
   }

@@ -1,6 +1,7 @@
 import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import * as authApi from '../api/auth';
+import getters from './getters'
 
 export interface State {
   user: Partial<User>;
@@ -16,6 +17,7 @@ export const store = createStore<State>({
     loginStatus: false,
     oneDayConsumePoints: 0,
   },
+  getters,
   mutations: {
     COMMIT_USER(state, data: User) {
       state.user = data
@@ -45,7 +47,7 @@ export const store = createStore<State>({
       commit('COMMIT_USER', {})
       commit('COMMIT_LOGIN_STATUS', false)
     }
-  }
+  },
 })
 
 export function useStore () {

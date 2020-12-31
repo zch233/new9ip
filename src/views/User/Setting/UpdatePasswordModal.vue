@@ -1,11 +1,11 @@
 <template>
   <UIModal title="修改密码" :onOk="updatePassword" :maskClosable="false">
     <UIForm>
-      <UIFormItem label="会员帐号">{{ store.state.user.account }}</UIFormItem>
+      <UIFormItem label="会员帐号">{{ user.account }}</UIFormItem>
       <UIFormItem label="验证码" v-bind="validateInfos.captcha">
         <UIInput v-model:value="passwordInfo.captcha" class="captcha" placeholder="验证码" :maxlength="6">
           <template #addonAfter>
-            <Captcha member :info="{phone: store.state.user.account}" />
+            <Captcha member :info="{phone: user.account}" />
           </template>
         </UIInput>
       </UIFormItem>
@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive } from 'vue';
+import { computed, defineComponent, reactive } from 'vue';
 import UIModal from '/@components/UI/UIModal.vue'
 import UIForm from '/@components/UI/UIForm.vue';
 import UIFormItem from '/@components/UI/UIFormItem.vue';
@@ -31,6 +31,7 @@ export default defineComponent({
   components: {UIModal, UIForm, UIFormItem, UIInput, Captcha},
   setup(props, context) {
     const store = useStore()
+    const user = computed(() => store.getters.user)
     const passwordInfo = reactive({
       newPassword: '',
       captcha: '',
@@ -43,13 +44,13 @@ export default defineComponent({
     const updatePassword = () => {
       validate().then(async () => {
         const hide = message.loading('正在更新，请稍候...');
-        await settingApi.updateUserInfo({ ...passwordInfo, phone: store.state.user.account }).finally(() => hide())
+        await settingApi.updateUserInfo({ ...passwordInfo, phone: user.account }).finally(() => hide())
         context.emit('update:visible', false);
         message.success('更新成功');
       }, () => message.error('表单输入有误'))
     }
     return {
-      store,
+      user,
       updatePassword,
       passwordInfo,
       validateInfos,

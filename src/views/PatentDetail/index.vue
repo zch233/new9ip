@@ -31,7 +31,7 @@
               <b class="patentCard-right-title">{{ patent.name }}</b>
               <div class="patentCard-right-price">
                 <p><label>零售价</label><b>￥{{ patent.price }}</b></p>
-                <p><label>VIP会员</label><b class="vipPrice">￥{{ patent.vipPrice }}</b><RouterLink v-if="!store.state.user.hasVip" to="/vip"><em class="updateVip">成为VIP会员</em></RouterLink></p>
+                <p><label>VIP会员</label><b class="vipPrice">￥{{ patent.vipPrice }}</b><RouterLink v-if="!hasVip" to="/vip"><em class="updateVip">成为VIP会员</em></RouterLink></p>
               </div>
               <p class="patentCard-right-info"><label>专利号</label>{{ patent.number }}</p>
               <p class="patentCard-right-info"><label>专利类型</label>{{ PATENT_TYPE.label[patent.type] }}</p>
@@ -57,19 +57,19 @@
         </ul>
       </div>
       <div class="managerCard">
-        <template v-if="store.state.loginStatus && store.state.user.accountManager">
+        <template v-if="loginStatus && user.accountManager">
           <UISkeleton :loading="loading" :avatar="{size: 'large'}" :paragraph="false" :title="false" active >
-            <div class="managerCard-imageWrapper" :data-manager="store.state.user.accountManager.name">
+            <div class="managerCard-imageWrapper" :data-manager="user.accountManager.name">
               <div class="managerCard-image">
-                <img v-if="store.state.user.accountManager.avatar" :src="store.state.user.accountManager.avatar" alt="">
+                <img v-if="user.accountManager.avatar" :src="user.accountManager.avatar" alt="">
                 <img v-else src="../../assets/patent/employ.png" alt="">
               </div>
             </div>
           </UISkeleton>
           <UISkeleton :loading="loading" :avatar="false" :paragraph="{rows: 5}" active >
             <div class="managerCard-phone" v-if="false"><UIButton customer-class="default">登录</UIButton>查看详细手机号</div>
-            <div class="managerCard-phone"><Icon icon="phone" /> {{ store.state.user.accountManager.mobile }}</div>
-            <a ref="noopener noreferrer" v-if="store.state.user.qq" class="managerCard-qqLink" target="_blank" :href="`tencent://message/?uin=${store.state.user.accountManager.qq}&Site=qq&Menu=yes`"><UIButton customer-class="mainButton" type="primary">QQ在线咨询</UIButton></a>
+            <div class="managerCard-phone"><Icon icon="phone" /> {{ user.accountManager.mobile }}</div>
+            <a ref="noopener noreferrer" v-if="user.qq" class="managerCard-qqLink" target="_blank" :href="`tencent://message/?uin=${user.accountManager.qq}&Site=qq&Menu=yes`"><UIButton customer-class="mainButton" type="primary">QQ在线咨询</UIButton></a>
           </UISkeleton>
         </template>
         <img v-else class="shopImage" src="../../assets/patent/shop.png" alt="">
@@ -100,7 +100,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { computed, defineComponent, onMounted, ref } from 'vue';
 import { onBeforeRouteUpdate, useRoute } from 'vue-router';
 import Icon from '/@components/Icon/index.vue';
 import UIButton from '/@components/UI/UIButton.vue';
@@ -179,7 +179,9 @@ export default defineComponent({
       initPage(getSingleQuery(route.params.number)!)
     })
     return {
-      store,
+      loginStatus: computed(() => store.getters.loginStatus),
+      user: computed(() => store.getters.user),
+      hasVip: computed(() => store.getters.hasVip),
       PATENT_STOCK_STATUS,
       PATENT_TYPE,
       shareURL,
