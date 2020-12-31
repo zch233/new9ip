@@ -31,7 +31,6 @@ export default defineComponent({
   components: {UIModal, UIForm, UIFormItem, UIInput, Captcha},
   setup(props, context) {
     const store = useStore()
-    const user = computed(() => store.getters.user)
     const passwordInfo = reactive({
       newPassword: '',
       captcha: '',
@@ -44,13 +43,13 @@ export default defineComponent({
     const updatePassword = () => {
       validate().then(async () => {
         const hide = message.loading('正在更新，请稍候...');
-        await settingApi.updateUserInfo({ ...passwordInfo, phone: user.account }).finally(() => hide())
+        await settingApi.updateUserInfo({ ...passwordInfo, phone: store.state.user.account }).finally(() => hide())
         context.emit('update:visible', false);
         message.success('更新成功');
       }, () => message.error('表单输入有误'))
     }
     return {
-      user,
+      user: computed(() => store.getters.user),
       updatePassword,
       passwordInfo,
       validateInfos,

@@ -57,28 +57,27 @@ export default defineComponent({
   name: 'Setting',
   components: {UITabs, UITabPane, UIButton, UIInput, UIForm, UIFormItem, UIRadio, UIRadioGroup, UpdatePasswordModal, Icon},
   setup() {
-    const store = useStore()
-    const user = computed(() => store.getters.user)
-    const submitLoading = ref(false)
+    const store = useStore();
+    const submitLoading = ref(false);
     const userInfo = reactive<UpdateUserInfo>({
-      nickname: user.nickname || '',
-      sex: user.sex || '',
+      nickname: store.state.user.nickname || '',
+      sex: store.state.user.sex || '',
     })
     const rules = reactive({})
-    useForm(userInfo, rules)
-    const updatePasswordModalVisible = ref(false)
+    useForm(userInfo, rules);
+    const updatePasswordModalVisible = ref(false);
     const updateUserInfo = async () => {
-      submitLoading.value = true
+      submitLoading.value = true;
       const hide = message.loading('正在更新，请稍候...');
       const {data} = await settingApi.updateUserInfo(userInfo).finally(() => {
-        submitLoading.value = false
-        hide()
+        submitLoading.value = false;
+        hide();
       })
-      store.commit('COMMIT_USER', data)
+      store.commit('COMMIT_USER', data);
       message.success('更新成功');
     }
     return {
-      user,
+      user: computed(() => store.getters.user),
       userInfo,
       updateUserInfo,
       submitLoading,

@@ -4,7 +4,9 @@ import { Store } from 'vuex'
 declare module '@vue/runtime-core' {
   // declare your own store states
   interface State {
-    count: number
+    user: Partial<User>;
+    loginStatus: boolean;
+    oneDayConsumePoints: number;
   }
 
   // provide typings for `this.$store`
