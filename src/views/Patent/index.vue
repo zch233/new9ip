@@ -188,8 +188,8 @@ export default defineComponent({
     }
     type Filter = {type?: string | number; word?: string; inventorExplain?: string | number; certStatus?: string | number;}
     const handleFilterClick = (filter: Filter) => {
-      const {type, inventorExplain, certStatus} = routeQuery.value
-      router.push({path: '/patent', query: JSON.parse(JSON.stringify({type, inventorExplain, certStatus, ...filter}))})
+      const {type, inventorExplain, certStatus, word} = routeQuery.value
+      router.push({path: '/patent', query: JSON.parse(JSON.stringify({word, type, inventorExplain, certStatus, ...filter}))})
     }
     onBeforeRouteUpdate((to) => {
       getPatents(to.query)
