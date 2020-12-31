@@ -40,8 +40,8 @@
         <div class="patentListBar-options-extra">
           <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
           <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
-          <Icon @click="router.push('/patent'); getPatents({})" icon="refresh" />
-          <FullScreenIcon />
+          <UITooltip title="刷新页面"><Icon @click="router.push('/patent'); getPatents({})" icon="refresh" /></UITooltip>
+          <UITooltip title="全屏"><FullScreenIcon /></UITooltip>
         </div>
       </div>
       <UISpin :spinning="loading">
@@ -118,6 +118,7 @@ import UIEmpty from '/@components/UI/UIEmpty.vue';
 import StarIcon from '/@components/StarIcon/index.vue'
 import PreorderButton from '/@components/PreorderButton/index.vue'
 import PatentImage from '/@components/PatentImage/index.vue';
+import UITooltip from '/@components/UI/UITooltip.vue';
 import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
@@ -127,7 +128,7 @@ import { GetPatents } from '/@api/patent';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton, PatentImage},
+  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton, PatentImage, UITooltip},
   setup() {
     const route = useRoute()
     const router = useRouter()
