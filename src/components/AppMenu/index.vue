@@ -55,7 +55,6 @@ export default defineComponent({
       searchKeyword.value = route.query.word
     })
     const searchPatent = (word: string) => {
-      if (word.trim() === '') return
       router.push({path: '/patent', query: {word: word.trim()}})
     }
     const handlePlasticMenuClick = () => {
