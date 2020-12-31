@@ -21,7 +21,7 @@
       <p class="cardTitle"><em>我的订单</em></p>
       <div class="orderViews">
         <RouterLink to="/user/order?status=0">
-          <Icon icon="waitPay" />
+          <UIBadge :count="waitOrderNumber"><Icon icon="waitPay" /></UIBadge>
           <p>待付款</p>
         </RouterLink>
         <RouterLink to="/user/order?status=1">
@@ -49,17 +49,21 @@ import VIPBrand from '/@components/VIPBrand/index.vue'
 import PatentCard from '/@components/PatentCard/index.vue'
 import Icon from '/@components/Icon/index.vue'
 import UIButton from '/@components/UI/UIButton.vue';
+import UIBadge from '/@components/UI/UIBadge.vue';
 import { useStore } from '/@/store';
 import * as patentApi from '/@api/patent';
 import * as pointApi from '/@api/point';
+import * as orderApi from '/@api/order'
+import { ORDER_STATUS } from '/@/utils/dict';
 
 export default defineComponent({
   name: 'User',
-  components: {VIPBrand, UIButton, Icon, PatentCard},
+  components: {VIPBrand, UIButton, Icon, PatentCard, UIBadge},
   setup() {
     const store = useStore()
     const recommendPatents = ref<Patent[]>([])
     const restPoint = ref(0)
+    const waitOrderNumber = ref(0)
     const getRecommendPatents = async () => {
       const {data} = await patentApi.getRecommendPatents({size: 8})
       recommendPatents.value = data.list
@@ -68,13 +72,19 @@ export default defineComponent({
       const {data} = await pointApi.getRestPoints()
       restPoint.value = data?.surplusCredit || 0
     }
+    const getWaitOrderNumber = async () => {
+      const {data} = await orderApi.getOrders({status: ORDER_STATUS.CREATED.toString(), size: 1})
+      waitOrderNumber.value = data.totalCount
+    }
     onMounted(() => {
       getRecommendPatents()
       getRestPoints()
+      getWaitOrderNumber()
     })
     return {
       user: store.state.user,
       recommendPatents,
+      waitOrderNumber,
       store,
       restPoint,
     }
