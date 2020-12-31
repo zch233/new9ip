@@ -289,7 +289,7 @@ export default defineComponent({
     &-list {
       &-item {
         display: flex;
-        padding: 30px;
+        padding: 10px 30px;
         border-bottom: 1px solid #E8E8E8;
         &-image {
           width: 118px;
