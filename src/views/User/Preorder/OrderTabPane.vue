@@ -159,9 +159,9 @@ export default defineComponent({
     const optionOrder = async (preorder: Preorder) => {
       Modal.confirm({
         centered: true,
-        title: preorder.name,
+        title: preorder.productName,
         okType: 'danger',
-        content: `确定要取消该预留吗？`,
+        content: `取消预留后今日将不能再次预留且积分不再返还`,
         onOk: async () => {
           const hide = message.loading('正在取消预留，请稍候...', 0);
           await preorderApi.cancelPreorder(preorder.id).finally(() => hide());
