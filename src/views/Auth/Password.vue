@@ -48,7 +48,7 @@
         </UITabPane>
       </UITabs>
       <div class="buttonBar">
-        <UIButton :loading="submitLoading" type="primary" block customer-class="mainButton" @click="resetPassword">注册</UIButton>
+        <UIButton :loading="submitLoading" type="primary" block customer-class="mainButton" @click="resetPassword">确认</UIButton>
       </div>
       <div class="infoBar">
         <span></span>
