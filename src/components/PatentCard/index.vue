@@ -1,5 +1,5 @@
 <template>
-  <RouterLink :to="`/patent/${patent.number}`">
+  <RouterLink :class="(patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL || patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL) ? 'normal' : 'disabled'" :to="`/patent/${patent.number}`">
     <div class="patentCard">
       <div class="patentCard-image"><img :src="`https://market.img.9ip.com/${patent.category.slice(0, 1)}.jpg`" alt=""></div>
       <p class="patentCard-title">{{ patent.name }}</p>
@@ -10,6 +10,7 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import { PATENT_STOCK_STATUS } from '/@/utils/dict';
 
 export default defineComponent({
   name: 'PatentCard',
@@ -18,11 +19,23 @@ export default defineComponent({
       type: Object as PropType<Patent>,
       default: () => ({}),
     }
+  },
+  setup() {
+    return {
+      PATENT_STOCK_STATUS
+    }
   }
 })
 </script>
 
 <style lang="scss" scoped>
+.disabled {
+  background-color: #fff;
+  opacity: .5;
+  display: block;
+  pointer-events: none;
+  user-select: none;
+}
 .patentCard {
   border: 1px solid #DBDBDB;
   text-align: left;
