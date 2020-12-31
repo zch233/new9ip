@@ -9,7 +9,7 @@
           <UICard title="商品信息">
             <UISkeleton active :paragraph="{ rows: 5 }" :loading="pageLoading">
               <div class="patentContent">
-                <div class="patentContent-image"><img src="../../assets/patent/A.jpg" alt=""></div>
+                <div class="patentContent-image"><PatentImage :category="orderConfirmation.category" /></div>
                 <div class="patentContent-info">
                   <h2 class="patentContent-info-title">一种考虑车队离散特征的公交车和私家车干线绿波同步协调的控制方法装置</h2>
                   <p class="patentContent-info-col"><span><label>专利类型</label>{{ orderConfirmation.number }}</span><span><label>发明人</label>{{ orderConfirmation.inventorExplain }}</span></p>
@@ -59,6 +59,7 @@ import UIInputTextArea from '/@components/UI/UIInputTextArea.vue';
 import UIButton from '/@components/UI/UIButton.vue';
 import UISkeleton from '/@components/UI/UISkeleton.vue';
 import Icon from '/@components/Icon/index.vue'
+import PatentImage from '/@components/PatentImage/index.vue';
 import { useRoute, useRouter } from 'vue-router';
 import * as orderConfirmApi from '/@api/orderConfirm'
 import {PATENT_TYPE, PAY_ROUTES} from '/@/utils/dict';
@@ -68,15 +69,7 @@ import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/
 
 export default defineComponent({
   name: 'OrderConfirm',
-  components: {
-    AppTitleBar,
-    OrderSteps,
-    UIInputTextArea,
-    UICard,
-    Icon,
-    UISkeleton,
-    UIButton,
-  },
+  components: { AppTitleBar, OrderSteps, UIInputTextArea, UICard, Icon, UISkeleton, UIButton, PatentImage, },
   setup() {
     const route = useRoute()
     const router = useRouter()

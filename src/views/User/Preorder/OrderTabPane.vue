@@ -28,7 +28,7 @@
                 <span>卖家：{{ preorder.sellerShopName }}</span>
               </div>
               <div class="listContent-item-content">
-                <div class="listContent-item-content-image colTime"><img :src="`https://market.img.9ip.com/${preorder.productCategory.slice(0, 1)}.jpg`" alt=""></div>
+                <div class="listContent-item-content-image colTime"><PatentImage :category="preorder.productCategory" /></div>
                 <div class="listContent-item-content-info colInfo">
                   <RouterLink :to="`/patent/${preorder.productNumber}`"><b>{{ preorder.productName }}</b></RouterLink>
                   <p>专利号：{{ preorder.productNumber }}</p>
@@ -79,6 +79,7 @@ import UIEmpty from '/@components/UI/UIEmpty.vue';
 import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
 import UICountdown from '/@components/UI/UICountdown.vue';
+import PatentImage from '/@components/PatentImage/index.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import * as preorderApi from '/@api/preorder';
 import { PREORDER_STATUS } from '/@/utils/dict';
@@ -130,7 +131,7 @@ const getDateRange = (type) => JSON.parse(JSON.stringify({dateRange: type, start
 
 export default defineComponent({
   name: 'OrderTabPane',
-  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover},
+  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover, PatentImage},
   props: {
     status: Number,
   },

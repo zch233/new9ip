@@ -47,7 +47,7 @@
       <UISpin :spinning="loading">
         <ul class="patentListBar-list" v-if="patents.length > 0">
           <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
-            <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><img :src="`https://market.img.9ip.com/${patent.category.slice(0, 1)}.jpg`" alt=""></div>
+            <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :category="patent.category" /></div>
             <div class="patentListBar-list-item-content">
               <div class="patentListBar-list-item-content-firstFloor">
                 <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
@@ -115,6 +115,7 @@ import UISpin from '/@components/UI/UISpin.vue';
 import UIEmpty from '/@components/UI/UIEmpty.vue';
 import StarIcon from '/@components/StarIcon/index.vue'
 import PreorderButton from '/@components/PreorderButton/index.vue'
+import PatentImage from '/@components/PatentImage/index.vue';
 import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
@@ -124,7 +125,7 @@ import { GetPatents } from '/@api/patent';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton},
+  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton, PatentImage},
   setup() {
     const route = useRoute()
     const router = useRouter()

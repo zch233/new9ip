@@ -12,7 +12,7 @@
         <div class="patentCard">
           <UISkeleton :loading="loading" :avatar="{shape: 'square', size: 'large'}" :paragraph="{rows: 14}" active >
             <div class="patentCard-left">
-              <div class="patentCard-left-imageWrapper"><img :src="`https://market.img.9ip.com/${patent.category?.slice(0, 1)}.jpg`" alt=""></div>
+              <div class="patentCard-left-imageWrapper"><PatentImage :category="patent.category" /></div>
               <div class="patentCard-left-options">
                 <UIPopover title="复制链接以分享" trigger="click" placement="bottomRight">
                   <span>分享 <Icon icon="share" /></span>
@@ -110,6 +110,7 @@ import UIInput from '/@components/UI/UIInput.vue';
 import PatentCard from '/@components/PatentCard/index.vue'
 import StarIcon from '/@components/StarIcon/index.vue'
 import PreorderButton from '/@components/PreorderButton/index.vue'
+import PatentImage from '/@components/PatentImage/index.vue';
 import * as patentApi from '/@api/patent'
 import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
 import { copyToClipboard, getSingleQuery } from '/@/utils';
@@ -117,7 +118,7 @@ import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'PatentDetail',
-  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon, PreorderButton},
+  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon, PreorderButton, PatentImage},
   setup() {
     const store = useStore()
     const route = useRoute()

@@ -11,9 +11,7 @@
       <ul class="categoryCardList">
         <li v-for="item in currentCategoryPatents" :key="item.id" class="categoryCardItem">
           <RouterLink class="categoryCardItem-link" :to="`/patent/${item.number}`">
-            <div class="categoryCardItem-imageWrapper">
-              <img :src="`https://market.img.9ip.com/${item.category.slice(0, 1)}.jpg`" alt="">
-            </div>
+            <div class="categoryCardItem-imageWrapper"><PatentImage :category="item.category" /></div>
             <p class="categoryCardItem-title">{{ item.name }}</p>
             <div class="categoryCardItem-priceBar">
               <span>￥{{ item.price }}</span>
@@ -33,11 +31,12 @@ import Icon from '/@components/Icon/index.vue'
 import {categories} from '/@/utils/dict'
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import UIEmpty from '/@components/UI/UIEmpty.vue';
+import PatentImage from '/@components/PatentImage/index.vue';
 import { getPatents } from '/@api/patent';
 
 export default defineComponent({
   name: 'CategoryTab',
-  components: {Icon, VIPBrand, UIEmpty},
+  components: {Icon, VIPBrand, UIEmpty, PatentImage},
   setup() {
     const patents = reactive<{[key: string]: Patent[] }>({})
     const currentCategory = ref('A')

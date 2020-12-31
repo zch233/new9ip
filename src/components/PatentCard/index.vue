@@ -1,7 +1,7 @@
 <template>
   <RouterLink :class="(patent.stockStatus === PATENT_STOCK_STATUS.SOLD_OUT || patent.stockStatus === PATENT_STOCK_STATUS.USED_SELL) ? 'disabled' : 'normal'" :to="`/patent/${patent.number}`">
     <div class="patentCard">
-      <div class="patentCard-image"><img :src="`https://market.img.9ip.com/${patent.category.slice(0, 1)}.jpg`" alt=""></div>
+      <div class="patentCard-image"><PatentImage :category="patent.category" /></div>
       <p class="patentCard-title">{{ patent.name }}</p>
       <div class="patentCard-price">￥{{ patent.price }}</div>
     </div>
@@ -10,10 +10,12 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
+import PatentImage from '/@components/PatentImage/index.vue';
 import { PATENT_STOCK_STATUS } from '/@/utils/dict';
 
 export default defineComponent({
   name: 'PatentCard',
+  components: {PatentImage},
   props: {
     patent: {
       type: Object as PropType<Patent>,

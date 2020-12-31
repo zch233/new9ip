@@ -28,7 +28,7 @@
                 <span>卖家：{{ order.sellerShopName }}</span>
               </div>
               <div class="listContent-item-content">
-                <div class="listContent-item-content-image colTime"><img :src="`https://market.img.9ip.com/${order.commodityCategory.slice(0, 1)}.jpg`" alt=""></div>
+                <div class="listContent-item-content-image colTime"><PatentImage :category="order.commodityCategory" /></div>
                 <div class="listContent-item-content-info colInfo">
                   <RouterLink :to="`/patent/${order.number}`"><b>{{ order.name }}</b></RouterLink>
                   <p>专利号：{{ order.number }}</p>
@@ -80,6 +80,7 @@ import UIEmpty from '/@components/UI/UIEmpty.vue';
 import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
 import UICountdown from '/@components/UI/UICountdown.vue';
+import PatentImage from '/@components/PatentImage/index.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import * as orderApi from '/@api/order';
 import { ORDER_STATUS } from '/@/utils/dict';
@@ -130,7 +131,7 @@ const getDateRange = (type) => JSON.parse(JSON.stringify({dateRange: type, start
 
 export default defineComponent({
   name: 'OrderTabPane',
-  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover},
+  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover, PatentImage},
   props: {
     status: Number,
   },
