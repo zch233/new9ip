@@ -15,7 +15,6 @@ import SlideArt from '/@components/SlideArt/index.vue'
 import { useRoute } from 'vue-router';
 import * as authApi from '/@api/auth';
 import { useStore } from '/@/store';
-import * as pointApi from '/@api/point'
 
 export default defineComponent({
   name: 'App',
@@ -33,8 +32,7 @@ export default defineComponent({
         if (data.data) {
           store.commit('COMMIT_LOGIN_STATUS', !!data.data)
           store.commit('COMMIT_USER', data.data)
-          const { data: oneDayConsumePointsData } = await pointApi.getOneDayConsumePoints()
-          store.commit('commit_oneDayConsumePoints', oneDayConsumePointsData?.credit || 0)
+          await store.dispatch('setOneDayConsumePoints')
         }
       }).catch(() => {})
     })
