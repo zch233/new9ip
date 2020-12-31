@@ -264,7 +264,7 @@ export default defineComponent({
       text-align: center;
       background-color: #fff;
       padding-top: 40px;
-      .shopImage {width: 240px;}
+      .shopImage {width: 210px;}
       &-imageWrapper {
         position: relative;
         &::after {
