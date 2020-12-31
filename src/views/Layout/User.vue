@@ -1,7 +1,7 @@
 <template>
   <AppHeader />
   <AppTitleBar title="会员中心">
-    <RouterLink class="returnHome" to="/">回专利市场</RouterLink>
+    <RouterLink class="returnHome" to="/patent">回专利市场</RouterLink>
   </AppTitleBar>
   <div class="routerViewWrapper">
     <div class="pageWidthWithCenter userCenterWrapper">
