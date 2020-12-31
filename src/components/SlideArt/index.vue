@@ -26,7 +26,7 @@
     <UIPopover placement="left">
       <span class="slideArt-item"><Icon icon="star2" /></span>
       <template #content>
-        <RouterLink to="/user/collect">我收藏的专利</RouterLink>
+        <RouterLink to="/user/collect">我的收藏</RouterLink>
       </template>
     </UIPopover>
     <UIPopover placement="left">
