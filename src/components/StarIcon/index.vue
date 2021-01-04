@@ -22,10 +22,13 @@ export default defineComponent({
     }
   },
   setup(props, context) {
+    const loading = ref(false)
     const { patent } = toRefs(props)
     const collected = ref(false)
     const optionPatent = async () => {
-      await collectApi.starPatent(patent.value.id)
+      if (loading.value) return
+      loading.value = true
+      await collectApi.starPatent(patent.value.id).finally(() => loading.value = false)
       message.success(collected.value ? '已从我的收藏移除' : '已加入我的收藏')
       collected.value = !collected.value
       context.emit('star', collected.value)
