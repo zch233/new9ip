@@ -87,7 +87,7 @@ export default defineComponent({
           orderConfirmation.value = data
         })
         .catch(err => {
-          err.code === 3200 && router.push('/order/pay/result?status=1&type=PATENT')
+          err.code === 3200 && router.push('/order/pay/result?status=0&type=PATENT')
         })
         .finally(() => pageLoading.value = false)
     }
