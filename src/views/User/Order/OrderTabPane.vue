@@ -89,6 +89,7 @@ import { getToday, openNewWindow } from '/@/utils';
 import PayRoutesPopover from '/@components/PayRoutesPopover/index.vue';
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
+import { GetOrders } from '/@api/order';
 
 const orderTimeRange = [
   {
@@ -105,7 +106,8 @@ const orderTimeRange = [
     key: 'week',
   }
 ]
-const dateMap = {
+type DataMap = {all: never[], threeMonth: Date[], oneMonth: Date[], week: Date[]}
+const dateMap: DataMap = {
   all: [],
   threeMonth: (() => {
     const end = new Date();
@@ -127,7 +129,7 @@ const dateMap = {
   })(),
 }
 
-const getDateRange = (type) => JSON.parse(JSON.stringify({dateRange: type, startDate: dateMap[type][0] && getToday(dateMap[type][0]), endDate: dateMap[type][1] && getToday(dateMap[type][1])}))
+const getDateRange = (type: keyof DataMap) => JSON.parse(JSON.stringify({dateRange: type, startDate: dateMap[type][0] && getToday(dateMap[type][0]), endDate: dateMap[type][1] && getToday(dateMap[type][1])}))
 
 export default defineComponent({
   name: 'OrderTabPane',
@@ -141,17 +143,17 @@ export default defineComponent({
     const loading = ref(false)
     const orders = ref<Order[]>([])
     const routeQuery = ref<orderApi.GetOrders>(route.query)
-    const currentOrderTimeRange = ref(route.query.dateRange ? orderTimeRange.find(v => v.key === route.query.dateRange) : orderTimeRange[1])
+    const currentOrderTimeRange = ref<{title: string, key: keyof DataMap} | undefined>(route.query.dateRange ? orderTimeRange.find(v => v.key === route.query.dateRange) : orderTimeRange[1])
     const paginationOptions = reactive({
       total: 0,
       current: 1,
       defaultPageSize: 10,
       pageSizeOptions: ['10', '30', '50', '100'],
-      showSizeChange: (page, pageSize) => {
+      showSizeChange: (page: number, pageSize: number) => {
         window.scrollTo(0,0)
         router.push({path: '/user/order', query: {...routeQuery.value, size: pageSize, no: 1}})
       },
-      change: (current) => {
+      change: (current: number) => {
         window.scrollTo(0,0)
         router.push({path: '/user/order', query: {...routeQuery.value, no: current}})
       },
@@ -182,14 +184,13 @@ export default defineComponent({
         },
       });
     }
-    const getOrders = async (fetchData) => {
+    const getOrders = async (fetchData: GetOrders) => {
       if (loading.value || ((routeQuery.value.status || '999') !== (status?.toString()))) return
       loading.value = true
       const {data} = await orderApi.getOrders({size: paginationOptions.defaultPageSize, ...getDateRange(currentOrderTimeRange.value.key), ...fetchData, status: status === 999 ? undefined : status}).finally(() => loading.value = false)
       orders.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
-      paginationOptions.size = data?.size
     }
     onBeforeRouteUpdate((to) => {
       routeQuery.value = to.query

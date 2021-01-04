@@ -92,13 +92,13 @@ export default defineComponent({
         QRCodeURL.value = url;
       });
     };
-    const getOrderInfo = async () => {
+    const getOrderInfo = () => {
       pageLoading.value = true
       const apiMap = {
         PATENT: orderApi.payOrderAgain,
         VIP: orderApi.payVipOrderAgain,
       }
-      await apiMap[type]({ orderNo, payRoute, tradeType}).then(({data}: AxiosResponse<OrderResult>) => {
+      apiMap[type]({ orderNo, payRoute, tradeType}).then(({data}: AxiosResponse<OrderResult>) => {
         generatorQrcode(data.codeUrl)
         orderInfo.value = data
         startPollGetPayResult(data)
@@ -110,7 +110,7 @@ export default defineComponent({
     const checkOrderStatus = async (tradeNo: string) => {
       checkOrderStatusLoading.value = true
       if (!(await isWaitOrder(tradeNo).finally(() => checkOrderStatusLoading.value = false))) return;
-      await router.push(`/order/pay/result?orderNo=${orderInfo.orderNo}&tradeNo=${orderInfo.tradeNo}&type=${orderInfo.commodityType}&status=1`);
+      await router.push(`/order/pay/result?orderNo=${orderInfo.value.orderNo}&tradeNo=${orderInfo.value.tradeNo}&type=${orderInfo.value.commodityType}&status=1`);
     }
     onMounted(() => {
       getOrderInfo()

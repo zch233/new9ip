@@ -64,7 +64,7 @@ import { useRoute, useRouter } from 'vue-router';
 import * as orderConfirmApi from '/@api/orderConfirm'
 import {PATENT_TYPE, PAY_ROUTES} from '/@/utils/dict';
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
-import { openNewWindow } from '/@/utils';
+import { getSingleQuery, openNewWindow } from '/@/utils';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
 import { AxiosResponse } from 'axios';
 
@@ -74,6 +74,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const router = useRouter()
+    const commodityId = getSingleQuery(route.query.commodityId)!
     const pageLoading = ref(false)
     const submitLoading = ref(false)
     const remark = ref('')
@@ -81,7 +82,7 @@ export default defineComponent({
     const orderConfirmation = ref<Partial<OrderConfirmation>>({})
     const getOrderConfirm = () => {
       pageLoading.value = true
-      orderConfirmApi.getOrderConfirm({ commodityId: route.query.commodityId, commodityType: 'PATENT' })
+      orderConfirmApi.getOrderConfirm({ commodityId, commodityType: 'PATENT' })
         .then(({ data }: AxiosResponse<Patent>) => {
           orderConfirmation.value = data
         })
@@ -94,7 +95,7 @@ export default defineComponent({
       const { payRoute, tradeType } = currentPayRoute.value;
       submitLoading.value = true
       const { data } = await orderConfirmApi.orderPatent({
-        commodityId: route.query.commodityId,
+        commodityId,
         commodityType: 'PATENT',
         payRoute,
         tradeType,

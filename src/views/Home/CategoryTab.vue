@@ -1,7 +1,12 @@
 <template>
   <div class="categoryTab">
     <ul class="categoryList">
-      <li class="categoryItem" :class="[currentCategory===category.code && 'active']" @mouseenter="currentCategory=category.code" v-for="category in categories" :key="category.code">
+      <li class="categoryItem"
+        v-for="category in categories"
+        :key="category.code"
+        :class="[currentCategory === category.code && 'active']"
+        @mouseenter="currentCategory = category.code"
+      >
         <Icon :icon="`category${category.code}${currentCategory === category.code ? '_fill' : ''}`" />
         <b>{{ category.name }}</b>
       </li>

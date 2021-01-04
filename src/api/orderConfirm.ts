@@ -9,12 +9,6 @@ type payOrder = {
   addressId?: number;
   commodityId: string;
   commodityType: 'PATENT';
-  remark?: string;
-};
-type payOrderV1 = {
-  addressId?: number;
-  commodityId: string;
-  commodityType: 'PATENT';
   payRoute: string;
   tradeType: string;
   remark?: string;

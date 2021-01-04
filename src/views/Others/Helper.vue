@@ -29,6 +29,7 @@
 import { defineComponent, ref } from 'vue';
 import AppTitleBar from '/@components/AppTitleBar/index.vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
+import { getSingleQuery } from '/@/utils';
 
 export default defineComponent({
   name: 'Helper',
@@ -36,7 +37,7 @@ export default defineComponent({
   setup() {
     const route = useRoute()
     const router = useRouter()
-    const routeQueryAq = route.query.aq?.split('-')
+    const routeQueryAq = getSingleQuery(route.query.aq)?.split('-')
     const helpers = ref([
         {
           menuTitle: '常见问题',
@@ -226,11 +227,11 @@ export default defineComponent({
 
       ]
     )
-    const currentSubMenuContent = ref(helpers.value[routeQueryAq ? routeQueryAq[0] : 0].menuChildren[routeQueryAq ? routeQueryAq[1] : 0])
+    const currentSubMenuContent = ref(helpers.value[routeQueryAq ? Number(routeQueryAq[0]) : 0].menuChildren[routeQueryAq ? Number(routeQueryAq[1]) : 0])
     const switchContent = (index: number, subIndex: number) => router.push({ path: '/others/helper', query: {aq: `${index}-${subIndex}`} })
     onBeforeRouteUpdate((to) => {
-      const queryAq = to.query.aq?.split('-')
-      currentSubMenuContent.value = helpers.value[queryAq ? queryAq[0] : 0].menuChildren[queryAq ? queryAq[1] : 0]
+      const queryAq = getSingleQuery(to.query.aq)?.split('-')
+      currentSubMenuContent.value = helpers.value[queryAq ? Number(queryAq[0]) : 0].menuChildren[queryAq ? Number(queryAq[1]) : 0]
     })
     return {
       helpers,

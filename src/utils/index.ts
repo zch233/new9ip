@@ -6,7 +6,7 @@ import { TYPE_ORDER_PAY_STATUS } from '/@/utils/dictTypes';
 import { ref } from 'vue';
 import { router } from '/@/router';
 
-export const getSingleQuery = (routeQuery: string | (string | null)[]):string | null => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
+export const getSingleQuery = (routeQuery: string | (string | null)[] | null) => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
 
 export const openNewWindow = (url: string, download?: string) => {
   const anchor = document.createElement('a');

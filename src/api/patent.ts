@@ -8,7 +8,7 @@ export type GetPatents = {
   type?: number;
   word?: string;
   psort?: 0 | 1;
-  inventorExplain?: string;
+  inventor?: string;
 } & BasePageOption;
 
 export const getPatents = (params: GetPatents) =>
@@ -39,7 +39,7 @@ export const preorderPatent = (data: ReservePatents) =>
     data,
   })
 
-export const exportPatent = (params: { size: string }) =>
+export const exportPatent = (params: GetPatents) =>
   request({
     url: '/api/v1/patent/patent-export',
     method: 'get',

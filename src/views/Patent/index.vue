@@ -5,7 +5,7 @@
         <label class="filterTitle">已选条件：</label>
         <UITag v-if="routeQuery.type" closable @close="handleFilterClick({type: undefined})">{{ PATENT_TYPE.label[routeQuery.type] }}</UITag>
         <UITag v-if="routeQuery.certStatus" closable @close="handleFilterClick({certStatus: undefined})">{{ PATENT_CERT_STATUS.label[routeQuery.certStatus] }}</UITag>
-        <UITag v-if="routeQuery.inventorExplain" closable @close="handleFilterClick({inventorExplain: undefined})">{{ PATENT_ORIGIN_STATUS.label[routeQuery.inventorExplain] }}</UITag>
+        <UITag v-if="routeQuery.inventor" closable @close="handleFilterClick({inventor: undefined})">{{ PATENT_ORIGIN_STATUS.label[routeQuery.inventor] }}</UITag>
       </div>
       <div class="userFilterBar-right" @click="handleFilterControl">{{ filterControl.text }} <Icon :icon="filterControl.icon" /></div>
     </section>
@@ -34,8 +34,8 @@
       <div class="systemFilterBar-list-wrapper">
         <label class="filterTitle">　发明人：</label>
         <ul class="systemFilterBar-list">
-          <li class="systemFilterBar-list-item" :class="[routeQuery.inventorExplain === undefined && 'active']" @click="handleFilterClick({inventorExplain: undefined})">不限</li>
-          <li v-for="(item, key) in PATENT_ORIGIN_STATUS.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.inventorExplain === key && 'active']" @click="handleFilterClick({inventorExplain: key})">{{ item }}</li>
+          <li class="systemFilterBar-list-item" :class="[routeQuery.inventor === undefined && 'active']" @click="handleFilterClick({inventor: undefined})">不限</li>
+          <li v-for="(item, key) in PATENT_ORIGIN_STATUS.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.inventor === key && 'active']" @click="handleFilterClick({inventor: key})">{{ item }}</li>
         </ul>
       </div>
     </section>
@@ -190,7 +190,7 @@ export default defineComponent({
     }
     const exportPatent = async (type: 'all' | 'result') => {
       const requestParams = {
-        all: { size: '-1' },
+        all: { size: -1 },
         result: { size: paginationOptions.defaultPageSize,...routeQuery.value },
       };
       const file = await patentApi.exportPatent(requestParams[type]);
@@ -198,10 +198,10 @@ export default defineComponent({
       openNewWidowWithBlob(file, `${today.getFullYear()}年${today.getMonth() + 1}月${today.getDate()}日--第九区专利清单`);
       message.success('导出成功！');
     }
-    type Filter = {type?: string | number; word?: string; inventorExplain?: string | number; certStatus?: string | number;}
+    type Filter = {type?: string | number; word?: string; inventor?: string | number; certStatus?: string | number;}
     const handleFilterClick = (filter: Filter) => {
-      const {type, inventorExplain, certStatus, word} = routeQuery.value
-      router.push({path: '/patent', query: JSON.parse(JSON.stringify({word, type, inventorExplain, certStatus, ...filter}))})
+      const {type, inventor, certStatus, word} = routeQuery.value
+      router.push({path: '/patent', query: JSON.parse(JSON.stringify({word, type, inventor, certStatus, ...filter}))})
     }
     onBeforeRouteUpdate((to) => {
       getPatents(to.query)
