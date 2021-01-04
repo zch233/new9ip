@@ -51,7 +51,7 @@
         <UIButton :loading="submitLoading" type="primary" block customer-class="mainButton" @click="signUp">注册</UIButton>
       </div>
       <div class="infoBar">
-        <p>点击注册代表已同意 <RouterLink class="toSignUp" to="/others/helper">《用户服务协议》</RouterLink></p>
+        <p>点击注册代表已同意 <RouterLink class="toSignUp" to="/others/helper?aq=1-2">《用户服务协议》</RouterLink></p>
         <RouterLink class="darkLink" to="/auth/sign_in">返回登录</RouterLink>
       </div>
     </UIForm>

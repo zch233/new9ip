@@ -4,7 +4,8 @@
       <li v-for="item in footerInfoList" :key="item.title" class="footerItem">
         <p class="footerItem-title">{{item.title}}</p>
         <p class="footerItem-content" v-for="contentItem in item.content">
-          <RouterLink to="/others/helper">{{contentItem}}</RouterLink>
+          <RouterLink v-if="contentItem.key" :to="`/others/helper?aq=${contentItem.key}`">{{contentItem.label}}</RouterLink>
+          <span v-else>{{contentItem.label}}</span>
         </p>
       </li>
       <li class="footerItem">
@@ -24,15 +25,15 @@ export default defineComponent({
     const footerInfoList = [
       {
         title: '服务内容',
-        content: ['专利交易','商标交易','企业服务','专利增值服务','商标增值服务'],
+        content: [{label: '专利交易'},{label: '商标交易'},{label: '企业服务'},{label: '专利增值服务'},{label: '商标增值服务'}],
       },
       {
         title: '交易保障',
-        content: ['支付方式','签署法律合同','服务协议','积分规则'],
+        content: [{label: '支付方式', key: '1-0'},{label: '转让资料及流程', key: '1-1'},{label: '服务协议', key: '1-2'},{label: '积分规则', key: '2-0'}],
       },
       {
         title: '常见问题',
-        content: ['专利申请','专利购买','发明专利','实用新型专利', '外观设计专利'],
+        content: [{label: '专利申请', key: '0-0'},{label: '发明专利', key: '0-1'},{label: '实用新型专利', key: '0-2'},{label: '外观设计专利', key: '0-3'}],
       },
     ]
     return {
