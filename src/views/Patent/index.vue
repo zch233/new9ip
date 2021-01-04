@@ -342,7 +342,7 @@ export default defineComponent({
             &-des {
               margin-bottom: 8px;
               &:last-child {margin-bottom: 4px;}
-              label {width: 18em; display: inline-block;}
+              label {width: 21em; display: inline-block;}
               &-tags span {transition: color .3s; &:hover {color: #14A8BD;}}
             }
           }
