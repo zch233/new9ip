@@ -2,7 +2,7 @@
   <div class="pageWidthWithCenter patent">
     <section class="userFilterBar">
       <div class="userFilterBar-left">
-        <label class="filterTitle">已选条件：</label>
+        <label v-if="routeQuery.type || routeQuery.certStatus || routeQuery.inventor" class="filterTitle">已选条件：</label>
         <UITag v-if="routeQuery.type" closable @close="handleFilterClick({type: undefined})">{{ PATENT_TYPE.label[routeQuery.type] }}</UITag>
         <UITag v-if="routeQuery.certStatus" closable @close="handleFilterClick({certStatus: undefined})">{{ PATENT_CERT_STATUS.label[routeQuery.certStatus] }}</UITag>
         <UITag v-if="routeQuery.inventor" closable @close="handleFilterClick({inventor: undefined})">{{ PATENT_ORIGIN_STATUS.label[routeQuery.inventor] }}</UITag>
@@ -259,7 +259,7 @@ export default defineComponent({
     overflow: hidden;
     user-select: none;
     &.hide {opacity: 0;height: 0;padding: 0 15px;}
-    &-list-wrapper {display: flex;white-space: nowrap;}
+    &-list-wrapper {display: flex;white-space: nowrap;line-height: 2.4;}
     &-list {
       display: flex;
       flex-wrap: wrap;
