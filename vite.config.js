@@ -7,9 +7,10 @@ export default {
   outputDir: 'dist',
   assetsDir: 'static',
   port: 5000,
+  disableHostCheck: true,
   proxy: {
     '/mall': {
-      target: 'http://192.168.9.252:18080',
+      target: 'http://192.168.2.252:18080',
       changeOrigin: true,
       rewrite: path => path.replace(/^\/mall/, ''),
     },
