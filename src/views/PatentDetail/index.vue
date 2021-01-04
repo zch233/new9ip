@@ -116,6 +116,37 @@ import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
 import { copyToClipboard, getSingleQuery } from '/@/utils';
 import { useStore } from '/@/store';
 
+const pageAdvances = [
+  {
+    icon: 'pageAdvance1',
+    title: '全程在线',
+    des: '专属顾问全程一对一服务',
+  },{
+    icon: 'pageAdvance2',
+    title: '一手资源',
+    des: '真是海量精品资源',
+  },{
+    icon: 'pageAdvance3',
+    title: '快捷交易',
+    des: '一站式服务 快捷省心',
+  }
+]
+const advances = [
+  {
+    icon: 'shopCard',
+    title: '实名认证',
+  },{
+    icon: 'shopOne',
+    title: '一手认证',
+  },{
+    icon: 'shopAgent',
+    title: '独家代理认证',
+  },{
+    icon: 'shopSell',
+    title: '平台寄卖',
+  }
+]
+
 export default defineComponent({
   name: 'PatentDetail',
   components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon, PreorderButton, PatentImage},
@@ -124,36 +155,6 @@ export default defineComponent({
     const route = useRoute()
     const loading = ref(false)
     const currentDetailTab = ref(0)
-    const pageAdvances = [
-      {
-      icon: 'pageAdvance1',
-      title: '全程在线',
-      des: '专属顾问全程一对一服务',
-      },{
-        icon: 'pageAdvance2',
-        title: '一手资源',
-        des: '真是海量精品资源',
-      },{
-        icon: 'pageAdvance3',
-        title: '快捷交易',
-        des: '一站式服务 快捷省心',
-      }
-    ]
-    const advances = [
-      {
-      icon: 'shopCard',
-      title: '实名认证',
-      },{
-        icon: 'shopOne',
-        title: '一手认证',
-      },{
-        icon: 'shopAgent',
-        title: '独家代理认证',
-      },{
-        icon: 'shopSell',
-        title: '平台寄卖',
-      }
-    ]
     const recommendPatents = ref<Patent[]>([])
     const patent = ref<Partial<Patent>>({})
     const getPatentDetail = async (number: string) => {
