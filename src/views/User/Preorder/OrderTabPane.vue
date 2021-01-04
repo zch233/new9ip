@@ -89,6 +89,7 @@ import PayRoutesPopover from '/@components/PayRoutesPopover/index.vue';
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
 import * as orderConfirmApi from '/@api/orderConfirm';
+import { GetPreorders } from '/@api/preorder';
 
 const orderTimeRange = [
   {
@@ -105,7 +106,8 @@ const orderTimeRange = [
     key: 'week',
   }
 ]
-const dateMap = {
+type DataMap = {all: never[], threeMonth: Date[], oneMonth: Date[], week: Date[]}
+const dateMap: DataMap = {
   all: [],
   threeMonth: (() => {
     const end = new Date();
@@ -127,7 +129,7 @@ const dateMap = {
   })(),
 }
 
-const getDateRange = (type) => JSON.parse(JSON.stringify({dateRange: type, startDate: dateMap[type][0] && getToday(dateMap[type][0]), endDate: dateMap[type][1] && getToday(dateMap[type][1])}))
+const getDateRange = (type: keyof DataMap) => JSON.parse(JSON.stringify({dateRange: type, startDate: dateMap[type][0] && getToday(dateMap[type][0]), endDate: dateMap[type][1] && getToday(dateMap[type][1])}))
 
 export default defineComponent({
   name: 'OrderTabPane',
@@ -149,11 +151,11 @@ export default defineComponent({
       current: 1,
       defaultPageSize: 10,
       pageSizeOptions: ['10', '30', '50', '100'],
-      showSizeChange: (page, pageSize) => {
+      showSizeChange: (page: number, pageSize: number) => {
         window.scrollTo(0,0)
         router.push({path: '/user/preorder', query: {...routeQuery.value, size: pageSize, no: 1}})
       },
-      change: (current) => {
+      change: (current: number) => {
         window.scrollTo(0,0)
         router.push({path: '/user/preorder', query: {...routeQuery.value, no: current}})
       },
@@ -173,14 +175,13 @@ export default defineComponent({
         },
       });
     }
-    const getPreorders = async (fetchData) => {
+    const getPreorders = async (fetchData: GetPreorders) => {
       if (loading.value || ((routeQuery.value.status || '999') !== (status?.toString()))) return
       loading.value = true
       const {data} = await preorderApi.getPreorders({size: paginationOptions.defaultPageSize, ...getDateRange(currentOrderTimeRange.value.key), ...fetchData, status: status === 999 ? undefined : status}).finally(() => loading.value = false)
       preorders.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
-      paginationOptions.size = data?.size
     }
     onBeforeRouteUpdate((to) => {
       if (to.query.status === (status && status.toString())) {
@@ -191,7 +192,7 @@ export default defineComponent({
     onMounted(() => {
       getPreorders(routeQuery.value)
     })
-    const changeOrderTimeRange = (type) => {
+    const changeOrderTimeRange = (type: keyof DataMap) => {
       currentOrderTimeRange.value = orderTimeRange.find(v => v.key === type)
       router.push({
         path: '/user/preorder',
@@ -199,9 +200,9 @@ export default defineComponent({
       })
     }
     const changeOrderStatus = (order: Order) => {
-      const current = orders.value.find((item) => item.orderNo === order.orderNo);
-      current.status = PREORDER_STATUS.CANCEL;
-      orders.value = [...orders.value]
+      const current = preorders.value.find((item) => item.orderNo === order.orderNo);
+      current!.status = PREORDER_STATUS.CANCEL;
+      preorders.value = [...preorders.value]
     }
     const payOrder = async ({ payRoute, tradeType }: TYPE_PAY_ROUTES[number], preorder: Preorder) => {
       submitLoading.value = false
