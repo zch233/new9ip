@@ -1,5 +1,5 @@
 <template>
-  <UIButton class="preorderButton" :class="big && 'big'" customer-class="default" @click="visible = true">预留</UIButton>
+  <UIButton class="preorderButton" :class="big && 'big'" customer-class="default" @click="showModal">预留</UIButton>
   <UIModal :width="416" v-model:visible="visible" :maskClosable="false" title="预留专利" :onOk="preorderPatent">
     <div class="wrapper">
       <Icon class="warning" icon="warning" />
@@ -21,7 +21,8 @@ import UIModal from '/@components/UI/UIModal.vue';
 import Icon from '/@components/Icon/index.vue';
 import * as patentApi from '/@api/patent'
 import { message, Modal } from 'ant-design-vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
+import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'PreorderButton',
@@ -34,29 +35,40 @@ export default defineComponent({
     big: Boolean,
   },
   setup(props) {
+    const store = useStore()
     const router = useRouter()
+    const route = useRoute()
     const visible = ref(false)
-    const preorderPatent = async () => {
-      patentApi.preorderPatent({ days: 1, productId: props.patent.id }).then(() => {
+    const showModal = () => {
+      if (!store.state.user.account) {
+        message.error('您尚未登录')
+        router.push({ path: '/auth/sign_in', query: {redirect: route.fullPath} })
+        return
+      }
+      visible.value = true
+    }
+    const preorderPatent = () => {
+      patentApi.preorderPatent({ days: 1, productId: props.patent.id }).then(async () => {
         message.success('预留成功');
-        router.push('/user/preorder');
+        await router.push('/user/preorder');
       }).catch((e) => {
-          visible.value = false
-          e.code && e.code === 3500 &&
-          Modal.confirm({
-            title: '积分不足',
-            content: '抱歉，您的剩余积分不足',
-            okText: '立即充值',
-            cancelText: '继续逛逛',
-            onOk() {
-              router.push('/vip');
-            },
-          })
+        visible.value = false
+        e.code && e.code === 3500 &&
+        Modal.confirm({
+          title: '积分不足',
+          content: '抱歉，您的剩余积分不足',
+          okText: '立即充值',
+          cancelText: '继续逛逛',
+          onOk() {
+            router.push('/vip');
+          },
+        })
       })
     }
     return {
       preorderPatent,
       visible,
+      showModal,
     }
   },
 })

@@ -22,7 +22,7 @@ export const errorHandle = (response: AxiosResponse) => {
   const res = response.data;
   if (res.code !== 200) {
     if (res.code === 401) {
-      router.push('/auth/sign_in')
+      router.push({ path: '/auth/sign_in', query: {redirect: window.location.pathname + window.location.search} })
     }
     message.error(res.msg || '未知错误，请刷新页面重试');
     throw res;
