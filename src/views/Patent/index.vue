@@ -10,26 +10,34 @@
       <div class="userFilterBar-right" @click="handleFilterControl">{{ filterControl.text }} <Icon :icon="filterControl.icon" /></div>
     </section>
     <section class="systemFilterBar" :class="filterControl.visible ? '' : 'hide'">
-      <ul class="systemFilterBar-list">
-        <li><label class="filterTitle">专利类型：</label></li>
-        <li class="systemFilterBar-list-item" :class="[routeQuery.type === undefined && 'active']" @click="handleFilterClick({type: undefined})">不限</li>
-        <li v-for="(item, key) in PATENT_TYPE.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.type === key && 'active']" @click="handleFilterClick({type: key})">{{ item }}</li>
-      </ul>
-      <ul class="systemFilterBar-list">
-        <li><label class="filterTitle">技术领域：</label></li>
-        <li class="systemFilterBar-list-item" :class="[routeQuery.word === undefined && 'active']" @click="handleFilterClick({word: undefined})">不限</li>
-        <li v-for="item in patentsTags" :key="item.tag" class="systemFilterBar-list-item" :class="[routeQuery.word === item.tag && 'active']" @click="handleFilterClick({word: item.tag})">{{ item.tag }}</li>
-      </ul>
-      <ul class="systemFilterBar-list">
-        <li><label class="filterTitle">法律状态：</label></li>
-        <li class="systemFilterBar-list-item" :class="[routeQuery.certStatus === undefined && 'active']" @click="handleFilterClick({certStatus: undefined})">不限</li>
-        <li v-for="(item, key) in PATENT_CERT_STATUS.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.certStatus === key && 'active']" @click="handleFilterClick({certStatus: key})">{{ item }}</li>
-      </ul>
-      <ul class="systemFilterBar-list">
-        <li><label class="filterTitle">　发明人：</label></li>
-        <li class="systemFilterBar-list-item" :class="[routeQuery.inventorExplain === undefined && 'active']" @click="handleFilterClick({inventorExplain: undefined})">不限</li>
-        <li v-for="(item, key) in PATENT_ORIGIN_STATUS.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.inventorExplain === key && 'active']" @click="handleFilterClick({inventorExplain: key})">{{ item }}</li>
-      </ul>
+      <div class="systemFilterBar-list-wrapper">
+        <label class="filterTitle">专利类型：</label>
+        <ul class="systemFilterBar-list">
+          <li class="systemFilterBar-list-item" :class="[routeQuery.type === undefined && 'active']" @click="handleFilterClick({type: undefined})">不限</li>
+          <li v-for="(item, key) in PATENT_TYPE.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.type === key && 'active']" @click="handleFilterClick({type: key})">{{ item }}</li>
+        </ul>
+      </div>
+      <div class="systemFilterBar-list-wrapper">
+        <label class="filterTitle">技术领域：</label>
+        <ul class="systemFilterBar-list">
+          <li class="systemFilterBar-list-item" :class="[routeQuery.word === undefined && 'active']" @click="handleFilterClick({word: undefined})">不限</li>
+          <li v-for="item in patentsTags" :key="item.tag" class="systemFilterBar-list-item" :class="[routeQuery.word === item.tag && 'active']" @click="handleFilterClick({word: item.tag})">{{ item.tag }}</li>
+        </ul>
+      </div>
+      <div class="systemFilterBar-list-wrapper">
+        <label class="filterTitle">法律状态：</label>
+        <ul class="systemFilterBar-list">
+          <li class="systemFilterBar-list-item" :class="[routeQuery.certStatus === undefined && 'active']" @click="handleFilterClick({certStatus: undefined})">不限</li>
+          <li v-for="(item, key) in PATENT_CERT_STATUS.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.certStatus === key && 'active']" @click="handleFilterClick({certStatus: key})">{{ item }}</li>
+        </ul>
+      </div>
+      <div class="systemFilterBar-list-wrapper">
+        <label class="filterTitle">　发明人：</label>
+        <ul class="systemFilterBar-list">
+          <li class="systemFilterBar-list-item" :class="[routeQuery.inventorExplain === undefined && 'active']" @click="handleFilterClick({inventorExplain: undefined})">不限</li>
+          <li v-for="(item, key) in PATENT_ORIGIN_STATUS.label" :key="item" class="systemFilterBar-list-item" :class="[routeQuery.inventorExplain === key && 'active']" @click="handleFilterClick({inventorExplain: key})">{{ item }}</li>
+        </ul>
+      </div>
     </section>
     <section class="patentListBar">
       <div class="patentListBar-options">
@@ -251,6 +259,7 @@ export default defineComponent({
     overflow: hidden;
     user-select: none;
     &.hide {opacity: 0;height: 0;padding: 0 15px;}
+    &-list-wrapper {display: flex;white-space: nowrap;}
     &-list {
       display: flex;
       flex-wrap: wrap;
