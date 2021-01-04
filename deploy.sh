@@ -4,3 +4,5 @@ scp -P 20430 -r ./dist/. root@81.68.65.13:/opt/n9-app/patent-member/frontend/mal
 echo "正在发布第二台服务器81.68.150.113..." &&
 scp -P 20430 -r ./dist/. root@81.68.150.113:/opt/n9-app/patent-member/frontend/mall &&
 node setGitTag
+time=$(date "+%Y-%m-%d %H:%M:%S")
+echo "发布成功：${time}"
