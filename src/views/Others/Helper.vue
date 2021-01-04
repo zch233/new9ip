@@ -28,11 +28,15 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import AppTitleBar from '/@components/AppTitleBar/index.vue'
+import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'Helper',
   components: {AppTitleBar},
   setup() {
+    const route = useRoute()
+    const router = useRouter()
+    const routeQueryAq = route.query.aq?.split('-')
     const helpers = ref([
         {
           menuTitle: '常见问题',
@@ -222,8 +226,12 @@ export default defineComponent({
 
       ]
     )
-    const currentSubMenuContent = ref(helpers.value[0].menuChildren[0])
-    const switchContent = (index: number, subIndex: number) => currentSubMenuContent.value = helpers.value[index].menuChildren[subIndex]
+    const currentSubMenuContent = ref(helpers.value[routeQueryAq ? routeQueryAq[0] : 0].menuChildren[routeQueryAq ? routeQueryAq[1] : 0])
+    const switchContent = (index: number, subIndex: number) => router.push({ path: '/others/helper', query: {aq: `${index}-${subIndex}`} })
+    onBeforeRouteUpdate((to) => {
+      const queryAq = to.query.aq?.split('-')
+      currentSubMenuContent.value = helpers.value[queryAq ? queryAq[0] : 0].menuChildren[queryAq ? queryAq[1] : 0]
+    })
     return {
       helpers,
       currentSubMenuContent,
