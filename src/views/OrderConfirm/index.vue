@@ -66,6 +66,7 @@ import {PATENT_TYPE, PAY_ROUTES} from '/@/utils/dict';
 import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
 import { openNewWindow } from '/@/utils';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
+import { AxiosResponse } from 'axios';
 
 export default defineComponent({
   name: 'OrderConfirm',
@@ -77,11 +78,17 @@ export default defineComponent({
     const submitLoading = ref(false)
     const remark = ref('')
     const currentPayRoute = ref<TYPE_PAY_ROUTES[number]>(PAY_ROUTES[0])
-    const orderConfirmation = ref<OrderConfirmation>({})
-    const getOrderConfirm = async () => {
+    const orderConfirmation = ref<Partial<OrderConfirmation>>({})
+    const getOrderConfirm = () => {
       pageLoading.value = true
-      const { data } = await orderConfirmApi.getOrderConfirm({ commodityId: route.query.commodityId, commodityType: 'PATENT' }).finally(() => pageLoading.value = false)
-      orderConfirmation.value = data
+      orderConfirmApi.getOrderConfirm({ commodityId: route.query.commodityId, commodityType: 'PATENT' })
+        .then(({ data }: AxiosResponse<Patent>) => {
+          orderConfirmation.value = data
+        })
+        .catch(err => {
+          err.code === 3200 && router.push('/order/pay/result?status=1&type=PATENT')
+        })
+        .finally(() => pageLoading.value = false)
     }
     const handleBuyClick = async () => {
       const { payRoute, tradeType } = currentPayRoute.value;
