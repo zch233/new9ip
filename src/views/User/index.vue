@@ -80,6 +80,7 @@ export default defineComponent({
       getRecommendPatents()
       getRestPoints()
       getWaitOrderNumber()
+      store.dispatch('setUser')
     })
     return {
       user: computed(() => store.getters.user),
