@@ -333,8 +333,8 @@ export default defineComponent({
             &-des {
               margin-bottom: 8px;
               &:last-child {margin-bottom: 4px;}
-              label {width: 16em; display: inline-block;}
-              &-tags {transition: color .3s; &:hover {color: #14A8BD;}}
+              label {width: 18em; display: inline-block;}
+              &-tags span {transition: color .3s; &:hover {color: #14A8BD;}}
             }
           }
           &-thirdFloor {
