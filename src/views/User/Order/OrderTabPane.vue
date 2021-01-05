@@ -175,7 +175,7 @@ export default defineComponent({
         class: 'warningModal',
         title: `确定要${label}该订单吗？`,
         okType: 'danger',
-        content: '若删除订单将无法恢复',
+        content: `若${label}订单将无法恢复`,
         onOk: async () => {
           const hide = message.loading(`正在${label}订单，请稍候...`, 0);
           await requestApi(order).finally(() => hide());
