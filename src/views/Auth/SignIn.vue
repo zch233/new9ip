@@ -40,7 +40,7 @@
           </UIFormItem>
           <UIFormItem v-bind="validateInfos.captcha">
             <div class="captchaBar">
-              <UIInput v-model:value="signInInfo.captcha" class="captcha" placeholder="验证码" :maxlength="6">
+              <UIInput v-model:value="signInInfo.captcha" class="captcha" placeholder="验证码" :maxlength="6" @keydown.enter="signIn">
                 <template #prefix>
                   <Icon class="inputIcon" icon="inputCaptcha" />
                 </template>
