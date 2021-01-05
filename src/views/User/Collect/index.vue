@@ -18,8 +18,8 @@
               <UIPagination
                 size="small"
                 :total="paginationOptions.total"
+                v-model:size="paginationOptions.size"
                 v-model:current="paginationOptions.current"
-                :default-page-size="paginationOptions.defaultPageSize"
                 :page-size-options="paginationOptions.pageSizeOptions"
                 :show-total="total => `共 ${total} 条`"
                 @change="paginationOptions.change"
@@ -60,7 +60,7 @@ export default defineComponent({
     const paginationOptions = reactive({
       total: 0,
       current: 1,
-      defaultPageSize: 8,
+      size: 8,
       pageSizeOptions: ['8', '30', '50', '100'],
       showSizeChange: (page: number, pageSize: number) => {
         window.scrollTo(0,0)
@@ -73,10 +73,11 @@ export default defineComponent({
     })
     const getCollects = async (fetchData: BasePageOption) => {
       loading.value = true
-      const {data} = await collectApi.getCollections({size: paginationOptions.defaultPageSize, ...fetchData}).finally(() => loading.value = false)
+      const {data} = await collectApi.getCollections({size: paginationOptions.size, ...fetchData}).finally(() => loading.value = false)
       collects.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
+      paginationOptions.size = data?.size
     }
     const cancelStar = async (patent: Patent) => {
       await collectApi.starPatent(patent.commodityId)
