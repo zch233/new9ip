@@ -1,5 +1,4 @@
 import path from 'path';
-import babel from "vite-babel-plugin";
 import QRCode from 'qrcode';
 
 export default {
@@ -20,7 +19,6 @@ export default {
     fragment: 'Fragment',
   },
   plugins: [
-    babel(),
     QRCode,
   ],
   alias: {
