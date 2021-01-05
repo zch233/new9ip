@@ -2,7 +2,9 @@
   <div class="appMenu" :class="isHomeRoute && scrollTop === 0 && 'brief'">
     <div class="pageWidthWithCenter menuWrapper">
       <div class="leftMenu">
-        <div class="logoTextWrapper"><Icon class="logoText" :icon="`logoText${(isHomeRoute && scrollTop === 0) ? '_brief' : ''}`" /></div>
+        <RouterLink to="/">
+          <div class="logoTextWrapper"><Icon class="logoText" :icon="`logoText${(isHomeRoute && scrollTop === 0) ? '_brief' : ''}`" /></div>
+        </RouterLink>
         <nav class="menuList">
           <div v-for="menu in menuList" :key="menu.path">
             <RouterLink class="menuItem" :class="[(isHomeRoute ? route.fullPath : route.path) === menu.path && 'active']" :to="menu.path">{{ menu.title }}</RouterLink>
