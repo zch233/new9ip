@@ -1,7 +1,5 @@
 <template>
-  <span @click="handleFullScreen" class="fullscreenWrapper">
-    <AIcon icon="fullscreen" />
-  </span>
+  <AIcon @click="handleFullScreen" icon="fullscreen" />
 </template>
 
 <script lang="ts">
