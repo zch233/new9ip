@@ -308,17 +308,25 @@ export default defineComponent({
           overflow: hidden;
           position: relative;
           &.new, &.hot {
-            &::before {
+            &::before, &::after {
               font-size: 12px;
               color: #fff;
               position: absolute;
-              left: 0; top: 0; bottom: 0; right: 0;
-              padding: 2px 0 0 4px;
-
+              left: 0; top: 0;
+              width: 0;
+              height: 0;
             }
+            &::before { content: '';border-width: 19px 10px 6px;border-style: solid;border-color: transparent; }
+            &::after { left: 4px; top: 1px; }
           }
-          &.new {&::before { content: '新';background-image: linear-gradient(135deg, #14A8BD 0%, #14A8BD 14%, transparent 14%, transparent 100%); }}
-          &.hot {&::before { content: '热';background-image: linear-gradient(135deg, #FF5858 0%, #FF5858 14%, transparent 14%, transparent 100%); }}
+          &.new {
+            &::after { content: '新'; }
+            &::before { border-color: #FF5858; border-bottom-color: transparent; }
+          }
+          &.hot {
+            &::before { border-color: #FF9B00; border-bottom-color: transparent; }
+            &::after { content: '热'; }
+          }
           img {width: 100%;}
         }
         &-content {
