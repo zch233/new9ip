@@ -39,7 +39,7 @@
         </ul>
       </div>
     </section>
-    <section class="patentListBar">
+    <section class="patentListBar" :class="!loginStatus && 'notSignIn'">
       <div class="patentListBar-options">
         <div class="patentListBar-options-order">
           <span :class="[(routeQuery.psort === '0' || routeQuery.psort === undefined) && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 0, no: 1}})">综合排序</span>
@@ -133,11 +133,13 @@ import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
 import { openNewWidowWithBlob } from '/@/utils';
 import { message } from 'ant-design-vue';
 import { GetPatents } from '/@api/patent';
+import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'Patent',
   components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton, PatentImage, UITooltip},
   setup() {
+    const store = useStore()
     const route = useRoute()
     const router = useRouter()
     const loading = ref(false)
@@ -228,6 +230,7 @@ export default defineComponent({
       loading,
       router,
       handleFilterClick,
+      loginStatus: store.getters.loginStatus,
     }
   },
 })
@@ -276,7 +279,6 @@ export default defineComponent({
   .patentListBar {
     margin: 20px 0 40px;
     background-color: #fff;
-    user-select: none;
     &-options {
       padding: .8em 2.1em;
       display: flex;

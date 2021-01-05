@@ -1,5 +1,5 @@
 <template>
-  <div class="pageWidthWithCenter patentDetail">
+  <div class="pageWidthWithCenter patentDetail" :class="!loginStatus && 'notSignIn'">
     <section class="patentNavigation">
       <RouterLink to="/">首页</RouterLink>
       <Icon icon="right" />

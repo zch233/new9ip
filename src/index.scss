@@ -11,6 +11,7 @@
   font-family: Baskerville, "Times New Roman", "Liberation Serif", STFangsong, FangSong, FangSong_GB2312, "CWTEX\-F", serif
 }
 
+.notSignIn { user-select: none; }
 #app {
   @include font-hei;
   color: #333;
