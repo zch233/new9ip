@@ -9,4 +9,5 @@ git add . &&
 git commit -m "版本更新：${time}" &&
 git tag -a v${time} -m "日期：${time}" &&
 git push --tags &&
+echo "---------------------------" &&
 echo "发布成功：${time}"
