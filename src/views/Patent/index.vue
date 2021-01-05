@@ -55,12 +55,12 @@
       <UISpin :spinning="loading">
         <ul class="patentListBar-list" v-if="patents.length > 0">
           <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
-            <RouterLink :to="`/patent/${patent.number}`">
+            <a target="_blank" :href="`/patent/${patent.number}`">
               <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :category="patent.category" /></div>
-            </RouterLink>
+            </a>
             <div class="patentListBar-list-item-content">
               <div class="patentListBar-list-item-content-firstFloor">
-                <RouterLink :to="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></RouterLink>
+                <a target="_blank" :href="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></a>
                 <p class="patentListBar-list-item-content-firstFloor-info">
                   <label v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING">预定至：{{ patent.reserveExpireTime }}</label>
                   <StarIcon :patent="patent" />
