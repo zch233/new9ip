@@ -1,6 +1,7 @@
 export const user = {
   path: '/user',
   component: () => import('../../views/Layout/User.vue'),
+  redirect: '/user/index',
   children: [
     {
       path: 'index',

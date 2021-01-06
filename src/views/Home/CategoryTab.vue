@@ -15,14 +15,14 @@
     <template v-else>
       <ul class="categoryCardList">
         <li v-for="item in currentCategoryPatents" :key="item.id" class="categoryCardItem">
-          <RouterLink class="categoryCardItem-link" :to="`/patent/${item.number}`">
+          <a class="categoryCardItem-link" target="_blank" :href="`/patent/${item.number}`">
             <div class="categoryCardItem-imageWrapper"><PatentImage :category="item.category" /></div>
             <p class="categoryCardItem-title">{{ item.name }}</p>
             <div class="categoryCardItem-priceBar">
               <span>￥{{ item.price }}</span>
               <em><VIPBrand class="vipBrand" />￥{{ item.vipPrice }}</em>
             </div>
-          </RouterLink>
+          </a>
         </li>
       </ul>
       <p class="viewMore"><RouterLink :to="{path: '/patent', query: {category: currentCategory}}">查看更多 <Icon icon="right" /></RouterLink></p>

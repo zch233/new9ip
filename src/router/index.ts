@@ -13,6 +13,6 @@ export const router = createRouter({
     user,
     auth,
     others,
-    { path: '/:pathMatch(.*)*', redirect: '/404' },
+    { path: '/:pathMatch(.*)*', redirect: { name: 'Page404' } },
   ],
 })

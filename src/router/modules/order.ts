@@ -1,6 +1,7 @@
 export const order = {
   path: '/order',
   component: () => import('../../views/Layout/Blank.vue'),
+  redirect: '/order/confirm',
   children: [
     {
       path: 'confirm',

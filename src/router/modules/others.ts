@@ -1,6 +1,7 @@
 export const others = {
   path: '/others',
   component: () => import('../../views/Layout/Blank.vue'),
+  redirect: '/others/helper',
   children: [
     {
       path: 'helper',
