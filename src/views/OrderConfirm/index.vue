@@ -11,7 +11,7 @@
               <div class="patentContent">
                 <div class="patentContent-image"><PatentImage :category="orderConfirmation.category" /></div>
                 <div class="patentContent-info">
-                  <h2 class="patentContent-info-title">一种考虑车队离散特征的公交车和私家车干线绿波同步协调的控制方法装置</h2>
+                  <h2 class="patentContent-info-title">{{ orderConfirmation.name }}</h2>
                   <p class="patentContent-info-col"><span><label>专利类型</label>{{ orderConfirmation.number }}</span><span><label>发明人</label>{{ orderConfirmation.inventorExplain }}</span></p>
                   <p class="patentContent-info-col"><span><label>专利号</label>{{ PATENT_TYPE.label[orderConfirmation.type] }}</span><span><label>标签</label>{{ orderConfirmation.tags }}</span></p>
                   <p class="patentContent-info-col"><span><label>法律状态</label>{{ orderConfirmation.legalStatus }}</span><span><label>价格</label>￥{{ orderConfirmation.price }}</span></p>
