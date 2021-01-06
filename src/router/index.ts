@@ -13,5 +13,6 @@ export const router = createRouter({
     user,
     auth,
     others,
+    { path: '/:pathMatch(.*)*', name: 'NotFound', component: () => import('../views/Error/404.vue') },
   ],
 })
