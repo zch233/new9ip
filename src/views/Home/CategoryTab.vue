@@ -48,7 +48,7 @@ export default defineComponent({
     const currentCategoryPatents = computed(() => patents[currentCategory.value] || [])
     onMounted(() => {
       categories.map(async category => {
-        const {data} = await getPatents({ category: category.code, size: 6 })
+        const {data} = await getPatents({ category: category.code, size: 10 })
         patents[category.code] = data?.list || []
       })
     })
