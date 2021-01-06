@@ -8,6 +8,7 @@
     :onOk="handleOk"
     cancelText="选择其他方式"
     okText="已完成支付"
+    :getContainer="getContainerFn"
     :okButtonProps="{ type: 'danger' }"
   >
     <div class="wrapper">
@@ -36,6 +37,7 @@ export default defineComponent({
     tradeNo: String,
     type: String,
     visible: Boolean,
+    getContainer: String,
   },
   emits: ['update:visible'],
   setup (props, context) {
@@ -53,6 +55,7 @@ export default defineComponent({
       clearPollGetPayResult()
     })
     return {
+      getContainerFn: () => props.getContainer ? document.getElementById(props.getContainer) : document.body,
       visible,
       handleOk,
       clearPollGetPayResult,

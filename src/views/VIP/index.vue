@@ -1,5 +1,5 @@
 <template>
-  <div id="vip" class="first">
+  <div class="first">
     <img src="../../assets/vip/pic_vip.jpg" alt="">
     <UIButton @click="visible=true" class="vipButton" customer-class="warningButton" type="primary">立即开通</UIButton>
   </div>
