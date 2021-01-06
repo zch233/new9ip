@@ -1,6 +1,5 @@
 import path from 'path';
 import QRCode from 'qrcode';
-import { babel } from '@rollup/plugin-babel';
 
 export default {
   publicPath: '/',
@@ -20,20 +19,7 @@ export default {
     fragment: 'Fragment',
   },
   plugins: [
-    QRCode,
-    babel({
-      babelHelpers: 'bundled',
-      presets: [[
-        "@babel/preset-env",
-        {
-          "corejs": 2,
-          "useBuiltIns": "usage",
-          "targets": {
-            "ie": "11"
-          }
-        }
-      ]]
-    })
+    QRCode
   ],
   alias: {
     '/@/': path.resolve(__dirname, './src'),
