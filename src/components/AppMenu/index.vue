@@ -81,8 +81,6 @@ export default defineComponent({
 <style lang="scss">
 .inputMenuSearch {
   .ant-input, .ant-btn {height: 46px;}
-  .ant-input:hover, .ant-input:focus {border-color: #14A8BD;}
-  .ant-input:focus {box-shadow: rgba(20, 168, 189, 0.2) 0 0 0 2px;}
   .ant-btn {background-color: #14a8bd;border-color: #14A8BD;padding: 0 24px;
     &.ant-btn-primary:hover, &.ant-btn-primary:focus {background-color: #16B5CB;}
     &.ant-btn-primary.active, &.ant-btn-primary:active {background-color: #1199AD;}

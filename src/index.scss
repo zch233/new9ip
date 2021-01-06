@@ -46,28 +46,3 @@ ul, li {list-style: none;margin: 0;padding: 0;}
   margin: 0 auto;
   a {color: inherit;}
 }
-.ant-input-group-wrapper.captcha button {
-  border: none;
-  height: auto;
-}
-.ant-input-group-wrapper.captcha .ant-input-group-addon:last-child {
-  padding: 0;
-}
-.ant-input-group-wrapper.captcha .ant-statistic {
-  padding: 0;
-  width: 62px;
-  text-align: center;
-  line-height: 1;
-}
-
-.signIn, .signUp, .password, .order, .collect, .setting {
-  .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-nav .ant-tabs-tab:hover {
-    color: #14A8BD;
-  }
-  .ant-tabs-ink-bar {
-    background-color: #14A8BD;
-  }
-}
-.warningModal {
-  .ant-modal-confirm-content {color: #FF5858;}
-}

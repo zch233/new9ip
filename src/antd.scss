@@ -1,0 +1,27 @@
+.ant-input:hover, .ant-input:focus, .ant-input-affix-wrapper:hover, .ant-input-affix-wrapper:focus {border-color: #14A8BD;}
+.ant-input:focus, .ant-input-affix-wrapper:focus {box-shadow: rgba(20, 168, 189, 0.2) 0 0 0 2px;}
+.ant-input-group-wrapper.captcha button {
+  border: none;
+  height: auto;
+}
+.ant-input-group-wrapper.captcha .ant-input-group-addon:last-child {
+  padding: 0;
+}
+.ant-input-group-wrapper.captcha .ant-statistic {
+  padding: 0;
+  width: 62px;
+  text-align: center;
+  line-height: 1;
+}
+
+.signIn, .signUp, .password, .order, .collect, .setting {
+  .ant-tabs-nav .ant-tabs-tab-active, .ant-tabs-nav .ant-tabs-tab:hover {
+    color: #14A8BD;
+  }
+  .ant-tabs-ink-bar {
+    background-color: #14A8BD;
+  }
+}
+.warningModal {
+  .ant-modal-confirm-content {color: #FF5858;}
+}
