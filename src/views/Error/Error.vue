@@ -24,7 +24,7 @@ export default defineComponent({
   display: flex;
   align-items: center;
   flex-direction: column;
-  padding-top: 24vh;
+  padding-top: 60px;
   &-image {
     width: 510px;
     img {width: 100%;}
