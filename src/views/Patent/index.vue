@@ -48,7 +48,7 @@
         <div class="patentListBar-options-extra">
           <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
           <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
-          <UITooltip title="刷新页面"><Icon @click="router.push('/patent'); getPatents({})" icon="refresh" /></UITooltip>
+          <UITooltip title="刷新页面"><Icon @click="router.push({ path: '/patent', query: { psort: routeQuery.psort }}); getPatents({ psort: routeQuery.psort })" icon="refresh" /></UITooltip>
           <UITooltip title="全屏"><FullScreenIcon /></UITooltip>
         </div>
       </div>
