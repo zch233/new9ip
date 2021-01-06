@@ -1,10 +1,9 @@
 export const root = {
   path: '/',
   component: () => import('../../views/Layout/App.vue'),
-  redirect: '/',
   children: [
     {
-      path: 'home',
+      path: '',
       name: 'Home',
       meta: { title: '首页' },
       component: () => import('../../views/Home/index.vue'),

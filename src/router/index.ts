@@ -15,4 +15,11 @@ export const router = createRouter({
     others,
     { path: '/:pathMatch(.*)*', redirect: { name: 'Page404' } },
   ],
+  scrollBehavior(to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { top: 0 }
+    }
+  },
 })
