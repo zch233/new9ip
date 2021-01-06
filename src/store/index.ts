@@ -39,7 +39,7 @@ export const store = createStore<State>({
     },
     async setOneDayConsumePoints({commit}) {
       const { data } = await pointApi.getOneDayConsumePoints()
-      commit('COMMIT_oneDayConsumePoints', data?.credit || 0)
+      commit('COMMIT_oneDayConsumePoints', data.credit || 0)
     },
     async checkLogin({commit}) {
       const { data } = await authApi.getUserDefault()
