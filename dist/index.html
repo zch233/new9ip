@@ -20,7 +20,8 @@
   <div id="app"></div>
   
   <script>
-    if (window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0 && !/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) document.write('<span style="position:fixed;top:0;bottom:0;left:0;right:0;background-color:#fff;z-index:999;">不支持当前浏览器，推荐您请使用谷歌 Chrome 浏览器打开本页面</span>')
-    else if (/(msie|trident.*rv:)/i.test(window.navigator.userAgent)) document.write('<span style="position:fixed;top:0;bottom:0;left:0;right:0;background-color:#fff;z-index:999;">您的浏览器版本过低，存在安全风险，建议<a href="https://www.microsoft.com/zh-cn/edge">升级浏览器</a>，并设置新安装的浏览器为默认浏览器</span>')</script>
+    var userAgent = window.navigator.userAgent
+    if (userAgent.toLowerCase().indexOf('micromessenger') >= 0 && !/Android|webOS|iPhone|iPod|BlackBerry/i.test(userAgent) && userAgent.indexOf('Macintosh') < 0) document.write('<span style="position:fixed;top:0;bottom:0;left:0;right:0;background-color:#fff;z-index:999;">不支持当前浏览器，推荐您请使用谷歌 Chrome 浏览器打开本页面</span>')
+    else if (/(msie|trident.*rv:)/i.test(userAgent)) document.write('<span style="position:fixed;top:0;bottom:0;left:0;right:0;background-color:#fff;z-index:999;">您的浏览器版本过低，存在安全风险，建议<a href="https://www.microsoft.com/zh-cn/edge">升级浏览器</a>，并设置新安装的浏览器为默认浏览器</span>')</script>
 </body>
 </html>
