@@ -46,8 +46,10 @@
           <span :class="[routeQuery.psort === '1' && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 1, no: 1}})">发布时间</span>
         </div>
         <div class="patentListBar-options-extra">
-          <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
-          <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
+          <template v-if="loginStatus">
+            <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
+            <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
+          </template>
           <UITooltip title="刷新页面"><Icon @click="router.push({ path: '/patent', query: { psort: routeQuery.psort }}); getPatents({ psort: routeQuery.psort })" icon="refresh" /></UITooltip>
           <UITooltip title="全屏"><FullScreenIcon /></UITooltip>
         </div>
@@ -114,7 +116,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue';
+import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import UITag from '/@components/UI/UITag.vue';
 import Icon from '/@components/Icon/index.vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
@@ -230,7 +232,7 @@ export default defineComponent({
       loading,
       router,
       handleFilterClick,
-      loginStatus: store.getters.loginStatus,
+      loginStatus: computed(() => store.getters.loginStatus),
     }
   },
 })
