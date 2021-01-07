@@ -59,7 +59,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
 import QRCode from 'qrcode';
 import { useStore } from '/@/store';
-import { isWaitOrder, usePollGetPayResult } from '/@/utils';
+import { isMobileBrowser, isWaitOrder, usePollGetPayResult } from '/@/utils';
 import { AxiosResponse } from 'axios';
 
 export default defineComponent({
@@ -99,6 +99,11 @@ export default defineComponent({
         VIP: orderApi.payVipOrderAgain,
       }
       apiMap[type]({ orderNo, payRoute, tradeType}).then(({data}: AxiosResponse<OrderResult>) => {
+        if (isMobileBrowser) {
+          document.write('loading...')
+          window.location.href = data.codeUrl;
+          return;
+        }
         generatorQrcode(data.codeUrl)
         orderInfo.value = data
         startPollGetPayResult(data)

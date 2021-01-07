@@ -22,6 +22,14 @@ export const openNewWindow = (url: string, download?: string) => {
 
 export const openNewWidowWithBlob = (blob: any, fileName: string) => openNewWindow(window.URL.createObjectURL(blob), fileName);
 
+export const isWechatBrowser = window.navigator.userAgent.toLowerCase().indexOf('micromessenger') >= 0;
+
+export const isMobileBrowser = /webOS|phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone/i.test(
+  window.navigator.userAgent
+);
+
+export const isWechatMobileBrowser = isWechatBrowser && isMobileBrowser;
+
 export const copyToClipboard = (text: string) => {
   copy(text)
     .then(() => message.success('复制成功'))
