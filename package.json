@@ -10,7 +10,7 @@
     "deploy:sit": "sh deploysit.sh"
   },
   "dependencies": {
-    "ant-design-vue": "2.0.0-rc.4",
+    "ant-design-vue": "2.0.0-rc.5",
     "axios": "^0.21.0",
     "qrcode": "^1.4.4",
     "vue": "^3.0.4",
