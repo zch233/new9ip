@@ -19,7 +19,7 @@ export default {
     fragment: 'Fragment',
   },
   plugins: [
-    QRCode
+    QRCode,
   ],
   alias: {
     '/@/': path.resolve(__dirname, './src'),
