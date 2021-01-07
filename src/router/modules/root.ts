@@ -21,7 +21,7 @@ export const root = {
       component: () => import('../../views/Patent/index.vue'),
     },
     {
-      path: 'patent/:number(\\d+)',
+      path: 'patent/:number',
       name: 'PatentDetail',
       meta: { title: '专利详情' },
       component: () => import('../../views/PatentDetail/index.vue'),
