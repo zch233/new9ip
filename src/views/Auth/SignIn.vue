@@ -17,7 +17,7 @@
           </UIFormItem>
           <UIFormItem v-bind="validateInfos.password">
             <div class="passwordBar">
-              <UIInput v-model:value="signInInfo.password" type="password" placeholder="请输入密码">
+              <UIInput v-model:value="signInInfo.password" type="password" placeholder="请输入密码" @keydown.enter="signIn">
                 <template #prefix>
                   <Icon class="inputIcon" icon="inputPassword" />
                 </template>
