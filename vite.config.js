@@ -27,7 +27,7 @@ export default {
     '/@api/': path.resolve(__dirname, './src/api'),
   },
   optimizeDeps: {
-    include: ['@ant-design-vue/use'],
+    include: ['@ant-design-vue/use', 'ant-design-vue/es/locale/zh_CN'],
   },
   esbuildTarget: ['es2015']
 };
