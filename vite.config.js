@@ -29,4 +29,5 @@ export default {
   optimizeDeps: {
     include: ['@ant-design-vue/use'],
   },
+  esbuildTarget: ['es2015']
 };
