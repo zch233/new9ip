@@ -181,9 +181,9 @@ export default defineComponent({
       initPage(getSingleQuery(route.params.number)!)
     })
     return {
-      loginStatus: computed(() => store.getters.loginStatus),
-      user: computed(() => store.getters.user),
-      hasVip: computed(() => store.getters.hasVip),
+      loginStatus: computed((): boolean => store.getters.loginStatus),
+      user: computed((): User => store.getters.user),
+      hasVip: computed((): boolean => store.getters.hasVip),
       PATENT_STOCK_STATUS,
       PATENT_TYPE,
       shareURL,

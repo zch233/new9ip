@@ -49,7 +49,7 @@ export default defineComponent({
       }, () => message.error('表单输入有误'))
     }
     return {
-      user: computed(() => store.getters.user),
+      user: computed((): User => store.getters.user),
       updatePassword,
       passwordInfo,
       validateInfos,

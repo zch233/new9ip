@@ -232,7 +232,7 @@ export default defineComponent({
       loading,
       router,
       handleFilterClick,
-      loginStatus: computed(() => store.getters.loginStatus),
+      loginStatus: computed((): boolean => store.getters.loginStatus),
     }
   },
 })

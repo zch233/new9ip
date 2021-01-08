@@ -83,7 +83,7 @@ export default defineComponent({
       store.dispatch('setUser')
     })
     return {
-      user: computed(() => store.getters.user),
+      user: computed((): User => store.getters.user),
       recommendPatents,
       waitOrderNumber,
       restPoint,

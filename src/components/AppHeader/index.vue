@@ -73,9 +73,9 @@ export default defineComponent({
     }
     return {
       logout,
-      user: computed(() => store.getters.user),
-      isVIP: computed(() => store.getters.hasVip),
-      loginStatus: computed(() => store.getters.loginStatus),
+      user: computed((): User => store.getters.user),
+      isVIP: computed((): boolean => store.getters.hasVip),
+      loginStatus: computed((): boolean => store.getters.loginStatus),
     }
   },
 })

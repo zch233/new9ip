@@ -124,7 +124,7 @@ export default defineComponent({
       clearPollGetPayResult()
     })
     return {
-      user: computed(() => store.getters.user),
+      user: computed((): User => store.getters.user),
       pollGetPayResultDone,
       pageLoading,
       checkOrderStatusLoading,

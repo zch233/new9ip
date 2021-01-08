@@ -77,7 +77,7 @@ export default defineComponent({
       message.success('更新成功');
     }
     return {
-      user: computed(() => store.getters.user),
+      user: computed((): User => store.getters.user),
       userInfo,
       updateUserInfo,
       submitLoading,
