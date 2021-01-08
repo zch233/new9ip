@@ -16,10 +16,16 @@ export const router = createRouter({
     { path: '/:pathMatch(.*)*', redirect: { name: 'Page404' } },
   ],
   scrollBehavior(to, from, savedPosition) {
-    if (savedPosition) {
-      return savedPosition
+    if (to.hash) {
+      return {
+        selector: to.hash
+      }
     } else {
-      return { top: 0 }
+      if (savedPosition) {
+        return savedPosition
+      } else {
+        return { top: 0 }
+      }
     }
   },
 })

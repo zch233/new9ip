@@ -84,10 +84,14 @@
     <section class="contentBottom">
       <div class="contentBottom-left">
         <ul class="contentBottom-left-tab">
-          <li class="contentBottom-left-tab-item" v-for="(item, index) in ['交易资料', '过户资料', '常见问题']" :class="[index === currentDetailTab && 'active' ]" @click="scrollToContent(index)">{{ item }}</li>
+          <li class="contentBottom-left-tab-item" v-for="(item, index) in [{name: '#detail1', label: '交易资料'}, {name: '#detail2', label: '过户资料'}, {name: '#detail3', label: '常见问题'}]" :class="[index === currentDetailTab && 'active' ]" @click="scrollToContent(index)">
+            <a :href="item.name">{{ item.label }}</a>
+          </li>
         </ul>
         <div class="contentBottom-left-content">
-          <img src="../../assets/patent/detail.png" alt="">
+          <img id="detail1" src="../../assets/patent/detail1.png" alt="">
+          <img id="detail2" src="../../assets/patent/detail2.png" alt="">
+          <img id="detail3" src="../../assets/patent/detail3.png" alt="">
           <RouterLink to="/others/helper"><UIButton customer-class="default">查看更多常见问题</UIButton></RouterLink>
         </div>
       </div>
@@ -100,8 +104,8 @@
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, ref } from 'vue';
-import { onBeforeRouteUpdate, useRoute } from 'vue-router';
+import { computed, defineComponent, onMounted, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import Icon from '/@components/Icon/index.vue';
 import UIButton from '/@components/UI/UIButton.vue';
 import UISkeleton from '/@components/UI/UISkeleton.vue';
@@ -174,10 +178,10 @@ export default defineComponent({
       await getPatentDetail(number)
       await getRecommendPatents()
     }
-    onBeforeRouteUpdate((to) => {
-      initPage(getSingleQuery(to.params.number)!)
-    })
     onMounted(() => {
+      initPage(getSingleQuery(route.params.number)!)
+    })
+    watch(() => route.params.number, () => {
       initPage(getSingleQuery(route.params.number)!)
     })
     return {
@@ -315,28 +319,32 @@ export default defineComponent({
         padding: 0 40px;
         border-bottom: 1px solid #E8E8E8;
         &-item {
-          padding: 20px 0;
-          margin-right: 4em;
-          transition: all .3s;
-          cursor: pointer;
           position: relative;
-          &.active, &:hover {color: #14A8BD;}
-          &.active::after {
-            content: '';
-            position: absolute;
-            background-color: #14A8BD;
-            height: 2px;
-            width: 2.4em;
-            left: 50%;
-            transform: translateX(-50%);
-            bottom: 0;
+          cursor: pointer;
+          transition: all .3s;
+          margin-right: 4em;
+          a {
+            padding: 20px 0;
+            display: inline-block;
           }
+          &:hover {color: #14A8BD;}
+          //&.active, &:hover {color: #14A8BD;}
+          //&.active::after {
+          //  content: '';
+          //  position: absolute;
+          //  background-color: #14A8BD;
+          //  height: 2px;
+          //  width: 2.4em;
+          //  left: 50%;
+          //  transform: translateX(-50%);
+          //  bottom: 0;
+          //}
         }
       }
       &-content {
         text-align: center;
-        padding: 60px 20px;
-        img {width: 100%;}
+        padding: 0 20px 60px;
+        img {width: 100%;padding-top: 110px;}
         button {width: 180px;height: 50px;margin-top: 50px;}
       }
     }
