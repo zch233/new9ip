@@ -29,5 +29,5 @@ export default {
   optimizeDeps: {
     include: ['@ant-design-vue/use', 'ant-design-vue/es/locale/zh_CN'],
   },
-  esbuildTarget: ['es2015']
+  esbuildTarget: 'es2015'
 };
