@@ -5,7 +5,7 @@
       <UIFormItem label="验证码" v-bind="validateInfos.captcha">
         <UIInput v-model:value="passwordInfo.captcha" class="captcha" placeholder="验证码" :maxlength="6">
           <template #addonAfter>
-            <Captcha member :info="{phone: user.account}" />
+            <Captcha v-once member :info="{phone: user.account}" />
           </template>
         </UIInput>
       </UIFormItem>
