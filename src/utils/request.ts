@@ -1,6 +1,7 @@
 import axios, { AxiosResponse } from 'axios';
 import { message } from 'ant-design-vue';
 import { router } from '../router'
+import { RouteLocationRaw } from 'vue-router';
 
 // @ts-ignore
 axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API;
@@ -21,9 +22,13 @@ instance.interceptors.request.use(
 export const errorHandle = (response: AxiosResponse) => {
   const res = response.data;
   if (res.code !== 200) {
-    if (res.code === 401) {
-      router.push({ path: '/auth/sign_in', query: {redirect: window.location.pathname + window.location.search} })
+    const codeRouterMap: { [key: number]: RouteLocationRaw } = {
+      401: { path: '/auth/sign_in', query: {redirect: window.location.pathname + window.location.search}, },
+      404: { path: '/404', query: {} },
+      500: { path: '/500', query: {} },
     }
+    const codeRouter = codeRouterMap[res.code || response.status]
+    codeRouter && router.push(codeRouter)
     message.error(res.msg || '未知错误，请刷新页面重试');
     throw res;
   }
