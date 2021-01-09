@@ -287,6 +287,10 @@ export default defineComponent({
       align-items: center;
       justify-content: space-between;
       border-bottom: 1px solid #E8E8E8;
+      position: sticky;
+      top: 110px;
+      background-color: #fff;
+      z-index: 1;
       &-order {
         > span {
           cursor: pointer;
