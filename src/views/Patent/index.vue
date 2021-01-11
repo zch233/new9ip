@@ -51,7 +51,7 @@
             <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
           </template>
           <UITooltip title="刷新页面"><Icon @click="router.push({ path: '/patent', query: { psort: routeQuery.psort }}); getPatents({ psort: routeQuery.psort })" icon="refresh" /></UITooltip>
-          <UITooltip title="全屏"><FullScreenIcon /></UITooltip>
+          <UITooltip title="切换列表模式"><Icon @click="router.push({path: '/patent', query: {listMode: listMode === 'imageList' ? 'tableList' : 'imageList'}})" :icon="listMode === 'imageList' ? 'tableList' : 'imageList'" /></UITooltip>
         </div>
       </div>
       <UISpin :spinning="loading">
@@ -72,7 +72,8 @@
                 <p class="patentListBar-list-item-content-secondFloor-des">
                   <label>专利号：<span class="searchKeyword" v-html="patent.numberHighlightKey || patent.number" /></label>
                   <label class="patentListBar-list-item-content-secondFloor-des-tags">领域：<span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />{{index === (patent.tagsHighlightKey || patent.tags).split(',').length - 1 ? '' : '，'}}</span></label>
-                  <label>发明人：{{ patent.inventorExplain }}</label></p>
+                  <label>发明人：{{ patent.inventorExplain }}</label>
+                </p>
                 <p class="patentListBar-list-item-content-secondFloor-des">
                   <label>专利类型：{{ PATENT_TYPE.label[patent.type] }}</label>
                   <label>法律状态：{{ patent.legalStatus }}</label>
@@ -119,7 +120,6 @@ import UITag from '/@components/UI/UITag.vue';
 import Icon from '/@components/Icon/index.vue';
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import UIButton from '/@components/UI/UIButton.vue';
-import FullScreenIcon from '/@components/FullScreenIcon/index.vue'
 import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
 import UIEmpty from '/@components/UI/UIEmpty.vue';
@@ -130,7 +130,7 @@ import UITooltip from '/@components/UI/UITooltip.vue';
 import PrePatentCountdown from '/@components/PrePatentCountdown/index.vue';
 import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
-import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
+import { useRoute, useRouter, onBeforeRouteUpdate, RouteLocationNormalized } from 'vue-router';
 import { notActivePatent, openNewWidowWithBlob } from '/@/utils';
 import { message } from 'ant-design-vue';
 import { GetPatents } from '/@api/patent';
@@ -138,12 +138,13 @@ import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton, PatentImage, UITooltip, PrePatentCountdown},
+  components: {UITag, Icon, VIPBrand, UIButton, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton, PatentImage, UITooltip, PrePatentCountdown},
   setup() {
     const store = useStore()
     const route = useRoute()
     const router = useRouter()
     const loading = ref(false)
+    const listMode = ref<'imageList' | 'tableList'>('imageList')
     const routeQuery = ref<patentApi.GetPatents>(route.query)
     const patents = ref<Patent[]>([])
     const paginationOptions = reactive({
@@ -207,9 +208,10 @@ export default defineComponent({
       const {type, inventor, certStatus, word} = routeQuery.value
       router.push({path: '/patent', query: JSON.parse(JSON.stringify({word, type, inventor, certStatus, ...filter}))})
     }
-    onBeforeRouteUpdate((to) => {
+    onBeforeRouteUpdate((to: RouteLocationNormalized) => {
       getPatents(to.query)
       routeQuery.value = to.query
+      to.query.listMode && (listMode.value = to.query.listMode)
     })
     onMounted(() => {
       getPatents(routeQuery.value)
@@ -230,6 +232,7 @@ export default defineComponent({
       routeQuery,
       loading,
       router,
+      listMode,
       handleFilterClick,
       loginStatus: computed((): boolean => store.getters.loginStatus),
       notActivePatent,
