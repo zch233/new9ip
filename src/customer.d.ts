@@ -129,6 +129,7 @@ type Order = {
   status: 0 | 1 | 2 | 3 | 4 | 6;
   totalAmount: number;
   tradeNo: string;
+  expireTime: number;
 };
 
 type Preorder = {

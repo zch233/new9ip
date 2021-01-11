@@ -41,7 +41,7 @@
                 <div class="listContent-item-content-status colStatus">{{ ORDER_STATUS.label[order.status] }}</div>
                 <div class="listContent-item-content-options colOptions">
                   <template v-if="order.status === ORDER_STATUS.CREATED">
-                    <UICountdown class="orderItemCountDown" @finish="changeOrderStatus(order)" :value="Date.now() + 1000 * order.remainSecond" format="剩余m分s秒"/>
+                    <UICountdown class="orderItemCountDown" @finish="changeOrderStatus(order)" :value="order.expireTime" format="剩余m分s秒"/>
                     <div><PayRoutesPopover @choose="payOrder($event, order)" /></div>
                     <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'cancel')">取消订单</UIButton>
                   </template>
