@@ -1,5 +1,5 @@
 <template>
-  <AntButton :class="customerClass">
+  <AntButton class="uiButton" :class="customerClass">
     <slot></slot>
   </AntButton>
 </template>
@@ -75,6 +75,22 @@ export default defineComponent({
     }
     &.ant-btn-link:hover, &.ant-btn-link:focus {
       color: #14A8BD;
+    }
+  }
+  .uiButton {
+    &.ant-btn-disabled, &.ant-btn.disabled, &.ant-btn[disabled], &.ant-btn-disabled:hover, &.ant-btn.disabled:hover, &.ant-btn[disabled]:hover, &.ant-btn-disabled:focus, &.ant-btn.disabled:focus, &.ant-btn[disabled]:focus, &.ant-btn-disabled:active, &.ant-btn.disabled:active, &.ant-btn[disabled]:active, &.ant-btn-disabled.active, &.ant-btn.disabled.active, &.ant-btn[disabled].active {
+      color: #999999;
+      background-color: #fff;
+      border-color: #DFDFDF;
+      text-shadow: none;
+      box-shadow: none;
+    }
+    &.ant-btn-primary-disabled, &.ant-btn-primary.disabled, &.ant-btn-primary[disabled], &.ant-btn-primary-disabled:hover, &.ant-btn-primary.disabled:hover, &.ant-btn-primary[disabled]:hover, &.ant-btn-primary-disabled:focus, &.ant-btn-primary.disabled:focus, &.ant-btn-primary[disabled]:focus, &.ant-btn-primary-disabled:active, &.ant-btn-primary.disabled:active, &.ant-btn-primary[disabled]:active, &.ant-btn-primary-disabled.active, &.ant-btn-primary.disabled.active, &.ant-btn-primary[disabled].active {
+      color: #fff;
+      background-color: #DFDFDF;
+      border-color: #DFDFDF;
+      text-shadow: none;
+      box-shadow: none;
     }
   }
 </style>
