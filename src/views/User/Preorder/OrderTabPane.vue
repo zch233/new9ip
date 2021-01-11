@@ -53,7 +53,7 @@
             <UIPagination
               size="small"
               :total="paginationOptions.total"
-              v-model:size="paginationOptions.size"
+              v-model:pageSize="paginationOptions.pageSize"
               v-model:current="paginationOptions.current"
               :page-size-options="paginationOptions.pageSizeOptions"
               :show-total="total => `共 ${total} 条`"
@@ -149,7 +149,7 @@ export default defineComponent({
     const paginationOptions = reactive({
       total: 0,
       current: 1,
-      size: 10,
+      pageSize: 10,
       pageSizeOptions: ['10', '30', '50', '100'],
       showSizeChange: (page: number, pageSize: number) => {
         window.scrollTo(0,0)
@@ -178,11 +178,11 @@ export default defineComponent({
     const getPreorders = async (fetchData: GetPreorders) => {
       if (loading.value || ((routeQuery.value.status || '999') !== (status?.toString()))) return
       loading.value = true
-      const {data} = await preorderApi.getPreorders({size: paginationOptions.size, ...getDateRange(currentOrderTimeRange.value.key), ...fetchData, status: status === 999 ? undefined : status}).finally(() => loading.value = false)
+      const {data} = await preorderApi.getPreorders({size: paginationOptions.pageSize, ...getDateRange(currentOrderTimeRange.value.key), ...fetchData, status: status === 999 ? undefined : status}).finally(() => loading.value = false)
       preorders.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
-      paginationOptions.size = data?.size
+      paginationOptions.pageSize = data?.size
     }
     onBeforeRouteUpdate((to) => {
       if (to.query.status === (status && status.toString())) {

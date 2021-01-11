@@ -101,7 +101,7 @@
       <UIPagination
         size="small"
         :total="paginationOptions.total"
-        v-model:size="paginationOptions.size"
+        v-model:pageSize="paginationOptions.pageSize"
         v-model:current="paginationOptions.current"
         :page-size-options="paginationOptions.pageSizeOptions"
         :show-total="total => `共 ${total} 条`"
@@ -150,7 +150,7 @@ export default defineComponent({
     const paginationOptions = reactive({
       total: 0,
       current: 1,
-      size: 30,
+      pageSize: 30,
       pageSizeOptions: ['10', '30', '50', '100'],
       showSizeChange: (page: number, pageSize: number) => {
         window.scrollTo(0,0)
@@ -183,11 +183,11 @@ export default defineComponent({
     const getPatents = async (fetchData: GetPatents) => {
       if (loading.value) return
       loading.value = true
-      const {data} = await patentApi.getPatents({size: paginationOptions.size, psort: 0, ...fetchData}).finally(() => loading.value = false)
+      const {data} = await patentApi.getPatents({size: paginationOptions.pageSize, psort: 0, ...fetchData}).finally(() => loading.value = false)
       patents.value = data?.list || []
       paginationOptions.total = data?.totalCount
       paginationOptions.current = data?.no
-      paginationOptions.size = data?.size
+      paginationOptions.pageSize = data?.size
     }
     const getPatentTag = async () => {
       const {data} = await patentApi.getPatentTag()
@@ -196,7 +196,7 @@ export default defineComponent({
     const exportPatent = async (type: 'all' | 'result') => {
       const requestParams = {
         all: { size: -1 },
-        result: { size: paginationOptions.size,...routeQuery.value },
+        result: { size: paginationOptions.pageSize,...routeQuery.value },
       };
       const file = await patentApi.exportPatent(requestParams[type]);
       const today = new Date();
