@@ -41,8 +41,8 @@
               <p class="patentCard-right-info"><label>销售状态</label>{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</p>
               <div class="patentCard-right-button">
                 <template v-if="patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL || patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL">
-                  <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
-                  <PreorderButton big :patent="patent" />
+                  <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING" customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
+                  <PreorderButton :disabled="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING" big :patent="patent" />
                 </template>
                 <template v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING">
                   <b>预留至：{{ patent.reserveExpireTime }}</b>
