@@ -1,5 +1,5 @@
 <template>
-  <UIButton class="preorderButton" :class="big && 'big'" customer-class="default" @click="showModal">预留</UIButton>
+  <UIButton class="preorderButton" :class="big && 'big'" :disabled="disabled" customer-class="default" @click="showModal">预留</UIButton>
   <UIModal :width="416" v-model:visible="visible" :maskClosable="false" title="预留专利" :onOk="preorderPatent">
     <div class="wrapper">
       <Icon class="warning" icon="warning" />
@@ -33,6 +33,7 @@ export default defineComponent({
       default: () => ({}),
     },
     big: Boolean,
+    disabled: Boolean,
   },
   setup(props) {
     const store = useStore()
