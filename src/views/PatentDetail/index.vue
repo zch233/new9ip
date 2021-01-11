@@ -40,13 +40,9 @@
               <p class="patentCard-right-info"><label>发明人</label>{{ patent.inventorExplain }}</p>
               <p class="patentCard-right-info"><label>销售状态</label>{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</p>
               <div class="patentCard-right-button">
-                <template v-if="patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL || patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL">
-                  <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING" customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
-                  <PreorderButton :disabled="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING" big :patent="patent" />
-                </template>
-                <template v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING">
-                  <b>预留至：{{ patent.reserveExpireTime }}</b>
-                </template>
+                <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="notActivePatent(patent.stockStatus)" customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
+                <PreorderButton :disabled="notActivePatent(patent.stockStatus)" big :patent="patent" />
+                <PrePatentCountdown :patent="patent" />
               </div>
               <p class="patentCard-right-patentTips">此商品已全权委托平台寄卖，平台免费提供担保交易服务。</p>
             </div>
@@ -115,9 +111,10 @@ import PatentCard from '/@components/PatentCard/index.vue'
 import StarIcon from '/@components/StarIcon/index.vue'
 import PreorderButton from '/@components/PreorderButton/index.vue'
 import PatentImage from '/@components/PatentImage/index.vue';
+import PrePatentCountdown from '/@components/PrePatentCountdown/index.vue';
 import * as patentApi from '/@api/patent'
 import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
-import { copyToClipboard, getSingleQuery } from '/@/utils';
+import { copyToClipboard, getSingleQuery, notActivePatent } from '/@/utils';
 import { useStore } from '/@/store';
 
 const pageAdvances = [
@@ -153,7 +150,7 @@ const advances = [
 
 export default defineComponent({
   name: 'PatentDetail',
-  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon, PreorderButton, PatentImage},
+  components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon, PreorderButton, PatentImage, PrePatentCountdown},
   setup() {
     const store = useStore()
     const route = useRoute()
@@ -182,7 +179,7 @@ export default defineComponent({
       initPage(getSingleQuery(route.params.number)!)
     })
     watch(() => route.params.number, () => {
-      initPage(getSingleQuery(route.params.number)!)
+      route.params.number && initPage(getSingleQuery(route.params.number)!)
     })
     return {
       loginStatus: computed((): boolean => store.getters.loginStatus),
@@ -199,6 +196,7 @@ export default defineComponent({
       currentDetailTab,
       scrollToContent,
       copyToClipboard,
+      notActivePatent,
     }
   },
 })

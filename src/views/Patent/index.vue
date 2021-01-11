@@ -64,7 +64,7 @@
               <div class="patentListBar-list-item-content-firstFloor">
                 <a target="_blank" :href="`/patent/${patent.number}`"><b class="patentListBar-list-item-content-firstFloor-title searchKeyword" v-html="patent.nameHighlightKey || patent.name" /></a>
                 <p class="patentListBar-list-item-content-firstFloor-info">
-                  <label v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING">预定至：{{ patent.reserveExpireTime }}</label>
+                  <label v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><PrePatentCountdown :patent="patent" /></label>
                   <StarIcon :patent="patent" />
                 </p>
               </div>
@@ -86,8 +86,8 @@
                 <div class="patentListBar-list-item-content-thirdFloor-price">
                   <label>零售价：<b>￥{{ patent.price }}</b></label>
                   <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
-                  <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING" type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
-                  <PreorderButton :disabled="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING" :patent="patent" />
+                  <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
+                  <PreorderButton :disabled="notActivePatent(patent.stockStatus)" :patent="patent" />
                 </div>
               </div>
             </div>
@@ -127,17 +127,18 @@ import StarIcon from '/@components/StarIcon/index.vue'
 import PreorderButton from '/@components/PreorderButton/index.vue'
 import PatentImage from '/@components/PatentImage/index.vue';
 import UITooltip from '/@components/UI/UITooltip.vue';
+import PrePatentCountdown from '/@components/PrePatentCountdown/index.vue';
 import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router';
-import { openNewWidowWithBlob } from '/@/utils';
+import { notActivePatent, openNewWidowWithBlob } from '/@/utils';
 import { message } from 'ant-design-vue';
 import { GetPatents } from '/@api/patent';
 import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton, PatentImage, UITooltip},
+  components: {UITag, Icon, VIPBrand, UIButton, FullScreenIcon, UIPagination, UISpin, UIEmpty, StarIcon, PreorderButton, PatentImage, UITooltip, PrePatentCountdown},
   setup() {
     const store = useStore()
     const route = useRoute()
@@ -231,6 +232,7 @@ export default defineComponent({
       router,
       handleFilterClick,
       loginStatus: computed((): boolean => store.getters.loginStatus),
+      notActivePatent,
     }
   },
 })

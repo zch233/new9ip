@@ -1,0 +1,51 @@
+<template>
+  <div class="prePatentCountdown">
+    <template v-if="countdownVisible">
+      <Icon icon="clock" />
+      <UICountdown
+        @finish="countdownVisible=!countdownVisible"
+        :value="reserveExpireTime"
+        valueStyle="font-size: 12px;"
+      />
+    </template>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, PropType, ref, toRefs, watch } from 'vue';
+import UIButton from '/@components/UI/UIButton.vue'
+import UICountdown from '/@components/UI/UICountdown.vue';
+import Icon from '/@components/Icon/index.vue';
+
+export default defineComponent({
+  name: 'PrePatentCountdown',
+  components: { UIButton, UICountdown, Icon },
+  props: {
+    patent: {
+      type: Object as PropType<Patent>,
+      default: () => ({}),
+    },
+  },
+  setup(props) {
+    const {patent} = toRefs(props)
+    const countdownVisible = ref(false)
+    const reserveExpireTime = ref(0)
+    watch(patent, (value) => {
+      reserveExpireTime.value = value.reserveExpireTime
+      countdownVisible.value = !!value.reserveExpireTime
+    })
+    return {
+      reserveExpireTime,
+      countdownVisible,
+    }
+  },
+})
+</script>
+
+<style lang="scss" scoped>
+.prePatentCountdown {
+  display: inline-flex;
+  align-items: center;
+  > svg {font-size: 14px;margin-right: .4em;margin-left: 1em;}
+}
+</style>
