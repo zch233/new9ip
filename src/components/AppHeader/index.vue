@@ -24,7 +24,7 @@
             <ul class="orderPopoverContent">
               <li><RouterLink to="/others/helper">常见问题</RouterLink></li>
               <li><RouterLink to="/others/helper?aq=1-0">支付方式</RouterLink></li>
-              <li><RouterLink to="/others/helper?aq=2-0">积分规则</RouterLink></li>
+              <li><RouterLink to="/others/helper?aq=2-1">预留规则</RouterLink></li>
             </ul>
           </template>
         </UIPopover>

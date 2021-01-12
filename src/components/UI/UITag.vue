@@ -1,5 +1,5 @@
 <template>
-  <AntTag class="filterTag">
+  <AntTag>
     <slot></slot>
   </AntTag>
 </template>
