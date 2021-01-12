@@ -185,10 +185,8 @@ export default defineComponent({
       paginationOptions.pageSize = data?.size
     }
     onBeforeRouteUpdate((to) => {
-      if (to.query.status === (status && status.toString())) {
-        routeQuery.value = to.query
-        getPreorders(to.query)
-      }
+      routeQuery.value = to.query
+      getPreorders(to.query)
     })
     onMounted(() => {
       getPreorders(routeQuery.value)
