@@ -40,7 +40,7 @@
                 <div class="listContent-item-content-status colStatus">{{ PREORDER_STATUS.label[preorder.status] }}</div>
                 <div class="listContent-item-content-options colOptions">
                   <template v-if="preorder.status === PREORDER_STATUS.CREATED">
-                    <span>预定至 {{ preorder.expireTime }}</span>
+                    <PrePatentCountdown :patent="preorder" />
                     <div v-if="false"><PayRoutesPopover :loading="submitLoading" ref="payRoutesPopoverRef" @choose="payOrder($event, preorder)" /></div>
                     <div><RouterLink :to="{path: '/order/confirm', query: {commodityId: preorder.productId}}"><UIButton type="primary" customer-class="mainButton">去下单</UIButton></RouterLink></div>
                     <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(preorder)">取消预留</UIButton>
@@ -80,6 +80,7 @@ import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
 import UICountdown from '/@components/UI/UICountdown.vue';
 import PatentImage from '/@components/PatentImage/index.vue';
+import PrePatentCountdown from '/@components/PrePatentCountdown/index.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import * as preorderApi from '/@api/preorder';
 import { PREORDER_STATUS } from '/@/utils/dict';
@@ -91,7 +92,12 @@ import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/
 import * as orderConfirmApi from '/@api/orderConfirm';
 import { GetPreorders } from '/@api/preorder';
 
-const orderTimeRange = [
+type DataMap = {all: never[], threeMonth: Date[], oneMonth: Date[], week: Date[]}
+type OrderTimeRange = {
+  key: keyof DataMap;
+  title: string;
+}[]
+const orderTimeRange: OrderTimeRange = [
   {
     title: '全部',
     key: 'all',
@@ -106,7 +112,6 @@ const orderTimeRange = [
     key: 'week',
   }
 ]
-type DataMap = {all: never[], threeMonth: Date[], oneMonth: Date[], week: Date[]}
 const dateMap: DataMap = {
   all: [],
   threeMonth: (() => {
@@ -133,7 +138,7 @@ const getDateRange = (type: keyof DataMap) => JSON.parse(JSON.stringify({dateRan
 
 export default defineComponent({
   name: 'OrderTabPane',
-  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover, PatentImage},
+  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover, PatentImage, PrePatentCountdown},
   props: {
     status: Number,
   },
