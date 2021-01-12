@@ -57,7 +57,7 @@ export default defineComponent({
       searchKeyword.value = route.query.word
     })
     const searchPatent = (word: string) => {
-      router.push({path: '/patent', query: {word: word.trim()}})
+      router.push({ path: '/patent', query: {word: word.trim(), listMode: route.query.listMode} })
     }
     const handlePlasticMenuClick = () => {
       message.info('敬请期待')
