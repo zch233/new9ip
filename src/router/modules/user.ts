@@ -10,6 +10,12 @@ export const user = {
       component: () => import('../../views/User/index.vue')
     },
     {
+      path: 'point',
+      name: 'Point',
+      meta: { title: '我的积分' },
+      component: () => import('../../views/User/Point/index.vue')
+    },
+    {
       path: 'vipRecord',
       name: 'VipRecord',
       meta: { title: '开通记录' },
