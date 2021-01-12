@@ -51,7 +51,10 @@
             <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
           </template>
           <UITooltip title="刷新页面"><Icon @click="router.push({ path: '/patent', query: { psort: routeQuery.psort }}); getPatents({ psort: routeQuery.psort })" icon="refresh" /></UITooltip>
-          <UITooltip title="切换列表模式"><Icon @click="router.push({path: '/patent', query: {listMode: listMode === 'imageList' ? 'tableList' : 'imageList'}})" :icon="listMode === 'imageList' ? 'tableList' : 'imageList'" /></UITooltip>
+          <UITooltip title="切换列表模式">
+            <Icon v-if="listMode === 'imageList'" @click="router.push({path: '/patent', query: {listMode: 'tableList'}})" icon="tableList" />
+            <Icon v-else @click="router.push({path: '/patent', query: {listMode:'imageList'}})" icon="imageList" />
+          </UITooltip>
         </div>
       </div>
       <UISpin :spinning="loading">
@@ -177,6 +180,7 @@ export default defineComponent({
     })
     onMounted(() => {
       getPatents(routeQuery.value)
+      routeQuery.value.listMode && (listMode.value = routeQuery.value.listMode)
       getPatentTag()
     })
     return {
