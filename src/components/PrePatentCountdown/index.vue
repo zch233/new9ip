@@ -3,7 +3,7 @@
     <template v-if="countdownVisible">
       <Icon icon="clock" />
       <UICountdown
-        @finish="countdownVisible=!countdownVisible"
+        @finish="handleFinish"
         :value="reserveExpireTime"
         valueStyle="font-size: 12px;"
       />
@@ -26,10 +26,14 @@ export default defineComponent({
       default: () => ({}),
     },
   },
-  setup(props) {
+  setup(props, context) {
     const {patent} = toRefs(props)
     const countdownVisible = ref(false)
     const reserveExpireTime = ref(0)
+    const handleFinish = () => {
+      countdownVisible.value = !countdownVisible.value
+      context.emit('finish')
+    }
     watch(patent, (value) => {
       reserveExpireTime.value = value.reserveExpireTime
       countdownVisible.value = !!value.reserveExpireTime
@@ -37,6 +41,7 @@ export default defineComponent({
     return {
       reserveExpireTime,
       countdownVisible,
+      handleFinish,
     }
   },
 })
