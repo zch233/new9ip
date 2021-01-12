@@ -124,9 +124,5 @@ export default defineComponent({
     &:hover .option {display: block;}
     &:nth-child(4n) {margin-right: 0;}
   }
-  .paginationBar {
-    padding: 40px 0;
-    text-align: center;
-  }
 }
 </style>

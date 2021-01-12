@@ -315,9 +315,5 @@ export default defineComponent({
       }
     }
   }
-  .paginationBar {
-    padding: 40px 0;
-    text-align: center;
-  }
 }
 </style>

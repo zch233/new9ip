@@ -3,9 +3,9 @@
     <section class="userFilterBar">
       <div class="userFilterBar-left">
         <label v-if="routeQuery.type || routeQuery.certStatus || routeQuery.inventor" class="filterTitle">已选条件：</label>
-        <UITag v-if="routeQuery.type" closable @close="handleFilterClick({type: undefined})">{{ PATENT_TYPE.label[routeQuery.type] }}</UITag>
-        <UITag v-if="routeQuery.certStatus" closable @close="handleFilterClick({certStatus: undefined})">{{ PATENT_CERT_STATUS.label[routeQuery.certStatus] }}</UITag>
-        <UITag v-if="routeQuery.inventor" closable @close="handleFilterClick({inventor: undefined})">{{ PATENT_ORIGIN_STATUS.label[routeQuery.inventor] }}</UITag>
+        <UITag class="filterTag" v-if="routeQuery.type" closable @close="handleFilterClick({type: undefined})">{{ PATENT_TYPE.label[routeQuery.type] }}</UITag>
+        <UITag class="filterTag" v-if="routeQuery.certStatus" closable @close="handleFilterClick({certStatus: undefined})">{{ PATENT_CERT_STATUS.label[routeQuery.certStatus] }}</UITag>
+        <UITag class="filterTag" v-if="routeQuery.inventor" closable @close="handleFilterClick({inventor: undefined})">{{ PATENT_ORIGIN_STATUS.label[routeQuery.inventor] }}</UITag>
       </div>
       <div class="userFilterBar-right" @click="handleFilterControl">{{ filterControl.text }} <Icon :icon="filterControl.icon" /></div>
     </section>
@@ -51,7 +51,7 @@
             <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
           </template>
           <UITooltip title="刷新页面"><Icon @click="router.push({ path: '/patent', query: { psort: routeQuery.psort, listMode: routeQuery.listMode }}); getPatents({ psort: routeQuery.psort })" icon="refresh" /></UITooltip>
-          <UITooltip title="切换列表模式">
+          <UITooltip title="切换视图">
             <Icon v-if="listMode === 'imageList'" @click="router.push({path: '/patent', query: {...routeQuery, listMode: 'tableList'}})" icon="tableList" />
             <Icon v-else @click="router.push({path: '/patent', query: {...routeQuery, listMode:'imageList'}})" icon="imageList" />
           </UITooltip>
@@ -303,10 +303,6 @@ export default defineComponent({
         svg, .fullscreenWrapper {transition: all .3s;cursor: pointer;font-size: 24px;color: #aaa; &:hover {color: #14A8BD;}}
       }
     }
-  }
-  .paginationBar {
-    padding: 40px 0;
-    text-align: center;
   }
   .emptyWrapper {
     min-height: 300px;
