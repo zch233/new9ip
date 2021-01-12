@@ -112,9 +112,9 @@ export default defineComponent({
         &::before, &::after {
           left: 100%;
           transform: scale(.7);
-          top: -.4em;
+          top: -.32em;
         }
-        &::after { left: calc(100% + .5em); top: 0; }
+        &::after { left: calc(100% + .5em); top: .06em; }
       }
     }
   }
