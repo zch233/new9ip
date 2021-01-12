@@ -40,12 +40,17 @@
                 </div>
                 <div class="listContent-item-content-status colStatus">{{ ORDER_STATUS.label[order.status] }}</div>
                 <div class="listContent-item-content-options colOptions">
-                  <template v-if="order.status === ORDER_STATUS.CREATED">
-                    <UICountdown class="orderItemCountDown" @finish="changeOrderStatus(order)" :value="order.expireTime" format="剩余m分s秒"/>
-                    <div><PayRoutesPopover @choose="payOrder($event, order)" /></div>
-                    <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'cancel')">取消订单</UIButton>
-                  </template>
-                  <UIButton v-else type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'delete')">删除订单</UIButton>
+                  <div class="listContent-item-content-options-optionsWrapper">
+                    <template v-if="order.status === ORDER_STATUS.CREATED">
+                      <UICountdown class="orderItemCountDown" @finish="changeOrderStatus(order)" :value="order.expireTime" format="剩余m分s秒"/>
+                      <div><PayRoutesPopover @choose="payOrder($event, order)" /></div>
+                      <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'cancel')">取消订单</UIButton>
+                    </template>
+                    <UIButton v-else type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'delete')">删除订单</UIButton>
+                  </div>
+                  <UITooltip :title="order.remark">
+                    <Icon v-if="order.remark" icon="remark" />
+                  </UITooltip>
                 </div>
               </div>
             </li>
@@ -81,6 +86,7 @@ import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
 import UICountdown from '/@components/UI/UICountdown.vue';
 import PatentImage from '/@components/PatentImage/index.vue';
+import UITooltip from '/@components/UI/UITooltip.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import * as orderApi from '/@api/order';
 import { ORDER_STATUS } from '/@/utils/dict';
@@ -133,7 +139,7 @@ const getDateRange = (type: keyof DataMap) => JSON.parse(JSON.stringify({dateRan
 
 export default defineComponent({
   name: 'OrderTabPane',
-  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover, PatentImage},
+  components: {UITabPane, UIButton, UIDropdown, Icon, UIPagination, UIEmpty, UISpin, UICountdown, PayRoutesPopover, PatentImage, UITooltip},
   props: {
     status: Number,
   },
@@ -311,7 +317,10 @@ export default defineComponent({
           .totalPrice {color: #FF5858; b {font-size: 24px;}}
         }
         &-status {text-align: center;}
-        &-options {text-align: center;> *{margin: 2px 0}}
+        &-options {
+          display: flex;align-items: center;
+          &-optionsWrapper {flex: 1;padding-left: 20%; > *{margin: 2px 0}}
+        }
       }
     }
   }
