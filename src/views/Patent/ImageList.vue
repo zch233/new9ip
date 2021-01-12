@@ -2,7 +2,7 @@
   <ul class="patentListBar-list">
     <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
       <a target="_blank" :href="`/patent/${patent.number}`">
-        <div class="patentListBar-list-item-image" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :category="patent.category" /></div>
+        <div class="patentListBar-list-item-image patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :category="patent.category" /></div>
       </a>
       <div class="patentListBar-list-item-content">
         <div class="patentListBar-list-item-content-firstFloor">
@@ -84,27 +84,7 @@ export default defineComponent({
       &-image {
         width: 118px;
         overflow: hidden;
-        position: relative;
-        &.new, &.hot {
-          &::before, &::after {
-            font-size: 12px;
-            color: #fff;
-            position: absolute;
-            left: 0; top: 0;
-            width: 0;
-            height: 0;
-          }
-          &::before { content: '';border-width: 19px 10px 6px;border-style: solid;border-color: transparent; }
-          &::after { left: 4px; top: 1px; }
-        }
-        &.new {
-          &::after { content: '新'; }
-          &::before { border-color: #FF5858; border-bottom-color: transparent; }
-        }
-        &.hot {
-          &::before { border-color: #FF9B00; border-bottom-color: transparent; }
-          &::after { content: '热'; }
-        }
+        &.patentLabel { &::before, &::after {left: 0;} &::after { left: 4px; }}
         img {width: 100%;}
       }
       &-content {

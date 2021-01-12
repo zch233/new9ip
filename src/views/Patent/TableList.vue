@@ -14,7 +14,7 @@
   <section class="patentList-content">
     <div class="patentList-content-item" v-for="(patent, index) in patents" :key="patent.number">
       <span class="col-order">{{ index + 1 }}</span>
-      <label class="col-name searchKeyword"><a target="_blank" :href="`/patent/${patent.number}`"><b v-html="patent.nameHighlightKey || patent.name" /></a></label>
+      <label class="col-name searchKeyword"><a class="patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''" :href="`/patent/${patent.number}`" target="_blank"><b v-html="patent.nameHighlightKey || patent.name" /></a></label>
       <span class="col-number searchKeyword" v-html="patent.numberHighlightKey || patent.number" />
       <span class="col-legalStatus">{{ patent.legalStatus }}</span>
       <span class="col-tag">
@@ -71,7 +71,7 @@ export default defineComponent({
 .col {
   &-order, &-name, &-number, &-legalStatus, &-tag, &-inventorExplain, &-status, &-price, &-vipPrice, &-options {padding: 0 8px;}
   &-order {flex: 0 0 3.67%;}
-  &-name {flex: 0 0 27.17%;}
+  &-name {flex: 0 0 27.4%;}
   &-number {flex: 0 0 9%;}
   &-legalStatus {flex: 0 0 7%;}
   &-tag {flex: 0 0 14.25%;}
@@ -79,7 +79,7 @@ export default defineComponent({
   &-status {flex: 0 0 4.67%;}
   &-price {flex: 0 0 6.33%;}
   &-vipPrice {flex: 0 0 6.33%;}
-  &-options{flex: 0 0 16.92%;}
+  &-options{flex: 0 0 17.15%;}
 }
 .patentList {
   &-title {
@@ -97,7 +97,7 @@ export default defineComponent({
       &-name {font-size: 13px;}
     }
     &-item {
-      padding: 14px 0;
+      padding: 10px 0;
       border-bottom: 1px solid #DEDEDE;
       display: flex;
       align-items: center;
@@ -105,6 +105,16 @@ export default defineComponent({
         display: flex;
         align-items: center;
         .preStatus {text-align: center;padding: 0 10px; > p {color: #14A8BD;margin-bottom: 3px;} svg {margin-right: 0.4em}}
+      }
+    }
+    .patentLabel {
+      &.new, &.hot {
+        &::before, &::after {
+          left: 100%;
+          transform: scale(.7);
+          top: -.4em;
+        }
+        &::after { left: calc(100% + .5em); top: 0; }
       }
     }
   }

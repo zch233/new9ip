@@ -206,6 +206,34 @@ export default defineComponent({
 })
 </script>
 
+<style lang="scss">
+.patent {
+  .patentLabel {
+    position: relative;
+    display: inline-flex;
+    &.new, &.hot {
+      &::before, &::after {
+        font-size: 12px;
+        color: #fff;
+        position: absolute;
+        top: 0;
+        width: 0;
+        height: 0;
+      }
+      &::before { content: '';border-width: 19px 10px 6px;border-style: solid;border-color: transparent; }
+      &::after { top: 1px; }
+    }
+    &.new {
+      &::after { content: '新'; }
+      &::before { border-color: #FF5858; border-bottom-color: transparent; }
+    }
+    &.hot {
+      &::before { border-color: #FF9B00; border-bottom-color: transparent; }
+      &::after { content: '热'; }
+    }
+  }
+}
+</style>
 <style lang="scss" scoped>
 .patent {
   padding: 16px 0;
