@@ -42,7 +42,7 @@
               <div class="patentCard-right-button">
                 <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="notActivePatent(patent.stockStatus)" customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
                 <PreorderButton :disabled="notActivePatent(patent.stockStatus)" big :patent="patent" />
-                <PrePatentCountdown :patent="patent" />
+                <PrePatentCountdown class="preStatus" :patent="patent" />
               </div>
               <p class="patentCard-right-patentTips">此商品已全权委托平台寄卖，平台免费提供担保交易服务。</p>
             </div>
@@ -255,7 +255,7 @@ export default defineComponent({
             padding: 4px 10px;font-size: 14px;font-style: normal;margin-left: 1.6em;vertical-align: super;}
         }
         &-info {margin-bottom: 10px; > label {display: inline-block;width: 10em;color: #666;} }
-        &-button {margin: 20px 0; button {height: 40px;width: 110px;} > * {margin-right: 1em;} }
+        &-button {margin: 20px 0; button {height: 40px;width: 110px;} > * {margin-right: 1em;} .preStatus {margin-left: 1em;} }
         &-patentTips {color: #999;font-size: 12px;}
       }
     }

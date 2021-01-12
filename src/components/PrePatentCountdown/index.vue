@@ -33,7 +33,7 @@ export default defineComponent({
     watch(patent, (value) => {
       reserveExpireTime.value = value.reserveExpireTime
       countdownVisible.value = !!value.reserveExpireTime
-    })
+    }, {immediate: true,})
     return {
       reserveExpireTime,
       countdownVisible,
@@ -46,6 +46,6 @@ export default defineComponent({
 .prePatentCountdown {
   display: inline-flex;
   align-items: center;
-  > svg {font-size: 14px;margin-right: .4em;margin-left: 1em;}
+  > svg {font-size: 14px;margin-right: .4em;}
 }
 </style>
