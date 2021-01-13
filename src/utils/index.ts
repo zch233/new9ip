@@ -2,7 +2,7 @@ import copy from './copy';
 import { message, Modal } from 'ant-design-vue';
 import * as orderPayApi from '/@api/orderPay'
 import { ORDER_PAY_STATUS, PATENT_STOCK_STATUS } from '/@/utils/dict';
-import { TYPE_ORDER_PAY_STATUS, TYPE_PATENT_STOCK_STATUS } from '/@/utils/dictTypes';
+import { TYPE_ORDER_PAY_STATUS } from '/@/utils/dictTypes';
 import { ref } from 'vue';
 import { router } from '/@/router';
 
@@ -70,7 +70,6 @@ export const usePollGetPayResult = () => {
       // @ts-ignore
       timer.value = setTimeout(() => pollGetPayResult({ tradeNo, orderNo, commodityType }, askPayResultTimes + 1), 3000);
     } else if (result === ORDER_PAY_STATUS.TRADE_SUCCESS || result === ORDER_PAY_STATUS.TRADE_FINISHED) {
-      Modal.destroyAll()
       await router.push(`/order/pay/result?orderNo=${orderNo}&tradeNo=${tradeNo}&status=1&type=${commodityType}`);
     } else if (result === ORDER_PAY_STATUS.TRADE_CLOSED) {
       await router.push(`/order/pay/result?orderNo=${orderNo}&tradeNo=${tradeNo}&status=0&type=${commodityType}`);

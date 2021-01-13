@@ -1,5 +1,5 @@
 <template>
-  <div class="first">
+  <div id="vip" class="first">
     <img src="../../assets/vip/pic_vip.jpg" alt="">
     <UIButton @click="visible=true" class="vipButton" customer-class="warningButton" type="primary">立即开通</UIButton>
   </div>
@@ -9,7 +9,7 @@
   <div class="third">
     <img src="../../assets/vip/pic_vip2.jpg" alt="">
   </div>
-  <UIModal :width="650" v-model:visible="visible" title="开通/续费会员" :maskClosable="false" :confirmLoading="loading" :onOk="orderVip">
+  <UIModal :getContainer="getContainer" :width="650" v-model:visible="visible" title="开通/续费会员" :maskClosable="false" :confirmLoading="loading" :onOk="orderVip">
     <UISpin :spinning="loading">
       <UIForm>
         <UIFormItem label="会员账号">{{ $store.state.user.account }}</UIFormItem>
@@ -56,15 +56,15 @@ export default defineComponent({
   name: 'VIP',
   components: {UIButton, UIModal, UIForm, UIFormItem, UIRadioGroup, UIRadio, Icon, UISpin},
   setup() {
-    const visible = ref(false)
-    const loading = ref(false)
-    const router = useRouter()
+    const visible = ref(false);
+    const loading = ref(false);
+    const router = useRouter();
     const vipInfo = reactive({
       payRoute: PAY_ROUTES[0].payRoute,
     })
     const orderVip = async () => {
-      loading.value = true
-      const {data}: {data:VipPurchase[]} = await vipApi.getVipPurchase().finally(() => loading.value = false)
+      loading.value = true;
+      const {data}: {data:VipPurchase[]} = await vipApi.getVipPurchase().finally(() => loading.value = false);
       loading.value = true
       const currentPay = PAY_ROUTES.find((item) => item.payRoute === vipInfo.payRoute);
       const { payRoute, tradeType } = currentPay as TYPE_PAY_ROUTES[number];
@@ -74,7 +74,7 @@ export default defineComponent({
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
         await router.push(payURL);
       } else {
-        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'VIP' })
+        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'VIP', getContainer: 'vip' });
         openNewWindow(payURL);
       }
     }
@@ -84,15 +84,14 @@ export default defineComponent({
       PAY_ROUTES,
       visible,
       orderVip,
+      getContainer: () => document.getElementById('vip')
     }
   }
 })
 </script>
 
 <style lang="scss" scoped>
-.first, .second, .third {
-  img {width: 100%;}
-}
+.first, .second, .third { img {width: 100%;} }
 .first {
   position: relative;
   .vipButton {

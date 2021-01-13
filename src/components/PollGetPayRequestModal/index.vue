@@ -8,6 +8,7 @@
     :onOk="handleOk"
     cancelText="选择其他方式"
     okText="已完成支付"
+    :confirmLoading="loading"
     :getContainer="getContainerFn"
     :okButtonProps="{ type: 'danger' }"
   >
@@ -23,7 +24,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, toRefs } from 'vue';
+import { defineComponent, onMounted, onUnmounted, ref, toRefs } from 'vue';
 import UIModal from '/@components/UI/UIModal.vue';
 import Icon from '/@components/Icon/index.vue'
 import { isWaitOrder, usePollGetPayResult } from '/@/utils';
@@ -41,10 +42,12 @@ export default defineComponent({
   },
   emits: ['update:visible'],
   setup (props, context) {
+    const loading = ref(false)
     const { tradeNo, orderNo, type, visible } = toRefs(props)
     const { clearPollGetPayResult, startPollGetPayResult } = usePollGetPayResult()
     const handleOk = async () => {
-      if (!(await isWaitOrder(tradeNo.value))) return;
+      loading.value = true
+      if (!(await isWaitOrder(tradeNo.value).finally(() => loading.value = false))) return;
       context.emit('update:visible', false)
       await router.push(`/order/pay/result?orderNo=${orderNo.value}&tradeNo=${tradeNo.value}&status=1&type=${type.value}`);
     }
@@ -55,6 +58,7 @@ export default defineComponent({
       clearPollGetPayResult()
     })
     return {
+      loading,
       getContainerFn: () => props.getContainer ? document.getElementById(props.getContainer) : document.body,
       visible,
       handleOk,
