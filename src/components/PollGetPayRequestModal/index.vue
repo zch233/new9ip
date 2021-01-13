@@ -43,7 +43,7 @@ export default defineComponent({
   emits: ['update:visible'],
   setup (props, context) {
     const loading = ref(false)
-    const { tradeNo, orderNo, type, visible } = toRefs(props)
+    const { tradeNo, orderNo, type } = toRefs(props)
     const { clearPollGetPayResult, startPollGetPayResult } = usePollGetPayResult()
     const handleOk = async () => {
       loading.value = true
@@ -60,7 +60,6 @@ export default defineComponent({
     return {
       loading,
       getContainerFn: () => props.getContainer ? document.getElementById(props.getContainer) : document.body,
-      visible,
       handleOk,
       clearPollGetPayResult,
     }
