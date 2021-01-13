@@ -6,10 +6,10 @@
         <div class="user-head-left-info">
           <p class="user-head-left-info-account">{{ user.nickname }}</p>
           <div class="user-head-left-info-vip" v-if="user.hasVip">
-            <VIPBrand /> {{ restPoint }} 积分
+            <VIPBrand /> {{ userPoints }} 积分
             <p>到期时间：{{ user.vipExpireDate }}</p>
           </div>
-          <span v-else>普通会员 {{ restPoint }} 积分</span>
+          <span v-else>普通会员 {{ userPoints }} 积分</span>
         </div>
       </div>
       <div class="user-head-right">
@@ -52,7 +52,6 @@ import UIButton from '/@components/UI/UIButton.vue';
 import UIBadge from '/@components/UI/UIBadge.vue';
 import { useStore } from '/@/store';
 import * as patentApi from '/@api/patent';
-import * as pointApi from '/@api/point';
 import * as orderApi from '/@api/order'
 import { ORDER_STATUS } from '/@/utils/dict';
 
@@ -62,15 +61,10 @@ export default defineComponent({
   setup() {
     const store = useStore()
     const recommendPatents = ref<Patent[]>([])
-    const restPoint = ref(0)
     const waitOrderNumber = ref(0)
     const getRecommendPatents = async () => {
       const {data} = await patentApi.getRecommendPatents({size: 8})
       recommendPatents.value = data.list
-    }
-    const getRestPoints = async () => {
-      const {data} = await pointApi.getRestPoints()
-      restPoint.value = data?.surplusCredit || 0
     }
     const getWaitOrderNumber = async () => {
       const {data} = await orderApi.getOrders({status: ORDER_STATUS.CREATED.toString(), size: 1})
@@ -78,15 +72,14 @@ export default defineComponent({
     }
     onMounted(() => {
       getRecommendPatents()
-      getRestPoints()
       getWaitOrderNumber()
       store.dispatch('setUser')
     })
     return {
       user: computed((): User => store.getters.user),
+      userPoints: computed(() => store.getters.userPoints),
       recommendPatents,
       waitOrderNumber,
-      restPoint,
     }
   }
 })

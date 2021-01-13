@@ -8,6 +8,7 @@ export interface State {
   user: Partial<User>;
   loginStatus: boolean;
   oneDayConsumePoints: number;
+  userPoints: number;
 }
 
 export const key: InjectionKey<Store<State>> = Symbol()
@@ -17,6 +18,7 @@ export const store = createStore<State>({
     user: {},
     loginStatus: false,
     oneDayConsumePoints: 0,
+    userPoints: 0,
   },
   getters,
   mutations: {
@@ -28,7 +30,13 @@ export const store = createStore<State>({
     },
     COMMIT_oneDayConsumePoints(state, data: number) {
       state.oneDayConsumePoints = data
-    }
+    },
+    COMMIT_USER_POINTS(state, data: number) {
+      state.userPoints = data
+    },
+    COMMIT_consumePointsByPreorder(state) {
+      state.userPoints = state.userPoints - state.oneDayConsumePoints
+    },
   },
   actions: {
     async setUser({commit}) {
@@ -40,6 +48,10 @@ export const store = createStore<State>({
     async setOneDayConsumePoints({commit}) {
       const { data } = await pointApi.getOneDayConsumePoints()
       commit('COMMIT_oneDayConsumePoints', data?.credit || 0)
+    },
+    async setUserPoints({commit}) {
+      const {data} = await pointApi.getRestPoints()
+      commit('COMMIT_USER_POINTS', data?.surplusCredit || 0)
     },
     async checkLogin({commit}) {
       const { data } = await authApi.getUserDefault()

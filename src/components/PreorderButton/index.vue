@@ -4,18 +4,18 @@
     <div class="wrapper">
       <Icon class="warning" icon="warning" />
       <div>
-        <p class="fontWeight">预留专利：{{ patent.name }}</p>
+        <p><b>预留专利：{{ patent.name }}</b></p>
 <!--        预留天数：-->
 <!--        <InputNumber autoFocus min={1} max={3} value={days} onChange={(day) => setDays(parseInt((day || 1).toString()))} /> 天-->
-<!--        <p />-->
-        将消耗 <span class="fontWeight">{{ $store.state.oneDayConsumePoints }}</span> 个积分，是否继续？
+        <p>将消耗 <b>{{ $store.state.oneDayConsumePoints }}</b> 个积分，是否继续？</p>
+        <span>当前剩余：<b>{{ userPoints }}</b> 积分</span>
       </div>
     </div>
   </UIModal>
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType, ref } from 'vue';
+import { computed, defineComponent, PropType, ref } from 'vue';
 import UIButton from '/@components/UI/UIButton.vue'
 import UIModal from '/@components/UI/UIModal.vue';
 import Icon from '/@components/Icon/index.vue';
@@ -53,8 +53,10 @@ export default defineComponent({
       await patentApi.preorderPatent({ days: 1, productId: props.patent.id }).finally(() => visible.value = false)
       message.success('预留成功');
       await router.push('/user/preorder');
+      store.commit('COMMIT_consumePointsByPreorder')
     }
     return {
+      userPoints: computed(() => store.getters.userPoints),
       preorderPatent,
       visible,
       showModal,
@@ -70,10 +72,6 @@ export default defineComponent({
 }
 .wrapper {
   display: flex;
-  .fontWeight {
-    font-weight: bold;
-
-  }
   .warning {
     font-size: 50px;
     color: rgb(250, 173, 20);

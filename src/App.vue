@@ -33,6 +33,7 @@ export default defineComponent({
           store.commit('COMMIT_LOGIN_STATUS', !!data.data)
           store.commit('COMMIT_USER', data.data)
           await store.dispatch('setOneDayConsumePoints')
+          await store.dispatch('setUserPoints')
         }
       }).catch(() => {})
     })
