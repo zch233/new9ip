@@ -17,3 +17,10 @@ export const updateUserInfo = (data: UpdateUserInfo) =>
     data,
   })
 
+export const updateHeader = (data: FormData) =>
+  request({
+    url: '/api/v1/member/avatar',
+    method: 'put',
+    data,
+  })
+

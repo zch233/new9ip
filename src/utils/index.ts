@@ -108,3 +108,14 @@ export const getToday = (userDate?:Date) => {
 }
 
 export const notActivePatent = (stockStatus: Patent['stockStatus']) => !(stockStatus === PATENT_STOCK_STATUS.PRE_SELL || stockStatus === PATENT_STOCK_STATUS.CAN_SELL)
+
+export const translateBase64ImgToFile = (base64: string, filename?: string) => {
+  const arr = base64.split(',');
+  const bufferString = atob(arr[1]);
+  let length = bufferString.length;
+  let u8arr = new Uint8Array(length);
+  while (length--) {
+    u8arr[length] = bufferString.charCodeAt(length); //返回指定位置的字符的 Unicode 编码
+  }
+  return new File([u8arr], filename || new Date().toJSON(), { type: 'image/png' });
+};
