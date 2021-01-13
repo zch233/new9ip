@@ -4,7 +4,7 @@
       <div class="point-top-restPoint">
         <Icon icon="point" />
         <p>可用积分</p>
-        <b>200</b>
+        <b>{{ userPoints }}</b>
       </div>
     </div>
     <p class="point-middle"><label>积分明细</label><RouterLink to="/others/helper?aq=2-0"><Icon icon="tips" />积分规则</RouterLink></p>
@@ -43,12 +43,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from 'vue';
+import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
 import Icon from '/@components/Icon/index.vue'
 import UITag from '/@components/UI/UITag.vue';
 import UIPagination from '/@components/UI/UIPagination.vue';
 import * as pointApi from '/@api/point';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
+import { useStore } from '/@/store';
 
 type Point = {
   createTime: string;
@@ -64,6 +65,7 @@ export default defineComponent({
   name: 'Point',
   components: {Icon, UITag, UIPagination},
   setup() {
+    const store = useStore()
     const route = useRoute()
     const router = useRouter()
     const loading = ref(false)
@@ -101,6 +103,7 @@ export default defineComponent({
     })
     return {
       points,
+      userPoints: computed(() => store.getters.userPoints),
       paginationOptions,
     }
   }
