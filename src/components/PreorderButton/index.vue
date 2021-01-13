@@ -20,7 +20,7 @@ import UIButton from '/@components/UI/UIButton.vue'
 import UIModal from '/@components/UI/UIModal.vue';
 import Icon from '/@components/Icon/index.vue';
 import * as patentApi from '/@api/patent'
-import { message, Modal } from 'ant-design-vue';
+import { message } from 'ant-design-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '/@/store';
 
@@ -49,23 +49,10 @@ export default defineComponent({
       }
       visible.value = true
     }
-    const preorderPatent = () => {
-      patentApi.preorderPatent({ days: 1, productId: props.patent.id }).then(async () => {
-        message.success('预留成功');
-        await router.push('/user/preorder');
-      }).catch((e) => {
-        visible.value = false
-        e.code && e.code === 3500 &&
-        Modal.confirm({
-          title: '积分不足',
-          content: '抱歉，您的剩余积分不足',
-          okText: '立即充值',
-          cancelText: '继续逛逛',
-          onOk() {
-            router.push('/vip');
-          },
-        })
-      })
+    const preorderPatent = async () => {
+      await patentApi.preorderPatent({ days: 1, productId: props.patent.id }).finally(() => visible.value = false)
+      message.success('预留成功');
+      await router.push('/user/preorder');
     }
     return {
       preorderPatent,
