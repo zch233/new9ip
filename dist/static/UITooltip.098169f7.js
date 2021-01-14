@@ -1,1 +1,0 @@
-import{d as a,aL as o,g as s,h as t,i as n,ax as e,x as l}from"./index.c6205360.js";var r=a({name:"UITooltip",components:{AntTooltip:o}});r.render=function(a,o,r,i,p,d){const u=s("AntTooltip");return t(),n(u,null,{default:e((()=>[l(a.$slots,"default")])),_:3})};export{r as s};

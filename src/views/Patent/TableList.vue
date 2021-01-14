@@ -18,7 +18,7 @@
       <span class="col-number searchKeyword" v-html="patent.numberHighlightKey || patent.number" />
       <span class="col-legalStatus">{{ patent.legalStatus }}</span>
       <span class="col-tag">
-        <span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />{{index === (patent.tagsHighlightKey || patent.tags).split(',').length - 1 ? '' : '，'}}</span>
+        <span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />{{index === (patent.tagsHighlightKey || patent.tags).split(',').length - 1 ? '' : ','}}</span>
       </span>
       <span class="col-inventorExplain">{{ patent.inventorExplain }}</span>
       <span class="col-status">{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</span>
