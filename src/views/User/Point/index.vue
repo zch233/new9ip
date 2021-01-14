@@ -128,8 +128,8 @@ export default defineComponent({
       box-shadow: 0 0 20px 0 #CDC3AB;
       padding: 18px 12%;
       svg {position: absolute;top: 12px;left: 12px;color: #F4E2B3;font-size: 16px;}
-      p {font-size: 14px;color: #666;margin: 0;}
-      b {font-size: 40px;}
+      p {font-size: 14px;color: #F4E2B3;margin: 0;}
+      b {font-size: 40px;color: #C5AF74;font-weight: normal;}
     }
   }
   &-middle {
