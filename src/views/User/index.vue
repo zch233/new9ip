@@ -4,7 +4,7 @@
       <div class="user-head-left">
         <div class="user-head-left-headImage"><img v-if="user.avatar" :src="user.avatar" alt=""><Icon v-else icon="defaultHeadImage" /></div>
         <div class="user-head-left-info">
-          <p class="user-head-left-info-account">{{ user.nickname }}<VIPBrand v-if="user.hasVip" /><span v-else>普通会员</span></p>
+          <p class="user-head-left-info-account">{{ user.nickname }}<VIPBrand v-if="user.hasVip" /><span class="userTag" v-else>普通会员</span></p>
           <p class="user-head-left-info-vipExpireTime" v-if="user.hasVip">到期时间：{{ user.vipExpireDate }}</p>
           <span class="user-head-left-info-point"><Icon icon="point" />{{ userPoints }} 积分</span>
         </div>
@@ -127,7 +127,7 @@ export default defineComponent({
         font-size: 12px;
         margin-top: 4px;
         .VIPBrandWrapper {font-size: 40px;margin-left: 6px}
-        &-account {color: #FFFFFF;font-size: 20px;margin-bottom: 4px;}
+        &-account {color: #FFFFFF;font-size: 20px;margin-bottom: 4px; .userTag { font-size: 12px; color: #A1AAC1;padding: 0 .4em;}}
         &-vipExpireTime {color: #fff;margin-bottom: 6px;}
         &-point {display: flex; align-items: center;color: #FFC481; svg {font-size: 16px;margin-right: .2em;}}
       }
