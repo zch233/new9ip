@@ -36,12 +36,12 @@
         <span>扫描二维码关注我们</span>
       </template>
     </UIPopover>
-    <span @click="scrollTop" class="slideArt-item"><Icon icon="returnTop" /></span>
+    <span v-if="scrollTop > 800" @click="scrollToTop" class="slideArt-item"><Icon icon="returnTop" /></span>
   </section>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from 'vue';
+import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
 import Icon from '/@components/Icon/index.vue'
 import UIPopover from '/@components/UI/UIPopover.vue';
 import * as homeApi from '/@api/home'
@@ -59,17 +59,22 @@ export default defineComponent({
   components: {Icon, UIPopover},
   setup() {
     const contacts = ref<Contact[]>([])
-    const scrollTop = () => window.scroll(0,0)
+    const scrollTop = ref(0)
+    const scrollToTop = () => window.scroll(0,0)
     const getContactConfig = async () => {
       const {data} = await homeApi.getContactConfig()
       contacts.value = data
     }
+    const getScrollTop = () => scrollTop.value = document.documentElement.scrollTop
     onMounted(() => {
       getContactConfig()
+      window.addEventListener('scroll', getScrollTop)
     })
+    onUnmounted(() => window.removeEventListener('scroll', getScrollTop))
     return {
       contacts,
       scrollTop,
+      scrollToTop,
     }
   }
 })
