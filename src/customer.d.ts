@@ -55,6 +55,7 @@ type User = {
 }
 
 type Patent = {
+  categoryCover: string;
   category: string;
   categoryAliaName: string;
   categoryName: string;
@@ -111,17 +112,18 @@ type Order = {
   commodityCategory: string;
   commodityId: string;
   commodityType: 'PATENT';
+  commodityCover: string;
+  commodityNumber: string;
+  commodityPrice: number;
+  commodityName: string;
   cover: string;
   createTime: string;
   deliverySn: null;
   discounts: Discount[];
   invoiceStatus: null;
-  name: string;
-  number: string;
   orderNo: string;
   payRoute: string;
   payStatus: string;
-  price: number;
   remainSecond: number;
   remark: string;
   sellerShopAvatar: string;
@@ -149,6 +151,7 @@ type Preorder = {
   orderNo: string;
   preStockStatus: 1 | 2 | 3 | 4 | 5 | 6;
   productCategory: string;
+  productCategoryCover: string;
   productCover: string;
   productId: string;
   productName: string;

@@ -9,7 +9,7 @@
           <UICard title="商品信息">
             <UISkeleton active :paragraph="{ rows: 5 }" :loading="pageLoading">
               <div class="patentContent">
-                <div class="patentContent-image"><PatentImage :category="orderConfirmation.category" /></div>
+                <div class="patentContent-image"><PatentImage :cover="orderConfirmation.categoryCover" /></div>
                 <div class="patentContent-info">
                   <h2 class="patentContent-info-title">{{ orderConfirmation.name }}</h2>
                   <p class="patentContent-info-col"><span><label>专利类型</label>{{ orderConfirmation.number }}</span><span><label>发明人</label>{{ orderConfirmation.inventorExplain }}</span></p>

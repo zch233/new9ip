@@ -1,7 +1,7 @@
 <template>
   <RouterLink :class="(patent.stockStatus === PATENT_STOCK_STATUS.SOLD_OUT || patent.stockStatus === PATENT_STOCK_STATUS.USED_SELL) ? 'disabled' : 'normal'" :to="`/patent/${patent.number}`">
     <div class="patentCard">
-      <div class="patentCard-image"><PatentImage :category="patent.category" /></div>
+      <div class="patentCard-image"><PatentImage :cover="patent.categoryCover" /></div>
       <p class="patentCard-title">{{ patent.name }}</p>
       <div class="patentCard-info">
         <span class="patentCard-info-price">￥{{ patent.price }}</span>

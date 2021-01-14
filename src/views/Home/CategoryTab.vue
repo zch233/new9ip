@@ -16,7 +16,7 @@
       <ul class="categoryCardList">
         <li v-for="item in currentCategoryPatents" :key="item.id" class="categoryCardItem">
           <a class="categoryCardItem-link" target="_blank" :href="`/patent/${item.number}`">
-            <div class="categoryCardItem-imageWrapper"><PatentImage :category="item.category" /></div>
+            <div class="categoryCardItem-imageWrapper"><PatentImage :cover="item.categoryCover" /></div>
             <p class="categoryCardItem-title">{{ item.name }}</p>
             <div class="categoryCardItem-priceBar">
               <span>￥{{ item.price }}</span>

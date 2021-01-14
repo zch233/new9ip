@@ -28,13 +28,13 @@
                 <span>卖家：{{ order.sellerShopName }}</span>
               </div>
               <div class="listContent-item-content">
-                <div class="listContent-item-content-image colTime"><PatentImage :category="order.commodityCategory" /></div>
+                <div class="listContent-item-content-image colTime"><PatentImage :cover="order.commodityCover" /></div>
                 <div class="listContent-item-content-info colInfo">
-                  <RouterLink :to="`/patent/${order.number}`"><b>{{ order.name }}</b></RouterLink>
-                  <p>专利号：{{ order.number }}</p>
+                  <RouterLink :to="`/patent/${order.commodityNumber}`"><b>{{ order.commodityName }}</b></RouterLink>
+                  <p>专利号：{{ order.commodityNumber }}</p>
                 </div>
                 <div class="listContent-item-content-price colPrice">
-                  <p><label>原价：</label>￥{{ order.price }}</p>
+                  <p><label>原价：</label>￥{{ order.commodityPrice }}</p>
                   <p v-for="discount in order.discounts || []" :key="discount.price"><label>VIP会员：</label>-￥{{ discount.price }}</p>
                   <p class="totalPrice"><label>应付款：</label>￥<b>{{ order.totalAmount }}</b></p>
                 </div>
@@ -214,7 +214,7 @@ export default defineComponent({
       })
     }
     const changeOrderStatus = (order: Order) => {
-      const current = orders.value.find((item) => item.orderNo === order.orderNo);
+      const current = orders.value.find((item) => item.orderNo === order.orderNo)!;
       current.status = ORDER_STATUS.CLOSED;
       orders.value = [...orders.value]
     }

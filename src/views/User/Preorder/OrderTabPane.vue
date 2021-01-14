@@ -28,7 +28,7 @@
                 <span>卖家：{{ preorder.sellerShopName }}</span>
               </div>
               <div class="listContent-item-content">
-                <div class="listContent-item-content-image colTime"><PatentImage :category="preorder.productCategory" /></div>
+                <div class="listContent-item-content-image colTime"><PatentImage :cover="preorder.productCover" /></div>
                 <div class="listContent-item-content-info colInfo">
                   <RouterLink :to="`/patent/${preorder.productNumber}`"><b>{{ preorder.productName }}</b></RouterLink>
                   <p>专利号：{{ preorder.productNumber }}</p>

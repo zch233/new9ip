@@ -12,7 +12,7 @@
         <div class="patentCard">
           <UISkeleton :loading="loading" :avatar="{shape: 'square', size: 'large'}" :paragraph="{rows: 14}" active >
             <div class="patentCard-left">
-              <div class="patentCard-left-imageWrapper"><PatentImage :category="patent.category" /></div>
+              <div class="patentCard-left-imageWrapper"><PatentImage :cover="patent.categoryCover" /></div>
               <div class="patentCard-left-options">
                 <UIPopover title="复制链接以分享" trigger="click" placement="bottomRight">
                   <span>分享 <Icon icon="share" /></span>
@@ -80,7 +80,7 @@
     <section class="contentBottom">
       <div class="contentBottom-left">
         <ul class="contentBottom-left-tab">
-          <li class="contentBottom-left-tab-item" v-for="(item, index) in [{name: '#detail1', label: '交易资料'}, {name: '#detail2', label: '过户资料'}, {name: '#detail3', label: '常见问题'}]" :class="[index === currentDetailTab && 'active' ]" @click="scrollToContent(index)">
+          <li class="contentBottom-left-tab-item" v-for="(item, index) in [{name: '#detail1', label: '交易资料'}, {name: '#detail2', label: '过户资料'}, {name: '#detail3', label: '常见问题'}]" :key="index" :class="[index === currentDetailTab && 'active' ]" @click="scrollToContent(index)">
             <a :href="item.name">{{ item.label }}</a>
           </li>
         </ul>

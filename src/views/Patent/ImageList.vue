@@ -2,7 +2,7 @@
   <ul class="patentListBar-list">
     <li class="patentListBar-list-item" v-for="patent in patents" :key="patent.number">
       <a target="_blank" :href="`/patent/${patent.number}`">
-        <div class="patentListBar-list-item-image patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :category="patent.category" /></div>
+        <div class="patentListBar-list-item-image patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :cover="patent.categoryCover" /></div>
       </a>
       <div class="patentListBar-list-item-content">
         <div class="patentListBar-list-item-content-firstFloor">
