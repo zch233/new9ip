@@ -32,7 +32,7 @@
             <label>零售价：<b>￥{{ patent.price }}</b></label>
             <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
             <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
-            <PreorderButton :disabled="notActivePatent(patent.stockStatus)" :patent="patent" />
+            <PreorderButton buttonClass="preorderButton_imageMode" :disabled="notActivePatent(patent.stockStatus)" :patent="patent" />
           </div>
         </div>
       </div>
@@ -83,6 +83,7 @@ export default defineComponent({
       border-bottom: 1px solid #E8E8E8;
       &-image {
         width: 118px;
+        height: 118px;
         overflow: hidden;
         &.patentLabel { &::before, &::after {left: 0;} &::after { left: 4px; }}
         img {width: 100%;}
@@ -129,9 +130,12 @@ export default defineComponent({
             }
           }
           &-price {
-            .vipBrand {margin-left: .44em;font-size: 40px;}
-            .vipPrice {color: #FF5858; em {font-size: 24px;font-style: normal;} }
-            .buyButton {vertical-align: top;margin-left: 1.4em;}
+            display: flex;
+            align-items: flex-end;
+            line-height: 1.4;
+            .vipBrand {margin-left: .44em;margin-bottom: .1em;font-size: 40px;}
+            .vipPrice {color: #FF5858;line-height: 1.1; em {font-size: 24px;font-style: normal;} }
+            .buyButton {margin-left: 1.4em;}
           }
         }
       }

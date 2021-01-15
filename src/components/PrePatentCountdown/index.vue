@@ -51,6 +51,6 @@ export default defineComponent({
 .prePatentCountdown {
   display: inline-flex;
   align-items: center;
-  > svg {font-size: 14px;margin-right: .4em;}
+  > svg {font-size: 14px;margin-right: .1em;}
 }
 </style>
