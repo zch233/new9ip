@@ -30,7 +30,7 @@
         </RouterLink>
         <PreorderButton className="preorderButton_noGap" size="small" v-if="!notActivePatent(patent.stockStatus)" :patent="patent" />
         <div class="preStatus" v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><PrePatentCountdown :patent="patent" /></div>
-        <StarIcon :patent="patent" />
+        <StarIcon class="starIcon_noGap" :patent="patent" />
       </div>
     </div>
   </section>
@@ -69,17 +69,17 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .col {
-  &-order, &-name, &-number, &-legalStatus, &-tag, &-inventorExplain, &-status, &-price, &-vipPrice, &-options {padding: 0 8px;}
-  &-order {flex: 0 0 3.67%;}
-  &-name {flex: 0 0 25.2%;}
-  &-number {flex: 0 0 8.33%;}
+  &-order, &-name, &-number, &-legalStatus, &-tag, &-inventorExplain, &-status, &-price, &-vipPrice, &-options {padding-left: 8px;}
+  &-order {flex: 0 0 3%;}
+  &-name {flex: 0 0 27.35%;padding-right: 8px;}
+  &-number {flex: 0 0 8.8%;}
   &-legalStatus {flex: 0 0 6.4%;}
   &-tag {flex: 0 0 20.18%;}
   &-inventorExplain {flex: 0 0 4.67%;}
   &-status {flex: 0 0 4.67%;}
-  &-price {flex: 0 0 4.8%;}
-  &-vipPrice {flex: 0 0 4.8%;}
-  &-options{flex: 0 0 16.5%;}
+  &-price {flex: 0 0 5%;}
+  &-vipPrice {flex: 0 0 5%;}
+  &-options{flex: 0 0 14.4%;}
 }
 .patentList {
   &-title {
@@ -105,7 +105,8 @@ export default defineComponent({
         display: flex;
         align-items: center;
         justify-content: space-between;
-        .preStatus {text-align: center;padding: 0 10px; > p {color: #14A8BD;margin-bottom: 3px;} svg {margin-right: 0.4em}}
+        .starIcon_noGap { margin-left: -.4em;}
+        .preStatus {text-align: center;padding: 0 2px; > p {color: #14A8BD;margin-bottom: 3px;} svg {margin-right: 0.4em}}
       }
     }
     .patentLabel {
