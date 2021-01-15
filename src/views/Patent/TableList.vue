@@ -28,7 +28,7 @@
         <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}">
           <UIButton size="small" :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton>
         </RouterLink>
-        <PreorderButton size="small" v-if="!notActivePatent(patent.stockStatus)" :patent="patent" />
+        <PreorderButton className="preorderButton_noGap" size="small" v-if="!notActivePatent(patent.stockStatus)" :patent="patent" />
         <div class="preStatus" v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><p>预留中</p><PrePatentCountdown :patent="patent" /></div>
         <StarIcon :patent="patent" />
       </div>
@@ -104,6 +104,7 @@ export default defineComponent({
       .col-options {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         .preStatus {text-align: center;padding: 0 10px; > p {color: #14A8BD;margin-bottom: 3px;} svg {margin-right: 0.4em}}
       }
     }

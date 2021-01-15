@@ -1,5 +1,5 @@
 <template>
-  <UIButton :size="size" class="preorderButton" :class="big && 'big'" :disabled="disabled" customer-class="default" @click="showModal">预留</UIButton>
+  <UIButton :size="size" class="preorderButton" :class="[big && 'big', className]" :disabled="disabled" customer-class="default" @click="showModal">预留</UIButton>
   <UIModal :width="416" v-model:visible="visible" :maskClosable="false" title="预留专利" :onOk="preorderPatent">
     <div class="wrapper">
       <Icon class="warning" icon="warning" />
@@ -7,7 +7,7 @@
         <p><b>预留专利：{{ patent.name }}</b></p>
 <!--        预留天数：-->
 <!--        <InputNumber autoFocus min={1} max={3} value={days} onChange={(day) => setDays(parseInt((day || 1).toString()))} /> 天-->
-        <p>将消耗 <b>{{ $store.state.oneDayConsumePoints }}</b> 个积分，是否继续？</p>
+        <p>将消耗 <b>{{ oneDayConsumePoints }}</b> 个积分，是否继续？</p>
         <span>当前剩余：<b>{{ userPoints }}</b> 积分</span>
       </div>
     </div>
@@ -35,6 +35,7 @@ export default defineComponent({
     big: Boolean,
     disabled: Boolean,
     size: String,
+    className: String,
   },
   setup(props) {
     const store = useStore()
@@ -70,6 +71,7 @@ export default defineComponent({
     }
     return {
       userPoints: computed(() => store.getters.userPoints),
+      oneDayConsumePoints: computed(() => store.getters.oneDayConsumePoints),
       preorderPatent,
       visible,
       showModal,
@@ -80,8 +82,10 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .preorderButton {
-  vertical-align: top;margin-left: .7em;
+  vertical-align: top;
+  margin-left: .7em;
   &.big {height: 40px;width: 110px;}
+  &_noGap {margin-left: 0;}
 }
 .wrapper {
   display: flex;
