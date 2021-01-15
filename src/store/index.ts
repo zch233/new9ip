@@ -63,6 +63,7 @@ export const store = createStore<State>({
       await authApi.logout()
       commit('COMMIT_USER', {})
       commit('COMMIT_LOGIN_STATUS', false)
+      commit('COMMIT_USER_POINTS', 0)
     }
   },
 })

@@ -112,6 +112,7 @@ export default defineComponent({
         await signInApi[activeTabKey.value](signInInfo).finally(() => submitLoading.value = false)
         const user = await store.dispatch('setUser')
         await store.dispatch('setOneDayConsumePoints')
+        await store.dispatch('setUserPoints');
         await router.push(getSingleQuery(route.query.redirect) || '/')
         message.success(`欢迎回来，${user.nickname}`)
       }, () => message.error('表单输入有误'))
