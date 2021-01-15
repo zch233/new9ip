@@ -1,1 +1,0 @@
-import{d as a,h as e,i as r,m as s}from"./index.b31cac7c.js";var c=a({name:"PatentImage",props:{cover:String}});const t=s("data-v-292e8a1d")(((a,s,c,t,d,o)=>(e(),r("img",{src:a.cover,alt:""},null,8,["src"]))));c.render=t,c.__scopeId="data-v-292e8a1d";export{c as s};
