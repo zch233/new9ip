@@ -36,7 +36,9 @@
         <span>扫描二维码关注我们</span>
       </template>
     </UIPopover>
-    <span v-if="scrollTop > 800" @click="scrollToTop" class="slideArt-item"><Icon icon="returnTop" /></span>
+    <transition name="fade">
+      <span v-show="scrollTop > 800" @click="scrollToTop" class="slideArt-item"><Icon icon="returnTop" /></span>
+    </transition>
   </section>
 </template>
 
@@ -82,8 +84,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 a {color: inherit;}
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
 .slideArt {
-  background-color: #2E3547;
   position: fixed;
   right: 0;
   top: 40%;
@@ -95,6 +105,7 @@ a {color: inherit;}
     padding: 8px;
     line-height: 1;
     cursor: pointer;
+    background-color: #2E3547;
   }
 }
 .contacts {
