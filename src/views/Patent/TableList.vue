@@ -29,7 +29,7 @@
           <UIButton size="small" :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton>
         </RouterLink>
         <PreorderButton className="preorderButton_noGap" size="small" v-if="!notActivePatent(patent.stockStatus)" :patent="patent" />
-        <div class="preStatus" v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><p>预留中</p><PrePatentCountdown :patent="patent" /></div>
+        <div class="preStatus" v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><PrePatentCountdown :patent="patent" /></div>
         <StarIcon :patent="patent" />
       </div>
     </div>
@@ -71,15 +71,15 @@ export default defineComponent({
 .col {
   &-order, &-name, &-number, &-legalStatus, &-tag, &-inventorExplain, &-status, &-price, &-vipPrice, &-options {padding: 0 8px;}
   &-order {flex: 0 0 3.67%;}
-  &-name {flex: 0 0 27.4%;}
-  &-number {flex: 0 0 9%;}
-  &-legalStatus {flex: 0 0 7%;}
-  &-tag {flex: 0 0 14.25%;}
+  &-name {flex: 0 0 25.2%;}
+  &-number {flex: 0 0 8.33%;}
+  &-legalStatus {flex: 0 0 6.4%;}
+  &-tag {flex: 0 0 20.18%;}
   &-inventorExplain {flex: 0 0 4.67%;}
   &-status {flex: 0 0 4.67%;}
-  &-price {flex: 0 0 6.33%;}
-  &-vipPrice {flex: 0 0 6.33%;}
-  &-options{flex: 0 0 17.15%;}
+  &-price {flex: 0 0 4.8%;}
+  &-vipPrice {flex: 0 0 4.8%;}
+  &-options{flex: 0 0 16.5%;}
 }
 .patentList {
   &-title {
