@@ -2,7 +2,7 @@ import request from '../utils/request'
 
 export const getCollections = (params: BasePageOption) =>
   request({
-    url: '/api/v1/member/collections',
+    url: 'api/v1/collect',
     method: 'get',
     params,
   })
