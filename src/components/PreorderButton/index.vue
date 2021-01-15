@@ -20,7 +20,7 @@ import UIButton from '/@components/UI/UIButton.vue'
 import UIModal from '/@components/UI/UIModal.vue';
 import Icon from '/@components/Icon/index.vue';
 import * as patentApi from '/@api/patent'
-import { message } from 'ant-design-vue';
+import { message, Modal } from 'ant-design-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '/@/store';
 
@@ -45,6 +45,19 @@ export default defineComponent({
       if (!store.state.user.account) {
         message.error('您尚未登录')
         router.push({ path: '/auth/sign_in', query: {redirect: route.fullPath} })
+        return
+      }
+      console.log(store.state.oneDayConsumePoints);
+      if (store.state.oneDayConsumePoints > store.state.userPoints) {
+        Modal.confirm({
+          title: '积分不足',
+          content: '抱歉，您的剩余积分不足',
+          okText: '立即充值',
+          cancelText: '继续逛逛',
+          onOk() {
+            router.push('/vip');
+          },
+        })
         return
       }
       visible.value = true
