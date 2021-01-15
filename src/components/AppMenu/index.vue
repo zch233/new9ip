@@ -62,7 +62,7 @@ export default defineComponent({
     const handlePlasticMenuClick = () => {
       message.info('敬请期待')
     }
-    const getScrollTop = () => scrollTop.value = document.documentElement.scrollTop
+    const getScrollTop = () => scrollTop.value = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
     onMounted(() => window.addEventListener('scroll', getScrollTop))
     onUnmounted(() => window.removeEventListener('scroll', getScrollTop))
     return {

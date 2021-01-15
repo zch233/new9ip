@@ -67,7 +67,7 @@ export default defineComponent({
       const {data} = await homeApi.getContactConfig()
       contacts.value = data
     }
-    const getScrollTop = () => scrollTop.value = document.documentElement.scrollTop
+    const getScrollTop = () => scrollTop.value = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
     onMounted(() => {
       getContactConfig()
       window.addEventListener('scroll', getScrollTop)
