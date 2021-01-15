@@ -50,7 +50,7 @@
             <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
             <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
           </template>
-          <UITooltip title="刷新页面"><Icon @click="router.push({ path: '/patent', query: { psort: routeQuery.psort, listMode: routeQuery.listMode }}); getPatents({ psort: routeQuery.psort })" icon="refresh" /></UITooltip>
+          <UITooltip title="刷新页面"><Icon @click="getPatents(routeQuery)" icon="refresh" /></UITooltip>
           <UITooltip title="切换视图">
             <Icon v-if="listMode === 'imageList'" @click="router.push({path: '/patent', query: {...routeQuery, listMode: 'tableList'}})" icon="tableList" />
             <Icon v-else @click="router.push({path: '/patent', query: {...routeQuery, listMode:'imageList'}})" icon="imageList" />
