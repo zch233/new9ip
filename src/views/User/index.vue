@@ -6,7 +6,7 @@
         <div class="user-head-left-info">
           <p class="user-head-left-info-account">{{ user.nickname }}<VIPBrand v-if="user.hasVip" /><span class="userTag" v-else>普通会员</span></p>
           <p class="user-head-left-info-vipExpireTime" v-if="user.hasVip">到期时间：{{ user.vipExpireDate }}</p>
-          <span class="user-head-left-info-point"><Icon icon="point" />{{ userPoints }} 积分</span>
+          <span class="user-head-left-info-point"><RouterLink to="/user/point"><Icon icon="point" />{{ userPoints }} 积分</RouterLink></span>
         </div>
       </div>
       <div class="user-head-right">
