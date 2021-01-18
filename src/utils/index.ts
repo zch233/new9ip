@@ -57,8 +57,14 @@ type Options = {
 };
 
 export const usePollGetPayResult = () => {
-  const timer = ref(0);
+  const timer = ref<ReturnType<typeof window.setTimeout>>();
   const pollGetPayResultDone = ref(false)
+  const clearPollGetPayResult = () => {
+    if (timer.value) {
+      clearTimeout(timer.value);
+      timer.value = undefined
+    }
+  }
   const pollGetPayResult = async ({ tradeNo, orderNo, commodityType }: Options, askPayResultTimes: number) => {
     const { data } = await orderPayApi.getPayResult(tradeNo);
     const result: keyof Omit<TYPE_ORDER_PAY_STATUS, 'label'> = data.tradeStatus;
@@ -67,7 +73,6 @@ export const usePollGetPayResult = () => {
         pollGetPayResultDone.value = true;
         return;
       }
-      // @ts-ignore
       timer.value = setTimeout(() => pollGetPayResult({ tradeNo, orderNo, commodityType }, askPayResultTimes + 1), 3000);
     } else if (result === ORDER_PAY_STATUS.TRADE_SUCCESS || result === ORDER_PAY_STATUS.TRADE_FINISHED) {
       await router.push(`/order/pay/result?orderNo=${orderNo}&tradeNo=${tradeNo}&status=1&type=${commodityType}`);
@@ -78,11 +83,9 @@ export const usePollGetPayResult = () => {
     }
   }
   const startPollGetPayResult = ({ tradeNo, orderNo, commodityType }: Options) => {
-    clearTimeout(timer.value);
-    // @ts-ignore
+    clearPollGetPayResult();
     timer.value = setTimeout(() => pollGetPayResult({ tradeNo, orderNo, commodityType }, 0), 5000);
   }
-  const clearPollGetPayResult = () => clearTimeout(timer.value)
   return {
     timer,
     pollGetPayResultDone,
