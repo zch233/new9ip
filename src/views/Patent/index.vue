@@ -42,48 +42,38 @@
     <section class="patentListBar" :class="!loginStatus && 'notSignIn'">
       <div class="patentListBar-options">
         <div class="patentListBar-options-order">
-          <span :class="[(routeQuery.psort === '0' || routeQuery.psort === undefined) && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 0, no: 1}})">综合排序</span>
-          <span :class="[routeQuery.psort === '1' && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 1, no: 1}})">发布时间</span>
+          <span :class="[(routeQuery.psort === '0' || routeQuery.psort === undefined) && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 0}})">综合排序</span>
+          <span :class="[routeQuery.psort === '1' && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 1}})">发布时间</span>
         </div>
         <div class="patentListBar-options-extra">
           <template v-if="loginStatus">
             <UIButton @click="exportPatent('all')" customer-class="default">导出全部</UIButton>
             <UIButton @click="exportPatent('result')" customer-class="default">导出结果</UIButton>
           </template>
-          <UITooltip title="刷新页面"><Icon @click="getPatents(routeQuery)" icon="refresh" /></UITooltip>
+          <UITooltip title="刷新页面"><Icon @click="refreshList" icon="refresh" /></UITooltip>
           <UITooltip title="切换视图">
             <Icon v-if="listMode === 'imageList'" @click="router.push({path: '/patent', query: {...routeQuery, listMode: 'tableList'}})" icon="tableList" />
             <Icon v-else @click="router.push({path: '/patent', query: {...routeQuery, listMode:'imageList'}})" icon="imageList" />
           </UITooltip>
         </div>
       </div>
-      <UISpin :spinning="loading">
+      <UISpin :spinning="listLoading">
         <template v-if="patents.length > 0">
           <ImageList v-if="listMode === 'imageList'" :patents="patents" />
           <TableList v-else :patents="patents" />
+          <UISpin v-if="paginationOptions.current <= paginationOptions.totalPages" :spinning="loading">
+            <p class="listBottom" @click="getPatents(routeQuery)">点击加载更多</p>
+          </UISpin>
+          <p class="listBottom" v-else>-------- 我们是有底线的 --------</p>
         </template>
         <div v-else class="emptyWrapper"><UIEmpty /></div>
       </UISpin>
-    </section>
-    <section class="paginationBar">
-      <UIPagination
-        size="small"
-        :total="paginationOptions.total"
-        v-model:pageSize="paginationOptions.pageSize"
-        v-model:current="paginationOptions.current"
-        :page-size-options="paginationOptions.pageSizeOptions"
-        :show-total="total => `共 ${total} 条`"
-        @change="paginationOptions.change"
-        @showSizeChange="paginationOptions.showSizeChange"
-        show-size-changer
-        show-quick-jumper
-      />
     </section>
   </div>
 </template>
 
 <script lang="ts">
-import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
+import { computed, defineComponent, onMounted, onUnmounted, reactive, ref } from 'vue';
 import UITag from '/@components/UI/UITag.vue';
 import Icon from '/@components/Icon/index.vue';
 import UIButton from '/@components/UI/UIButton.vue';
@@ -94,7 +84,7 @@ import UITooltip from '/@components/UI/UITooltip.vue';
 import { PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS } from '/@/utils/dict'
 import * as patentApi from '/@api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate, RouteLocationNormalized } from 'vue-router';
-import { notActivePatent, openNewWidowWithBlob } from '/@/utils';
+import { getScrollTop, notActivePatent, openNewWidowWithBlob } from '/@/utils';
 import { message } from 'ant-design-vue';
 import { GetPatents } from '/@api/patent';
 import { useStore } from '/@/store';
@@ -103,12 +93,13 @@ import TableList from '/@/views/Patent/TableList.vue';
 
 export default defineComponent({
   name: 'Patent',
-  components: {UITag, Icon, UIButton, UIPagination, UISpin, UIEmpty, UITooltip, ImageList, TableList},
+  components: { UITag, Icon, UIButton, UIPagination, UISpin, UIEmpty, UITooltip, ImageList, TableList },
   setup() {
     const store = useStore()
     const route = useRoute()
     const router = useRouter()
     const loading = ref(false)
+    const listLoading = ref(false)
     const listMode = ref<'imageList' | 'tableList'>('imageList')
     const routeQuery = ref<patentApi.GetPatents>(route.query)
     const patents = ref<Patent[]>([])
@@ -116,22 +107,10 @@ export default defineComponent({
       total: 0,
       current: 1,
       pageSize: 30,
-      pageSizeOptions: ['10', '30', '50', '100'],
-      showSizeChange: (page: number, pageSize: number) => {
-        window.scrollTo(0,0)
-        router.push({path: '/patent', query: {...routeQuery.value, size: pageSize, no: 1}})
-      },
-      change: (current: number) => {
-        window.scrollTo(0,0)
-        router.push({path: '/patent', query: {...routeQuery.value, no: current}})
-      },
+      totalPages: 0,
     })
     const patentsTags = ref<{tag: string; total: number;}[]>([])
-    const filterControl = ref({
-      visible: true,
-      text: '收起筛选',
-      icon: 'top',
-    });
+    const filterControl = ref({ visible: true, text: '收起筛选', icon: 'top' });
     const handleFilterControl = () => {
       filterControl.value = filterControl.value.visible
         ? {
@@ -145,14 +124,22 @@ export default defineComponent({
           icon: 'top',
         };
     }
-    const getPatents = async (fetchData: GetPatents) => {
+    const getPatents = async (fetchData: GetPatents, init?: boolean) => {
       if (loading.value) return
       loading.value = true
-      const {data} = await patentApi.getPatents({size: paginationOptions.pageSize, psort: 0, ...fetchData}).finally(() => loading.value = false)
-      patents.value = data?.list || []
+      if (init) paginationOptions.current = 1
+      const {data} = await patentApi.getPatents({
+        size: paginationOptions.pageSize,
+        no: paginationOptions.current,
+        psort: 0,
+        ...fetchData,
+      }).finally(() => loading.value = false)
+      if (init) patents.value = [];
+      patents.value = patents.value.concat(data?.list || [])
       paginationOptions.total = data?.totalCount
-      paginationOptions.current = data?.no
+      paginationOptions.current = data?.no + 1
       paginationOptions.pageSize = data?.size
+      paginationOptions.totalPages = data.totalPages
     }
     const getPatentTag = async () => {
       const {data} = await patentApi.getPatentTag()
@@ -170,19 +157,41 @@ export default defineComponent({
     }
     type Filter = {type?: string | number; word?: string; inventor?: string | number; certStatus?: string | number;}
     const handleFilterClick = (filter: Filter) => {
-      const {type, inventor, certStatus, word} = routeQuery.value
-      router.push({path: '/patent', query: JSON.parse(JSON.stringify({word, type, inventor, certStatus, ...filter}))})
+      const { type, inventor, certStatus, word } = routeQuery.value
+      router.push({
+        path: '/patent',
+        query: JSON.parse(JSON.stringify({ word, type, inventor, certStatus, ...filter })),
+      })
     }
-    onBeforeRouteUpdate((to: RouteLocationNormalized) => {
-      getPatents(to.query)
+    const handleScroll = () => {
+      const scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      const scrollTop = getScrollTop()
+      const clientHeight = window.innerHeight || Math.min(document.documentElement.clientHeight,document.body.clientHeight);
+      if(clientHeight + scrollTop + 340 + 400 >= scrollHeight){
+        if (paginationOptions.current > paginationOptions.totalPages) return
+        getPatents(routeQuery.value)
+      }
+    }
+    const refreshList = async () => {
+      listLoading.value = true
+      window.scroll(0, 0)
+      await getPatents(routeQuery.value, true).finally(() => listLoading.value = false)
+    }
+    const initPage = async () => {
+      listLoading.value = true
+      await getPatents(routeQuery.value).finally(() => listLoading.value = false)
+      routeQuery.value.listMode && (listMode.value = routeQuery.value.listMode)
+      window.addEventListener('scroll', handleScroll)
+      await getPatentTag()
+    }
+    onBeforeRouteUpdate(async (to: RouteLocationNormalized) => {
+      listLoading.value = true
       routeQuery.value = to.query
       to.query.listMode && (listMode.value = to.query.listMode)
+      await getPatents(to.query, true).finally(() => listLoading.value = false)
     })
-    onMounted(() => {
-      getPatents(routeQuery.value)
-      routeQuery.value.listMode && (listMode.value = routeQuery.value.listMode)
-      getPatentTag()
-    })
+    onMounted(() => initPage())
+    onUnmounted(() => window.removeEventListener('scroll', handleScroll))
     return {
       PATENT_TYPE,
       PATENT_CERT_STATUS,
@@ -190,12 +199,14 @@ export default defineComponent({
       filterControl,
       handleFilterControl,
       getPatents,
+      refreshList,
       exportPatent,
       paginationOptions,
       patentsTags,
       patents,
       routeQuery,
       loading,
+      listLoading,
       router,
       listMode,
       handleFilterClick,
@@ -309,6 +320,11 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .listBottom {
+    padding: 1em 0;
+    text-align: center;
+    color: #dedede;
   }
 }
 </style>
