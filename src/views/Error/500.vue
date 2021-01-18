@@ -1,5 +1,5 @@
 <template>
-  <Error title="抱歉，网络好像开小差了~">
+  <Error title="抱歉，服务器好像开小差了~">
     <template #image><img src="../../assets/error/500.png" alt=""></template>
   </Error>
 </template>
