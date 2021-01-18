@@ -36,9 +36,7 @@
         <span>扫描二维码关注我们</span>
       </template>
     </UIPopover>
-    <transition name="fade">
-      <span v-show="scrollTop > 800" @click="scrollToTop" class="slideArt-item"><Icon icon="returnTop" /></span>
-    </transition>
+    <span v-show="scrollTop > 800" @click="scrollToTop" class="slideArt-item"><Icon icon="returnTop" /></span>
   </section>
 </template>
 
@@ -63,13 +61,14 @@ export default defineComponent({
   setup() {
     const contacts = ref<Contact[]>([])
     const scrollTop = ref(0)
-    const scrollToTop = () => {
-      const c = scrollTop.value;
-      if (c > 0) {
-        window.requestAnimationFrame(scrollToTop);
-        window.scrollTo(0, c - c / 8);
-      }
-    }
+    // const scrollToTop = () => {
+    //   const c = scrollTop.value;
+    //   if (c > 0) {
+    //     window.requestAnimationFrame(scrollToTop);
+    //     window.scrollTo(0, c - c / 8);
+    //   }
+    // }
+    const scrollToTop = () => window.scroll(0, 0)
     const getContactConfig = async () => {
       const {data} = await homeApi.getContactConfig()
       contacts.value = data
