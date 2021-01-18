@@ -28,6 +28,8 @@ export const isMobileBrowser = /webOS|phone|pad|pod|iPhone|iPod|ios|iPad|Android
   window.navigator.userAgent
 );
 
+export const getScrollTop = () => window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+
 export const isWechatMobileBrowser = isWechatBrowser && isMobileBrowser;
 
 export const copyToClipboard = (text: string) => {

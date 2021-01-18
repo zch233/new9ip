@@ -47,6 +47,7 @@ import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
 import Icon from '/@components/Icon/index.vue'
 import UIPopover from '/@components/UI/UIPopover.vue';
 import * as homeApi from '/@api/home'
+import { getScrollTop } from '/@/utils';
 
 type Contact = {
   id: number;
@@ -62,17 +63,23 @@ export default defineComponent({
   setup() {
     const contacts = ref<Contact[]>([])
     const scrollTop = ref(0)
-    const scrollToTop = () => window.scroll(0,0)
+    const scrollToTop = () => {
+      const c = scrollTop.value;
+      if (c > 0) {
+        window.requestAnimationFrame(scrollToTop);
+        window.scrollTo(0, c - c / 8);
+      }
+    }
     const getContactConfig = async () => {
       const {data} = await homeApi.getContactConfig()
       contacts.value = data
     }
-    const getScrollTop = () => scrollTop.value = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
+    const updateScrollTop = () => scrollTop.value = getScrollTop()
     onMounted(() => {
       getContactConfig()
-      window.addEventListener('scroll', getScrollTop)
+      window.addEventListener('scroll', updateScrollTop)
     })
-    onUnmounted(() => window.removeEventListener('scroll', getScrollTop))
+    onUnmounted(() => window.removeEventListener('scroll', updateScrollTop))
     return {
       contacts,
       scrollTop,

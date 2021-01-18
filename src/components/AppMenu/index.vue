@@ -33,6 +33,7 @@ import { useRoute, useRouter } from 'vue-router';
 import UIInputSearch from '/@components/UI/UIInputSearch.vue';
 import Icon from '/@components/Icon/index.vue';
 import { message } from 'ant-design-vue';
+import { getScrollTop } from '/@/utils';
 
 export default defineComponent({
   name: 'appMenu',
@@ -62,9 +63,9 @@ export default defineComponent({
     const handlePlasticMenuClick = () => {
       message.info('敬请期待')
     }
-    const getScrollTop = () => scrollTop.value = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop
-    onMounted(() => window.addEventListener('scroll', getScrollTop))
-    onUnmounted(() => window.removeEventListener('scroll', getScrollTop))
+    const updateScrollTop = () => scrollTop.value = getScrollTop()
+    onMounted(() => window.addEventListener('scroll', updateScrollTop))
+    onUnmounted(() => window.removeEventListener('scroll', updateScrollTop))
     return {
       route,
       isHomeRoute,
