@@ -39,7 +39,7 @@
         </ul>
       </div>
     </section>
-    <section class="patentListBar" :class="!loginStatus && 'notSignIn'">
+    <section ref="patentListBarRef" class="patentListBar" :class="!loginStatus && 'notSignIn'">
       <div class="patentListBar-options">
         <div class="patentListBar-options-order">
           <span :class="[(routeQuery.psort === '0' || routeQuery.psort === undefined) && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 0}})">综合排序</span>
@@ -60,7 +60,7 @@
       <UISpin :spinning="listLoading">
         <template v-if="patents.length > 0">
           <ImageList v-if="listMode === 'imageList'" :patents="patents" />
-          <TableList v-else :patents="patents" />
+          <TableList v-else :startIndex="startIndex" :patents="patents" />
           <UISpin v-if="paginationOptions.current <= paginationOptions.totalPages" :spinning="loading">
             <p class="listBottom" @click="getPatents(routeQuery)">点击加载更多</p>
           </UISpin>
@@ -98,6 +98,8 @@ export default defineComponent({
     const store = useStore()
     const route = useRoute()
     const router = useRouter()
+    const patentListBarRef = ref<HTMLDivElement | null>(null)
+    const startIndex = ref(0)
     const loading = ref(false)
     const listLoading = ref(false)
     const listMode = ref<'imageList' | 'tableList'>('imageList')
@@ -164,13 +166,21 @@ export default defineComponent({
       })
     }
     const handleScroll = () => {
-      const scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
       const scrollTop = getScrollTop()
       const clientHeight = window.innerHeight || Math.min(document.documentElement.clientHeight,document.body.clientHeight);
-      if(clientHeight + scrollTop + 340 + 400 >= scrollHeight){
+      const listOffsetTop = patentListBarRef.value.offsetTop
+      startIndex.value = scrollTop > listOffsetTop ? parseInt((scrollTop - listOffsetTop) / 45) : 0
+      if (patents.value.length * 45 + listOffsetTop < clientHeight + scrollTop) {
         if (paginationOptions.current > paginationOptions.totalPages) return
         getPatents(routeQuery.value)
       }
+      // const scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
+      // const scrollTop = getScrollTop()
+      // const clientHeight = window.innerHeight || Math.min(document.documentElement.clientHeight,document.body.clientHeight);
+      // if(clientHeight + scrollTop + 340 + 300 >= scrollHeight){
+      //   if (paginationOptions.current > paginationOptions.totalPages) return
+      //   getPatents(routeQuery.value)
+      // }
     }
     const refreshList = async () => {
       listLoading.value = true
@@ -196,6 +206,7 @@ export default defineComponent({
       PATENT_TYPE,
       PATENT_CERT_STATUS,
       PATENT_ORIGIN_STATUS,
+      patentListBarRef,
       filterControl,
       handleFilterControl,
       getPatents,
@@ -209,6 +220,7 @@ export default defineComponent({
       listLoading,
       router,
       listMode,
+      startIndex,
       handleFilterClick,
       loginStatus: computed((): boolean => store.getters.loginStatus),
       notActivePatent,
@@ -325,6 +337,7 @@ export default defineComponent({
     padding: 1em 0;
     text-align: center;
     color: #dedede;
+    margin: 0;
   }
 }
 </style>

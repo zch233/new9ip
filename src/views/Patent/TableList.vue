@@ -11,28 +11,30 @@
     <span class="col-vipPrice">VIP价</span>
     <span class="col-options">操作</span>
   </section>
-  <section class="patentList-content">
-    <div class="patentList-content-item" v-for="(patent, index) in patents" :key="patent.number">
-      <span class="col-order">{{ index + 1 }}</span>
-      <label class="col-name searchKeyword"><a class="patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''" :href="`/patent/${patent.number}`" target="_blank"><b v-html="patent.nameHighlightKey || patent.name" /></a></label>
-      <span class="col-number searchKeyword" v-html="patent.numberHighlightKey || patent.number" />
-      <span class="col-legalStatus">{{ patent.legalStatus }}</span>
-      <span class="col-tag">
-        <span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />{{index === (patent.tagsHighlightKey || patent.tags).split(',').length - 1 ? '' : ','}}</span>
-      </span>
-      <span class="col-inventorExplain">{{ patent.inventorExplain }}</span>
-      <span class="col-status">{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</span>
-      <span class="col-price">￥{{ patent.price }}</span>
-      <span class="col-vipPrice">￥{{ patent.vipPrice }}</span>
-      <div class="col-options">
-        <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}">
-          <UIButton size="small" :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton>
-        </RouterLink>
-        <PreorderButton buttonClass="preorderButton_noGap" size="small" v-if="!notActivePatent(patent.stockStatus)" :patent="patent" />
-        <div class="preStatus" v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><PrePatentCountdown :patent="patent" /></div>
-        <StarIcon class="starIcon_noGap" :patent="patent" />
+  <section class="patentList-content" :style="{paddingTop: `${startIndex * 45}px`}">
+    <template v-for="(patent, index) in patents" :key="patent.number">
+      <div class="patentList-content-item" v-if="index >= startIndex && index <= startIndex + 30">
+        <span class="col-order">{{ index + 1 }}</span>
+        <label class="col-name searchKeyword"><a class="patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''" :href="`/patent/${patent.number}`" target="_blank"><b v-html="patent.nameHighlightKey || patent.name" /></a></label>
+        <span class="col-number searchKeyword" v-html="patent.numberHighlightKey || patent.number" />
+        <span class="col-legalStatus">{{ patent.legalStatus }}</span>
+        <span class="col-tag">
+          <span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />{{index === (patent.tagsHighlightKey || patent.tags).split(',').length - 1 ? '' : ','}}</span>
+        </span>
+        <span class="col-inventorExplain">{{ patent.inventorExplain }}</span>
+        <span class="col-status">{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</span>
+        <span class="col-price">￥{{ patent.price }}</span>
+        <span class="col-vipPrice">￥{{ patent.vipPrice }}</span>
+        <div class="col-options">
+          <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}">
+            <UIButton size="small" :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton>
+          </RouterLink>
+          <PreorderButton buttonClass="preorderButton_noGap" size="small" v-if="!notActivePatent(patent.stockStatus)" :patent="patent" />
+          <div class="preStatus" v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><PrePatentCountdown :patent="patent" /></div>
+          <StarIcon class="starIcon_noGap" :patent="patent" />
+        </div>
       </div>
-    </div>
+    </template>
   </section>
 </template>
 
@@ -56,7 +58,8 @@ export default defineComponent({
     patents: {
       type: Object as PropType<Patent[]>,
       default: () => ([]),
-    }
+    },
+    startIndex: Number,
   },
   setup() {
     return {
