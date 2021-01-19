@@ -11,7 +11,11 @@
         <b>{{ category.name }}</b>
       </li>
     </ul>
-    <div v-if="currentCategoryPatents.length === 0" class="emptyWrapper"><UIEmpty /></div>
+    <div v-if="currentCategoryPatents.length === 0" class="emptyWrapper">
+      <UIEmpty description="相关专利还在路上..." image="home">
+        <RouterLink to="/patent"><UIButton customer-class="mainButton" type="primary">查看更多</UIButton></RouterLink>
+      </UIEmpty>
+    </div>
     <template v-else>
       <ul class="categoryCardList">
         <li v-for="item in currentCategoryPatents" :key="item.id" class="categoryCardItem">
@@ -36,12 +40,13 @@ import Icon from '/@components/Icon/index.vue'
 import {categories} from '/@/utils/dict'
 import VIPBrand from '/@components/VIPBrand/index.vue'
 import UIEmpty from '/@components/UI/UIEmpty.vue';
+import UIButton from '/@components/UI/UIButton.vue';
 import PatentImage from '/@components/PatentImage/index.vue';
 import { getPatents } from '/@api/patent';
 
 export default defineComponent({
   name: 'CategoryTab',
-  components: {Icon, VIPBrand, UIEmpty, PatentImage},
+  components: {Icon, VIPBrand, UIEmpty, PatentImage, UIButton},
   setup() {
     const patents = reactive<{[key: string]: Patent[] }>({})
     const currentCategory = ref('A')
@@ -95,6 +100,7 @@ export default defineComponent({
   .emptyWrapper {
     align-items: center;
     justify-content: center;
+    margin-bottom: 36px;
   }
   .categoryCardList {
     display: flex;
