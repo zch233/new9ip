@@ -1,22 +1,26 @@
 <template>
   <div class="vipRecord">
     <RouterLink to="/user/index"><Icon icon="left" />返回</RouterLink>
-    <div class="vipRecord-title"><em>付款时间</em><em>订单号</em><em>类型</em><em>金额</em><em>状态</em></div>
-    <ul class="vipRecord-list">
-      <li class="vipRecord-list-item" v-for="record in vipRecords" :key="record.orderNo">
-        <span>{{ record.paymentTime }}</span>
-        <span>{{ record.orderNo }}</span>
-        <b>{{ record.days / 365 }}年会员</b>
-        <b>{{ record.price }}</b>
-        <span>已付款</span>
-      </li>
-    </ul>
+    <div class="emptyWrapper" v-if="vipRecords.length === 0"><UIEmpty image="vip" description="暂无开通记录" /></div>
+    <template v-else>
+      <div class="vipRecord-title"><em>付款时间</em><em>订单号</em><em>类型</em><em>金额</em><em>状态</em></div>
+      <ul class="vipRecord-list">
+        <li class="vipRecord-list-item" v-for="record in vipRecords" :key="record.orderNo">
+          <span>{{ record.paymentTime }}</span>
+          <span>{{ record.orderNo }}</span>
+          <b>{{ record.days / 365 }}年会员</b>
+          <b>{{ record.price }}</b>
+          <span>已付款</span>
+        </li>
+      </ul>
+    </template>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
 import Icon from '/@components/Icon/index.vue'
+import UIEmpty from '/@components/UI/UIEmpty.vue';
 import * as vipApi from '/@api/vip'
 
 type VipRecord = {
@@ -31,7 +35,7 @@ type VipRecord = {
 
 export default defineComponent({
   name: 'VipRecord',
-  components: {Icon},
+  components: { Icon, UIEmpty },
   setup() {
     const vipRecords = ref<VipRecord[]>([])
     const getVipRecords = async () => {
@@ -73,6 +77,11 @@ export default defineComponent({
       > * {flex: 1;font-style: normal;}
       b {font-size: 14px;}
     }
+  }
+  .emptyWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 </style>
