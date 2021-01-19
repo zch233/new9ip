@@ -59,7 +59,7 @@
       </div>
       <UISpin :spinning="listLoading">
         <template v-if="patents.length > 0">
-          <ImageList v-if="listMode === 'imageList'" :patents="patents" />
+          <ImageList v-if="listMode === 'imageList'" :startIndex="startIndex" :patents="patents" />
           <TableList v-else :startIndex="startIndex" :patents="patents" />
           <UISpin v-if="paginationOptions.current <= paginationOptions.totalPages" :spinning="loading">
             <p class="listBottom" @click="getPatents(routeQuery)">点击加载更多</p>
@@ -169,8 +169,12 @@ export default defineComponent({
       const scrollTop = getScrollTop()
       const clientHeight = window.innerHeight || Math.min(document.documentElement.clientHeight,document.body.clientHeight);
       const listOffsetTop = patentListBarRef.value.offsetTop
-      startIndex.value = scrollTop > listOffsetTop ? parseInt((scrollTop - listOffsetTop) / 45) : 0
-      if (patents.value.length * 45 + listOffsetTop < clientHeight + scrollTop) {
+      const itemHeight = listMode.value === 'tableList' ? 45 : 145
+      const listHeight = patents.value.length * itemHeight
+      const deployItem = itemHeight * 4
+      const deployTop = listOffsetTop + deployItem
+      startIndex.value = scrollTop > deployTop ? parseInt((scrollTop - deployTop) / itemHeight) : 0
+      if (listHeight + listOffsetTop - deployItem < clientHeight + scrollTop) {
         if (paginationOptions.current > paginationOptions.totalPages) return
         getPatents(routeQuery.value)
       }
