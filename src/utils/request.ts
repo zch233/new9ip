@@ -29,6 +29,7 @@ export const errorHandle = (response: AxiosResponse) => {
     }
     const codeRouter = codeRouterMap[res.code || response.status]
     codeRouter && router.push(codeRouter)
+    message.destroy()
     message.error(res.msg || '未知错误，请刷新页面重试');
     throw res;
   }
