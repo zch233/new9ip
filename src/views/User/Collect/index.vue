@@ -6,7 +6,9 @@
           <b>全部收藏</b>
         </template>
         <UISpin :spinning="loading">
-          <UIEmpty v-if="collects.length === 0" />
+          <UIEmpty v-if="collects.length === 0" image="collect" description="您还没有任何收藏">
+            <RouterLink to="/patent"><UIButton customer-class="mainButton" type="primary">去逛逛</UIButton></RouterLink>
+          </UIEmpty>
           <template v-else>
             <div class="collect-patents">
               <div class="collect-patent" v-for="collect in collects" :key="collect.number">
@@ -41,6 +43,7 @@ import UITabs from '/@components/UI/UITabs.vue';
 import UITabPane from '/@components/UI/UITabPane.vue';
 import UIPagination from '/@components/UI/UIPagination.vue';
 import UISpin from '/@components/UI/UISpin.vue';
+import UIButton from '/@components/UI/UIButton.vue';
 import PatentCard from '/@components/PatentCard/index.vue';
 import UIEmpty from '/@components/UI/UIEmpty.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
@@ -50,7 +53,7 @@ import { message } from 'ant-design-vue';
 
 export default defineComponent({
   name: 'Collect',
-  components: {UITabs, UITabPane, PatentCard, UIPagination, UISpin, UIEmpty},
+  components: { UITabs, UITabPane, PatentCard, UIPagination, UISpin, UIEmpty, UIButton },
   setup(){
     const route = useRoute()
     const router = useRouter()
