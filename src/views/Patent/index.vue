@@ -66,7 +66,7 @@
           </UISpin>
           <p class="listBottom" v-else>-------- 我们是有底线的 --------</p>
         </template>
-        <div v-else class="emptyWrapper"><UIEmpty /></div>
+        <div v-else class="emptyWrapper"><UIEmpty image="patent" description="暂无搜索结果" /></div>
       </UISpin>
     </section>
   </div>
@@ -332,7 +332,7 @@ export default defineComponent({
     }
   }
   .emptyWrapper {
-    min-height: 300px;
+    min-height: 500px;
     display: flex;
     align-items: center;
     justify-content: center;

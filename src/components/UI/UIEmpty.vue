@@ -1,7 +1,7 @@
 <template>
   <AntEmpty class="myEmpty" :image="image ? `https://market.img.9ip.com/empty-${image}.png` : simpleImage">
     <template #description>
-      <slot name="description" />
+      <slot name="description">{{ description }}</slot>
     </template>
     <slot />
   </AntEmpty>
@@ -16,6 +16,10 @@ export default defineComponent({
   components: {AntEmpty: Empty},
   props: {
     image: String,
+    description: {
+      type: String,
+      default: '暂无数据',
+    }
   },
   setup () {
     return {
@@ -27,7 +31,7 @@ export default defineComponent({
 
 <style lang="scss">
 .myEmpty {
-  .ant-empty-image { height: 300px; }
+  .ant-empty-image { width: 300px; height: auto; }
   .ant-empty-description {color: #999999; font-size: 14px;}
 }
 </style>
