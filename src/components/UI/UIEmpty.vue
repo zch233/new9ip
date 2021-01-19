@@ -31,7 +31,7 @@ export default defineComponent({
 
 <style lang="scss">
 .myEmpty {
-  .ant-empty-image { width: 300px; height: auto; }
-  .ant-empty-description {color: #999999; font-size: 14px;}
+  .ant-empty-image {width: 300px; height: auto; margin: 0 auto;}
+  .ant-empty-description {color: rgba(0,0,0,.25); font-size: 14px;}
 }
 </style>
