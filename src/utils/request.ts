@@ -26,6 +26,9 @@ export const errorHandle = (response: AxiosResponse) => {
       401: { path: '/auth/sign_in', query: {redirect: window.location.pathname + window.location.search}, },
       404: { path: '/404', query: {} },
       500: { path: '/500', query: {} },
+      502: { path: '/500', query: {} },
+      503: { path: '/500', query: {} },
+      504: { path: '/500', query: {} },
     }
     const codeRouter = codeRouterMap[res.code || response.status]
     codeRouter && router.push(codeRouter)
