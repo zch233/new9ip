@@ -98,6 +98,7 @@ export default defineComponent({
     font-size: 12px;
     .col {
       &-name {font-size: 13px;}
+      &-name, &-tag span {transition: color .3s; &:hover {color: #14A8BD;}}
     }
     &-item {
       padding: 10px 0;
