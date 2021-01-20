@@ -51,11 +51,15 @@ export default defineComponent({
     const patents = reactive<{[key: string]: Patent[] }>({})
     const currentCategory = ref('A')
     const currentCategoryPatents = computed(() => patents[currentCategory.value] || [])
-    onMounted(() => {
-      categories.map(async category => {
-        const {data} = await getPatents({ category: category.code, size: 10 })
-        patents[category.code] = data?.list || []
-      })
+    onMounted(async () => {
+      for (let i = 0;i<categories.length;i++) {
+        const {data} = await getPatents({ category: categories[i].code, size: 10 })
+        patents[categories[i].code] = data?.list || []
+      }
+      // categories.map(async category => {
+      //   const {data} = await getPatents({ category: category.code, size: 10 })
+      //   patents[category.code] = data?.list || []
+      // })
     })
     return {
       currentCategory,
