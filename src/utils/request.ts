@@ -20,8 +20,9 @@ instance.interceptors.request.use(
   }
 );
 export const errorHandle = (response: AxiosResponse) => {
-  const res = response.data;
-  if (res.code !== 200) {
+  const res = response.data || response;
+  const code = res.code || response.status
+  if (code !== 200) {
     const codeRouterMap: { [key: number]: RouteLocationRaw } = {
       401: { path: '/auth/sign_in', query: {redirect: window.location.pathname + window.location.search}, },
       404: { path: '/404', query: {} },
@@ -30,7 +31,7 @@ export const errorHandle = (response: AxiosResponse) => {
       503: { path: '/500', query: {} },
       504: { path: '/500', query: {} },
     }
-    const codeRouter = codeRouterMap[res.code || response.status]
+    const codeRouter = codeRouterMap[code]
     codeRouter && router.push(codeRouter)
     message.destroy()
     message.error(res.msg || '未知错误，请稍后重试');
@@ -39,6 +40,7 @@ export const errorHandle = (response: AxiosResponse) => {
 };
 instance.interceptors.response.use(
   (response) => {
+    if (response.status !== 200) errorHandle(response)
     response.headers.authorization && window.localStorage.setItem('authorization', response.headers.authorization);
     if (response.headers['content-type'] !== 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8') errorHandle(response);
     return Promise.resolve(response.data);
