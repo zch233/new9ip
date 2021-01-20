@@ -64,7 +64,7 @@ export default defineComponent({
     const imageCropVisible = ref(false)
     const userInfo = reactive<UpdateUserInfo>({
       nickname: store.state.user.nickname || '',
-      sex: store.state.user.sex || '',
+      sex: store.state.user.sex === undefined ? '' : store.state.user.sex,
     })
     const rules = reactive({})
     useForm(userInfo, rules);
