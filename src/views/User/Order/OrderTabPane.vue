@@ -18,7 +18,7 @@
         <li class="listTitle-item colOptions">操作</li>
       </ul>
       <div v-if="orders.length === 0" class="emptyWrapper">
-        <UIEmpty image="order" description="暂无相关订单">
+        <UIEmpty v-if="!loading" image="order" description="暂无相关订单">
           <RouterLink to="/patent"><UIButton customer-class="mainButton" type="primary">去下单</UIButton></RouterLink>
         </UIEmpty>
       </div>

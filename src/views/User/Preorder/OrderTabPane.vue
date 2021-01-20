@@ -17,7 +17,7 @@
         <li class="listTitle-item colStatus">全部状态</li>
         <li class="listTitle-item colOptions">操作</li>
       </ul>
-      <div v-if="preorders.length === 0" class="emptyWrapper"><UIEmpty /></div>
+      <div v-if="preorders.length === 0" class="emptyWrapper"><UIEmpty v-if="!loading" image="order" description="暂无相关预留" /></div>
       <template v-else>
         <UISpin :spinning="loading">
           <ul class="listContent">

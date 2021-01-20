@@ -6,7 +6,7 @@
           <b>全部收藏</b>
         </template>
         <UISpin :spinning="loading">
-          <UIEmpty v-if="collects.length === 0" image="collect" description="您还没有任何收藏">
+          <UIEmpty v-if="collects.length === 0 && !loading" image="collect" description="您还没有任何收藏">
             <RouterLink to="/patent"><UIButton customer-class="mainButton" type="primary">去逛逛</UIButton></RouterLink>
           </UIEmpty>
           <template v-else>

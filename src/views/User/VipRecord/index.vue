@@ -1,7 +1,7 @@
 <template>
   <div class="vipRecord">
     <RouterLink to="/user/index"><Icon icon="left" />返回</RouterLink>
-    <div class="emptyWrapper" v-if="vipRecords.length === 0"><UIEmpty image="vip" description="暂无开通记录" /></div>
+    <div class="emptyWrapper" v-if="vipRecords.length === 0"><UIEmpty v-if="!loading" image="vip" description="暂无开通记录" /></div>
     <template v-else>
       <div class="vipRecord-title"><em>付款时间</em><em>订单号</em><em>类型</em><em>金额</em><em>状态</em></div>
       <ul class="vipRecord-list">
@@ -37,15 +37,18 @@ export default defineComponent({
   name: 'VipRecord',
   components: { Icon, UIEmpty },
   setup() {
+    const loading = ref(false)
     const vipRecords = ref<VipRecord[]>([])
     const getVipRecords = async () => {
-      const {data} = await vipApi.getVipRecords({size: 100})
+      loading.value = true
+      const {data} = await vipApi.getVipRecords({size: 100}).finally(() => loading.value = false)
       vipRecords.value = data.list || []
     }
     onMounted(() => {
       getVipRecords()
     })
     return {
+      loading,
       vipRecords,
     }
   }

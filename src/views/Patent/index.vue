@@ -66,7 +66,7 @@
           </UISpin>
           <p class="listBottom" v-else>-------- 我们是有底线的 --------</p>
         </template>
-        <div v-else class="emptyWrapper"><UIEmpty image="patent" description="暂无搜索结果" /></div>
+        <div v-else class="emptyWrapper"><UIEmpty v-if="!loading" image="patent" description="暂无搜索结果" /></div>
       </UISpin>
     </section>
   </div>
