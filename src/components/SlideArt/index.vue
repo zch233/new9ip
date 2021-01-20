@@ -107,6 +107,7 @@ a {color: inherit;}
   flex-direction: column;
   color: #fff;
   font-size: 24px;
+  z-index: 1;
   &-item {
     padding: 8px;
     line-height: 1;
