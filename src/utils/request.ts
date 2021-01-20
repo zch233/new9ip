@@ -30,6 +30,7 @@ export const errorHandle = (response: AxiosResponse) => {
       502: { path: '/500', query: {} },
       503: { path: '/500', query: {} },
       504: { path: '/500', query: {} },
+      429: { path: '/500', query: {} },
     }
     const codeRouter = codeRouterMap[code]
     codeRouter && router.push(codeRouter)
