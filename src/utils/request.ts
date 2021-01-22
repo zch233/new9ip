@@ -41,8 +41,8 @@ instance.interceptors.response.use(
   (response) => {
     response.headers.authorization && window.localStorage.setItem('authorization', response.headers.authorization);
     const res = response.data;
-    if (response.headers['content-type'] === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8') return Promise.resolve(res);
-    if (res.code !== 200) errorHandle(response);
+    if (!res?.code && response.headers['content-type'] === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;charset=UTF-8') return Promise.resolve(res)
+    if (res?.code !== 200) errorHandle(response);
     return Promise.resolve(res);
   },
   (error) => {
