@@ -104,7 +104,9 @@ export default defineComponent({
         const hide = message.loading('正在为您自动登录...');
         submitLoading.value = true
         await signInApi.signInWithPassword(signUpInfo)
-        const user = await store.dispatch('setUser').finally(() => hide())
+        const user = await store.dispatch('setUser')
+        await store.dispatch('setOneDayConsumePoints')
+        await store.dispatch('setUserPoints').finally(() => hide());
         await router.push(getSingleQuery(route.query.redirect) || '/')
         message.success(`欢迎回来，${user.nickname}`)
       }, () => message.error('表单输入有误'))
