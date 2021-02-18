@@ -44,12 +44,12 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, reactive, ref } from 'vue';
-import Icon from '/@components/Icon/index.vue'
-import UITag from '/@components/UI/UITag.vue';
-import UIPagination from '/@components/UI/UIPagination.vue';
-import * as pointApi from '/@api/point';
+import Icon from '../../../components/Icon/index.vue'
+import UITag from '../../../components/UI/UITag.vue';
+import UIPagination from '../../../components/UI/UIPagination.vue';
+import * as pointApi from '../../../api/point';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-import { useStore } from '/@/store';
+import { useStore } from '../../../store/index';
 
 type Point = {
   createTime: string;

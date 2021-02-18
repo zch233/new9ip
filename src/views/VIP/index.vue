@@ -28,19 +28,19 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import UIModal from '/@components/UI/UIModal.vue';
-import UIForm from '/@components/UI/UIForm.vue';
-import UIFormItem from '/@components/UI/UIFormItem.vue';
-import UIRadioGroup from '/@components/UI/UIRadioGroup.vue';
-import UIRadio from '/@components/UI/UIRadio.vue';
-import Icon from '/@components/Icon/index.vue';
-import UISpin from '/@components/UI/UISpin.vue';
-import { PAY_ROUTES } from '/@/utils/dict';
-import * as vipApi from '/@api/vip'
-import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
-import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
-import { openNewWindow } from '/@/utils';
+import UIButton from '../../components/UI/UIButton.vue';
+import UIModal from '../../components/UI/UIModal.vue';
+import UIForm from '../../components/UI/UIForm.vue';
+import UIFormItem from '../../components/UI/UIFormItem.vue';
+import UIRadioGroup from '../../components/UI/UIRadioGroup.vue';
+import UIRadio from '../../components/UI/UIRadio.vue';
+import Icon from '../../components/Icon/index.vue';
+import UISpin from '../../components/UI/UISpin.vue';
+import { showPollGetPayRequestModal } from '../../components/PollGetPayRequestModal/index';
+import { PAY_ROUTES } from '../../utils/dict';
+import { TYPE_PAY_ROUTES } from '../../utils/dictTypes';
+import { openNewWindow } from '../../utils';
+import * as vipApi from '../../api/vip'
 import { useRouter } from 'vue-router';
 import { AxiosResponse } from 'axios';
 

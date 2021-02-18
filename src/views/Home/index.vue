@@ -50,13 +50,13 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue'
-import UIInputSearch from '/@components/UI/UIInputSearch.vue';
+import UIInputSearch from '../../components/UI/UIInputSearch.vue';
 import CategoryTab from './CategoryTab.vue';
 import SubTitle from './SubTitle.vue';
-import Icon from '/@components/Icon/index.vue'
-import UIInput from '/@components/UI/UIInput.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import * as homeApi from '/@api/home'
+import Icon from '../../components/Icon/index.vue'
+import UIInput from '../../components/UI/UIInput.vue';
+import UIButton from '../../components/UI/UIButton.vue';
+import * as homeApi from '../../api/home'
 import { useRouter } from 'vue-router';
 
 export default defineComponent({

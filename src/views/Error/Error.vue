@@ -8,7 +8,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import UIButton from '/@components/UI/UIButton.vue'
+import UIButton from '../../components/UI/UIButton.vue'
 
 export default defineComponent({
   name: 'Error',

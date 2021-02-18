@@ -42,10 +42,10 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, onUnmounted, ref } from 'vue';
-import Icon from '/@components/Icon/index.vue'
-import UIPopover from '/@components/UI/UIPopover.vue';
-import * as homeApi from '/@api/home'
-import { getScrollTop } from '/@/utils';
+import Icon from '../Icon/index.vue'
+import UIPopover from '../UI/UIPopover.vue';
+import * as homeApi from '../../api/home'
+import { getScrollTop } from '../../utils/index';
 
 type Contact = {
   id: number;

@@ -10,8 +10,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import UISteps from '/@components/UI/UISteps.vue'
-import UIStep from '/@components/UI/UIStep.vue'
+import UISteps from '../UI/UISteps.vue'
+import UIStep from '../UI/UIStep.vue'
 
 export default defineComponent({
   name: 'OrderSteps',

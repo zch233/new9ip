@@ -74,22 +74,22 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, reactive, ref } from 'vue';
-import UITag from '/@components/UI/UITag.vue';
-import Icon from '/@components/Icon/index.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import UIPagination from '/@components/UI/UIPagination.vue';
-import UISpin from '/@components/UI/UISpin.vue';
-import UIEmpty from '/@components/UI/UIEmpty.vue';
-import UITooltip from '/@components/UI/UITooltip.vue';
-import { PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS } from '/@/utils/dict'
-import * as patentApi from '/@api/patent'
+import UITag from '../../components/UI/UITag.vue';
+import Icon from '../../components/Icon/index.vue';
+import UIButton from '../../components/UI/UIButton.vue';
+import UIPagination from '../../components/UI/UIPagination.vue';
+import UISpin from '../../components/UI/UISpin.vue';
+import UIEmpty from '../../components/UI/UIEmpty.vue';
+import UITooltip from '../../components/UI/UITooltip.vue';
+import { PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS } from '../../utils/dict'
+import * as patentApi from '../../api/patent'
 import { useRoute, useRouter, onBeforeRouteUpdate, RouteLocationNormalized } from 'vue-router';
-import { getScrollTop, notActivePatent, openNewWidowWithBlob } from '/@/utils';
+import { getScrollTop, notActivePatent, openNewWidowWithBlob } from '../../utils/index';
 import { message } from 'ant-design-vue';
-import { GetPatents } from '/@api/patent';
-import { useStore } from '/@/store';
-import ImageList from '/@/views/Patent/ImageList.vue';
-import TableList from '/@/views/Patent/TableList.vue';
+import { GetPatents } from '../../api/patent';
+import { useStore } from '../../store/index';
+import ImageList from './ImageList.vue';
+import TableList from './TableList.vue';
 
 export default defineComponent({
   name: 'Patent',

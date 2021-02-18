@@ -11,8 +11,8 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import UIButton from '/@components/UI/UIButton.vue'
-import UICountdown from '/@components/UI/UICountdown.vue';
+import UIButton from '../UI/UIButton.vue'
+import UICountdown from '../UI/UICountdown.vue';
 import * as authApi from '../../api/auth'
 import { message } from 'ant-design-vue';
 

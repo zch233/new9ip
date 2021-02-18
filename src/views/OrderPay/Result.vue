@@ -19,9 +19,9 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue';
-import Icon from '/@components/Icon/index.vue'
+import Icon from '../../components/Icon/index.vue'
 import { useRoute } from 'vue-router';
-import UIButton from '/@components/UI/UIButton.vue';
+import UIButton from '../../components/UI/UIButton.vue';
 
 export default defineComponent({
   name: 'Result',

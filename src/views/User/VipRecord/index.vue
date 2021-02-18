@@ -19,9 +19,9 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import Icon from '/@components/Icon/index.vue'
-import UIEmpty from '/@components/UI/UIEmpty.vue';
-import * as vipApi from '/@api/vip'
+import Icon from '../../../components/Icon/index.vue'
+import UIEmpty from '../../../components/UI/UIEmpty.vue';
+import * as vipApi from '../../../api/vip'
 
 type VipRecord = {
   days: number;

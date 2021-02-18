@@ -1,9 +1,9 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import { root } from '/@/router/modules/root';
-import { auth } from '/@/router/modules/auth';
-import { user } from '/@/router/modules/user';
-import { order } from '/@/router/modules/order';
-import { others } from '/@/router/modules/others';
+import { root } from './modules/root';
+import { auth } from './modules/auth';
+import { user } from './modules/user';
+import { order } from './modules/order';
+import { others } from './modules/others';
 
 export const router = createRouter({
   history: createWebHistory(),

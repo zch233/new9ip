@@ -17,14 +17,14 @@
 </template>
 
 <script lang="ts">
-import UIModal from '/@components/UI/UIModal.vue';
-import UIButton from '/@components/UI/UIButton.vue';
+import UIModal from '../UI/UIModal.vue';
+import UIButton from '../UI/UIButton.vue';
 import MyCropper from './MyCropper.vue'
 import { defineComponent, ref } from 'vue';
-import { useStore } from '/@/store';
-import { translateBase64ImgToFile } from '/@/utils';
+import { useStore } from '../../store/index';
+import { translateBase64ImgToFile } from '../../utils/index';
 import { message } from 'ant-design-vue';
-import * as settingApi from '/@api/setting'
+import * as settingApi from '../../api/setting'
 
 export default defineComponent({
   name: 'ImageCrop',

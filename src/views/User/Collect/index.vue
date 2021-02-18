@@ -39,16 +39,16 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import UITabs from '/@components/UI/UITabs.vue';
-import UITabPane from '/@components/UI/UITabPane.vue';
-import UIPagination from '/@components/UI/UIPagination.vue';
-import UISpin from '/@components/UI/UISpin.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import PatentCard from '/@components/PatentCard/index.vue';
-import UIEmpty from '/@components/UI/UIEmpty.vue';
+import UITabs from '../../../components/UI/UITabs.vue';
+import UITabPane from '../../../components/UI/UITabPane.vue';
+import UIPagination from '../../../components/UI/UIPagination.vue';
+import UISpin from '../../../components/UI/UISpin.vue';
+import UIButton from '../../../components/UI/UIButton.vue';
+import PatentCard from '../../../components/PatentCard/index.vue';
+import UIEmpty from '../../../components/UI/UIEmpty.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-import * as collectApi from '/@api/collect'
-import * as patentApi from '/@api/patent';
+import * as collectApi from '../../../api/collect'
+import * as patentApi from '../../../api/patent';
 import { message } from 'ant-design-vue';
 
 export default defineComponent({

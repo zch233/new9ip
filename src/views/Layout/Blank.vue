@@ -6,8 +6,8 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import AppFooter from '/@components/AppFooter/index.vue'
-import AppHeader from '/@components/AppHeader/index.vue'
+import AppFooter from '../../components/AppFooter/index.vue'
+import AppHeader from '../../components/AppHeader/index.vue'
 
 export default defineComponent({
   name: 'LayoutBlank',

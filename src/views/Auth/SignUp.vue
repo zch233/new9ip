@@ -60,21 +60,21 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
-import UIInput from '/@components/UI/UIInput.vue'
-import UITabs from '/@components/UI/UITabs.vue'
-import UITabPane from '/@components/UI/UITabPane.vue'
-import Icon from '/@components/Icon/index.vue'
-import UIButton from '/@components/UI/UIButton.vue';
-import UIForm from '/@components/UI/UIForm.vue';
-import UIFormItem from '/@components/UI/UIFormItem.vue';
+import UIInput from '../../components/UI/UIInput.vue'
+import UITabs from '../../components/UI/UITabs.vue'
+import UITabPane from '../../components/UI/UITabPane.vue'
+import Icon from '../../components/Icon/index.vue'
+import UIButton from '../../components/UI/UIButton.vue';
+import UIForm from '../../components/UI/UIForm.vue';
+import UIFormItem from '../../components/UI/UIFormItem.vue';
+import Captcha from '../../components/Captcha/index.vue'
 import * as signInApi from '../../api/signIn'
 import * as signUpApi from '../../api/signUp'
 import {useForm} from '@ant-design-vue/use'
 import { message } from 'ant-design-vue';
-import Captcha from '/@components/Captcha/index.vue'
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from '/@/store';
-import { getSingleQuery } from '/@/utils';
+import { useStore } from '../../store/index';
+import { getSingleQuery } from '../../utils/index';
 
 export default defineComponent({
   name: 'AuthSignUp',

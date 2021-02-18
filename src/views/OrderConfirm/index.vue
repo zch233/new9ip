@@ -52,20 +52,20 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, ref } from 'vue';
-import AppTitleBar from '/@components/AppTitleBar/index.vue'
-import OrderSteps from '/@components/OrderSteps/index.vue'
-import UICard from '/@components/UI/UICard.vue';
-import UIInputTextArea from '/@components/UI/UIInputTextArea.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import UISkeleton from '/@components/UI/UISkeleton.vue';
-import Icon from '/@components/Icon/index.vue'
-import PatentImage from '/@components/PatentImage/index.vue';
+import AppTitleBar from '../../components/AppTitleBar/index.vue'
+import OrderSteps from '../../components/OrderSteps/index.vue'
+import UICard from '../../components/UI/UICard.vue';
+import UIInputTextArea from '../../components/UI/UIInputTextArea.vue';
+import UIButton from '../../components/UI/UIButton.vue';
+import UISkeleton from '../../components/UI/UISkeleton.vue';
+import Icon from '../../components/Icon/index.vue'
+import PatentImage from '../../components/PatentImage/index.vue';
 import { useRoute, useRouter } from 'vue-router';
-import * as orderConfirmApi from '/@api/orderConfirm'
-import {PATENT_TYPE, PAY_ROUTES} from '/@/utils/dict';
-import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
-import { getSingleQuery, openNewWindow } from '/@/utils';
-import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
+import * as orderConfirmApi from '../../api/orderConfirm'
+import {PATENT_TYPE, PAY_ROUTES} from '../../utils/dict';
+import { TYPE_PAY_ROUTES } from '../../utils/dictTypes';
+import { getSingleQuery, openNewWindow } from '../../utils/index';
+import { showPollGetPayRequestModal } from '../../components/PollGetPayRequestModal/index';
 import { AxiosResponse } from 'axios';
 
 export default defineComponent({

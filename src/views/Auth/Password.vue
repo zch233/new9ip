@@ -60,17 +60,17 @@
 
 <script lang="ts">
 import { defineComponent, ref, reactive } from 'vue'
-import UIInput from '/@components/UI/UIInput.vue'
-import UITabs from '/@components/UI/UITabs.vue'
-import UITabPane from '/@components/UI/UITabPane.vue'
-import Icon from '/@components/Icon/index.vue'
-import UIButton from '/@components/UI/UIButton.vue';
-import UIForm from '/@components/UI/UIForm.vue';
-import UIFormItem from '/@components/UI/UIFormItem.vue';
+import UIInput from '../../components/UI/UIInput.vue'
+import UITabs from '../../components/UI/UITabs.vue'
+import UITabPane from '../../components/UI/UITabPane.vue'
+import Icon from '../../components/Icon/index.vue'
+import UIButton from '../../components/UI/UIButton.vue';
+import UIForm from '../../components/UI/UIForm.vue';
+import UIFormItem from '../../components/UI/UIFormItem.vue';
 import * as passwordApi from '../../api/password'
 import {useForm} from '@ant-design-vue/use'
 import { message } from 'ant-design-vue';
-import Captcha from '/@components/Captcha/index.vue'
+import Captcha from '../../components/Captcha/index.vue'
 import { useRouter } from 'vue-router';
 
 export default defineComponent({

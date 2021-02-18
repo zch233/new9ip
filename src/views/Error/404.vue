@@ -6,7 +6,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Error from '/@/views/Error/Error.vue';
+import Error from './Error.vue';
 
 export default defineComponent({
   name: 'Page404',

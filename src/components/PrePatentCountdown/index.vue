@@ -13,9 +13,9 @@
 
 <script lang="ts">
 import { defineComponent, PropType, ref, toRefs, watch } from 'vue';
-import UIButton from '/@components/UI/UIButton.vue'
-import UICountdown from '/@components/UI/UICountdown.vue';
-import Icon from '/@components/Icon/index.vue';
+import UIButton from '../UI/UIButton.vue'
+import UICountdown from '../UI/UICountdown.vue';
+import Icon from '../Icon/index.vue';
 
 export default defineComponent({
   name: 'PrePatentCountdown',

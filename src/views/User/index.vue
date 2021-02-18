@@ -42,15 +42,15 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from 'vue';
-import VIPBrand from '/@components/VIPBrand/index.vue'
-import PatentCard from '/@components/PatentCard/index.vue'
-import Icon from '/@components/Icon/index.vue'
-import UIButton from '/@components/UI/UIButton.vue';
-import UIBadge from '/@components/UI/UIBadge.vue';
-import { useStore } from '/@/store';
-import * as patentApi from '/@api/patent';
-import * as orderApi from '/@api/order'
-import { ORDER_STATUS } from '/@/utils/dict';
+import VIPBrand from '../../components/VIPBrand/index.vue'
+import PatentCard from '../../components/PatentCard/index.vue'
+import Icon from '../../components/Icon/index.vue'
+import UIButton from '../../components/UI/UIButton.vue';
+import UIBadge from '../../components/UI/UIBadge.vue';
+import { useStore } from '../../store/index';
+import * as patentApi from '../../api/patent';
+import * as orderApi from '../../api/order'
+import { ORDER_STATUS } from '../../utils/dict';
 
 export default defineComponent({
   name: 'User',

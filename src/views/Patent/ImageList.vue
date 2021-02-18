@@ -44,16 +44,16 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@/utils/dict'
-import { notActivePatent } from '/@/utils';
-import UITag from '/@components/UI/UITag.vue';
-import Icon from '/@components/Icon/index.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import StarIcon from '/@components/StarIcon/index.vue';
-import PreorderButton from '/@components/PreorderButton/index.vue';
-import VIPBrand from '/@components/VIPBrand/index.vue';
-import PatentImage from '/@components/PatentImage/index.vue';
-import PrePatentCountdown from '/@components/PrePatentCountdown/index.vue';
+import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '../../utils/dict'
+import { notActivePatent } from '../../utils/index';
+import UITag from '../../components/UI/UITag.vue';
+import Icon from '../../components/Icon/index.vue';
+import UIButton from '../../components/UI/UIButton.vue';
+import StarIcon from '../../components/StarIcon/index.vue';
+import PreorderButton from '../../components/PreorderButton/index.vue';
+import VIPBrand from '../../components/VIPBrand/index.vue';
+import PatentImage from '../../components/PatentImage/index.vue';
+import PrePatentCountdown from '../../components/PrePatentCountdown/index.vue';
 
 export default defineComponent({
   name: 'ImageList',

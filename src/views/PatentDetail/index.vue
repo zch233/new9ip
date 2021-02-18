@@ -102,20 +102,20 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import Icon from '/@components/Icon/index.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import UISkeleton from '/@components/UI/UISkeleton.vue';
-import UIPopover from '/@components/UI/UIPopover.vue';
-import UIInput from '/@components/UI/UIInput.vue';
-import PatentCard from '/@components/PatentCard/index.vue'
-import StarIcon from '/@components/StarIcon/index.vue'
-import PreorderButton from '/@components/PreorderButton/index.vue'
-import PatentImage from '/@components/PatentImage/index.vue';
-import PrePatentCountdown from '/@components/PrePatentCountdown/index.vue';
-import * as patentApi from '/@api/patent'
-import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@/utils/dict';
-import { copyToClipboard, getSingleQuery, notActivePatent } from '/@/utils';
-import { useStore } from '/@/store';
+import Icon from '../../components/Icon/index.vue';
+import UIButton from '../../components/UI/UIButton.vue';
+import UISkeleton from '../../components/UI/UISkeleton.vue';
+import UIPopover from '../../components/UI/UIPopover.vue';
+import UIInput from '../../components/UI/UIInput.vue';
+import PatentCard from '../../components/PatentCard/index.vue'
+import StarIcon from '../../components/StarIcon/index.vue'
+import PreorderButton from '../../components/PreorderButton/index.vue'
+import PatentImage from '../../components/PatentImage/index.vue';
+import PrePatentCountdown from '../../components/PrePatentCountdown/index.vue';
+import * as patentApi from '../../api/patent'
+import { PATENT_TYPE, PATENT_STOCK_STATUS } from '../../utils/dict';
+import { copyToClipboard, getSingleQuery, notActivePatent } from '../../utils/index';
+import { useStore } from '../../store/index';
 
 const pageAdvances = [
   {

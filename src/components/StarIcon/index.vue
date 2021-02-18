@@ -7,8 +7,8 @@
 
 <script lang="ts">
 import { defineComponent, ref, toRefs, PropType, watchEffect } from 'vue';
-import Icon from '/@components/Icon/index.vue'
-import * as collectApi from '/@api/collect'
+import Icon from '../Icon/index.vue'
+import * as collectApi from '../../api/collect'
 import { message } from 'ant-design-vue';
 
 export default defineComponent({

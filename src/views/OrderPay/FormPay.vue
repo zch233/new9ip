@@ -8,11 +8,11 @@
 <script lang="ts">
 import { defineComponent, onMounted } from 'vue';
 import { useRoute } from 'vue-router';
-import Loading from '/@components/Loading/index.vue'
-import OrderSteps from '/@components/OrderSteps/index.vue'
-import AppTitleBar from '/@components/AppTitleBar/index.vue'
-import * as orderApi from '/@api/order'
-import { getSingleQuery } from '/@/utils';
+import Loading from '../../components/Loading/index.vue'
+import OrderSteps from '../../components/OrderSteps/index.vue'
+import AppTitleBar from '../../components/AppTitleBar/index.vue'
+import * as orderApi from '../../api/order'
+import { getSingleQuery } from '../../utils/index';
 
 export default defineComponent({
   name: 'FormPay',

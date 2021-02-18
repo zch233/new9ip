@@ -1,10 +1,10 @@
 import copy from './copy';
 import { message, Modal } from 'ant-design-vue';
-import * as orderPayApi from '/@api/orderPay'
-import { ORDER_PAY_STATUS, PATENT_STOCK_STATUS } from '/@/utils/dict';
-import { TYPE_ORDER_PAY_STATUS } from '/@/utils/dictTypes';
+import * as orderPayApi from '../api/orderPay'
+import { ORDER_PAY_STATUS, PATENT_STOCK_STATUS } from '../utils/dict';
+import { TYPE_ORDER_PAY_STATUS } from '../utils/dictTypes';
 import { ref } from 'vue';
-import { router } from '/@/router';
+import { router } from '../router';
 
 export const getSingleQuery = (routeQuery: string | (string | null)[] | null) => routeQuery && (typeof routeQuery === 'string' ? routeQuery : routeQuery[0])
 

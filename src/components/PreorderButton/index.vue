@@ -16,13 +16,13 @@
 
 <script lang="ts">
 import { computed, defineComponent, PropType, ref } from 'vue';
-import UIButton from '/@components/UI/UIButton.vue'
-import UIModal from '/@components/UI/UIModal.vue';
-import Icon from '/@components/Icon/index.vue';
-import * as patentApi from '/@api/patent'
+import UIButton from '../UI/UIButton.vue'
+import UIModal from '../UI/UIModal.vue';
+import Icon from '../Icon/index.vue';
+import * as patentApi from '../../api/patent'
 import { message, Modal } from 'ant-design-vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from '/@/store';
+import { useStore } from '../../store/index';
 
 export default defineComponent({
   name: 'PreorderButton',

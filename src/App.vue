@@ -10,11 +10,11 @@
 import { computed, defineComponent, onMounted } from 'vue';
 import { ConfigProvider } from 'ant-design-vue';
 import zhCN from 'ant-design-vue/es/locale/zh_CN';
-import PageFooter from '/@components/PageFooter/index.vue';
-import SlideArt from '/@components/SlideArt/index.vue';
+import PageFooter from './components/PageFooter/index.vue';
+import SlideArt from './components/SlideArt/index.vue';
 import { useRoute } from 'vue-router';
 import * as authApi from '/@api/auth';
-import { useStore } from '/@/store';
+import { useStore } from './store/index';
 
 export default defineComponent({
   name: 'App',

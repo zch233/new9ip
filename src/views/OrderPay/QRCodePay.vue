@@ -48,18 +48,18 @@
 
 <script lang="ts">
 import { computed, defineComponent, onMounted, onUnmounted, ref } from 'vue';
-import OrderSteps from '/@components/OrderSteps/index.vue';
-import AppTitleBar from '/@components/AppTitleBar/index.vue';
-import Icon from '/@components/Icon/index.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import UICountdown from '/@components/UI/UICountdown.vue';
-import UISkeleton from '/@components/UI/UISkeleton.vue';
-import * as orderApi from '/@api/order'
+import OrderSteps from '../../components/OrderSteps/index.vue';
+import AppTitleBar from '../../components/AppTitleBar/index.vue';
+import Icon from '../../components/Icon/index.vue';
+import UIButton from '../../components/UI/UIButton.vue';
+import UICountdown from '../../components/UI/UICountdown.vue';
+import UISkeleton from '../../components/UI/UISkeleton.vue';
+import * as orderApi from '../../api/order'
 import { useRoute, useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
 import QRCode from 'qrcode';
-import { useStore } from '/@/store';
-import { isMobileBrowser, isWaitOrder, usePollGetPayResult } from '/@/utils';
+import { useStore } from '../../store/index';
+import { isMobileBrowser, isWaitOrder, usePollGetPayResult } from '../../utils/index';
 import { AxiosResponse } from 'axios';
 
 export default defineComponent({

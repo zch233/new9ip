@@ -40,16 +40,16 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import UITag from '/@components/UI/UITag.vue';
-import Icon from '/@components/Icon/index.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import VIPBrand from '/@components/VIPBrand/index.vue';
-import StarIcon from '/@components/StarIcon/index.vue';
-import PreorderButton from '/@components/PreorderButton/index.vue';
-import PatentImage from '/@components/PatentImage/index.vue';
-import PrePatentCountdown from '/@components/PrePatentCountdown/index.vue';
-import { notActivePatent } from '/@/utils';
-import { PATENT_STOCK_STATUS } from '/@/utils/dict';
+import UITag from '../../components/UI/UITag.vue';
+import Icon from '../../components/Icon/index.vue';
+import UIButton from '../../components/UI/UIButton.vue';
+import VIPBrand from '../../components/VIPBrand/index.vue';
+import StarIcon from '../../components/StarIcon/index.vue';
+import PreorderButton from '../../components/PreorderButton/index.vue';
+import PatentImage from '../../components/PatentImage/index.vue';
+import PrePatentCountdown from '../../components/PrePatentCountdown/index.vue';
+import { notActivePatent } from '../../utils/index';
+import { PATENT_STOCK_STATUS } from '../../utils/dict';
 
 export default defineComponent({
   name: 'TableList',

@@ -12,11 +12,11 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import UITabs from '/@components/UI/UITabs.vue';
+import UITabs from '../../../components/UI/UITabs.vue';
 import OrderTabPane from './OrderTabPane.vue';
-import UIInputSearch from '/@components/UI/UIInputSearch.vue';
+import UIInputSearch from '../../../components/UI/UIInputSearch.vue';
 import { useRoute, useRouter } from 'vue-router';
-import { PREORDER_STATUS } from '/@/utils/dict';
+import { PREORDER_STATUS } from '../../../utils/dict';
 
 const orderMap = [
   {

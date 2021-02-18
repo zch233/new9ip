@@ -38,22 +38,22 @@
 
 <script lang="ts">
 import { computed, defineComponent, reactive, ref } from 'vue';
-import UITabs from '/@components/UI/UITabs.vue';
-import UITabPane from '/@components/UI/UITabPane.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import UIInput from '/@components/UI/UIInput.vue';
-import UIForm from '/@components/UI/UIForm.vue';
-import UIFormItem from '/@components/UI/UIFormItem.vue';
-import UIRadio from '/@components/UI/UIRadio.vue';
-import UIRadioGroup from '/@components/UI/UIRadioGroup.vue';
+import UITabs from '../../../components/UI/UITabs.vue';
+import UITabPane from '../../../components/UI/UITabPane.vue';
+import UIButton from '../../../components/UI/UIButton.vue';
+import UIInput from '../../../components/UI/UIInput.vue';
+import UIForm from '../../../components/UI/UIForm.vue';
+import UIFormItem from '../../../components/UI/UIFormItem.vue';
+import UIRadio from '../../../components/UI/UIRadio.vue';
+import UIRadioGroup from '../../../components/UI/UIRadioGroup.vue';
 import UpdatePasswordModal from './UpdatePasswordModal.vue';
-import Icon from '/@components/Icon/index.vue'
-import ImageUpload from '/@components/ImageUpload/index.vue'
-import { useStore } from '/@/store';
+import Icon from '../../../components/Icon/index.vue'
+import ImageUpload from '../../../components/ImageUpload/index.vue'
+import { useStore } from '../../../store/index';
 import { useForm } from '@ant-design-vue/use';
-import * as settingApi from '/@api/setting'
+import * as settingApi from '../../../api/setting'
 import { message } from 'ant-design-vue';
-import { UpdateUserInfo } from '/@api/setting';
+import { UpdateUserInfo } from '../../../api/setting';
 
 export default defineComponent({
   name: 'Setting',

@@ -2,7 +2,7 @@ import { InjectionKey } from 'vue'
 import { createStore, Store, useStore as baseUseStore } from 'vuex'
 import * as authApi from '../api/auth';
 import getters from './getters'
-import * as pointApi from '/@api/point';
+import * as pointApi from '../api/point';
 
 export interface State {
   user: Partial<User>;

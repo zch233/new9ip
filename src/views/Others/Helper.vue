@@ -27,9 +27,9 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import AppTitleBar from '/@components/AppTitleBar/index.vue'
+import AppTitleBar from '../../components/AppTitleBar/index.vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-import { getSingleQuery } from '/@/utils';
+import { getSingleQuery } from '../../utils/index';
 
 export default defineComponent({
   name: 'Helper',

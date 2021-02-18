@@ -36,13 +36,13 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref, computed } from 'vue';
-import Icon from '/@components/Icon/index.vue'
-import {categories} from '/@/utils/dict'
-import VIPBrand from '/@components/VIPBrand/index.vue'
-import UIEmpty from '/@components/UI/UIEmpty.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import PatentImage from '/@components/PatentImage/index.vue';
-import { getPatents } from '/@api/patent';
+import Icon from '../../components/Icon/index.vue'
+import {categories} from '../../utils/dict'
+import VIPBrand from '../../components/VIPBrand/index.vue'
+import UIEmpty from '../../components/UI/UIEmpty.vue';
+import UIButton from '../../components/UI/UIButton.vue';
+import PatentImage from '../../components/PatentImage/index.vue';
+import { getPatents } from '../../api/patent';
 
 export default defineComponent({
   name: 'CategoryTab',

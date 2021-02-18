@@ -81,25 +81,25 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import UITabPane from '/@components/UI/UITabPane.vue';
-import UIButton from '/@components/UI/UIButton.vue';
-import UIDropdown from '/@components/UI/UIDropdown.vue';
-import Icon from '/@components/Icon/index.vue';
-import UIEmpty from '/@components/UI/UIEmpty.vue';
-import UIPagination from '/@components/UI/UIPagination.vue';
-import UISpin from '/@components/UI/UISpin.vue';
-import UICountdown from '/@components/UI/UICountdown.vue';
-import PatentImage from '/@components/PatentImage/index.vue';
-import UITooltip from '/@components/UI/UITooltip.vue';
+import UITabPane from '../../../components/UI/UITabPane.vue';
+import UIButton from '../../../components/UI/UIButton.vue';
+import UIDropdown from '../../../components/UI/UIDropdown.vue';
+import Icon from '../../../components/Icon/index.vue';
+import UIEmpty from '../../../components/UI/UIEmpty.vue';
+import UIPagination from '../../../components/UI/UIPagination.vue';
+import UISpin from '../../../components/UI/UISpin.vue';
+import UICountdown from '../../../components/UI/UICountdown.vue';
+import PatentImage from '../../../components/PatentImage/index.vue';
+import UITooltip from '../../../components/UI/UITooltip.vue';
+import { showPollGetPayRequestModal } from '../../../components/PollGetPayRequestModal/index';
+import PayRoutesPopover from '../../../components/PayRoutesPopover/index.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-import * as orderApi from '/@api/order';
-import { ORDER_STATUS } from '/@/utils/dict';
+import * as orderApi from '../../../api/order';
+import { ORDER_STATUS } from '../../../utils/dict';
 import { message, Modal } from 'ant-design-vue';
-import { getToday, openNewWindow } from '/@/utils';
-import PayRoutesPopover from '/@components/PayRoutesPopover/index.vue';
-import { TYPE_PAY_ROUTES } from '/@/utils/dictTypes';
-import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
-import { GetOrders } from '/@api/order';
+import { getToday, openNewWindow } from '../../../utils/index';
+import { TYPE_PAY_ROUTES } from '../../../utils/dictTypes';
+import { GetOrders } from '../../../api/order';
 
 const orderTimeRange = [
   {
