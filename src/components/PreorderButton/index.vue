@@ -48,7 +48,6 @@ export default defineComponent({
         router.push({ path: '/auth/sign_in', query: {redirect: route.fullPath} })
         return
       }
-      console.log(store.state.oneDayConsumePoints);
       if (store.state.oneDayConsumePoints > store.state.userPoints) {
         Modal.confirm({
           title: '积分不足',
