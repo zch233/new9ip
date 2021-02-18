@@ -10,7 +10,7 @@
     "serve": "vite preview"
   },
   "dependencies": {
-    "ant-design-vue": "2.0.0-rc.8",
+    "ant-design-vue": "^2.0.0",
     "axios": "^0.21.1",
     "cropperjs": "^1.5.11",
     "qrcode": "^1.4.4",
