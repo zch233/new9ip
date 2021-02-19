@@ -3,15 +3,17 @@ import { message } from 'ant-design-vue';
 import { router } from '../router';
 import { RouteLocationRaw } from 'vue-router';
 
-// @ts-ignore
-axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API;
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
+axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API as string;
 axios.defaults.timeout = 30000;
 const instance = axios.create();
 
 instance.interceptors.request.use(
   (config) => {
     config.headers.authorization = window.localStorage.getItem('authorization');
-    return config;
+    return { cancelToken: source.token, ...config };
   },
   (error) => {
     console.log('😭😭😭😭😭😭', error); // for debug
@@ -20,6 +22,7 @@ instance.interceptors.request.use(
   },
 );
 export const errorHandle = (response: AxiosResponse) => {
+  // source.cancel('Operation canceled by the user.');
   const res = response.data;
   const code = response.status === 200 ? res?.code : response.status;
   const codeRouterMap: { [key: number]: RouteLocationRaw } = {
