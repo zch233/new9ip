@@ -21,7 +21,7 @@ import UIForm from '../../../components/UI/UIForm.vue';
 import UIFormItem from '../../../components/UI/UIFormItem.vue';
 import UIInput from '../../../components/UI/UIInput.vue';
 import Captcha from '../../../components/Captcha/index.vue'
-import { useStore } from '../../../store/index';
+import { useStore } from '/@/store';
 import * as settingApi from '../../../api/setting'
 import { message } from 'ant-design-vue';
 import { useForm } from '@ant-design-vue/use';

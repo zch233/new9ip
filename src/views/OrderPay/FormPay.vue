@@ -12,7 +12,7 @@ import Loading from '../../components/Loading/index.vue'
 import OrderSteps from '../../components/OrderSteps/index.vue'
 import AppTitleBar from '../../components/AppTitleBar/index.vue'
 import * as orderApi from '../../api/order'
-import { getSingleQuery } from '../../utils/index';
+import { getSingleQuery } from '/@/utils';
 
 export default defineComponent({
   name: 'FormPay',

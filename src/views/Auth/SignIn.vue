@@ -77,8 +77,8 @@ import * as signInApi from '../../api/signIn'
 import {useForm} from '@ant-design-vue/use'
 import { message } from 'ant-design-vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from '../../store/index';
-import { getSingleQuery } from '../../utils/index';
+import { useStore } from '/@/store';
+import { getSingleQuery } from '/@/utils';
 
 type ActiveTabKey = 'signInWithPassword' | 'signInWithCaptcha';
 

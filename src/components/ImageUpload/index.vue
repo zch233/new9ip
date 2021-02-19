@@ -21,8 +21,8 @@ import UIModal from '../UI/UIModal.vue';
 import UIButton from '../UI/UIButton.vue';
 import MyCropper from './MyCropper.vue'
 import { defineComponent, ref } from 'vue';
-import { useStore } from '../../store/index';
-import { translateBase64ImgToFile } from '../../utils/index';
+import { useStore } from '/@/store';
+import { translateBase64ImgToFile } from '/@/utils';
 import { message } from 'ant-design-vue';
 import * as settingApi from '../../api/setting'
 

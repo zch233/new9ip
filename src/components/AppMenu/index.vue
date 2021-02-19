@@ -33,7 +33,7 @@ import { useRoute, useRouter } from 'vue-router';
 import UIInputSearch from '../../components/UI/UIInputSearch.vue';
 import Icon from '../../components/Icon/index.vue';
 import { message } from 'ant-design-vue';
-import { getScrollTop } from '../../utils';
+import { getScrollTop } from '/@/utils';
 
 export default defineComponent({
   name: 'appMenu',

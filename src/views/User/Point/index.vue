@@ -49,7 +49,7 @@ import UITag from '../../../components/UI/UITag.vue';
 import UIPagination from '../../../components/UI/UIPagination.vue';
 import * as pointApi from '../../../api/point';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-import { useStore } from '../../../store/index';
+import { useStore } from '/@/store';
 
 type Point = {
   createTime: string;

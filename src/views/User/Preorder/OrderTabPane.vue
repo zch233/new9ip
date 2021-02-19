@@ -83,14 +83,14 @@ import PatentImage from '../../../components/PatentImage/index.vue';
 import PrePatentCountdown from '../../../components/PrePatentCountdown/index.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import * as preorderApi from '../../../api/preorder';
-import { PREORDER_STATUS } from '../../../utils/dict';
+import { PREORDER_STATUS } from '/@utils/dict';
 import { message, Modal } from 'ant-design-vue';
 import { getToday, openNewWindow } from '../../../utils/index';
 import PayRoutesPopover from '../../../components/PayRoutesPopover/index.vue';
-import { TYPE_PAY_ROUTES } from '../../../utils/dictTypes';
-import { showPollGetPayRequestModal } from '../../../components/PollGetPayRequestModal/index';
+import { TYPE_PAY_ROUTES } from '/@utils/dictTypes';
+import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
 import * as orderConfirmApi from '../../../api/orderConfirm';
-import { GetPreorders } from '../../../api/preorder';
+import { GetPreorders } from '/@api/preorder';
 
 type DataMap = {all: never[], threeMonth: Date[], oneMonth: Date[], week: Date[]}
 type OrderTimeRange = {

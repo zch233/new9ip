@@ -5,7 +5,7 @@ import './index.scss'
 import './antd.scss'
 import './permission'
 import { key, store } from './store/index';
-import { router } from './router/index';
+import { router } from './router';
 
 createApp(App).use(store, key).use(router).mount('#app')
 

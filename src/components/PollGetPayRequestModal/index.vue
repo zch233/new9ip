@@ -28,7 +28,7 @@ import { defineComponent, onMounted, onUnmounted, ref, toRefs } from 'vue';
 import UIModal from '../UI/UIModal.vue';
 import Icon from '../Icon/index.vue'
 import { isWaitOrder, usePollGetPayResult } from '../../utils/index';
-import { router } from '../../router/index';
+import { router } from '/@/router';
 
 export default defineComponent({
   name: 'PollGetPayRequestModal',

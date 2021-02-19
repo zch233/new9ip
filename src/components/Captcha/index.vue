@@ -13,7 +13,7 @@
 import { defineComponent, ref } from 'vue'
 import UIButton from '../UI/UIButton.vue'
 import UICountdown from '../UI/UICountdown.vue';
-import * as authApi from '../../api/auth'
+import * as authApi from '/@api/auth'
 import { message } from 'ant-design-vue';
 
 export default defineComponent({

@@ -14,7 +14,7 @@ import PageFooter from '/@components/PageFooter/index.vue';
 import SlideArt from '/@components/SlideArt/index.vue';
 import { useRoute } from 'vue-router';
 import * as authApi from '/@api/auth';
-import { useStore } from '/@store/index';
+import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'App',

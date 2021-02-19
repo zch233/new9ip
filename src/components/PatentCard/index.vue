@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
 import PatentImage from '../PatentImage/index.vue';
-import { PATENT_STOCK_STATUS, PATENT_CERT_STATUS } from '../../utils/dict';
+import { PATENT_STOCK_STATUS, PATENT_CERT_STATUS } from '/@utils/dict';
 
 export default defineComponent({
   name: 'PatentCard',

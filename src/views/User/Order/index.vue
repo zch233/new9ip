@@ -19,7 +19,7 @@ import UITabs from '../../../components/UI/UITabs.vue';
 import OrderTabPane from './OrderTabPane.vue';
 import UIInputSearch from '../../../components/UI/UIInputSearch.vue';
 import { useRoute, useRouter } from 'vue-router';
-import { ORDER_STATUS } from '../../../utils/dict';
+import { ORDER_STATUS } from '/@utils/dict';
 
 const orderMap = [
   {

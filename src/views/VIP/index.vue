@@ -36,10 +36,10 @@ import UIRadioGroup from '../../components/UI/UIRadioGroup.vue';
 import UIRadio from '../../components/UI/UIRadio.vue';
 import Icon from '../../components/Icon/index.vue';
 import UISpin from '../../components/UI/UISpin.vue';
-import { showPollGetPayRequestModal } from '../../components/PollGetPayRequestModal/index';
-import { PAY_ROUTES } from '../../utils/dict';
-import { TYPE_PAY_ROUTES } from '../../utils/dictTypes';
-import { openNewWindow } from '../../utils';
+import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
+import { PAY_ROUTES } from '/@utils/dict';
+import { TYPE_PAY_ROUTES } from '/@utils/dictTypes';
+import { openNewWindow } from '/@/utils';
 import * as vipApi from '../../api/vip'
 import { useRouter } from 'vue-router';
 import { AxiosResponse } from 'axios';

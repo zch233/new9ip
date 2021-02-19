@@ -29,7 +29,7 @@
 import { defineComponent, ref } from 'vue';
 import AppTitleBar from '../../components/AppTitleBar/index.vue'
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
-import { getSingleQuery } from '../../utils/index';
+import { getSingleQuery } from '/@/utils';
 
 export default defineComponent({
   name: 'Helper',

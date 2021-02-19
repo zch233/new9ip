@@ -21,7 +21,7 @@ import { defineComponent } from 'vue';
 import AppFooter from '../../components/AppFooter/index.vue';
 import AppHeader from '../../components/AppHeader/index.vue';
 import AppTitleBar from '../../components/AppTitleBar/index.vue';
-import { user } from '../../router/modules/user';
+import { user } from '/@/router/modules/user';
 
 export default defineComponent({
   name: 'LayoutUser',

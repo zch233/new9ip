@@ -1,8 +1,8 @@
 import copy from './copy';
 import { message, Modal } from 'ant-design-vue';
 import * as orderPayApi from '../api/orderPay'
-import { ORDER_PAY_STATUS, PATENT_STOCK_STATUS } from '../utils/dict';
-import { TYPE_ORDER_PAY_STATUS } from '../utils/dictTypes';
+import { ORDER_PAY_STATUS, PATENT_STOCK_STATUS } from '/@utils/dict';
+import { TYPE_ORDER_PAY_STATUS } from '/@utils/dictTypes';
 import { ref } from 'vue';
 import { router } from '../router';
 

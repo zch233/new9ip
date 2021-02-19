@@ -22,7 +22,7 @@ import Icon from '../Icon/index.vue';
 import * as patentApi from '../../api/patent'
 import { message, Modal } from 'ant-design-vue';
 import { useRoute, useRouter } from 'vue-router';
-import { useStore } from '../../store/index';
+import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'PreorderButton',

@@ -17,7 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import { PAY_ROUTES } from '../../utils/dict';
+import { PAY_ROUTES } from '/@utils/dict';
 import Icon from '../Icon/index.vue';
 import UIButton from '../UI/UIButton.vue';
 import UIPopover from '../UI/UIPopover.vue';

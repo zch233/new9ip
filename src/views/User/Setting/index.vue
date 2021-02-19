@@ -49,11 +49,11 @@ import UIRadioGroup from '../../../components/UI/UIRadioGroup.vue';
 import UpdatePasswordModal from './UpdatePasswordModal.vue';
 import Icon from '../../../components/Icon/index.vue'
 import ImageUpload from '../../../components/ImageUpload/index.vue'
-import { useStore } from '../../../store/index';
+import { useStore } from '/@/store';
 import { useForm } from '@ant-design-vue/use';
 import * as settingApi from '../../../api/setting'
 import { message } from 'ant-design-vue';
-import { UpdateUserInfo } from '../../../api/setting';
+import { UpdateUserInfo } from '/@api/setting';
 
 export default defineComponent({
   name: 'Setting',

@@ -58,7 +58,7 @@ import * as orderApi from '../../api/order'
 import { useRoute, useRouter } from 'vue-router';
 import { message } from 'ant-design-vue';
 import QRCode from 'qrcode';
-import { useStore } from '../../store/index';
+import { useStore } from '/@/store';
 import { isMobileBrowser, isWaitOrder, usePollGetPayResult } from '../../utils/index';
 import { AxiosResponse } from 'axios';
 

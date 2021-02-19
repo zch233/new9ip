@@ -44,8 +44,8 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue';
-import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '../../utils/dict'
-import { notActivePatent } from '../../utils/index';
+import {PATENT_TYPE, PATENT_CERT_STATUS, PATENT_ORIGIN_STATUS, PATENT_STOCK_STATUS} from '/@utils/dict'
+import { notActivePatent } from '/@/utils';
 import UITag from '../../components/UI/UITag.vue';
 import Icon from '../../components/Icon/index.vue';
 import UIButton from '../../components/UI/UIButton.vue';

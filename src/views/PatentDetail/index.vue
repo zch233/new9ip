@@ -113,9 +113,9 @@ import PreorderButton from '../../components/PreorderButton/index.vue'
 import PatentImage from '../../components/PatentImage/index.vue';
 import PrePatentCountdown from '../../components/PrePatentCountdown/index.vue';
 import * as patentApi from '../../api/patent'
-import { PATENT_TYPE, PATENT_STOCK_STATUS } from '../../utils/dict';
+import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@utils/dict';
 import { copyToClipboard, getSingleQuery, notActivePatent } from '../../utils/index';
-import { useStore } from '../../store/index';
+import { useStore } from '/@/store';
 
 const pageAdvances = [
   {

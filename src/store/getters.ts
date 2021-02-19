@@ -1,4 +1,4 @@
-import { State } from '/@/store/index';
+import { State } from '/@store/index';
 
 const getters = {
   user: (state: State) => state.user,

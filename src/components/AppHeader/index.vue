@@ -53,7 +53,7 @@ import { defineComponent, ref, computed } from 'vue';
 import Icon from '../../components/Icon/index.vue'
 import UIPopover from '../../components/UI/UIPopover.vue';
 import VIPBrand from '../../components/VIPBrand/index.vue'
-import { useStore } from '../../store/index';
+import { useStore } from '/@/store';
 import { message } from 'ant-design-vue';
 import { useRoute, useRouter } from 'vue-router';
 

@@ -91,15 +91,15 @@ import UISpin from '../../../components/UI/UISpin.vue';
 import UICountdown from '../../../components/UI/UICountdown.vue';
 import PatentImage from '../../../components/PatentImage/index.vue';
 import UITooltip from '../../../components/UI/UITooltip.vue';
-import { showPollGetPayRequestModal } from '../../../components/PollGetPayRequestModal/index';
+import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
 import PayRoutesPopover from '../../../components/PayRoutesPopover/index.vue';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import * as orderApi from '../../../api/order';
-import { ORDER_STATUS } from '../../../utils/dict';
+import { ORDER_STATUS } from '/@utils/dict';
 import { message, Modal } from 'ant-design-vue';
 import { getToday, openNewWindow } from '../../../utils/index';
-import { TYPE_PAY_ROUTES } from '../../../utils/dictTypes';
-import { GetOrders } from '../../../api/order';
+import { TYPE_PAY_ROUTES } from '/@utils/dictTypes';
+import { GetOrders } from '/@api/order';
 
 const orderTimeRange = [
   {

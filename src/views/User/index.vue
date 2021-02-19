@@ -47,10 +47,10 @@ import PatentCard from '../../components/PatentCard/index.vue'
 import Icon from '../../components/Icon/index.vue'
 import UIButton from '../../components/UI/UIButton.vue';
 import UIBadge from '../../components/UI/UIBadge.vue';
-import { useStore } from '../../store/index';
+import { useStore } from '/@/store';
 import * as patentApi from '../../api/patent';
 import * as orderApi from '../../api/order'
-import { ORDER_STATUS } from '../../utils/dict';
+import { ORDER_STATUS } from '/@utils/dict';
 
 export default defineComponent({
   name: 'User',
