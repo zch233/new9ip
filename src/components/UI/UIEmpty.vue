@@ -32,6 +32,7 @@ export default defineComponent({
 <style lang="scss">
 .myEmpty {
   user-select: none;
+  padding: 10px;
   .ant-empty-image {width: 300px; height: auto; margin: 0 auto;}
   .ant-empty-description {color: rgba(0,0,0,.25); font-size: 14px;}
 }
