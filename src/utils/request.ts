@@ -5,8 +5,8 @@ import { RouteLocationRaw } from 'vue-router';
 
 const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
-
-axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API as string;
+// @ts-ignore
+axios.defaults.baseURL = import.meta.env.VITE_APP_BASE_API;
 axios.defaults.timeout = 30000;
 const instance = axios.create();
 
