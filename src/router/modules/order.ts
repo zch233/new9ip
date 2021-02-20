@@ -19,7 +19,8 @@ export const order = {
       path: 'pay/wechat',
       name: 'WechatPay',
       meta: { title: '微信支付' },
-      component: () => import('../../views/OrderPay/WechatPay.vue')
+      props: { wechat: true },
+      component: () => import('../../views/OrderPay/QRCodePay.vue')
     },
     {
       path: 'pay/form',
