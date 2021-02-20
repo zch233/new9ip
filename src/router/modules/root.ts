@@ -6,6 +6,7 @@ export const root = {
       path: '',
       name: 'Home',
       meta: { title: '首页' },
+      alias: ['index', '9ip', 'home'],
       component: () => import('../../views/Home/index.vue'),
     },
     {
