@@ -7,10 +7,10 @@ export type Categories = [
     name: '作业,运输',
   },{
     code: 'C',
-    name: '纺织和造纸',
+    name: '化学,冶金',
   },{
     code: 'D',
-    name: '化学,冶金',
+    name: '纺织和造纸',
   },{
     code: 'E',
     name: '固定构造',
