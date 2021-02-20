@@ -35,7 +35,7 @@ export const errorHandle = (response: AxiosResponse) => {
     429: { path: '/429', query: {} },
   };
   const codeRouter = codeRouterMap[code];
-  codeRouter && router.push(codeRouter);
+  codeRouter && router.replace(codeRouter);
   message.destroy();
   message.error(res.msg || '出错了，请稍后重试');
   throw res;
