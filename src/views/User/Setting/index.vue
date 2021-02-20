@@ -112,6 +112,9 @@ export default defineComponent({
   border: 1px solid #DEDEDE;
   cursor: pointer;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   &::after {
     content: '修改头像';
     position: absolute;
@@ -129,6 +132,6 @@ export default defineComponent({
   }
   &:hover{ &::after {opacity: .3;} }
   img {width: 100%;}
-  svg {font-size: 80px}
+  svg {font-size: 110px}
 }
 </style>
