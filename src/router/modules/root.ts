@@ -35,7 +35,7 @@ export const root = {
     },
     {
       path: '429',
-      name: 'Page4290',
+      name: 'Page429',
       meta: { title: '429' },
       component: () => import('../../views/Error/429.vue'),
     },
