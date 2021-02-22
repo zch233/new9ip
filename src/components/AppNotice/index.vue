@@ -2,7 +2,7 @@
   <div class="appNotice">
     <UIAlert closable banner>
       <template #message>
-        <span class="messageContent">公告：尊敬的第九区用户您好，本站将于近日调整部分专利的价格。</span>
+        <span class="messageContent">尊敬的第九区用户您好：本站将于近日对部分专利进行调价，具体以实际调价为准，敬请关注。</span>
       </template>
     </UIAlert>
   </div>
@@ -27,8 +27,9 @@ export default defineComponent({
   z-index: 8;
   .messageContent {
     line-height: 1;
-    padding-right: 2em;
+    padding-right: 1em;
     color: #333;
+    white-space: nowrap;
   }
 }
 </style>
