@@ -1,0 +1,1 @@
+import{ai as a}from"./index.316aaba3.js";const o=o=>a({url:"/api/v1/collect",method:"get",params:o}),t=o=>a({url:"/api/v1/collect",method:"post",data:{commodityId:o,commodityType:"PATENT"}});export{o as g,t as s};
