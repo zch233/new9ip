@@ -1,4 +1,5 @@
 <template>
+  <AppNotice />
   <AppHeader />
   <AppMenu />
   <div class="routerViewWrapper"><RouterView /></div>
@@ -10,10 +11,11 @@ import { defineComponent } from 'vue'
 import AppFooter from '../../components/AppFooter/index.vue'
 import AppHeader from '../../components/AppHeader/index.vue'
 import AppMenu from '../../components/AppMenu/index.vue'
+import AppNotice from '../../components/AppNotice/index.vue'
 
 export default defineComponent({
   name: 'LayoutApp',
-  components:{AppFooter, AppHeader, AppMenu},
+  components:{AppFooter, AppHeader, AppMenu, AppNotice},
 })
 </script>
 
