@@ -80,8 +80,8 @@ export default defineComponent({
   &-tag {flex: 0 0 20.18%;}
   &-inventorExplain {flex: 0 0 4.4%;}
   &-status {flex: 0 0 3.4%;}
-  &-price {flex: 0 0 5.8em}
-  &-vipPrice {flex: 0 0 5.8em}
+  &-price {flex: 0 0 5.9em}
+  &-vipPrice {flex: 0 0 5.9em}
   &-options{flex: 0 0 14.4%;}
 }
 .patentList {
