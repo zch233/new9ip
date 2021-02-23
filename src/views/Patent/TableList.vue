@@ -72,16 +72,16 @@ export default defineComponent({
 
 <style lang="scss" scoped>
 .col {
-  &-order, &-name, &-number, &-legalStatus, &-tag, &-inventorExplain, &-status, &-price, &-vipPrice, &-options {padding-left: 8px;}
+  &-order, &-name, &-number, &-legalStatus, &-tag, &-inventorExplain, &-status, &-price, &-vipPrice, &-options {padding-left: 8px;word-break: break-all;}
   &-order {flex: 0 0 3%;}
   &-name {flex: 0 0 27.35%;padding-right: 8px;}
   &-number {flex: 0 0 8.6em;}
   &-legalStatus {flex: 0 0 6.4%;}
   &-tag {flex: 0 0 20.18%;}
-  &-inventorExplain {flex: 0 0 4.67%;}
-  &-status {flex: 0 0 4.67%;}
-  &-price {flex: 0 0 5em}
-  &-vipPrice {flex: 0 0 5em}
+  &-inventorExplain {flex: 0 0 4.4%;}
+  &-status {flex: 0 0 3.4%;}
+  &-price {flex: 0 0 5.8em}
+  &-vipPrice {flex: 0 0 5.8em}
   &-options{flex: 0 0 14.4%;}
 }
 .patentList {
