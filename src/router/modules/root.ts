@@ -24,7 +24,7 @@ export const root = {
     {
       path: 'sales',
       name: 'PatentSales',
-      meta: { title: '活动专场' },
+      meta: { title: '特价专场' },
       component: () => import('../../views/PatentSales/index.vue'),
     },
     {

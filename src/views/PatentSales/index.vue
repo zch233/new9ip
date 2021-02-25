@@ -1,5 +1,8 @@
 <template>
   <div class="pageWidthWithCenter patent">
+    <section class="patentSalesImageWrapper">
+      <img src="../../assets/patent/patentSales.jpg" alt="">
+    </section>
     <section ref="patentListBarRef" class="patentListBar" :class="!loginStatus && 'notSignIn'">
       <div class="patentListBar-options">
         <div class="patentListBar-options-order">
@@ -224,6 +227,7 @@ export default defineComponent({
   padding: 16px 0;
   $labelGap: 1.4em;
   .filterTitle {color: #999;padding-right: $labelGap;}
+  .patentSalesImageWrapper img {width: 100%;}
   .userFilterBar {
     display: flex;
     align-items: center;

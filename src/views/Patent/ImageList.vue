@@ -3,7 +3,7 @@
     <template v-for="(patent, index) in patents" :key="patent.number">
       <li class="patentListBar-list-item" v-if="index >= startIndex && index <= startIndex + 30">
         <a target="_blank" :href="`/patent/${patent.number}`">
-          <div class="patentListBar-list-item-image patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : ''"><PatentImage :cover="patent.categoryCover" /></div>
+          <div class="patentListBar-list-item-image patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : patent.price < 2000 ? 'sale' : patent.price > 2000 ? 'rare' : ''"><PatentImage :cover="patent.categoryCover" /></div>
         </a>
         <div class="patentListBar-list-item-content">
           <div class="patentListBar-list-item-content-firstFloor">
@@ -33,7 +33,7 @@
               <label>零售价：<b>￥{{ patent.price }}</b></label>
               <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
               <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
-              <PreorderButton buttonClass="preorderButton_imageMode" :disabled="notActivePatent(patent.stockStatus)" :patent="patent" />
+              <PreorderButton buttonClass="preorderButton_imageMode" :disabled="patent.price < 20000 || notActivePatent(patent.stockStatus)" :patent="patent" />
             </div>
           </div>
         </div>

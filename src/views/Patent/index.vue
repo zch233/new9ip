@@ -238,7 +238,7 @@ export default defineComponent({
   .patentLabel {
     position: relative;
     display: inline-flex;
-    &.new, &.hot {
+    &.new, &.hot, &.rare, &.sale {
       &::before, &::after {
         font-size: 12px;
         color: #fff;
@@ -257,6 +257,14 @@ export default defineComponent({
     &.hot {
       &::before { border-color: #FF9B00; border-bottom-color: transparent; }
       &::after { content: '热'; }
+    }
+    &.rare {
+      &::before { border-color: #4da5ff; border-bottom-color: transparent; }
+      &::after { content: '精'; }
+    }
+    &.sale {
+      &::before { border-color: #ff4d7f; border-bottom-color: transparent; }
+      &::after { content: '惠'; }
     }
   }
 }

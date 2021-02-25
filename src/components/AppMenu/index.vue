@@ -14,9 +14,7 @@
           </div>
         </nav>
       </div>
-      <template v-if="isPatentSalesRoute">
-        我是活动图片
-      </template>
+      <template v-if="isPatentSalesRoute"></template>
       <template v-else>
         <div class="rightSearch" v-if="!(isHomeRoute && scrollTop < 300)">
           <UIInputSearch
@@ -60,7 +58,7 @@ export default defineComponent({
         path: '/patent',
       },
       {
-        title: '活动专场',
+        title: '特价专场',
         path: '/sales',
       },
     ]
@@ -182,6 +180,7 @@ export default defineComponent({
     }
   }
   .rightSearch {width: 29%;}
+  .patentSalesImageWrapper img{width: 200px;}
   &.brief {
     background-color: transparent;
     color: #fff;
