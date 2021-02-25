@@ -18,6 +18,13 @@ export const getPatents = (params: GetPatents) =>
     params,
   })
 
+export const getSalesPatents = (params: GetPatents) =>
+  request({
+    url: '/pub/api/v1/activity',
+    method: 'get',
+    params,
+  })
+
 export type GetRecommendPatents = BasePageOption & { commodityId?: string; }
 
 export const getRecommendPatents = (params: GetRecommendPatents) =>

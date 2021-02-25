@@ -22,6 +22,12 @@ export const root = {
       component: () => import('../../views/Patent/index.vue'),
     },
     {
+      path: 'sales',
+      name: 'PatentSales',
+      meta: { title: '活动专场' },
+      component: () => import('../../views/PatentSales/index.vue'),
+    },
+    {
       path: 'patent/:number',
       name: 'PatentDetail',
       meta: { title: '专利详情' },
