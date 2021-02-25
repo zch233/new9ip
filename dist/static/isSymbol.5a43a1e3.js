@@ -1,0 +1,1 @@
+import{a9 as o,au as t}from"./index.fa7a2cf1.js";function a(o){var t=typeof o;return null!=o&&("object"==t||"function"==t)}function n(a){return"symbol"==typeof a||o(a)&&"[object Symbol]"==t(a)}export{n as a,a as i};

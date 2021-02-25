@@ -1,0 +1,1 @@
+import{a4 as o}from"./index.fa7a2cf1.js";const a=a=>o({url:"/api/v1/collect",method:"get",params:a}),t=a=>o({url:"/api/v1/collect",method:"post",data:{commodityId:a,commodityType:"PATENT"}});export{a as g,t as s};

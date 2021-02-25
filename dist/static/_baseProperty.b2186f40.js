@@ -1,0 +1,1 @@
+import{t as n}from"./toNumber.e12b499c.js";function r(r){var t=function(r){return r?1/0===(r=n(r))||-1/0===r?17976931348623157e292*(r<0?-1:1):r==r?r:0:0===r?r:0}(r),u=t%1;return t==t?u?t-u:t:0}function t(n){return function(r){return null==r?void 0:r[n]}}export{t as b,r as t};
