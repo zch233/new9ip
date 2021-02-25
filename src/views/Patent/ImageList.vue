@@ -3,7 +3,7 @@
     <template v-for="(patent, index) in patents" :key="patent.number">
       <li class="patentListBar-list-item" v-if="index >= startIndex && index <= startIndex + 30">
         <a target="_blank" :href="`/patent/${patent.number}`">
-          <div class="patentListBar-list-item-image patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : patent.price < 2000 ? 'sale' : patent.price > 2000 ? 'rare' : ''"><PatentImage :cover="patent.categoryCover" /></div>
+          <div class="patentListBar-list-item-image patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : patent.price < 20000 ? 'sale' : patent.price > 20000 ? 'rare' : ''"><PatentImage :cover="patent.categoryCover" /></div>
         </a>
         <div class="patentListBar-list-item-content">
           <div class="patentListBar-list-item-content-firstFloor">

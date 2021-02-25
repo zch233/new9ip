@@ -15,7 +15,7 @@
     <template v-for="(patent, index) in patents" :key="patent.number">
       <div class="patentList-content-item" v-if="index >= startIndex && index <= startIndex + 30">
         <span class="col-order">{{ index + 1 }}</span>
-        <label class="col-name searchKeyword"><a class="patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : patent.price < 2000 ? 'sale' : patent.price > 2000 ? 'rare' : ''" :href="`/patent/${patent.number}`" target="_blank"><b v-html="patent.nameHighlightKey || patent.name" /></a></label>
+        <label class="col-name searchKeyword"><a class="patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : patent.price < 20000 ? 'sale' : patent.price > 20000 ? 'rare' : ''" :href="`/patent/${patent.number}`" target="_blank"><b v-html="patent.nameHighlightKey || patent.name" /></a></label>
         <span class="col-number searchKeyword" v-html="patent.numberHighlightKey || patent.number" />
         <span class="col-legalStatus">{{ patent.legalStatus }}</span>
         <span class="col-tag">
