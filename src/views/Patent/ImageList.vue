@@ -33,7 +33,7 @@
               <label>零售价：<b>￥{{ patent.price }}</b></label>
               <VIPBrand class="vipBrand" /><b class="vipPrice">￥<em>{{ patent.vipPrice }}</em></b>
               <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton></RouterLink>
-              <PreorderButton buttonClass="preorderButton_imageMode" :disabled="patent.price < 20000 || notActivePatent(patent.stockStatus)" :patent="patent" />
+              <PreorderButton buttonClass="preorderButton_imageMode" :disabled="notActivePatent(patent.stockStatus)" :patent="patent" />
             </div>
           </div>
         </div>

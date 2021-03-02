@@ -29,6 +29,7 @@
           <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}">
             <UIButton size="small" :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton>
           </RouterLink>
+          <PreorderButton buttonClass="preorderButton_noGap" size="small" v-if="!notActivePatent(patent.stockStatus)" :patent="patent" />
           <div class="preStatus" v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><PrePatentCountdown :patent="patent" /></div>
           <StarIcon class="starIcon_noGap" :patent="patent" />
         </div>
@@ -46,12 +47,13 @@ import VIPBrand from '../../components/VIPBrand/index.vue';
 import StarIcon from '../../components/StarIcon/index.vue';
 import PatentImage from '../../components/PatentImage/index.vue';
 import PrePatentCountdown from '../../components/PrePatentCountdown/index.vue';
+import PreorderButton from '../../components/PreorderButton/index.vue'
 import { notActivePatent } from '/@/utils';
 import { PATENT_STOCK_STATUS } from '/@utils/dict';
 
 export default defineComponent({
   name: 'TableList',
-  components: {UITag, Icon, UIButton, VIPBrand, StarIcon, PatentImage, PrePatentCountdown},
+  components: {UITag, Icon, UIButton, VIPBrand, StarIcon, PatentImage, PrePatentCountdown, PreorderButton},
   props: {
     patents: {
       type: Object as PropType<Patent[]>,
