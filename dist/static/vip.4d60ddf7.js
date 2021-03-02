@@ -1,1 +1,0 @@
-import{a4 as a}from"./index.60d2ede9.js";const e=e=>a({url:"/api/v1/vip/order",method:"get",params:e}),o=()=>a({url:"/api/v1/vip",method:"get"}),r=e=>a({url:"/api/v1/vip/order",method:"post",data:e});export{e as a,o as g,r as o};
