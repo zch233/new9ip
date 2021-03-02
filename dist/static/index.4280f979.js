@@ -1,1 +1,0 @@
-import{d as a,_ as s,p as c,f as n,h as o,i as r,j as t,k as e,n as d}from"./index.f1efcfa5.js";var f=a({name:"VIPBrand",components:{AIcon:s}});const p=d("data-v-bc563fc2");c("data-v-bc563fc2");const I={class:"VIPBrandWrapper"};n();const i=p(((a,s,c,n,d,f)=>{const p=o("AIcon");return r(),t("span",I,[e(p,{icon:"VIP"})])}));f.render=i,f.__scopeId="data-v-bc563fc2";export{f as _};
