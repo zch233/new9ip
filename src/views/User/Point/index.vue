@@ -2,9 +2,11 @@
   <div class="point">
     <div class="point-top">
       <div class="point-top-restPoint">
-        <Icon icon="point" />
-        <p>可用积分</p>
-        <b>{{ userPoints }}</b>
+        <div class="point-top-restPoint-title">
+          <span><Icon class="iconPoint" icon="point" />可用积分</span>
+          <RouterLink to="/user/orderPoints">积分充值<Icon class="rightIcon" icon="right_fill" /></RouterLink>
+        </div>
+        <b class="point-top-restPoint-points">{{ userPoints }}</b>
       </div>
     </div>
     <p class="point-middle"><label>积分明细</label><RouterLink to="/others/helper?aq=2-0"><Icon icon="tips" />积分规则</RouterLink></p>
@@ -122,14 +124,31 @@ export default defineComponent({
       background-color: #fff;
       border: #F4E2B3 solid 1px;
       outline: #fff solid 6px;
-      text-align: center;
       position: relative;
       display: inline-block;
       box-shadow: 0 0 20px 0 #CDC3AB;
-      padding: 18px 12%;
-      svg {position: absolute;top: 12px;left: 12px;color: #F4E2B3;font-size: 16px;}
+      padding: 12px 0 12px 12px;
+      width: 30%;
+      &-title {
+        display: flex;
+        justify-content: space-between;
+        color: #C5AF74;
+        .iconPoint {color: #F4E2B3;font-size: 16px;margin-right: .6em;}
+        a {
+          color: #C5AF74;
+          background-color: #FDF3D9;
+          padding: .2em .8em;
+          border-bottom-left-radius: 2em;
+          border-top-left-radius: 2em;
+          border: 1px solid #F4E2B3;
+          margin-right: -1px;
+          display: flex;
+          align-items: center;
+          .rightIcon {font-size: 10px;margin-left: .4em;margin-right: -.6em;}
+        }
+      }
       p {font-size: 14px;color: #F4E2B3;margin: 0;}
-      b {font-size: 40px;color: #C5AF74;font-weight: normal;}
+      &-points {font-size: 40px;color: #C5AF74;font-weight: normal;}
     }
   }
   &-middle {

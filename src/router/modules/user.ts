@@ -22,6 +22,12 @@ export const user = {
       component: () => import('../../views/User/VipRecord/index.vue')
     },
     {
+      path: 'orderPoints',
+      name: 'OrderPoints',
+      meta: { title: '积分充值' },
+      component: () => import('../../views/User/OrderPoints/index.vue')
+    },
+    {
       path: 'order',
       name: 'UserOrder',
       meta: { title: '我的订单' },
