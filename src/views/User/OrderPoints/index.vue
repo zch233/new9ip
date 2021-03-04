@@ -15,11 +15,13 @@
           <div class="orderPoints-main-right-content">
               <UIForm>
                 <UIFormItem label="会员账号">{{ $store.state.user.account }}</UIFormItem>
-                <UIFormItem label="购买项目">
-                  <div class="orderItem">
-                    <Icon class="iconPoint" icon="point" />
-                    <label><em>100</em>积分</label>
-                    <span>送10积分</span>
+                <UIFormItem label="购买项目" class="orderFormItem">
+                  <div class="orderList">
+                    <div class="orderItem" :class="orderInfo.currentPointsPack.id === item.id && 'active'" v-for="item in pointsPacks" :key="item.id" @click="orderInfo.currentPointsPack=item">
+                      <Icon class="iconPoint" icon="point" />
+                      <label><em>{{ item.credit }}</em>{{ item.unit }}</label>
+                      <span v-if="item.presentCredit > 0">送{{ item.presentCredit }}积分</span>
+                    </div>
                   </div>
                 </UIFormItem>
                 <UIFormItem label="支付方式" name="orderInfo">
@@ -29,7 +31,7 @@
                 </UIFormItem>
               </UIForm>
               <div class="orderPoints-main-right-content-options">
-                <label class="orderPrice">金额：<span>￥<em>100</em></span></label>
+                <label class="orderPrice">金额：<span>￥<em>{{ orderInfo.currentPointsPack.price || '加载中' }}</em></span></label>
                 <UIButton class="orderButton" customer-class="dangerButton" type="primary" @click="orderPoints">支付</UIButton>
               </div>
           </div>
@@ -50,19 +52,16 @@ import UISpin from '../../../components/UI/UISpin.vue';
 import UIButton from '../../../components/UI/UIButton.vue';
 import { PAY_ROUTES } from '/@utils/dict';
 import { TYPE_PAY_ROUTES } from '/@utils/dictTypes';
-import * as vipApi from '../../../api/vip'
+import * as orderPointsApi from '../../../api/orderPoins'
 import { AxiosResponse } from 'axios';
-import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
 import { openNewWindow } from '/@/utils';
 
-type VipRecord = {
-  days: number;
-  expireDate: string;
-  hasPay: boolean;
-  level: number;
-  orderNo: string;
-  paymentTime: string;
+type PointsPacks = {
+  credit: number;
+  id: number;
+  presentCredit: number;
   price: number;
+  unit: string;
 }
 
 export default defineComponent({
@@ -70,14 +69,16 @@ export default defineComponent({
   components: { UIButton, Icon, UIForm, UIFormItem, UIRadioGroup, UIRadio, UISpin },
   setup() {
     const loading = ref(false)
-    const vipRecords = ref<VipRecord[]>([])
+    const pointsPacks = ref<PointsPacks[]>([])
     const orderInfo = reactive({
       payRoute: PAY_ROUTES[0].payRoute,
+      currentPointsPack: {},
     })
-    const getVipRecords = async () => {
+    const getPointsPacks = async () => {
       loading.value = true
-      const {data} = await vipApi.getVipRecords({size: 100}).finally(() => loading.value = false)
-      vipRecords.value = data.list || []
+      const {data} = await orderPointsApi.getPointsPacks().finally(() => loading.value = false)
+      pointsPacks.value = data || []
+      orderInfo.currentPointsPack = pointsPacks.value[0]
     }
     const orderPoints = async () => {
       loading.value = true;
@@ -91,16 +92,15 @@ export default defineComponent({
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
         await router.push(payURL);
       } else {
-        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'VIP', getContainer: 'vip' });
         openNewWindow(payURL);
       }
     }
     onMounted(() => {
-      getVipRecords()
+      getPointsPacks()
     })
     return {
       loading,
-      vipRecords,
+      pointsPacks,
       orderInfo,
       PAY_ROUTES,
       orderPoints,
@@ -108,6 +108,13 @@ export default defineComponent({
   }
 })
 </script>
+
+<style lang="scss">
+.orderFormItem {
+  display: flex;
+  .ant-col.ant-form-item-control-wrapper {flex: 1;}
+}
+</style>
 
 <style lang="scss" scoped>
 .orderPoints {
@@ -140,6 +147,10 @@ export default defineComponent({
         padding: 30px;
         display: flex;
         flex-direction: column;
+        .orderList {
+          display: inline-flex;
+          flex-wrap: wrap;
+        }
         .orderItem {
           background-color: #fff;
           border: 1px solid #DEDEDE;
@@ -151,6 +162,12 @@ export default defineComponent({
           font-size: 12px;
           cursor: pointer;
           transition: all .3s;
+          align-items: flex-end;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          &:nth-child(-n+3) {margin-bottom: 20px;}
+          &:not(:nth-child(3n)) {margin-right: 20px;}
           .iconPoint {font-size: 16px;margin-right: .3em}
           > label {font-size: 12px;margin-right: .6em;em {font-size: 24px;font-style: normal;}}
           &:hover, &.active {
