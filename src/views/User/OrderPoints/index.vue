@@ -1,5 +1,5 @@
 <template>
-  <div class="orderPoints">
+  <div class="orderPoints" id="orderPoints">
     <RouterLink to="/user/index"><Icon icon="left" />返回</RouterLink>
     <UISpin :spinning="loading">
       <div class="orderPoints-main">
@@ -54,8 +54,11 @@ import UIButton from '../../../components/UI/UIButton.vue';
 import { PAY_ROUTES } from '/@utils/dict';
 import { TYPE_PAY_ROUTES } from '/@utils/dictTypes';
 import * as orderPointsApi from '../../../api/orderPoins'
+import * as orderConfirmApi from '../../../api/orderConfirm'
 import { AxiosResponse } from 'axios';
 import { openNewWindow } from '/@/utils';
+import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
+import { useRouter } from 'vue-router';
 
 type PointsPacks = {
   credit: number;
@@ -69,6 +72,7 @@ export default defineComponent({
   name: 'VipRecord',
   components: { UIButton, Icon, UIForm, UIFormItem, UIRadioGroup, UIRadio, UISpin },
   setup() {
+    const router = useRouter()
     const loading = ref(false)
     const pointsPacks = ref<PointsPacks[]>([])
     const orderInfo = reactive({
@@ -83,16 +87,15 @@ export default defineComponent({
     }
     const orderPoints = async () => {
       loading.value = true;
-      const {data}: {data:VipPurchase[]} = await vipApi.getVipPurchase().finally(() => loading.value = false);
-      loading.value = true
-      const currentPay = PAY_ROUTES.find((item) => item.payRoute === vipInfo.payRoute);
+      const currentPay = PAY_ROUTES.find((item) => item.payRoute === orderInfo.payRoute);
       const { payRoute, tradeType } = currentPay as TYPE_PAY_ROUTES[number];
-      const {data: orderData}: AxiosResponse<OrderResult> = await vipApi.orderVip({vipLevelId: data[0].id, payRoute, tradeType}).finally(() => loading.value = false)
+      const {data: orderData}: AxiosResponse<OrderResult> = await orderConfirmApi.order({ commodityId: orderInfo.currentPointsPack.id, commodityType: 'CREDIT', payRoute, tradeType}).finally(() => loading.value = false)
       const { orderNo, tradeNo } = orderData;
-      const payURL = `/order/pay/${payRoute === 'UMS_PAY' ? 'code' : payRoute === 'WXPAY' ? 'wechat' : 'form'}?orderNo=${orderNo}&tradeNo=${tradeNo}&type=VIP&payRoute=${payRoute}&tradeType=${tradeType}`
+      const payURL = `/order/pay/${payRoute === 'UMS_PAY' ? 'code' : payRoute === 'WXPAY' ? 'wechat' : 'form'}?orderNo=${orderNo}&tradeNo=${tradeNo}&type=CREDIT&payRoute=${payRoute}&tradeType=${tradeType}`
       if (payRoute === 'UMS_PAY' || payRoute === 'WXPAY') {
         await router.push(payURL);
       } else {
+        showPollGetPayRequestModal({ tradeNo, orderNo, type: 'CREDIT', getContainer: 'orderPoints' });
         openNewWindow(payURL);
       }
     }

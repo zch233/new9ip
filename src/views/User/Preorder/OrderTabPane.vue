@@ -211,7 +211,7 @@ export default defineComponent({
     const payOrder = async ({ payRoute, tradeType }: TYPE_PAY_ROUTES[number], preorder: Preorder) => {
       submitLoading.value = false
       payRoutesPopoverRef.value.visible = false
-      const { data } = await orderConfirmApi.orderPatent({
+      const { data } = await orderConfirmApi.order({
         commodityId: preorder.productId,
         commodityType: 'PATENT',
         payRoute,

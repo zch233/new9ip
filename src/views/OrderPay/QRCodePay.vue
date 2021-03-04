@@ -41,7 +41,7 @@
         <p>支持以下付款方式</p>
         <Icon v-for="icon in ['ali', 'wechat', 'union', '1', 'BOC', 'BD', 'JD', 'SF', 'Y', 'SN', 'POS', 'QM']" :key="icon" :icon="`${icon}Pay`" />
       </div>
-      <RouterLink class="returnOrder" to="/user/order"><Icon icon="left" />选择其他支付方式</RouterLink>
+      <RouterLink v-if="$route.query.type === 'PATENT'" class="returnOrder" to="/user/order"><Icon icon="left" />选择其他支付方式</RouterLink>
     </UISkeleton>
   </div>
 </template>
@@ -94,11 +94,8 @@ export default defineComponent({
     };
     const getOrderInfo = () => {
       pageLoading.value = true
-      const apiMap = {
-        PATENT: orderApi.payOrderAgain,
-        VIP: orderApi.payVipOrderAgain,
-      }
-      apiMap[type]({ orderNo, payRoute, tradeType}).then(({data}: AxiosResponse<OrderResult>) => {
+      const orderAction = type === 'VIP' ? orderApi.payVipOrderAgain : orderApi.payOrderAgain
+      orderAction({ orderNo, payRoute, tradeType}).then(({data}: AxiosResponse<OrderResult>) => {
         if (isMobileBrowser) {
           document.write('loading...')
           window.location.href = data.codeUrl;

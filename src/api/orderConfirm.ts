@@ -8,7 +8,7 @@ type OrderConfirm = {
 type payOrder = {
   addressId?: number;
   commodityId: string;
-  commodityType: 'PATENT';
+  commodityType: 'PATENT' | 'CREDIT';
   payRoute: string;
   tradeType: string;
   remark?: string;
@@ -21,7 +21,7 @@ export const getOrderConfirm = (params: OrderConfirm) =>
     params,
   })
 
-export const orderPatent = (data: payOrder) =>
+export const order = (data: payOrder) =>
   request({
     url: '/api/v1/order',
     method: 'post',

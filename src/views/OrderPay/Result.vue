@@ -9,6 +9,10 @@
         <RouterLink to="/user/index"><UIButton customer-class="mainButton" type="primary">会员主页</UIButton></RouterLink>
         <RouterLink to="/"><UIButton customer-class="default">返回首页</UIButton></RouterLink>
       </template>
+      <template v-else-if="routeQuery.type === 'CREDIT'">
+        <RouterLink to="/user/index"><UIButton customer-class="mainButton" type="primary">会员主页</UIButton></RouterLink>
+        <RouterLink to="/patent"><UIButton customer-class="default">去挑专利</UIButton></RouterLink>
+      </template>
       <template v-else>
         <RouterLink to="/user/order"><UIButton customer-class="mainButton" type="primary">我的订单</UIButton></RouterLink>
         <RouterLink to="/patent"><UIButton customer-class="default">继续购买</UIButton></RouterLink>
