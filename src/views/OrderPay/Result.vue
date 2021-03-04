@@ -1,15 +1,15 @@
 <template>
   <div class="result">
-    <Icon :class="routeQuery.status === '0' ? 'error' : 'success'" :icon="routeQuery.status === '0' ? 'error' : 'success'" />
-    <h2>订单支付{{ routeQuery.status === '0' ? '失败' : '成功' }}！</h2>
-    <p v-if="routeQuery.orderNo"><label>订单号：</label>{{ routeQuery.orderNo }}</p>
-    <p v-if="routeQuery.tradeNo"><label>交易流水号：</label>{{ routeQuery.tradeNo }}</p>
+    <Icon :class="$route.query.status === '0' ? 'error' : 'success'" :icon="$route.query.status === '0' ? 'error' : 'success'" />
+    <h2>订单支付{{ $route.query.status === '0' ? '失败' : '成功' }}！</h2>
+    <p v-if="$route.query.orderNo"><label>订单号：</label>{{ $route.query.orderNo }}</p>
+    <p v-if="$route.query.tradeNo"><label>交易流水号：</label>{{ $route.query.tradeNo }}</p>
     <div>
-      <template v-if="routeQuery.type === 'VIP'">
+      <template v-if="$route.query.type === 'VIP'">
         <RouterLink to="/user/index"><UIButton customer-class="mainButton" type="primary">会员主页</UIButton></RouterLink>
         <RouterLink to="/"><UIButton customer-class="default">返回首页</UIButton></RouterLink>
       </template>
-      <template v-else-if="routeQuery.type === 'CREDIT'">
+      <template v-else-if="$route.query.type === 'CREDIT'">
         <RouterLink to="/user/index"><UIButton customer-class="mainButton" type="primary">会员主页</UIButton></RouterLink>
         <RouterLink to="/patent"><UIButton customer-class="default">去挑专利</UIButton></RouterLink>
       </template>
@@ -22,19 +22,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { defineComponent, onMounted } from 'vue';
 import Icon from '../../components/Icon/index.vue'
-import { useRoute } from 'vue-router';
 import UIButton from '../../components/UI/UIButton.vue';
+import { useStore } from '/@/store';
 
 export default defineComponent({
   name: 'Result',
   components: { Icon, UIButton },
   setup() {
-    const route = useRoute()
-    return {
-      routeQuery: route.query,
-    }
+    const store = useStore()
+    onMounted(() => {
+      store.dispatch('setUserPoints')
+    })
+    return {}
   },
 })
 </script>
