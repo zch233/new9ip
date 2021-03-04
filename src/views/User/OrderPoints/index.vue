@@ -24,6 +24,7 @@
                     </div>
                   </div>
                 </UIFormItem>
+                <UIFormItem label="购买数量">1</UIFormItem>
                 <UIFormItem label="支付方式" name="orderInfo">
                   <UIRadioGroup v-model:value="orderInfo.payRoute">
                     <UIRadio v-for="payRoute in PAY_ROUTES" :key="payRoute.icon" :value="payRoute.payRoute"><Icon class="payIcon" :icon="payRoute.icon" />{{ payRoute.label }}</UIRadio>
