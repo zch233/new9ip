@@ -44,6 +44,7 @@
         <div class="patentListBar-options-order">
           <span :class="[(routeQuery.psort === '0' || routeQuery.psort === undefined) && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 0}})">综合排序</span>
           <span :class="[routeQuery.psort === '1' && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: 1}})">发布时间</span>
+          <span :class="[(routeQuery.psort === '3' || routeQuery.psort === '4') && 'active']" @click="router.push({path: '/patent', query: {...routeQuery, psort: routeQuery.psort === '3' ? 4 : 3}})">价格排序</span>
         </div>
         <div class="patentListBar-options-extra">
           <template v-if="loginStatus">
