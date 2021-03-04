@@ -168,7 +168,7 @@ export default defineComponent({
           white-space: nowrap;
           &:nth-child(-n+3) {margin-bottom: 20px;}
           &:not(:nth-child(3n)) {margin-right: 20px;}
-          .iconPoint {font-size: 16px;margin-right: .3em}
+          .iconPoint {font-size: 16px;margin-right: .3em;margin-bottom: 0.18em;}
           > label {font-size: 12px;margin-right: .6em;em {font-size: 24px;font-style: normal;}}
           &:hover, &.active {
             background-color: #FFFAEB;
