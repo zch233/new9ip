@@ -55,7 +55,7 @@ export default defineComponent({
           okText: '立即充值',
           cancelText: '继续逛逛',
           onOk() {
-            router.push('/vip');
+            router.push('/user/orderPoints');
           },
         })
         return
