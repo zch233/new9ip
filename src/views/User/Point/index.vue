@@ -9,38 +9,41 @@
         <b class="point-top-restPoint-points">{{ userPoints }}</b>
       </div>
     </div>
-    <p class="point-middle"><label>积分明细</label><RouterLink to="/others/helper?aq=2-0"><Icon icon="tips" />积分规则</RouterLink></p>
-    <div class="point-bottom">
-      <ul class="point-bottom-list">
-        <li class="point-bottom-list-item title">
-          <b>日期</b>
-          <b>来源</b>
-          <b>积分</b>
-        </li>
-        <li class="point-bottom-list-item content" v-for="point in points" :key="point.id">
-          <span>{{ point.createTime }}</span>
-          <span>{{ point.description }}</span>
-          <span>
+    <div class="emptyWrapper" v-if="points.length === 0"><UIEmpty v-if="!loading" image="vip" description="暂无积分明细" /></div>
+    <template v-else>
+      <p class="point-middle"><label>积分明细</label><RouterLink to="/others/helper?aq=2-0"><Icon icon="tips" />积分规则</RouterLink></p>
+      <div class="point-bottom">
+        <ul class="point-bottom-list">
+          <li class="point-bottom-list-item title">
+            <b>日期</b>
+            <b>来源</b>
+            <b>积分</b>
+          </li>
+          <li class="point-bottom-list-item content" v-for="point in points" :key="point.id">
+            <span>{{ point.createTime }}</span>
+            <span>{{ point.description }}</span>
+            <span>
             <UITag v-if="point.creditType === 'ADD'" color="green">+{{ point.credit }}</UITag>
             <UITag v-if="point.creditType === 'MINUS'" color="red">-{{ point.credit }}</UITag>
           </span>
-        </li>
-      </ul>
-      <section class="paginationBar">
-        <UIPagination
-          size="small"
-          :total="paginationOptions.total"
-          v-model:pageSize="paginationOptions.pageSize"
-          v-model:current="paginationOptions.current"
-          :page-size-options="paginationOptions.pageSizeOptions"
-          :show-total="total => `共 ${total} 条`"
-          @change="paginationOptions.change"
-          @showSizeChange="paginationOptions.showSizeChange"
-          show-size-changer
-          show-quick-jumper
-        />
-      </section>
-    </div>
+          </li>
+        </ul>
+        <section class="paginationBar">
+          <UIPagination
+            size="small"
+            :total="paginationOptions.total"
+            v-model:pageSize="paginationOptions.pageSize"
+            v-model:current="paginationOptions.current"
+            :page-size-options="paginationOptions.pageSizeOptions"
+            :show-total="total => `共 ${total} 条`"
+            @change="paginationOptions.change"
+            @showSizeChange="paginationOptions.showSizeChange"
+            show-size-changer
+            show-quick-jumper
+          />
+        </section>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -52,6 +55,7 @@ import UIPagination from '../../../components/UI/UIPagination.vue';
 import * as pointApi from '../../../api/point';
 import { onBeforeRouteUpdate, useRoute, useRouter } from 'vue-router';
 import { useStore } from '/@/store';
+import UIEmpty from '../../../components/UI/UIEmpty.vue'
 
 type Point = {
   createTime: string;
@@ -65,7 +69,7 @@ type Point = {
 
 export default defineComponent({
   name: 'Point',
-  components: {Icon, UITag, UIPagination},
+  components: {Icon, UITag, UIPagination, UIEmpty},
   setup() {
     const store = useStore()
     const route = useRoute()
@@ -135,8 +139,8 @@ export default defineComponent({
         color: #C5AF74;
         .iconPoint {color: #F4E2B3;font-size: 16px;margin-right: .6em;}
         a {
-          color: #C5AF74;
-          background-color: #FDF3D9;
+          color: #F4E2B3;
+          background-color: #C5AF74;
           padding: .2em .8em;
           border-bottom-left-radius: 2em;
           border-top-left-radius: 2em;
