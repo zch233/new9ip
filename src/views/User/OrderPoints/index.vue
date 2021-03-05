@@ -1,6 +1,6 @@
 <template>
   <div class="orderPoints" id="orderPoints">
-    <RouterLink to="/user/index"><Icon icon="left" />返回</RouterLink>
+    <span @click="$router.back()"><Icon icon="left" />返回</span>
     <UISpin :spinning="loading">
       <div class="orderPoints-main">
         <div class="orderPoints-main-left">
@@ -124,7 +124,7 @@ export default defineComponent({
 .orderPoints {
   padding: 20px;
   font-size: 12px;
-  > a { svg {margin-right: .5em;}}
+  > span { cursor: pointer; svg {margin-right: .5em;}}
   &-main {
     display: flex;
     border: 1px solid #DEDEDE;
