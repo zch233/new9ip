@@ -35,6 +35,7 @@
               <li><RouterLink to="/user/collect">我的收藏</RouterLink></li>
               <li><RouterLink to="/user/index">会员主页</RouterLink></li>
               <li><RouterLink to="/vip">开通VIP会员</RouterLink></li>
+              <li><RouterLink to="/user/orderPoints">积分充值</RouterLink></li>
             </ul>
           </template>
         </UIPopover>
