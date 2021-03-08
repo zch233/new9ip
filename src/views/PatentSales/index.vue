@@ -1,7 +1,7 @@
 <template>
   <div class="pageWidthWithCenter patent">
     <section class="patentSalesImageWrapper">
-      <img src="../../assets/patent/patentSales.jpg" alt="">
+      <img src="https://market.img.9ip.com/patentSalesBanner.jpg" alt="">
     </section>
     <section ref="patentListBarRef" class="patentListBar" :class="!loginStatus && 'notSignIn'">
       <div class="patentListBar-options">
