@@ -2,7 +2,7 @@
   <div class="order">
     <UITabs :animated="false" v-model:activeKey="activeKey" @change="changeTab">
 <!--      <template #tabBarExtraContent><div style="padding: 0 20px;">-->
-<!--        <UIInputSearch placeholder="搜索订单号/订单名称" />-->
+<!--        <UIInputSearch placeholder="搜索预购订单号/预购订单名称" />-->
 <!--      </div></template>-->
       <OrderTabPane v-for="item in orderMap" :key="item.key" :status="item.key">
         <template #tab>
@@ -23,7 +23,7 @@ import { ORDER_STATUS } from '/@utils/dict';
 
 const orderMap = [
   {
-    title: '全部订单',
+    title: '全部预购',
     key: 999,
   },
   {

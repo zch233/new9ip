@@ -12,13 +12,13 @@
             </template>
           </UIDropdown>
         </li>
-        <li class="listTitle-item colInfo">订单详情</li>
+        <li class="listTitle-item colInfo">预购订单详情</li>
         <li class="listTitle-item colPrice">金额</li>
         <li class="listTitle-item colStatus">全部状态</li>
         <li class="listTitle-item colOptions">操作</li>
       </ul>
       <div v-if="orders.length === 0" class="emptyWrapper">
-        <UIEmpty v-if="!loading" image="order" description="暂无相关订单">
+        <UIEmpty v-if="!loading" image="order" description="暂无相关预购订单">
           <RouterLink to="/patent"><UIButton customer-class="mainButton" type="primary">去下单</UIButton></RouterLink>
         </UIEmpty>
       </div>
@@ -28,7 +28,7 @@
             <li class="listContent-item colTime" v-for="order in orders" :key="order.orderNo">
               <div class="listContent-item-top">
                 <time class="time">{{ order.createTime }}</time>
-                <span>订单号：{{ order.orderNo }}</span>
+                <span>预购订单号：{{ order.orderNo }}</span>
                 <span>卖家：{{ order.sellerShopName }}</span>
               </div>
               <div class="listContent-item-content">
@@ -48,9 +48,9 @@
                     <template v-if="order.status === ORDER_STATUS.CREATED">
                       <UICountdown class="orderItemCountDown" @finish="changeOrderStatus(order)" :value="order.expireTime" format="剩余m分s秒"/>
                       <div><PayRoutesPopover @choose="payOrder($event, order)" /></div>
-                      <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'cancel')">取消订单</UIButton>
+                      <UIButton type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'cancel')">取消</UIButton>
                     </template>
-                    <UIButton v-else type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'delete')">删除订单</UIButton>
+                    <UIButton v-else type="link" size="small" customer-class="linkButton" @click="optionOrder(order, 'delete')">删除</UIButton>
                   </div>
                   <UITooltip :title="order.remark">
                     <Icon v-if="order.remark" icon="remark" />
@@ -106,13 +106,13 @@ const orderTimeRange = [
     title: '全部',
     key: 'all',
   },{
-    title: '近三个月订单',
+    title: '近三个月预购',
     key: 'threeMonth',
   },{
-    title: '近一个月订单',
+    title: '近一个月预购',
     key: 'oneMonth',
   },{
-    title: '最近七天订单',
+    title: '最近七天预购',
     key: 'week',
   }
 ]
@@ -183,11 +183,11 @@ export default defineComponent({
       Modal.confirm({
         centered: true,
         class: 'warningModal',
-        title: `确定要${label}该订单吗？`,
+        title: `确定要${label}吗？`,
         okType: 'danger',
-        content: `若${label}订单将无法恢复`,
+        content: `${label}后将无法恢复`,
         onOk: async () => {
-          const hide = message.loading(`正在${label}订单，请稍候...`, 0);
+          const hide = message.loading(`正在${label}，请稍候...`, 0);
           await requestApi(order).finally(() => hide());
           message.success(`${label}成功！`);
           await getOrders(routeQuery.value)

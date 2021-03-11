@@ -1,8 +1,8 @@
 <template>
   <div class="result">
     <Icon :class="$route.query.status === '0' ? 'error' : 'success'" :icon="$route.query.status === '0' ? 'error' : 'success'" />
-    <h2>订单支付{{ $route.query.status === '0' ? '失败' : '成功' }}！</h2>
-    <p v-if="$route.query.orderNo"><label>订单号：</label>{{ $route.query.orderNo }}</p>
+    <h2>预购订单支付{{ $route.query.status === '0' ? '失败' : '成功' }}！</h2>
+    <p v-if="$route.query.orderNo"><label>预购订单号：</label>{{ $route.query.orderNo }}</p>
     <p v-if="$route.query.tradeNo"><label>交易流水号：</label>{{ $route.query.tradeNo }}</p>
     <div>
       <template v-if="$route.query.type === 'VIP'">
@@ -14,7 +14,7 @@
         <RouterLink to="/patent"><UIButton customer-class="default">去挑专利</UIButton></RouterLink>
       </template>
       <template v-else>
-        <RouterLink to="/user/order"><UIButton customer-class="mainButton" type="primary">我的订单</UIButton></RouterLink>
+        <RouterLink to="/user/order"><UIButton customer-class="mainButton" type="primary">我的预购订单</UIButton></RouterLink>
         <RouterLink to="/patent"><UIButton customer-class="default">继续购买</UIButton></RouterLink>
       </template>
     </div>

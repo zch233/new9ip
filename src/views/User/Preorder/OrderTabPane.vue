@@ -12,7 +12,7 @@
             </template>
           </UIDropdown>
         </li>
-        <li class="listTitle-item colInfo">订单详情</li>
+        <li class="listTitle-item colInfo">预购订单详情</li>
         <li class="listTitle-item colPrice">金额</li>
         <li class="listTitle-item colStatus">全部状态</li>
         <li class="listTitle-item colOptions">操作</li>
@@ -24,7 +24,7 @@
             <li class="listContent-item colTime" v-for="preorder in preorders" :key="preorder.productId">
               <div class="listContent-item-top">
                 <time class="time">{{ preorder.createTime }}</time>
-                <span v-if="preorder.orderNo">订单号：{{ preorder.orderNo }}</span>
+                <span v-if="preorder.orderNo">预购订单号：{{ preorder.orderNo }}</span>
                 <span>卖家：{{ preorder.sellerShopName }}</span>
               </div>
               <div class="listContent-item-content">
@@ -102,13 +102,13 @@ const orderTimeRange: OrderTimeRange = [
     title: '全部',
     key: 'all',
   },{
-    title: '近三个月订单',
+    title: '近三个月预留',
     key: 'threeMonth',
   },{
-    title: '近一个月订单',
+    title: '近一个月预留',
     key: 'oneMonth',
   },{
-    title: '最近七天订单',
+    title: '最近七天预留',
     key: 'week',
   }
 ]

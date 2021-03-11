@@ -3,7 +3,7 @@
     <RouterLink to="/user/index"><Icon icon="left" />返回</RouterLink>
     <div class="emptyWrapper" v-if="vipRecords.length === 0"><UIEmpty v-if="!loading" image="vip" description="暂无开通记录" /></div>
     <template v-else>
-      <div class="vipRecord-title"><em>付款时间</em><em>订单号</em><em>类型</em><em>金额</em><em>状态</em></div>
+      <div class="vipRecord-title"><em>付款时间</em><em>预购订单号</em><em>类型</em><em>金额</em><em>状态</em></div>
       <ul class="vipRecord-list">
         <li class="vipRecord-list-item" v-for="record in vipRecords" :key="record.orderNo">
           <span>{{ record.paymentTime }}</span>

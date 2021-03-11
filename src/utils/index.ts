@@ -42,12 +42,12 @@ export const isWaitOrder = async (tradeNo: string) => {
   const { data } = await orderPayApi.getPayResult(tradeNo);
   const status: keyof Omit<TYPE_ORDER_PAY_STATUS, 'label'> = data.tradeStatus;
   if (status === ORDER_PAY_STATUS.WAIT_BUYER_PAY) {
-    Modal.error({ title: '您的订单尚未完成支付', content: '请检查您的支付信息' });
+    Modal.error({ title: '您的预购订单尚未完成支付', content: '请检查您的支付信息' });
     return false;
   } else if (status === ORDER_PAY_STATUS.TRADE_SUCCESS || status === ORDER_PAY_STATUS.TRADE_FINISHED) {
     return true;
   } else if (status === ORDER_PAY_STATUS.TRADE_CLOSED) {
-    Modal.error({ title: '您的订单已关闭' });
+    Modal.error({ title: '您的预购订单已关闭' });
     return false;
   }
 }
@@ -81,7 +81,7 @@ export const usePollGetPayResult = () => {
     } else if (result === ORDER_PAY_STATUS.TRADE_CLOSED) {
       await router.push(`/order/pay/result?orderNo=${orderNo}&tradeNo=${tradeNo}&status=0&type=${commodityType}`);
       Modal.destroyAll()
-      message.error('订单已关闭');
+      message.error('预购订单已关闭');
     }
   }
   const startPollGetPayResult = ({ tradeNo, orderNo, commodityType }: Options) => {

@@ -30,7 +30,7 @@ export const user = {
     {
       path: 'order',
       name: 'UserOrder',
-      meta: { title: '我的订单' },
+      meta: { title: '我的预购' },
       component: () => import('../../views/User/Order/index.vue')
     },
     {

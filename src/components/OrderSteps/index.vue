@@ -3,7 +3,7 @@
     <UISteps :current="current" size="small">
       <UIStep title="确认信息"></UIStep>
       <UIStep title="付款到平台"></UIStep>
-      <UIStep title="订单完成"></UIStep>
+      <UIStep title="预购订单完成"></UIStep>
     </UISteps>
   </div>
 </template>

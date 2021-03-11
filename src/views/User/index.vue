@@ -15,7 +15,7 @@
       </div>
     </section>
     <section class="user-orders">
-      <p class="cardTitle"><em>我的订单</em></p>
+      <p class="cardTitle"><em>我的订购</em></p>
       <div class="orderViews">
         <RouterLink to="/user/order?status=0">
           <UIBadge :count="waitOrderNumber"><Icon icon="waitPay" /></UIBadge>
@@ -27,7 +27,7 @@
         </RouterLink>
         <RouterLink to="/user/order">
           <Icon icon="finishPay" />
-          <p>全部订单</p>
+          <p>全部订购</p>
         </RouterLink>
       </div>
     </section>

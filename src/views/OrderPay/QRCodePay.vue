@@ -8,8 +8,8 @@
         <div class="orderInfo-left">
           <Icon class="orderInfo-successIcon" icon="success" />
           <section class="orderInfo-main">
-            <p class="orderInfo-main-title">订单提交成功！只差付款了~<label>订单号：</label><em>{{ orderInfo.orderNo }}</em></p>
-            <p class="orderInfo-main-tips"><em v-if="codeExpired">订单已关闭，请重新下单。</em><template v-else>请您在 <UICountdown class="orderCountDown" @finish="codeExpired=!codeExpired" :value="orderInfo.expire ? new Date(orderInfo.expire).getTime() : 0" format="m分s秒"/> 内完成支付，否则本次支付将自动取消。</template></p>
+            <p class="orderInfo-main-title">预购订单提交成功！只差付款了~<label>预购订单号：</label><em>{{ orderInfo.orderNo }}</em></p>
+            <p class="orderInfo-main-tips"><em v-if="codeExpired">预购订单已关闭，请重新下单。</em><template v-else>请您在 <UICountdown class="orderCountDown" @finish="codeExpired=!codeExpired" :value="orderInfo.expire ? new Date(orderInfo.expire).getTime() : 0" format="m分s秒"/> 内完成支付，否则本次支付将自动取消。</template></p>
             <article class="orderInfo-main-info" v-show="orderInfoVisible">
               <p><label>收货信息：</label>{{ user.account }}</p>
               <p><label>商品名称：</label>{{ orderInfo.subject }}</p>
@@ -19,8 +19,8 @@
           </section>
         </div>
         <div class="orderInfo-options">
-          <p class="orderInfo-options-price"><label>订单金额：</label><b>￥{{ orderInfo.totalAmount }}</b></p>
-          <span class="orderInfo-options-button" @click="orderInfoVisible=!orderInfoVisible">订单详情 <Icon :icon="orderInfoVisible ? 'top_fill' : 'down_fill'" /></span>
+          <p class="orderInfo-options-price"><label>预购订单金额：</label><b>￥{{ orderInfo.totalAmount }}</b></p>
+          <span class="orderInfo-options-button" @click="orderInfoVisible=!orderInfoVisible">预购订单详情 <Icon :icon="orderInfoVisible ? 'top_fill' : 'down_fill'" /></span>
         </div>
       </div>
       <div class="QRCodeBar">

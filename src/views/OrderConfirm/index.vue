@@ -1,6 +1,6 @@
 <template>
   <div id="orderConfirm" class="orderConfirm">
-    <AppTitleBar title="确认订单">
+    <AppTitleBar title="确认预购订单">
       <OrderSteps />
     </AppTitleBar>
     <div class="pageWidthWithCenter orderConfirmWrapper">
@@ -22,15 +22,15 @@
           </UICard>
         </div>
         <div class="orderConfirm-left-remark">
-          <UICard title="订单备注">
+          <UICard title="预购订单备注">
             <UISkeleton active :paragraph="{ rows: 3 }" :loading="pageLoading">
-              <UIInputTextArea v-model:value="remark" html-type="textarea" placeholder="请输入订单备注（选填）" :rows="6" />
+              <UIInputTextArea v-model:value="remark" html-type="textarea" placeholder="请输入预购订单备注（选填）" :rows="6" />
             </UISkeleton>
           </UICard>
         </div>
       </section>
       <section class="orderConfirm-right">
-        <UICard title="订单金额">
+        <UICard title="预购订单金额">
           <UISkeleton active :paragraph="{ rows: 13 }" :loading="pageLoading">
             <p class="orderConfirm-right-priceItem"><label>原价</label><span>￥{{ orderConfirmation.price }}</span></p>
             <p class="orderConfirm-right-priceItem" v-for="item in orderConfirmation.discounts || []" :key="item.price"><label>VIP会员</label><span>-￥{{ item.price }}</span></p>

@@ -6,7 +6,7 @@ export const order = {
     {
       path: 'confirm',
       name: 'OrderConfirm',
-      meta: { title: '确认订单' },
+      meta: { title: '确认预购订单' },
       component: () => import('../../views/OrderConfirm/index.vue')
     },
     {
