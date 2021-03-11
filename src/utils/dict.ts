@@ -74,10 +74,10 @@ export const PATENT_STOCK_STATUS: TYPE_PATENT_STOCK_STATUS = {
   SOLD_OUT: 6,
   label: {
     1: '预售',
-    2: '可售',
+    2: '可订购',
     3: '预留中',
     4: '待付款',
-    5: '已售',
+    5: '已订购',
     6: '已下架',
   },
 };

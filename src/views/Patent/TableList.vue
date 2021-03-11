@@ -17,7 +17,7 @@
         <span class="col-order">{{ index + 1 }}</span>
         <label class="col-name searchKeyword"><a class="patentLabel" :class="patent.newest ? 'new' : patent.hot ? 'hot' : patent.price < 20000 ? 'sale' : patent.price > 20000 ? 'rare' : ''" :href="`/patent/${patent.number}`" target="_blank"><b v-html="patent.nameHighlightKey || patent.name" /></a></label>
         <span class="col-number searchKeyword" v-html="patent.numberHighlightKey || patent.number" />
-        <span class="col-legalStatus">{{ patent.legalStatus }}</span>
+        <span class="col-legalStatus">{{ PATENT_CERT_STATUS.label[patent.certStatus] }}</span>
         <span class="col-tag">
           <span class="searchKeyword" v-for="(tag, index) in (patent.tagsHighlightKey || patent.tags).split(',')" :key="tag"><RouterLink :to="`/patent?word=${encodeURIComponent(patent.tags?.split(',')[index])}`" v-html="tag" />{{index === (patent.tagsHighlightKey || patent.tags).split(',').length - 1 ? '' : ','}}</span>
         </span>
@@ -49,7 +49,7 @@ import PreorderButton from '../../components/PreorderButton/index.vue';
 import PatentImage from '../../components/PatentImage/index.vue';
 import PrePatentCountdown from '../../components/PrePatentCountdown/index.vue';
 import { notActivePatent } from '/@/utils';
-import { PATENT_STOCK_STATUS } from '/@utils/dict';
+import { PATENT_STOCK_STATUS, PATENT_CERT_STATUS } from '/@utils/dict';
 
 export default defineComponent({
   name: 'TableList',
@@ -64,6 +64,7 @@ export default defineComponent({
   setup() {
     return {
       PATENT_STOCK_STATUS,
+      PATENT_CERT_STATUS,
       notActivePatent,
     }
   }

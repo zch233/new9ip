@@ -14,7 +14,7 @@
                   <h2 class="patentContent-info-title">{{ orderConfirmation.name }}</h2>
                   <p class="patentContent-info-col"><span><label>专利类型</label>{{ orderConfirmation.number }}</span><span><label>发明人</label>{{ orderConfirmation.inventorExplain }}</span></p>
                   <p class="patentContent-info-col"><span><label>专利号</label>{{ PATENT_TYPE.label[orderConfirmation.type] }}</span><span><label>标签</label>{{ orderConfirmation.tags }}</span></p>
-                  <p class="patentContent-info-col"><span><label>法律状态</label>{{ orderConfirmation.legalStatus }}</span><span><label>价格</label>￥{{ orderConfirmation.price }}</span></p>
+                  <p class="patentContent-info-col"><span><label>法律状态</label>{{ PATENT_CERT_STATUS.label[orderConfirmation.certStatus] }}</span><span><label>价格</label>￥{{ orderConfirmation.price }}</span></p>
                   <p class="patentContent-info-col"><span><label>缴费截止</label>{{ orderConfirmation.paymentDeadline || '暂无' }}</span><span><label>数量</label>1</span></p>
                 </div>
               </div>
@@ -62,7 +62,7 @@ import Icon from '../../components/Icon/index.vue'
 import PatentImage from '../../components/PatentImage/index.vue';
 import { useRoute, useRouter } from 'vue-router';
 import * as orderConfirmApi from '../../api/orderConfirm'
-import {PATENT_TYPE, PAY_ROUTES} from '/@utils/dict';
+import { PATENT_TYPE, PAY_ROUTES, PATENT_CERT_STATUS } from '/@utils/dict';
 import { TYPE_PAY_ROUTES } from '/@utils/dictTypes';
 import { getSingleQuery, openNewWindow } from '../../utils/index';
 import { showPollGetPayRequestModal } from '/@components/PollGetPayRequestModal/index';
@@ -116,6 +116,7 @@ export default defineComponent({
     return {
       PATENT_TYPE,
       PAY_ROUTES,
+      PATENT_CERT_STATUS,
       remark,
       pageLoading,
       submitLoading,

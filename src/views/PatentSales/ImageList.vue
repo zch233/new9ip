@@ -21,12 +21,11 @@
             </p>
             <p class="patentListBar-list-item-content-secondFloor-des">
               <label>专利类型：{{ PATENT_TYPE.label[patent.type] }}</label>
-              <label>法律状态：{{ patent.legalStatus }}</label>
+              <label>法律状态：{{ PATENT_CERT_STATUS.label[patent.certStatus] }}</label>
             </p>
           </div>
           <div class="patentListBar-list-item-content-thirdFloor">
             <div class="patentListBar-list-item-content-thirdFloor-status">
-              <span class="patentListBar-list-item-content-thirdFloor-status-tag" :class="patent.certStatus === PATENT_CERT_STATUS.YIZHENG ? 'success' : patent.certStatus === PATENT_CERT_STATUS.WEIZHENG ? 'primary' : 'disabled'">{{ PATENT_CERT_STATUS.label[patent.certStatus] }}</span>
               <span class="patentListBar-list-item-content-thirdFloor-status-tag" :class="patent.stockStatus === PATENT_STOCK_STATUS.CAN_SELL ? 'success' : patent.stockStatus === PATENT_STOCK_STATUS.PRE_SELL ? 'primary' : 'disabled'">{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</span>
             </div>
             <div class="patentListBar-list-item-content-thirdFloor-price">

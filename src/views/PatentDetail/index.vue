@@ -35,7 +35,7 @@
               </div>
               <p class="patentCard-right-info"><label>专利号</label>{{ patent.number }}</p>
               <p class="patentCard-right-info"><label>专利类型</label>{{ PATENT_TYPE.label[patent.type] }}</p>
-              <p class="patentCard-right-info"><label>法律状态</label>{{ patent.legalStatus }}</p>
+              <p class="patentCard-right-info"><label>法律状态</label>{{ PATENT_CERT_STATUS.label[patent.certStatus] }}</p>
               <p class="patentCard-right-info"><label>缴费截止</label>{{ patent.paymentDeadline || '未知' }}</p>
               <p class="patentCard-right-info"><label>发明人</label>{{ patent.inventorExplain }}</p>
               <p class="patentCard-right-info"><label>销售状态</label>{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</p>
@@ -113,7 +113,7 @@ import PreorderButton from '../../components/PreorderButton/index.vue'
 import PatentImage from '../../components/PatentImage/index.vue';
 import PrePatentCountdown from '../../components/PrePatentCountdown/index.vue';
 import * as patentApi from '../../api/patent'
-import { PATENT_TYPE, PATENT_STOCK_STATUS } from '/@utils/dict';
+import { PATENT_TYPE, PATENT_STOCK_STATUS, PATENT_CERT_STATUS } from '/@utils/dict';
 import { copyToClipboard, getSingleQuery, notActivePatent } from '../../utils/index';
 import { useStore } from '/@/store';
 
@@ -187,6 +187,7 @@ export default defineComponent({
       hasVip: computed((): boolean => store.getters.hasVip),
       PATENT_STOCK_STATUS,
       PATENT_TYPE,
+      PATENT_CERT_STATUS,
       shareURL,
       recommendPatents,
       patent,
