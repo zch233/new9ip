@@ -323,7 +323,7 @@ export default defineComponent({
         &-status {text-align: center;}
         &-options {
           display: flex;align-items: center;
-          &-optionsWrapper {flex: 1;padding-left: 20%; > *{margin: 2px 0}}
+          &-optionsWrapper {flex: 1;text-align: center; > *{margin: 2px 0}}
         }
       }
     }

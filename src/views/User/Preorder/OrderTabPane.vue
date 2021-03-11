@@ -12,7 +12,7 @@
             </template>
           </UIDropdown>
         </li>
-        <li class="listTitle-item colInfo">预购订单详情</li>
+        <li class="listTitle-item colInfo">预留订单详情</li>
         <li class="listTitle-item colPrice">金额</li>
         <li class="listTitle-item colStatus">全部状态</li>
         <li class="listTitle-item colOptions">操作</li>
