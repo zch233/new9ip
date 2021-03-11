@@ -82,7 +82,7 @@ export default defineComponent({
   &-status {flex: 0 0 3.8%;}
   &-price {flex: 0 0 5.9em}
   &-vipPrice {flex: 0 0 5.9em}
-  &-options{flex: 0 0 9.4%;}
+  &-options{flex: 0 0 14.4%;}
 }
 .patentList {
   &-title {
