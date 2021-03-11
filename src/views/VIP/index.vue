@@ -1,7 +1,7 @@
 <template>
   <div id="vip" class="first">
     <img src="../../assets/vip/pic_vip.jpg" alt="">
-    <UIButton @click="visible=true" class="vipButton" customer-class="warningButton" type="primary">立即开通</UIButton>
+    <UIButton @click="showVipModal" class="vipButton" customer-class="warningButton" type="primary">立即开通</UIButton>
   </div>
   <div class="second">
     <img src="../../assets/vip/pic_vip1.jpg" alt="">
@@ -43,6 +43,7 @@ import { openNewWindow } from '/@/utils';
 import * as vipApi from '../../api/vip'
 import { useRouter } from 'vue-router';
 import { AxiosResponse } from 'axios';
+import { useStore } from '/@/store';
 
 type VipPurchase = {
   days: number;
@@ -59,9 +60,18 @@ export default defineComponent({
     const visible = ref(false);
     const loading = ref(false);
     const router = useRouter();
+    const store = useStore()
     const vipInfo = reactive({
       payRoute: PAY_ROUTES[0].payRoute,
     })
+    const showVipModal = () => {
+      store.getters.loginStatus ?
+        visible.value = true :
+        router.push({
+          path: '/auth/sign_in',
+          query: { redirect: window.location.pathname + window.location.search }
+        })
+    }
     const orderVip = async () => {
       loading.value = true;
       const {data}: {data:VipPurchase[]} = await vipApi.getVipPurchase().finally(() => loading.value = false);
@@ -83,6 +93,7 @@ export default defineComponent({
       vipInfo,
       PAY_ROUTES,
       visible,
+      showVipModal,
       orderVip,
       getContainer: () => document.getElementById('vip')
     }
