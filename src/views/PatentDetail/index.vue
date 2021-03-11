@@ -40,7 +40,7 @@
               <p class="patentCard-right-info"><label>发明人</label>{{ patent.inventorExplain }}</p>
               <p class="patentCard-right-info"><label>销售状态</label>{{ PATENT_STOCK_STATUS.label[patent.stockStatus] }}</p>
               <div class="patentCard-right-button">
-                <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="notActivePatent(patent.stockStatus)" customer-class="dangerButton" type="primary">立即购买</UIButton></RouterLink>
+                <RouterLink :to="{path: '/order/confirm', query: {commodityId: patent.id}}"><UIButton :disabled="notActivePatent(patent.stockStatus)" customer-class="dangerButton" type="primary">委托订购</UIButton></RouterLink>
                 <PreorderButton :disabled="notActivePatent(patent.stockStatus)" big :patent="patent" />
                 <PrePatentCountdown class="preStatus" :patent="patent" />
               </div>

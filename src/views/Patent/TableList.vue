@@ -27,7 +27,7 @@
         <span class="col-vipPrice">￥{{ patent.vipPrice }}</span>
         <div class="col-options">
           <RouterLink class="buyButton" :to="{path: '/order/confirm', query: {commodityId: patent.id}}">
-            <UIButton size="small" :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">立即购买</UIButton>
+            <UIButton size="small" :disabled="notActivePatent(patent.stockStatus)" type="primary" customer-class="dangerButton">委托订购</UIButton>
           </RouterLink>
           <PreorderButton buttonClass="preorderButton_noGap" size="small" v-if="!notActivePatent(patent.stockStatus)" :patent="patent" />
           <div class="preStatus" v-if="patent.stockStatus === PATENT_STOCK_STATUS.RESERVING"><PrePatentCountdown :patent="patent" /></div>
