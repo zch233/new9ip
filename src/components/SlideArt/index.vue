@@ -8,7 +8,7 @@
           <div class="contacts-item" v-for="contact in contacts" :key="contact.id">
             <label>{{ contact.nickname }}</label>
             <div>
-              <p>
+              <p v-if="false">
                 <a rel="noopener noreferrer" target="_blank" :href="`tencent://message/?uin=${contact.qq}&Site=qq&Menu=yes`">
                   <Icon icon="qq" /><span>{{ contact.qq }}</span>
                 </a>
