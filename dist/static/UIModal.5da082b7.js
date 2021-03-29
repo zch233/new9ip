@@ -1,0 +1,1 @@
+import{d as a,a7 as e,h as s,i as t,j as o,y as d,q as n}from"./index.41cae262.js";var l=a({name:"UIModal",components:{AntModal:e}});const r=n("data-v-6e2a0f0e"),c=r(((a,e,n,l,c,f)=>{const m=s("AntModal");return t(),o(m,null,{default:r((()=>[d(a.$slots,"default")])),_:3})}));l.render=c,l.__scopeId="data-v-6e2a0f0e";export{l as _};
