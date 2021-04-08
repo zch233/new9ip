@@ -155,7 +155,7 @@ export default defineComponent({
     const store = useStore();
     const route = useRoute();
     const loading = ref(false);
-    const currentDetailTab = ref(0)
+    const currentDetailTab = ref(0);
     const recommendPatents = ref<Patent[]>([])
     const patent = ref<Partial<Patent>>({})
     const getPatentDetail = async (number: string) => {
