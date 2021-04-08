@@ -161,7 +161,7 @@ export default defineComponent({
     const getPatentDetail = async (number: string) => {
       loading.value = true;
       const { data } = await patentApi.getPatentDetail(number).finally(() => loading.value = false)
-      patent.value = data
+      patent.value = data;
     }
     const scrollToContent = (index: number) => {
       currentDetailTab.value = index
