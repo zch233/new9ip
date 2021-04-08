@@ -152,7 +152,7 @@ export default defineComponent({
   name: 'PatentDetail',
   components: {Icon, UIButton, PatentCard, UISkeleton, UIPopover, UIInput, StarIcon, PreorderButton, PatentImage, PrePatentCountdown},
   setup() {
-    const store = useStore()
+    const store = useStore();
     const route = useRoute()
     const loading = ref(false)
     const currentDetailTab = ref(0)
