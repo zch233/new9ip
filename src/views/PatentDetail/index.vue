@@ -159,7 +159,7 @@ export default defineComponent({
     const recommendPatents = ref<Patent[]>([]);
     const patent = ref<Partial<Patent>>({});
     const getPatentDetail = async (number: string) => {
-      loading.value = true
+      loading.value = true;
       const { data } = await patentApi.getPatentDetail(number).finally(() => loading.value = false)
       patent.value = data
     }
