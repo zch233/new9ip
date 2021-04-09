@@ -64,17 +64,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive } from 'vue'
-import UIInput from '../../components/UI/UIInput.vue'
-import UITabs from '../../components/UI/UITabs.vue'
-import UITabPane from '../../components/UI/UITabPane.vue'
-import Icon from '../../components/Icon/index.vue'
+import { defineComponent, ref, reactive } from 'vue';
+import UIInput from '../../components/UI/UIInput.vue';
+import UITabs from '../../components/UI/UITabs.vue';
+import UITabPane from '../../components/UI/UITabPane.vue';
+import Icon from '../../components/Icon/index.vue';
 import UIButton from '../../components/UI/UIButton.vue';
 import UIForm from '../../components/UI/UIForm.vue';
 import UIFormItem from '../../components/UI/UIFormItem.vue';
-import Captcha from '../../components/Captcha/index.vue'
-import * as signInApi from '../../api/signIn'
-import {useForm} from '@ant-design-vue/use'
+import Captcha from '../../components/Captcha/index.vue';
+import * as signInApi from '../../api/signIn';
+import { useForm } from '@ant-design-vue/use';
 import { message } from 'ant-design-vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useStore } from '/@/store';
@@ -84,39 +84,48 @@ type ActiveTabKey = 'signInWithPassword' | 'signInWithCaptcha';
 
 export default defineComponent({
   name: 'AuthSignIn',
-  components: {UITabs, UITabPane, UIInput, Icon, UIButton, UIForm, UIFormItem,Captcha},
-  setup () {
-    const route = useRoute()
-    const router = useRouter()
-    const store = useStore()
-    const activeTabKey = ref<ActiveTabKey>('signInWithPassword')
+  components: { UITabs, UITabPane, UIInput, Icon, UIButton, UIForm, UIFormItem, Captcha },
+  setup() {
+    const route = useRoute();
+    const router = useRouter();
+    const store = useStore();
+    const activeTabKey = ref<ActiveTabKey>('signInWithPassword');
     const signInInfo = reactive({
       phone: '',
       password: '',
       captcha: '',
-    })
+    });
     const rules = reactive({
-      phone: [{required: true, message: ''}, {len: 11, message: ''}],
-      password: [{required: true, message: ''}],
-      captcha: [{required: false, message: ''}, {len: 6, message: ''}],
-    })
-    const { validate, validateInfos } = useForm(signInInfo, rules)
-    const submitLoading = ref(false)
+      phone: [
+        { required: true, message: '' },
+        { len: 11, message: '' },
+      ],
+      password: [{ required: true, message: '' }],
+      captcha: [
+        { required: false, message: '' },
+        { len: 6, message: '' },
+      ],
+    });
+    const { validate, validateInfos } = useForm(signInInfo, rules);
+    const submitLoading = ref(false);
     const changeTag = (tab: ActiveTabKey) => {
-      rules.captcha[0].required = tab === 'signInWithCaptcha'
-      rules.password[0].required = tab === 'signInWithPassword'
-    }
+      rules.captcha[0].required = tab === 'signInWithCaptcha';
+      rules.password[0].required = tab === 'signInWithPassword';
+    };
     const signIn = () => {
-      validate().then(async () => {
-        submitLoading.value = true
-        await signInApi[activeTabKey.value](signInInfo).finally(() => submitLoading.value = false)
-        const user = await store.dispatch('setUser')
-        await store.dispatch('setOneDayConsumePoints')
-        await store.dispatch('setUserPoints');
-        await router.push(getSingleQuery(route.query.redirect) || '/')
-        message.success(`欢迎回来，${user.nickname}`)
-      }, () => message.error('表单输入有误'))
-    }
+      validate().then(
+        async () => {
+          submitLoading.value = true;
+          await signInApi[activeTabKey.value](signInInfo).finally(() => (submitLoading.value = false));
+          const user = await store.dispatch('setUser');
+          await store.dispatch('setOneDayConsumePoints');
+          await store.dispatch('setUserPoints');
+          await router.push(getSingleQuery(route.query.redirect) || '/');
+          message.success(`欢迎回来，${user.nickname}`);
+        },
+        () => message.error('表单输入有误')
+      );
+    };
     return {
       activeTabKey,
       submitLoading,
@@ -124,10 +133,9 @@ export default defineComponent({
       signIn,
       signInInfo,
       validateInfos,
-    }
-  }
-})
+    };
+  },
+});
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>
