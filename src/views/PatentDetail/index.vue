@@ -160,7 +160,7 @@ export default defineComponent({
     const patent = ref<Partial<Patent>>({});
     const getPatentDetail = async (number: string) => {
       loading.value = true;
-      const { data } = await patentApi.getPatentDetail(number).finally(() => loading.value = false)
+      const { data } = await patentApi.getPatentDetail(number).finally(() => loading.value = false);
       patent.value = data;
     }
     const scrollToContent = (index: number) => {
